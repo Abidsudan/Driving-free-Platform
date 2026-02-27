@@ -1,0 +1,29 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "instructor-hero",
+      "description": "Professional driving instructor in Dubai",
+      "imageUrl": "https://picsum.photos/seed/driving1/800/600",
+      "imageHint": "driving instructor"
+    },
+    {
+      "id": "rta-signs",
+      "description": "Dubai road signs collection",
+      "imageUrl": "https://picsum.photos/seed/driving2/800/600",
+      "imageHint": "road signs"
+    },
+    {
+      "id": "curriculum-stage",
+      "description": "Structured driving lesson",
+      "imageUrl": "https://picsum.photos/seed/driving3/600/400",
+      "imageHint": "driving lesson"
+    },
+    {
+      "id": "scientific-library",
+      "description": "Academic books on vehicle dynamics",
+      "imageUrl": "https://picsum.photos/seed/driving4/600/400",
+      "imageHint": "technical books"
+    }
+  ]
+}
