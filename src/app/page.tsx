@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { BookOpen, Library, GraduationCap, ChevronLeft, CheckCircle, ArrowUpRight, Target, Users, Clock, Shield } from "lucide-react"
+import { BookOpen, Library, GraduationCap, ChevronLeft, CheckCircle, ArrowUpRight, Target, Users, Clock, Shield, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -37,7 +37,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-              الأكاديمية الأولى في دبي التي تحول الخبرة الميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
+              الأكاديمية الأولى في دبي التي تحول خبرة سنوات ميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
@@ -61,6 +61,7 @@ export default function Home() {
                   alt="Professional Instructor" 
                   fill
                   priority
+                  sizes="100vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   data-ai-hint="dubai driving instructor"
                 />
@@ -69,14 +70,14 @@ export default function Home() {
             )}
             
             {/* Experience Floating Badge */}
-            <div className="absolute -bottom-10 -left-10 z-20 glass-card p-6 rounded-[2.5rem] border-white/20 animate-fade-in-up stagger-2 shadow-2xl shadow-black/50">
-                <div className="flex items-center gap-4">
+            <div className="absolute -bottom-10 -left-10 z-20 glass-card p-8 rounded-[2.5rem] border-white/20 animate-fade-in-up stagger-2 shadow-2xl shadow-black/50">
+                <div className="flex items-center gap-5">
                     <div className="bg-accent p-4 rounded-2xl shadow-xl shadow-accent/30">
-                        <CheckCircle className="h-8 w-8 text-background" fill="currentColor" />
+                        <Zap className="h-8 w-8 text-background" fill="currentColor" />
                     </div>
                     <div>
-                        <span className="block text-3xl font-black text-accent tracking-tighter">ثقة وأمان</span>
-                        <span className="text-xs font-black text-muted-foreground uppercase tracking-[0.3em]">منهج معتمد كلياً</span>
+                        <span className="block text-4xl font-black text-accent tracking-tighter">ثقة وأمان</span>
+                        <span className="text-xs font-black text-muted-foreground uppercase tracking-[0.3em]">خبرة تدريبية موثقة</span>
                     </div>
                 </div>
             </div>
@@ -85,8 +86,14 @@ export default function Home() {
             <div className="absolute -top-10 -right-10 z-20 glass-card p-6 rounded-[2rem] border-white/20 animate-fade-in-up stagger-3 hidden md:block">
               <div className="flex -space-x-3 rtl:space-x-reverse mb-3">
                 {[11, 12, 13, 14].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden relative">
-                    <Image src={`https://picsum.photos/seed/${i}/100/100`} alt="student" fill className="object-cover" />
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden">
+                    <Image 
+                      src={`https://picsum.photos/seed/${i}/100/100`} 
+                      alt="student" 
+                      width={40} 
+                      height={40} 
+                      className="object-cover" 
+                    />
                   </div>
                 ))}
                 <div className="w-10 h-10 rounded-full border-2 border-background bg-accent text-background flex items-center justify-center text-xs font-black">
@@ -185,7 +192,8 @@ export default function Home() {
                   <Image 
                     src={logo.imageUrl} 
                     alt="Driving Free Official Logo" 
-                    fill 
+                    width={80}
+                    height={80}
                     className="object-contain p-2"
                     unoptimized
                   />
