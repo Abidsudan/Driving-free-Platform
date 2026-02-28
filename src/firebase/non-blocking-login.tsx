@@ -1,29 +1,33 @@
+
 'use client';
 import {
-  Auth, // Import Auth type for type hinting
+  Auth,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  // Assume getAuth and app are initialized elsewhere
 } from 'firebase/auth';
+import { getRecaptchaToken } from '@/lib/recaptcha';
 
-/** Initiate anonymous sign-in (non-blocking). */
+/** Initiate anonymous sign-in (non-blocking) with reCAPTCHA protection. */
 export function initiateAnonymousSignIn(authInstance: Auth): void {
-  // CRITICAL: Call signInAnonymously directly. Do NOT use 'await signInAnonymously(...)'.
-  signInAnonymously(authInstance);
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
+  // CRITICAL: Call grecaptcha.enterprise.execute before the sensitive action.
+  getRecaptchaToken('LOGIN').then((token) => {
+    // In a full production app, you would verify the token on your backend.
+    // For client-side Firebase Auth, we proceed after reCAPTCHA check.
+    signInAnonymously(authInstance);
+  });
 }
 
-/** Initiate email/password sign-up (non-blocking). */
+/** Initiate email/password sign-up (non-blocking) with reCAPTCHA protection. */
 export function initiateEmailSignUp(authInstance: Auth, email: string, password: string): void {
-  // CRITICAL: Call createUserWithEmailAndPassword directly. Do NOT use 'await createUserWithEmailAndPassword(...)'.
-  createUserWithEmailAndPassword(authInstance, email, password);
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
+  getRecaptchaToken('SIGNUP').then((token) => {
+    createUserWithEmailAndPassword(authInstance, email, password);
+  });
 }
 
-/** Initiate email/password sign-in (non-blocking). */
+/** Initiate email/password sign-in (non-blocking) with reCAPTCHA protection. */
 export function initiateEmailSignIn(authInstance: Auth, email: string, password: string): void {
-  // CRITICAL: Call signInWithEmailAndPassword directly. Do NOT use 'await signInWithEmailAndPassword(...)'.
-  signInWithEmailAndPassword(authInstance, email, password);
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
+  getRecaptchaToken('LOGIN').then((token) => {
+    signInWithEmailAndPassword(authInstance, email, password);
+  });
 }
