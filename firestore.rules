@@ -1,0 +1,185 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * CORE PHILOSOPHY
+     * This ruleset implements a dual-layered security model:
+     * 1. Public/Premium Educational Content: Gated by the 'isPremium' attribute. 
+     *    General users can read public content, while premium content requires 
+     *    elevated status. Administrative modifications are strictly limited 
+     *    via a Database-Backed Access Control (DBAC) collection.
+     * 2. User-Specific Progress: Private data (quiz attempts and answers) is 
+     *    secured using path-based ownership (/users/{userId}/...).
+     *
+     * DATA STRUCTURE
+     * - /instructorProfiles: Public instructor info.
+     * - /contentSections & /quizzes: Shared educational resources.
+     * - /users/{userId}/quizAttempts: User-specific private tracking.
+     * - /roles_admin: Global admin registry.
+     *
+     * DENORMALIZATION FOR AUTHORIZATION
+     * To ensure "Authorization Independence," the 'isPremium' status of parent 
+     * Quizzes is denormalized onto Questions and AnswerOptions. This allows 
+     * rules to evaluate access without performing expensive cross-document lookups.
+     */
+
+    // --- GLOBAL HELPER FUNCTIONS ---
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isExistingOwner(userId) {
+      return resource != null && isOwner(userId);
+    }
+
+    // Check if the current user is registered in the DBAC admin collection
+    function isAdmin() {
+      return isSignedIn() && exists(/databases/$(database)/documents/roles_admin/$(request.auth.uid));
+    }
+
+    // Checks if the user has a 'isPremium' flag set to true in their user document
+    function isPremiumUser() {
+      return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isPremium == true;
+    }
+
+    // Evaluates if a document can be read based on its premium status
+    function canAccessContent(data) {
+      return data.isPremium == false || isPremiumUser() || isAdmin();
+    }
+
+    // --- COLLECTION RULES ---
+
+    /**
+     * @description Publicly viewable profiles for driving instructors.
+     * @path /instructorProfiles/{instructorId}
+     * @allow (get, list) for any user. (create, update, delete) for Admins only.
+     * @deny (write) if the user is not an Admin.
+     * @principle Publicly readable resources with Admin-only management.
+     */
+    match /instructorProfiles/{instructorId} {
+      allow get, list: if true;
+      allow create, update, delete: if isAdmin();
+    }
+
+    /**
+     * @description Major categories of educational content.
+     * @path /contentSections/{sectionId}
+     * @allow (get) if content is public or user is premium. (list) for all (filtering handled by client).
+     * @deny (create, update, delete) for non-Admins.
+     * @principle Content gating via the 'isPremium' field.
+     */
+    match /contentSections/{sectionId} {
+      allow get: if canAccessContent(resource.data);
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+
+      /**
+       * @description Educational modules nested within sections.
+       * @path /contentSections/{sectionId}/contentModules/{moduleId}
+       * @allow (get) if module is public or user is premium.
+       * @deny (write) for non-Admins.
+       * @principle Hierarchical content protection mirroring section logic.
+       */
+      match /contentModules/{moduleId} {
+        allow get: if canAccessContent(resource.data);
+        allow list: if true;
+        allow create, update, delete: if isAdmin();
+      }
+    }
+
+    /**
+     * @description Knowledge assessment quizzes.
+     * @path /quizzes/{quizId}
+     * @allow (get) if quiz is public or user is premium.
+     * @deny (write) for non-Admins.
+     * @principle Independent content gating for assessment tools.
+     */
+    match /quizzes/{quizId} {
+      allow get: if canAccessContent(resource.data);
+      allow list: if true;
+      allow create, update, delete: if isAdmin();
+
+      /**
+       * @description Quiz questions with denormalized premium status.
+       * @path /quizzes/{quizId}/questions/{questionId}
+       * @allow (get) based on denormalized 'isPremium' field.
+       * @deny (write) for non-Admins.
+       * @principle Authorization Independence via denormalization.
+       */
+      match /questions/{questionId} {
+        allow get: if canAccessContent(resource.data);
+        allow list: if true;
+        allow create, update, delete: if isAdmin();
+
+        /**
+         * @description Possible answers for a specific question.
+         * @path /quizzes/{quizId}/questions/{questionId}/answerOptions/{optionId}
+         * @allow (get) based on denormalized 'isPremium' field.
+         * @principle Grandparent-level status denormalized for rule performance.
+         */
+        match /answerOptions/{optionId} {
+          allow get: if canAccessContent(resource.data);
+          allow list: if true;
+          allow create, update, delete: if isAdmin();
+        }
+      }
+    }
+
+    /**
+     * @description Private user quiz attempts and progress tracking.
+     * @path /users/{userId}/quizAttempts/{attemptId}
+     * @allow (get, list, create, update, delete) if user is path owner or Admin.
+     * @deny (read/write) if the auth UID does not match the userId in the path.
+     * @principle Strict path-based ownership for sensitive user data.
+     */
+    match /users/{userId}/quizAttempts/{attemptId} {
+      allow get, list: if isOwner(userId) || isAdmin();
+      allow create: if isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId) || isAdmin();
+
+      /**
+       * @description Detailed question answers for a specific attempt.
+       * @path /users/{userId}/quizAttempts/{attemptId}/answers/{answerId}
+       * @allow (read/write) if user is path owner or Admin.
+       * @principle Inherited path-based ownership for subcollections.
+       */
+      match /answers/{answerId} {
+        allow get, list: if isOwner(userId) || isAdmin();
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId) || isAdmin();
+      }
+    }
+
+    /**
+     * @description Global Admin Registry (DBAC).
+     * @path /roles_admin/{userId}
+     * @allow (get, list, create, update, delete) only for existing Admins.
+     * @deny (all) for non-administrative users.
+     * @principle Existence-based role management restricted to privileged users.
+     */
+    match /roles_admin/{userId} {
+      allow get, list, create, update, delete: if isAdmin();
+    }
+    
+    /**
+     * @description User profile for storing basic info and premium status.
+     * @path /users/{userId}
+     * @allow (get) if signed in. (write) if owner of the profile.
+     * @principle User profile ownership for configuration data.
+     */
+    match /users/{userId} {
+      allow get: if isSignedIn();
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if false; // Profiles typically preserved for data integrity.
+    }
+  }
+}
