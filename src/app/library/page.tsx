@@ -1,7 +1,6 @@
 
-import { BookOpen, FileText, Video, Lock } from "lucide-react"
+import { BookOpen, FileText, Video } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PremiumGate } from "@/components/premium-gate"
 import { Badge } from "@/components/ui/badge"
 
 const articles = [
@@ -10,7 +9,6 @@ const articles = [
     category: "فيزياء القيادة",
     type: "مقال علمي",
     readTime: "12 دقيقة",
-    isPremium: false,
     desc: "دراسة تقنية حول كيفية تأثر توازن المركبة عند استخدام المكابح المفاجئة وكيفية تجنب الانزلاق."
   },
   {
@@ -18,7 +16,6 @@ const articles = [
     category: "سلوك السائق",
     type: "دراسة حالة",
     readTime: "15 دقيقة",
-    isPremium: true,
     desc: "فهم العمليات الذهنية التي يمر بها السائق في غضون أجزاء من الثانية لتجنب الاصطدام."
   },
   {
@@ -26,7 +23,6 @@ const articles = [
     category: "تكنولوجيا",
     type: "تقرير",
     readTime: "10 دقيقة",
-    isPremium: true,
     desc: "نظرة على رؤية دبي للمواصلات الذكية وكيف سيحتاج السائق البشري للتفاعل مع المركبات الآلية."
   },
   {
@@ -34,7 +30,6 @@ const articles = [
     category: "تقنية المركبات",
     type: "فيديو توضيحي",
     readTime: "8 دقائق",
-    isPremium: true,
     desc: "شرح مرئي لكيفية عمل نظام التعليق في الحفاظ على ثبات المركبة في المنعطفات الحادة."
   }
 ]
@@ -57,34 +52,32 @@ export default function LibraryPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {articles.map((item, idx) => (
           <div key={idx}>
-            <PremiumGate isLocked={item.isPremium}>
-              <Card className="h-full bg-card/40 border-border/50 hover:bg-card/60 transition-all cursor-pointer">
-                <CardHeader className="flex flex-row items-start justify-between">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2 text-xs font-bold text-accent uppercase tracking-widest">
-                      <span className="w-2 h-2 rounded-full bg-accent" />
-                      {item.category}
-                    </div>
-                    <CardTitle className="text-2xl font-headline">{item.title}</CardTitle>
+            <Card className="h-full bg-card/40 border-border/50 hover:bg-card/60 transition-all cursor-pointer">
+              <CardHeader className="flex flex-row items-start justify-between">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2 text-xs font-bold text-accent uppercase tracking-widest">
+                    <span className="w-2 h-2 rounded-full bg-accent" />
+                    {item.category}
                   </div>
-                  {item.isPremium ? <Lock className="h-5 w-5 text-accent" /> : <BookOpen className="h-5 w-5 text-primary" />}
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
-                  <div className="flex items-center justify-between text-sm pt-4 border-t border-border/30">
-                    <div className="flex items-center gap-4">
-                      <span className="flex items-center gap-1 text-muted-foreground">
-                        <FileText className="h-4 w-4" /> {item.type}
-                      </span>
-                      <span className="flex items-center gap-1 text-muted-foreground">
-                        <Video className="h-4 w-4" /> {item.readTime}
-                      </span>
-                    </div>
-                    <span className="font-bold text-primary">اقرأ المزيد</span>
+                  <CardTitle className="text-2xl font-headline">{item.title}</CardTitle>
+                </div>
+                <BookOpen className="h-5 w-5 text-primary" />
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
+                <div className="flex items-center justify-between text-sm pt-4 border-t border-border/30">
+                  <div className="flex items-center gap-4">
+                    <span className="flex items-center gap-1 text-muted-foreground">
+                      <FileText className="h-4 w-4" /> {item.type}
+                    </span>
+                    <span className="flex items-center gap-1 text-muted-foreground">
+                      <Video className="h-4 w-4" /> {item.readTime}
+                    </span>
                   </div>
-                </CardContent>
-              </Card>
-            </PremiumGate>
+                  <span className="font-bold text-primary">اقرأ المزيد</span>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         ))}
       </div>

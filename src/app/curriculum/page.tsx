@@ -1,8 +1,7 @@
 
 import Image from "next/image"
-import { CheckCircle2, Lock } from "lucide-react"
+import { CheckCircle2 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { PremiumGate } from "@/components/premium-gate"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 const stages = [
@@ -10,28 +9,24 @@ const stages = [
     title: "المرحلة الأولى: الأساسيات والبيئة المحيطة",
     description: "فهم مكونات المركبة، وضعيات الجلوس الصحيحة، واستخدام المرايا.",
     topics: ["فحص المركبة قبل التحرك", "وضعيات المقود والدواسات", "فهم لوحة العدادات"],
-    isPremium: false,
     image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
   },
   {
     title: "المرحلة الثانية: التحكم والمناورة",
     description: "إتقان التحرك، التوقف، الانعطافات، والتعامل مع التقاطعات البسيطة.",
     topics: ["قاعدة 2 ثانية للمسافات", "تقنيات الدوران الصحيحة", "فهم نقاط العمياء"],
-    isPremium: true,
     image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
   },
   {
     title: "المرحلة الثالثة: قواعد الطريق السريع",
     description: "الانتقال بين المسارات، دخول وخروج الطرق السريعة، والسرعات العالية.",
-    topics: ["قواعد التجاوز الآمن", "التعامل مع الشاحنات", "إدارة التوتر عند السرعة"],
-    isPremium: true,
+    topics: ["قاعدة 2 ثانية للمسافات", "تقنيات الدوران الصحيحة", "فهم نقاط العمياء"],
     image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
   },
   {
     title: "المرحلة الرابعة: اختبار المدينة المتقدم",
     description: "المحاكاة الكاملة لاختبار RTA العملي والتركيز على أسباب الرسوب الفوري.",
     topics: ["القيادة في المناطق المزدحمة", "أولويات الدوارات المعقدة", "الوقوف الاضطراري"],
-    isPremium: true,
     image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
   }
 ]
@@ -49,46 +44,36 @@ export default function CurriculumPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {stages.map((stage, idx) => (
           <div key={idx} className="relative">
-            <PremiumGate isLocked={stage.isPremium} title={stage.title}>
-              <Card className="h-full overflow-hidden border-border/50 bg-card/40">
-                <div className="relative h-48 w-full">
-                  {stage.image && (
-                    <Image 
-                      src={stage.image} 
-                      alt={stage.title} 
-                      fill 
-                      className="object-cover"
-                      data-ai-hint="driving lesson stage"
-                    />
-                  )}
-                  <div className="absolute top-4 right-4 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
-                    المرحلة {idx + 1}
-                  </div>
-                </div>
-                <CardHeader>
-                  <CardTitle className="text-2xl font-headline">{stage.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground leading-relaxed">{stage.description}</p>
-                  <div className="space-y-3">
-                    {stage.topics.map((topic, i) => (
-                      <div key={i} className="flex items-center gap-3">
-                        <CheckCircle2 className="h-5 w-5 text-primary" />
-                        <span className="text-sm font-medium">{topic}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </PremiumGate>
-            {stage.isPremium && (
-              <div className="absolute top-4 left-4 z-20">
-                <div className="flex items-center gap-2 px-3 py-1 bg-accent text-accent-foreground rounded-lg text-xs font-bold uppercase tracking-wider shadow-xl">
-                  <Lock className="h-3 w-3" />
-                  بريميوم
+            <Card className="h-full overflow-hidden border-border/50 bg-card/40">
+              <div className="relative h-48 w-full">
+                {stage.image && (
+                  <Image 
+                    src={stage.image} 
+                    alt={stage.title} 
+                    fill 
+                    className="object-cover"
+                    data-ai-hint="driving lesson stage"
+                  />
+                )}
+                <div className="absolute top-4 right-4 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
+                  المرحلة {idx + 1}
                 </div>
               </div>
-            )}
+              <CardHeader>
+                <CardTitle className="text-2xl font-headline">{stage.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <p className="text-muted-foreground leading-relaxed">{stage.description}</p>
+                <div className="space-y-3">
+                  {stage.topics.map((topic, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">{topic}</span>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
           </div>
         ))}
       </div>
