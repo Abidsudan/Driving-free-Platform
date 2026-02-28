@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState } from "react"
@@ -66,7 +67,7 @@ export function AssessmentQuiz() {
   }
 
   if (isFinished) {
-    const cognitiveRate = (score / questions!.length) * 100
+    const cognitiveRate = (score / (questions?.length || 1)) * 100
     return (
       <Card className="max-w-2xl mx-auto border-accent/20 shadow-2xl bg-card/50">
         <CardHeader className="text-center">
@@ -74,9 +75,9 @@ export function AssessmentQuiz() {
         </CardHeader>
         <CardContent className="space-y-6 text-center">
           <div className="relative inline-flex items-center justify-center p-8 rounded-full border-4 border-primary bg-primary/10">
-            <span className="text-5xl font-bold">{cognitiveRate}%</span>
+            <span className="text-5xl font-bold">{Math.round(cognitiveRate)}%</span>
           </div>
-          <p className="text-lg">لقد أجبت على {score} من أصل {questions!.length} أسئلة بشكل صحيح.</p>
+          <p className="text-lg">لقد أجبت على {score} من أصل {questions?.length} أسئلة بشكل صحيح.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
             <div className="p-4 rounded-lg bg-secondary">
               <h4 className="font-bold mb-1">التقييم العام</h4>
