@@ -52,13 +52,15 @@ export default function CurriculumPage() {
             <PremiumGate isLocked={stage.isPremium} title={stage.title}>
               <Card className="h-full overflow-hidden border-border/50 bg-card/40">
                 <div className="relative h-48 w-full">
-                  <Image 
-                    src={stage.image || ""} 
-                    alt={stage.title} 
-                    fill 
-                    className="object-cover"
-                    data-ai-hint="driving lesson stage"
-                  />
+                  {stage.image && (
+                    <Image 
+                      src={stage.image} 
+                      alt={stage.title} 
+                      fill 
+                      className="object-cover"
+                      data-ai-hint="driving lesson stage"
+                    />
+                  )}
                   <div className="absolute top-4 right-4 bg-primary text-white px-4 py-1 rounded-full text-sm font-bold shadow-lg">
                     المرحلة {idx + 1}
                   </div>

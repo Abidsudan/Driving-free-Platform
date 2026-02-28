@@ -1,3 +1,4 @@
+
 import Image from "next/image"
 import Link from "next/link"
 import { Shield, BookOpen, Library, GraduationCap, ChevronLeft } from "lucide-react"
@@ -36,14 +37,16 @@ export default function Home() {
         </div>
         <div className="flex-1 relative w-full aspect-square max-w-md lg:max-w-none">
           <div className="absolute inset-0 bg-primary/20 rounded-full blur-[100px]" />
-          <Image 
-            src={instructorImg?.imageUrl || ""} 
-            alt="Instructor" 
-            width={600} 
-            height={600}
-            className="relative z-10 rounded-3xl object-cover shadow-2xl border-4 border-accent/20"
-            data-ai-hint="driving instructor"
-          />
+          {instructorImg?.imageUrl && (
+            <Image 
+              src={instructorImg.imageUrl} 
+              alt="Instructor" 
+              width={600} 
+              height={600}
+              className="relative z-10 rounded-3xl object-cover shadow-2xl border-4 border-accent/20"
+              data-ai-hint="driving instructor"
+            />
+          )}
           <div className="absolute -bottom-6 -right-6 z-20 bg-card p-6 rounded-2xl border shadow-xl animate-bounce">
             <span className="block text-3xl font-bold text-accent">+8 سنوات</span>
             <span className="text-sm text-muted-foreground">خبرة ميدانية في دبي</span>
