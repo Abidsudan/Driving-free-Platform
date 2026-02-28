@@ -4,7 +4,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, Shield } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 
@@ -23,36 +23,26 @@ export function Navigation() {
   return (
     <>
       {/* Desktop Top Nav */}
-      <header className="fixed top-0 left-0 right-0 z-50 hidden border-b border-white/5 bg-background/60 backdrop-blur-xl md:block">
+      <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
         <div className="container mx-auto flex h-20 items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative flex items-center justify-center w-12 h-12 rounded-xl overflow-hidden bg-primary/20 shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3">
-              {logo?.imageUrl ? (
-                <Image 
-                  src={logo.imageUrl} 
-                  alt="Logo" 
-                  fill 
-                  className="object-contain p-1"
-                  data-ai-hint="company logo"
-                />
-              ) : (
-                <div className="w-full h-full bg-primary" />
-              )}
+          <Link href="/" className="flex items-center gap-4 group">
+            <div className="relative flex items-center justify-center w-11 h-11 rounded-xl overflow-hidden bg-primary shadow-xl shadow-primary/20 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3">
+              <Shield className="h-6 w-6 text-background" fill="currentColor" />
             </div>
-            <span className="font-headline text-2xl font-bold tracking-tighter transition-colors">
+            <span className="font-headline text-2xl font-black tracking-tighter">
               <span className="text-accent">DRIVING</span> FREE <span className="text-primary/80">ACADEME</span>
             </span>
           </Link>
-          <nav className="flex items-center gap-1">
+          <nav className="flex items-center gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/5",
+                  "px-6 py-2 rounded-full text-sm font-bold tracking-tight transition-all duration-300",
                   pathname === item.href 
-                    ? "text-accent bg-accent/10" 
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-accent bg-accent/10 border border-accent/20" 
+                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
                 {item.name}
@@ -63,8 +53,8 @@ export function Navigation() {
       </header>
 
       {/* Mobile Bottom Nav */}
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-white/5 bg-background/80 backdrop-blur-xl md:hidden px-4 pb-4 pt-2">
-        <div className="flex h-16 items-center justify-between px-2 bg-card/50 rounded-2xl border border-white/5 shadow-2xl">
+      <nav className="fixed bottom-6 left-6 right-6 z-[100] md:hidden">
+        <div className="flex h-20 items-center justify-between px-4 bg-background/60 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -73,12 +63,12 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-xl transition-all duration-300",
-                  isActive ? "text-accent bg-accent/5 scale-105" : "text-muted-foreground"
+                  "flex flex-col items-center justify-center flex-1 gap-1.5 h-full rounded-2xl transition-all duration-300",
+                  isActive ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
                 )}
               >
-                <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
-                <span className="text-[10px] font-bold">{item.name}</span>
+                <Icon className={cn("h-6 w-6", isActive && "stroke-[2.5px]")} />
+                <span className="text-[10px] font-black uppercase tracking-tighter">{item.name}</span>
               </Link>
             )
           })}
