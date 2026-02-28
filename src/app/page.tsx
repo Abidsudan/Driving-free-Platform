@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { BookOpen, Library, GraduationCap, ChevronLeft, CheckCircle, ArrowUpRight, Target, Users, Clock } from "lucide-react"
+import { BookOpen, Library, GraduationCap, ChevronLeft, CheckCircle, ArrowUpRight, Target, Users, Clock, CarFront } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -37,7 +37,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-              الأكاديمية الأولى في دبي التي تحول سنوات من الخبرة الميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
+              الأكاديمية الأولى في دبي التي تحول خبرة سنوات ميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
@@ -71,9 +71,9 @@ export default function Home() {
             {/* Students Floating Card */}
             <div className="absolute -top-10 -right-10 z-20 glass-card p-6 rounded-[2rem] border-white/20 animate-fade-in-up stagger-3 hidden md:block">
               <div className="flex -space-x-3 rtl:space-x-reverse mb-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden">
-                    <Image src={`https://picsum.photos/seed/${i+10}/100/100`} alt="student" width={40} height={40} />
+                {[11, 12, 13, 14].map((i) => (
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-secondary flex items-center justify-center overflow-hidden relative">
+                    <Image src={`https://picsum.photos/seed/${i}/100/100`} alt="student" fill className="object-cover" />
                   </div>
                 ))}
                 <div className="w-10 h-10 rounded-full border-2 border-background bg-accent text-background flex items-center justify-center text-xs font-black">
@@ -167,14 +167,17 @@ export default function Home() {
         <div className="container mx-auto px-6 text-center space-y-16">
           <div className="flex flex-col items-center gap-8">
             <Link href="/" className="flex flex-col items-center gap-4 group">
-              <div className="relative w-24 h-24 transition-transform duration-500 group-hover:rotate-12">
-                {logo?.imageUrl && (
+              <div className="relative w-24 h-24 transition-transform duration-500 group-hover:rotate-12 flex items-center justify-center bg-primary/10 rounded-3xl overflow-hidden">
+                {logo?.imageUrl ? (
                   <Image 
                     src={logo.imageUrl} 
                     alt="Driving Free Official Logo" 
                     fill 
-                    className="object-contain"
+                    className="object-contain p-2"
+                    unoptimized
                   />
+                ) : (
+                  <CarFront className="h-10 w-10 text-primary" />
                 )}
               </div>
               <span className="font-headline font-black text-4xl tracking-tighter">
