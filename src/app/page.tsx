@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Shield, BookOpen, Library, GraduationCap, ChevronLeft, Star, Users, Clock, CheckCircle, ArrowUpRight, Zap, Target } from "lucide-react"
+import { BookOpen, Library, GraduationCap, ChevronLeft, CheckCircle, ArrowUpRight, Target, Users, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -37,14 +37,13 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-              الأكاديمية الأولى في دبي التي تحول سنوات الخبرة الميدانية الطويلة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
+              الأكاديمية الأولى في دبي التي تحول سنوات من الخبرة الميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xl px-12 h-20 rounded-[2rem] shadow-2xl shadow-primary/40 group overflow-hidden relative">
                 <Link href="/curriculum" className="flex items-center gap-3 relative z-10">
                   ابدأ رحلة التعلم <ArrowUpRight className="h-6 w-6 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity -z-10" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="text-xl px-12 h-20 rounded-[2rem] glass-card border-white/10 hover:bg-white/5 font-bold">
@@ -168,8 +167,15 @@ export default function Home() {
         <div className="container mx-auto px-6 text-center space-y-16">
           <div className="flex flex-col items-center gap-8">
             <Link href="/" className="flex flex-col items-center gap-4 group">
-              <div className="relative flex items-center justify-center w-20 h-20 rounded-3xl overflow-hidden bg-primary shadow-2xl shadow-primary/40 transition-transform duration-500 group-hover:rotate-12">
-                <Shield className="h-10 w-10 text-background" fill="currentColor" />
+              <div className="relative w-24 h-24 transition-transform duration-500 group-hover:rotate-12">
+                {logo?.imageUrl && (
+                  <Image 
+                    src={logo.imageUrl} 
+                    alt="Driving Free Official Logo" 
+                    fill 
+                    className="object-contain"
+                  />
+                )}
               </div>
               <span className="font-headline font-black text-4xl tracking-tighter">
                 <span className="text-accent">DRIVING</span> FREE <span className="text-primary/80">ACADEME</span>
