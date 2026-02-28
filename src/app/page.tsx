@@ -37,7 +37,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-              الأكاديمية الأولى في دبي التي تحول خبرة 8 سنوات ميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
+              الأكاديمية الأولى في دبي التي تحول سنوات الخبرة الميدانية الطويلة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
@@ -69,19 +69,6 @@ export default function Home() {
               </div>
             )}
             
-            {/* Experience Floating Card */}
-            <div className="absolute -bottom-10 -left-10 z-20 glass-card p-8 rounded-[2.5rem] border-white/20 animate-fade-in-up stagger-2 shadow-2xl shadow-black/50">
-              <div className="flex items-center gap-5">
-                <div className="bg-accent p-4 rounded-2xl shadow-xl shadow-accent/30">
-                  <Zap className="h-8 w-8 text-background" fill="currentColor" />
-                </div>
-                <div>
-                  <span className="block text-4xl font-black text-accent tracking-tighter">+8 سنوات</span>
-                  <span className="text-xs font-black text-muted-foreground uppercase tracking-[0.3em]">خبرة تدريبية موثقة</span>
-                </div>
-              </div>
-            </div>
-
             {/* Students Floating Card */}
             <div className="absolute -top-10 -right-10 z-20 glass-card p-6 rounded-[2rem] border-white/20 animate-fade-in-up stagger-3 hidden md:block">
               <div className="flex -space-x-3 rtl:space-x-reverse mb-3">
