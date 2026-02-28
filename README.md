@@ -1,5 +1,24 @@
-# Firebase Studio
 
-This is a NextJS starter in Firebase Studio.
+# Driving Free Academe | أكاديمية القيادة الحرة
 
-To get started, take a look at src/app/page.tsx.
+أول أكاديمية رقمية متخصصة في تعليم القيادة في دبي بأسلوب أكاديمي وعلمي، مصممة وفق معايير هيئة الطرق والمواصلات (RTA).
+
+## النطاق المربوط
+[drivingfreee.online](https://drivingfreee.online)
+
+## المميزات الرئيسية
+- **منهج أكاديمي متكامل:** 4 مراحل تعليمية شاملة من الصفر للاحتراف.
+- **مكتبة علمية:** دراسات تقنية حول فيزياء القيادة وسيكولوجية السائق.
+- **محاكي RTA الذكي:** مولد أسئلة مدعوم بالذكاء الاصطناعي يحاكي الاختبارات الرسمية.
+- **هوية بصرية فاخرة:** تصميم عصري متجاوب بالكامل مع دعم اللغة العربية (RTL).
+
+## التقنيات المستخدمة
+- **Next.js 15 (App Router)**
+- **Tailwind CSS & ShadCN UI**
+- **Genkit (Google AI integration)**
+- **Firebase App Hosting & Firestore**
+
+## إرشادات النشر النهائية
+1. تأكد من إعداد نطاق `drivingfreee.online` في Firebase Console.
+2. قم بتحديث سجلات DNS (A record و CNAME) كما هو موضح في لوحة تحكم Firebase.
+3. انتظر تفعيل شهادة SSL التلقائية من Firebase ليعمل الموقع بشكل آمن.

@@ -3,11 +3,12 @@
 # https://firebase.google.com/docs/app-hosting/configure
 
 runConfig:
-  # Increase this value if you'd like to automatically spin up
-  # more instances in response to increased traffic.
-  maxInstances: 2
-  memory: 512Mi
+  maxInstances: 5
+  memory: 1024Mi # Increased for Genkit & AI operations
+  cpu: 1
 
 env:
   - variable: NEXT_PUBLIC_DOMAIN
     value: drivingfreee.online
+  - variable: NODE_ENV
+    value: production

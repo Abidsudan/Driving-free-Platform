@@ -3,33 +3,33 @@
   "placeholderImages": [
     {
       "id": "site-logo",
-      "description": "Driving Free Academe Official Logo",
+      "description": "Driving Free Academe Professional Identity",
       "imageUrl": "https://images.unsplash.com/photo-1532619675605-1dee6c2ed290?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200",
-      "imageHint": "company logo"
+      "imageHint": "academy logo"
     },
     {
       "id": "instructor-hero",
-      "description": "Professional driving instructor in Dubai",
-      "imageUrl": "https://images.unsplash.com/photo-1516862523118-a3724eb136d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkcml2aW5nJTIwaW5zdHJ1Y3RvcnxlbnwwfHx8fDE3NzIyMzY5MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "driving instructor"
+      "description": "Expert Dubai Driving Instructor in action",
+      "imageUrl": "https://images.unsplash.com/photo-1516862523118-a3724eb136d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "professional driver"
     },
     {
       "id": "rta-signs",
-      "description": "Dubai road signs collection",
-      "imageUrl": "https://images.unsplash.com/photo-1601735479770-bb5de9dbe844?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxyb2FkJTIwc2lnbnN8ZW58MHx8fHwxNzcyMjM2OTE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "road signs"
+      "description": "High-definition RTA road signs for training",
+      "imageUrl": "https://images.unsplash.com/photo-1601735479770-bb5de9dbe844?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "dubai road signs"
     },
     {
       "id": "curriculum-stage",
-      "description": "Structured driving lesson",
-      "imageUrl": "https://images.unsplash.com/photo-1618839112829-9dea81b885ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkcml2aW5nJTIwbGVzc29ufGVufDB8fHx8MTc3MjIzNjkxN3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "driving lesson"
+      "description": "Visual guide for structured driving curriculum",
+      "imageUrl": "https://images.unsplash.com/photo-1618839112829-9dea81b885ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "driving training"
     },
     {
       "id": "scientific-library",
-      "description": "Academic books on vehicle dynamics",
-      "imageUrl": "https://images.unsplash.com/photo-1624267583657-6ad9c184fae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx0ZWNobmljYWwlMjBib29rc3xlbnwwfHx8fDE3NzIyMzY5MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "technical books"
+      "description": "Technical documentation for vehicle mechanics",
+      "imageUrl": "https://images.unsplash.com/photo-1624267583657-6ad9c184fae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "engineering books"
     }
   ]
 }
