@@ -15,13 +15,15 @@ export default function Home() {
       {/* Hero Section */}
       <section className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-20 animate-fade-in-up">
         <div className="flex-1 space-y-6 md:space-y-8 text-center lg:text-right">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
-            <Shield className="h-4 w-4" />
+          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-medium">
+            <div className="flex items-center justify-center w-6 h-6 rounded-md bg-primary text-white">
+              <Shield className="h-3.5 w-3.5" />
+            </div>
             <span>معتمد وفق معايير هيئة الطرق والمواصلات RTA</span>
           </div>
           <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1]">
             احترف القيادة <br /> 
-            <span className="text-accent bg-clip-text">بأسلوب أكاديمي</span>
+            <span className="text-accent">بأسلوب أكاديمي</span>
           </h1>
           <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0">
             نقدم لك خلاصة خبرة 8 سنوات في تدريب القيادة في دبي. منهج علمي شامل يضمن لك النجاح من المرة الأولى وفهم قواعد الطريق بعمق.
@@ -168,11 +170,19 @@ export default function Home() {
       
       {/* Footer minimal */}
       <footer className="py-12 text-center text-muted-foreground text-sm border-t border-white/5">
+        <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+            <Shield className="h-4 w-4" />
+          </div>
+          <span className="font-headline font-bold text-lg tracking-tighter">
+            <span className="text-accent">DRIVING</span> FREE <span className="text-primary/80">ACADEME</span>
+          </span>
+        </div>
         <p>© {new Date().getFullYear()} أكاديمية القيادة الحرة. جميع الحقوق محفوظة.</p>
         <div className="flex justify-center gap-6 mt-4">
-          <Link href="/rules" className="hover:text-primary">القواعد</Link>
-          <Link href="/library" className="hover:text-primary">المكتبة</Link>
-          <Link href="/assessment" className="hover:text-primary">التقييم</Link>
+          <Link href="/rules" className="hover:text-primary transition-colors">القواعد</Link>
+          <Link href="/library" className="hover:text-primary transition-colors">المكتبة</Link>
+          <Link href="/assessment" className="hover:text-primary transition-colors">التقييم</Link>
         </div>
       </footer>
     </div>
