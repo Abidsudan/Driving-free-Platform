@@ -2,9 +2,11 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { PlaceHolderImages } from "@/lib/placeholder-images"
 
 const navItems = [
   { name: "الرئيسية", href: "/", icon: Home },
@@ -16,6 +18,7 @@ const navItems = [
 
 export function Navigation() {
   const pathname = usePathname()
+  const logo = PlaceHolderImages.find(img => img.id === "site-logo")
 
   return (
     <>
@@ -23,21 +26,18 @@ export function Navigation() {
       <header className="fixed top-0 left-0 right-0 z-50 hidden border-b border-white/5 bg-background/60 backdrop-blur-xl md:block">
         <div className="container mx-auto flex h-20 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/20 transition-transform group-hover:scale-110 group-hover:rotate-3">
-              <svg 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2.5" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className="w-6 h-6 text-white"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 2a10 10 0 0 1 10 10M12 22a10 10 0 0 1-10-10" />
-                <path d="M12 8v8M8 12h8" />
-              </svg>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full border-2 border-background" />
+            <div className="relative flex items-center justify-center w-12 h-12 rounded-xl overflow-hidden bg-primary/20 shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3">
+              {logo?.imageUrl ? (
+                <Image 
+                  src={logo.imageUrl} 
+                  alt="Logo" 
+                  fill 
+                  className="object-contain p-1"
+                  data-ai-hint="company logo"
+                />
+              ) : (
+                <div className="w-full h-full bg-primary" />
+              )}
             </div>
             <span className="font-headline text-2xl font-bold tracking-tighter transition-colors">
               <span className="text-accent">DRIVING</span> FREE <span className="text-primary/80">ACADEME</span>

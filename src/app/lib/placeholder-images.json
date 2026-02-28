@@ -2,6 +2,12 @@
 {
   "placeholderImages": [
     {
+      "id": "site-logo",
+      "description": "Driving Free Academe Official Logo",
+      "imageUrl": "https://images.unsplash.com/photo-1532619675605-1dee6c2ed290?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=200",
+      "imageHint": "company logo"
+    },
+    {
       "id": "instructor-hero",
       "description": "Professional driving instructor in Dubai",
       "imageUrl": "https://images.unsplash.com/photo-1516862523118-a3724eb136d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxkcml2aW5nJTIwaW5zdHJ1Y3RvcnxlbnwwfHx8fDE3NzIyMzY5MTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
