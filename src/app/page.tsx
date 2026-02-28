@@ -37,13 +37,14 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-              الأكاديمية الأولى في دبي التي تحول خبرة سنوات ميدانية إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
+              الأكاديمية الأولى في دبي التي تحول الخبرة الميدانية العميقة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xl px-12 h-20 rounded-[2rem] shadow-2xl shadow-primary/40 group overflow-hidden relative border-none">
                 <Link href="/curriculum" className="flex items-center gap-3 relative z-10">
-                  ابدأ رحلة التعلم <ArrowUpRight className="h-6 w-6 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2" />
+                  <span>ابدأ رحلة التعلم</span>
+                  <ArrowUpRight className="h-6 w-6 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild className="text-xl px-12 h-20 rounded-[2rem] glass-card border-white/10 hover:bg-white/5 font-bold">
@@ -61,7 +62,7 @@ export default function Home() {
                   alt="Professional Instructor" 
                   fill
                   priority
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   data-ai-hint="dubai driving instructor"
                 />
@@ -172,7 +173,7 @@ export default function Home() {
                       <p className="text-muted-foreground leading-relaxed text-lg font-medium">{item.desc}</p>
                     </div>
                     <div className="flex items-center gap-3 text-primary font-black text-lg group-hover:gap-5 transition-all">
-                      استكشف الآن <ChevronLeft className="h-6 w-6" />
+                      <span>استكشف الآن</span> <ChevronLeft className="h-6 w-6" />
                     </div>
                   </CardContent>
                 </Card>

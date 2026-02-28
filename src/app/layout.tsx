@@ -8,7 +8,7 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Driving Free Academe | أكاديمية القيادة الحرة',
-  description: 'أكاديمية تعليم القيادة العلمية والعملية في دبي - خبرة تزيد عن 8 سنوات',
+  description: 'أكاديمية تعليم القيادة العلمية والعملية في دبي - منهج أكاديمي متطور وخبرة ميدانية واسعة',
 };
 
 export default function RootLayout({
