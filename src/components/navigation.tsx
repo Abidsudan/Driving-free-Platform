@@ -26,7 +26,7 @@ export function Navigation() {
       <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
         <div className="container mx-auto flex h-20 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="relative w-16 h-16 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 flex items-center justify-center bg-primary/10 rounded-2xl overflow-hidden">
+            <div className="relative w-16 h-16 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 flex items-center justify-center bg-primary/10 rounded-2xl overflow-hidden border border-white/10 shadow-xl">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
@@ -34,7 +34,7 @@ export function Navigation() {
                   fill 
                   className="object-contain p-1"
                   priority
-                  unoptimized // Added because external links might need direct bypass
+                  unoptimized
                 />
               ) : (
                 <CarFront className="h-8 w-8 text-primary" />
