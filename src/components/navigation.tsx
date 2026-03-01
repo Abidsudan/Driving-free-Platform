@@ -4,9 +4,20 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
+import { useUser, useAuth } from "@/firebase"
+import { signOut } from "firebase/auth"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const navItems = [
   { name: "الرئيسية", href: "/", icon: Home },
@@ -18,7 +29,13 @@ const navItems = [
 
 export function Navigation() {
   const pathname = usePathname()
+  const { user } = useUser()
+  const auth = useAuth()
   const logo = PlaceHolderImages.find(img => img.id === "site-logo")
+
+  const handleSignOut = () => {
+    signOut(auth)
+  }
 
   return (
     <>
@@ -26,7 +43,7 @@ export function Navigation() {
       <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
         <div className="container mx-auto flex h-24 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="relative w-40 h-24 transition-all duration-500 group-hover:scale-105 flex items-center justify-center">
+            <div className="relative w-48 h-24 transition-all duration-500 group-hover:scale-105 flex items-center justify-center">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
@@ -41,9 +58,6 @@ export function Navigation() {
                 <CarFront className="h-12 w-12 text-primary" />
               )}
             </div>
-            <span className="font-headline text-2xl font-black tracking-tighter">
-              <span className="text-accent">DRIVING</span> FREE <span className="text-primary/80">ACADEME</span>
-            </span>
           </Link>
           <nav className="flex items-center gap-2">
             {navItems.map((item) => (
@@ -60,6 +74,39 @@ export function Navigation() {
                 {item.name}
               </Link>
             ))}
+            
+            <div className="mr-4 border-r border-white/10 pr-4">
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Avatar className="h-10 w-10 cursor-pointer border-2 border-primary/20 hover:border-primary/50 transition-all">
+                      <AvatarImage src={user.photoURL || undefined} />
+                      <AvatarFallback className="bg-primary/20 text-primary font-bold">
+                        {user.displayName?.charAt(0) || user.email?.charAt(0) || <User className="h-4 w-4" />}
+                      </AvatarFallback>
+                    </Avatar>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56 glass-card border-white/10 mt-2">
+                    <DropdownMenuLabel className="font-headline font-bold">حسابي</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-white/5" />
+                    <DropdownMenuItem asChild>
+                      <Link href="/dashboard" className="cursor-pointer flex items-center gap-2">
+                        <LayoutDashboard className="h-4 w-4" /> لوحة التحكم
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-400 focus:text-red-400 flex items-center gap-2">
+                      <LogOut className="h-4 w-4" /> تسجيل الخروج
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link href="/auth">
+                  <button className="px-8 py-2.5 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                    تسجيل الدخول
+                  </button>
+                </Link>
+              )}
+            </div>
           </nav>
         </div>
       </header>
@@ -84,6 +131,16 @@ export function Navigation() {
               </Link>
             )
           })}
+          <Link
+            href={user ? "/dashboard" : "/auth"}
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 gap-1.5 h-full rounded-2xl transition-all duration-300",
+              pathname === "/auth" || pathname === "/dashboard" ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
+            )}
+          >
+            <User className={cn("h-6 w-6", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
+            <span className="text-[10px] font-black uppercase tracking-tighter">{user ? "لوحتي" : "دخول"}</span>
+          </Link>
         </div>
       </nav>
     </>

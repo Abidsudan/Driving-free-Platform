@@ -1,5 +1,41 @@
+
 {
   "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Stores basic information and preferences for the registered users.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique identifier for the user, matching Firebase Auth UID."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's preferred display name."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address."
+        },
+        "photoUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the user's avatar image."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp when the profile was created."
+        }
+      },
+      "required": [
+        "uid",
+        "email"
+      ]
+    },
     "InstructorProfile": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "InstructorProfile",
@@ -283,9 +319,17 @@
           "type": "number",
           "description": "The final score achieved by the user for this quiz attempt (e.g., percentage or raw score)."
         },
+        "totalQuestions": {
+          "type": "number",
+          "description": "The total number of questions in the quiz."
+        },
         "isCompleted": {
           "type": "boolean",
           "description": "Indicates whether the quiz attempt was fully completed and submitted."
+        },
+        "topic": {
+          "type": "string",
+          "description": "The topic or category of the quiz attempt."
         }
       },
       "required": [
@@ -293,47 +337,9 @@
         "userId",
         "quizId",
         "startTime",
-        "isCompleted"
-      ]
-    },
-    "UserQuestionAnswer": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "UserQuestionAnswer",
-      "type": "object",
-      "description": "Records a user's specific answer to a question within a quiz attempt, including correctness.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the UserQuestionAnswer entity."
-        },
-        "userQuizAttemptId": {
-          "type": "string",
-          "description": "Reference to the UserQuizAttempt this answer belongs to. (Relationship: UserQuizAttempt 1:N UserQuestionAnswer)"
-        },
-        "questionId": {
-          "type": "string",
-          "description": "Reference to the Question that was answered. (Relationship: Question 1:N UserQuestionAnswer)"
-        },
-        "chosenAnswerOptionId": {
-          "type": "string",
-          "description": "Reference to the AnswerOption chosen by the user for this question. (Relationship: AnswerOption 1:N UserQuestionAnswer)"
-        },
-        "isCorrect": {
-          "type": "boolean",
-          "description": "Indicates whether the chosen answer was correct for the question."
-        },
-        "timestamp": {
-          "type": "string",
-          "description": "The UTC date and time when the user provided this answer.",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "id",
-        "userQuizAttemptId",
-        "questionId",
-        "isCorrect",
-        "timestamp"
+        "isCompleted",
+        "score",
+        "totalQuestions"
       ]
     }
   },
@@ -346,113 +352,17 @@
   "firestore": {
     "structure": [
       {
-        "path": "/instructorProfiles/{instructorId}",
+        "path": "/users/{userId}",
         "definition": {
-          "entityName": "InstructorProfile",
+          "entityName": "UserProfile",
           "schema": {
-            "$ref": "#/backend/entities/InstructorProfile"
+            "$ref": "#/backend/entities/UserProfile"
           },
-          "description": "Stores publicly viewable information about driving instructors. All users have read access, while write access is restricted to administrators.",
+          "description": "Stores individual user profiles. Each user has read and write access to their own document.",
           "params": [
             {
-              "name": "instructorId",
-              "description": "The unique identifier for the instructor profile."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/contentSections/{sectionId}",
-        "definition": {
-          "entityName": "ContentSection",
-          "schema": {
-            "$ref": "#/backend/entities/ContentSection"
-          },
-          "description": "Represents major categories of educational content. Documents include an 'isPremium' field to control read access based on user subscription status. Write access is restricted to administrators.",
-          "params": [
-            {
-              "name": "sectionId",
-              "description": "The unique identifier for the content section."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/contentSections/{sectionId}/contentModules/{moduleId}",
-        "definition": {
-          "entityName": "ContentModule",
-          "schema": {
-            "$ref": "#/backend/entities/ContentModule"
-          },
-          "description": "Contains individual educational units or articles nested within content sections. Each module has an 'isPremium' field for granular access control. Write access is restricted to administrators.",
-          "params": [
-            {
-              "name": "sectionId",
-              "description": "The unique identifier of the parent content section."
-            },
-            {
-              "name": "moduleId",
-              "description": "The unique identifier for the content module."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/quizzes/{quizId}",
-        "definition": {
-          "entityName": "Quiz",
-          "schema": {
-            "$ref": "#/backend/entities/Quiz"
-          },
-          "description": "Stores interactive knowledge assessment quizzes. Each quiz includes an 'isPremium' field for access control. Write access is restricted to administrators.",
-          "params": [
-            {
-              "name": "quizId",
-              "description": "The unique identifier for the quiz."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/quizzes/{quizId}/questions/{questionId}",
-        "definition": {
-          "entityName": "Question",
-          "schema": {
-            "$ref": "#/backend/entities/Question"
-          },
-          "description": "Holds individual questions belonging to a specific quiz. Includes a denormalized 'isPremium' field (copied from the parent Quiz) to ensure authorization independence. Write access is restricted to administrators.",
-          "params": [
-            {
-              "name": "quizId",
-              "description": "The unique identifier of the parent quiz."
-            },
-            {
-              "name": "questionId",
-              "description": "The unique identifier for the question."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/quizzes/{quizId}/questions/{questionId}/answerOptions/{optionId}",
-        "definition": {
-          "entityName": "AnswerOption",
-          "schema": {
-            "$ref": "#/backend/entities/AnswerOption"
-          },
-          "description": "Defines possible answer choices for a specific question. Includes a denormalized 'isPremium' field (copied from the grandparent Quiz) for authorization independence. Write access is restricted to administrators.",
-          "params": [
-            {
-              "name": "quizId",
-              "description": "The unique identifier of the grandparent quiz."
-            },
-            {
-              "name": "questionId",
-              "description": "The unique identifier of the parent question."
-            },
-            {
-              "name": "optionId",
-              "description": "The unique identifier for the answer option."
+              "name": "userId",
+              "description": "The unique identifier of the user profile."
             }
           ]
         }
@@ -464,7 +374,7 @@
           "schema": {
             "$ref": "#/backend/entities/UserQuizAttempt"
           },
-          "description": "Records a user's attempt at completing a quiz. Access is restricted to the user identified by 'userId' in the path, ensuring path-based ownership. Administrators have full access.",
+          "description": "Records a user's attempt at completing a quiz. Access is restricted to the user identified by 'userId' in the path.",
           "params": [
             {
               "name": "userId",
@@ -476,48 +386,7 @@
             }
           ]
         }
-      },
-      {
-        "path": "/users/{userId}/quizAttempts/{attemptId}/answers/{answerId}",
-        "definition": {
-          "entityName": "UserQuestionAnswer",
-          "schema": {
-            "$ref": "#/backend/entities/UserQuestionAnswer"
-          },
-          "description": "Records a user's specific answer to a question within a quiz attempt. Access is restricted to the user identified by 'userId' in the parent path. Administrators have full access.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user who owns this answer, inherited from the parent path."
-            },
-            {
-              "name": "attemptId",
-              "description": "The unique identifier of the parent quiz attempt."
-            },
-            {
-              "name": "answerId",
-              "description": "The unique identifier for the user's question answer."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/roles_admin/{userId}",
-        "definition": {
-          "entityName": "User",
-          "schema": {
-            "$ref": "#/backend/entities/User"
-          },
-          "description": "A collection used for Database-Backed Access Control (DBAC). The existence of a document at `/roles_admin/{userId}` signifies that the corresponding user is an administrator. Read access is restricted to administrators, and write access for adding/removing roles is also restricted to administrators.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user designated as an administrator."
-            }
-          ]
-        }
       }
-    ],
-    "reasoning": "The recommended Firestore structure for 'Driving Free Academe' prioritizes security, scalability, and debuggability, adhering strictly to the core design principles and strategy mandates. \n\n**Authorization Independence (CRITICAL):**\nThis design achieves Authorization Independence primarily through strategic denormalization and path-based ownership. \n*   For public and premium content (`ContentSection`, `ContentModule`, `Quiz`), each document includes its own `isPremium` field. This eliminates the need for security rules to perform `get()` calls to parent documents to determine access rights. Instead, rules can directly evaluate `resource.data.isPremium` and compare it against the user's premium status (assumed to be stored in the user's profile, e.g., `/users/{uid}/isPremiumUser`).\n*   Specifically, `Question` and `AnswerOption` entities, whose access depends on the `isPremium` status of their parent `Quiz`, will have the `isPremium` attribute denormalized and copied from the `Quiz` document during creation or update. This ensures that a `get()` call to the parent `Quiz` is never required for authorization of a `Question` or `AnswerOption`.\n*   User-specific data (`UserQuizAttempt`, `UserQuestionAnswer`) are structured under `/users/{userId}/...`. The `userId` in the path segment directly corresponds to `request.auth.uid`, making authorization checks atomic and independent of other documents.\n\n**QAPs (Rules are not Filters):**\nSecure `list` operations are enabled by:\n*   **Structural Segregation & Explicit Fields:** Publicly accessible content (like `InstructorProfile`) resides in top-level collections, where all documents share the same public read posture. For content with mixed access (public/premium), the `isPremium` field on each document allows rules to clearly define what can be listed by non-premium users (e.g., `where('isPremium', '==', false)`) versus premium users who can access all. This means a user's query must include the necessary filters, preventing rules from acting as filters post-query.\n*   **Path-Based Ownership:** For user-owned data (e.g., `quizAttempts`, `answers`), the `/users/{userId}/` prefix ensures that `list` operations implicitly secure the data. A user can only list attempts or answers for their own `userId` as mandated by the path, aligning with QAP requirements.\n\n**Overall Structure and Other Principles:**\n*   **Structural Segregation:** Collections like `/instructorProfiles` (public), `/contentSections` (mixed public/premium), `/quizzes` (mixed public/premium), and `/users/{userId}/quizAttempts` (private) inherently group documents with homogeneous security postures.\n*   **Access Modeling:** Path-based ownership (`/users/{userId}/...`) is consistently used for private, user-owned data. Global roles are managed via 'existence over content' in `/roles_admin/{userId}`.\n*   **Data Clarity:** Consistent naming conventions (`{sectionId}`, `{quizId}`, `ownerId` implicit from path) and explicit `isPremium` fields contribute to predictable schema and clear intent."
+    ]
   }
 }

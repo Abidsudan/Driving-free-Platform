@@ -8,6 +8,9 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Progress } from "@/components/ui/progress"
 import { CheckCircle2, XCircle, AlertCircle, RefreshCw, Trophy, Target, Lightbulb } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useUser, useFirestore } from "@/firebase"
+import { collection, doc } from "firebase/firestore"
+import { addDocumentNonBlocking } from "@/firebase/non-blocking-updates"
 
 export function AssessmentQuiz() {
   const [questions, setQuestions] = useState<GenerateQuizQuestionsOutput["questions"] | null>(null)
@@ -17,6 +20,8 @@ export function AssessmentQuiz() {
   const [score, setScore] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
+  const { user } = useUser()
+  const db = useFirestore()
 
   const startQuiz = async () => {
     setIsLoading(true)
@@ -55,6 +60,21 @@ export function AssessmentQuiz() {
       setIsAnswered(false)
     } else {
       setIsFinished(true)
+      // Save result if user is logged in
+      if (user && db) {
+        const attemptData = {
+          userId: user.uid,
+          quizId: 'rta-assessment-1',
+          startTime: new Date().toISOString(),
+          endTime: new Date().toISOString(),
+          score: score + (selectedAnswer === questions![currentIndex].correctAnswerIndex ? 1 : 0),
+          totalQuestions: questions!.length,
+          isCompleted: true,
+          topic: "RTA Theory Test Simulation"
+        };
+        const colRef = collection(db, 'users', user.uid, 'quizAttempts');
+        addDocumentNonBlocking(colRef, attemptData);
+      }
     }
   }
 
@@ -72,6 +92,7 @@ export function AssessmentQuiz() {
   }
 
   if (isFinished) {
+    const finalScore = score + (selectedAnswer === questions![currentIndex].correctAnswerIndex ? 1 : 0);
     const cognitiveRate = (score / (questions?.length || 1)) * 100
     return (
       <Card className="max-w-2xl mx-auto glass-card border-accent/20 overflow-hidden animate-fade-in-up">
@@ -88,20 +109,23 @@ export function AssessmentQuiz() {
           
           <div className="space-y-2">
             <p className="text-xl font-bold">نتيجة الاختبار: {score} من {questions?.length}</p>
+            {!user && (
+              <p className="text-xs text-accent font-bold p-2 bg-accent/10 rounded-lg">سجل دخولك لحفظ هذه النتيجة ومراقبة سجل تدريبك!</p>
+            )}
             <p className="text-muted-foreground">
               {cognitiveRate >= 80 ? "أداء استثنائي! أنت مستعد تماماً للتفوق في الاختبار الحقيقي." : 
                cognitiveRate >= 60 ? "أداء جيد، مراجعة بسيطة للمفاهيم التقنية ستضمن لك النجاح." : "تحتاج للتركيز أكثر على المنهج الأكاديمي قبل خوض الاختبار."}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-5 rounded-2xl bg-secondary/40 border border-white/5 text-right">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-right">
+            <div className="p-5 rounded-2xl bg-secondary/40 border border-white/5">
               <div className="flex items-center gap-2 text-primary font-bold mb-1">
                 <Target className="h-4 w-4" /> نقاط القوة
               </div>
               <p className="text-sm text-muted-foreground">فهم جيد لسلوك الطريق العام والسرعات المقررة.</p>
             </div>
-            <div className="p-5 rounded-2xl bg-secondary/40 border border-white/5 text-right">
+            <div className="p-5 rounded-2xl bg-secondary/40 border border-white/5">
               <div className="flex items-center gap-2 text-accent font-bold mb-1">
                 <Lightbulb className="h-4 w-4" /> نصيحة الخبير
               </div>
@@ -109,8 +133,13 @@ export function AssessmentQuiz() {
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-center pb-10">
-          <Button onClick={startQuiz} size="lg" className="bg-primary hover:bg-primary/90 px-10 h-14 text-lg">خوض التقييم مرة أخرى</Button>
+        <CardFooter className="flex flex-col gap-4 justify-center pb-10">
+          <Button onClick={startQuiz} size="lg" className="bg-primary hover:bg-primary/90 px-10 h-14 text-lg w-full max-w-sm">خوض التقييم مرة أخرى</Button>
+          {user && (
+            <Button variant="outline" asChild className="w-full max-w-sm h-14 rounded-xl">
+              <Link href="/dashboard">انتقل للوحة التحكم</Link>
+            </Button>
+          )}
         </CardFooter>
       </Card>
     )
@@ -142,7 +171,7 @@ export function AssessmentQuiz() {
   return (
     <div className="max-w-2xl mx-auto space-y-6 px-4 animate-fade-in-up">
       <div className="flex items-center justify-between px-2">
-        <div className="flex flex-col">
+        <div className="flex flex-col text-right">
           <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">السؤال {currentIndex + 1} / {questions.length}</span>
           <span className="text-xl font-headline font-bold text-accent">{q.category}</span>
         </div>
