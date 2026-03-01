@@ -19,7 +19,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
 
 const navItems = [
   { name: "الرئيسية", nameEn: "Home", href: "/", icon: Home },
@@ -47,7 +46,7 @@ export function Navigation() {
       <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
         <div className="container mx-auto flex h-24 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="relative w-48 h-20 bg-white rounded-2xl transition-all duration-500 group-hover:scale-105 flex items-center justify-center p-2 shadow-xl">
+            <div className="relative w-48 h-20 bg-white rounded-2xl transition-all duration-500 group-hover:scale-105 flex items-center justify-center p-2 shadow-xl overflow-hidden">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
@@ -153,10 +152,7 @@ export function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn(
-                  "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
-                  isActive ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
-                )}
+                className={cn("nav-item-mobile", isActive && "nav-item-mobile-active")}
               >
                 <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
                 <span className="text-[8px] font-black uppercase tracking-tighter">
@@ -169,10 +165,7 @@ export function Navigation() {
           {/* Mobile Tutor Icon */}
           <Link
             href="/tutor"
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
-              pathname === "/tutor" ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
-            )}
+            className={cn("nav-item-mobile", pathname === "/tutor" && "nav-item-mobile-active")}
           >
             <Sparkles className={cn("h-5 w-5", pathname === "/tutor" && "stroke-[2.5px]")} />
             <span className="text-[8px] font-black uppercase tracking-tighter">
@@ -182,10 +175,7 @@ export function Navigation() {
 
           <Link
             href={user ? "/dashboard" : "/auth"}
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
-              pathname === "/auth" || pathname === "/dashboard" ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
-            )}
+            className={cn("nav-item-mobile", (pathname === "/auth" || pathname === "/dashboard") && "nav-item-mobile-active")}
           >
             <User className={cn("h-5 w-5", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
             <span className="text-[8px] font-black uppercase tracking-tighter">

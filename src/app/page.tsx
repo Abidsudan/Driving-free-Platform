@@ -198,7 +198,7 @@ export default function Home() {
         <div className="container mx-auto px-6 text-center space-y-16">
           <div className="flex flex-col items-center gap-8">
             <Link href="/" className="flex flex-col items-center gap-4 group">
-              <div className="relative flex items-center justify-center w-52 h-24 bg-white rounded-3xl transition-transform duration-500 group-hover:scale-105 p-3 shadow-2xl">
+              <div className="relative flex items-center justify-center w-52 h-24 bg-white rounded-3xl transition-transform duration-500 group-hover:scale-105 p-3 shadow-2xl overflow-hidden">
                 {logo?.imageUrl ? (
                   <Image 
                     src={logo.imageUrl} 
@@ -213,7 +213,7 @@ export default function Home() {
                 )}
               </div>
               <span className="font-headline font-black text-4xl tracking-tighter">
-                <span className="text-accent">DRIVING</span> FREE
+                DRIVING FREE
               </span>
             </Link>
             <p className="text-muted-foreground max-w-md font-medium">{t.footerDesc}</p>

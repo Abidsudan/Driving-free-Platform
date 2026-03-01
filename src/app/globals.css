@@ -52,6 +52,15 @@
   }
 }
 
+@layer components {
+  .nav-item-mobile {
+    @apply flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300 text-muted-foreground;
+  }
+  .nav-item-mobile-active {
+    @apply text-accent bg-accent/10 scale-105;
+  }
+}
+
 .glass-card {
   @apply bg-card/40 backdrop-blur-xl border border-white/5 hover:border-primary/30 shadow-2xl;
 }

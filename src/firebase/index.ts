@@ -1,3 +1,4 @@
+
 'use client';
 
 import { firebaseConfig } from '@/firebase/config';
@@ -34,9 +35,13 @@ export function initializeFirebase() {
 }
 
 export function getSdks(firebaseApp: FirebaseApp) {
-  // Initialize Performance Monitoring only on the client side
+  // Initialize Performance Monitoring safely only on the client side
   if (typeof window !== 'undefined') {
-    getPerformance(firebaseApp);
+    try {
+      getPerformance(firebaseApp);
+    } catch (error) {
+      console.warn("Firebase Performance could not be initialized:", error);
+    }
   }
 
   return {
