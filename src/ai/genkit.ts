@@ -4,7 +4,7 @@ import {googleAI} from '@genkit-ai/google-genai';
 
 /**
  * إعداد Genkit باستخدام موديل Gemini 1.5 Flash.
- * يتطلب وجود مفتاح GOOGLE_GENAI_API_KEY في ملف .env
+ * يستخدم مفتاح GOOGLE_GENAI_API_KEY من ملف .env
  */
 export const ai = genkit({
   plugins: [
