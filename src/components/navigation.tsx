@@ -4,7 +4,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Sparkles } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -26,7 +26,6 @@ const navItems = [
   { name: "المكتبة", nameEn: "Library", href: "/library", icon: Library },
   { name: "القواعد", nameEn: "Rules", href: "/rules", icon: ShieldCheck },
   { name: "التقييم", nameEn: "Assessment", href: "/assessment", icon: ClipboardCheck },
-  { name: "المعلم الذكي", nameEn: "AI Tutor", href: "/tutor", icon: Sparkles },
 ]
 
 export function Navigation() {
@@ -59,7 +58,7 @@ export function Navigation() {
               ) : (
                 <div className="flex items-center gap-2">
                   <CarFront className="h-8 w-8 text-primary" />
-                  <span className="font-headline font-black text-xl text-primary uppercase">DRIVING FREE</span>
+                  <span className="font-headline font-black text-xl text-primary uppercase">Driving Free</span>
                 </div>
               )}
             </div>
@@ -76,7 +75,6 @@ export function Navigation() {
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
-                {item.icon === Sparkles && <Sparkles className="h-4 w-4" />}
                 {language === 'ar' ? item.name : item.nameEn}
               </Link>
             ))}
@@ -142,7 +140,7 @@ export function Navigation() {
 
       <nav className="fixed bottom-6 left-6 right-6 z-[100] md:hidden">
         <div className="flex h-20 items-center justify-between px-2 bg-background/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-          {navItems.slice(0, 4).map((item) => {
+          {navItems.slice(0, 5).map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
             return (
@@ -159,16 +157,6 @@ export function Navigation() {
             )
           })}
           
-          <Link
-            href="/tutor"
-            className={cn("nav-item-mobile", pathname === "/tutor" && "nav-item-mobile-active")}
-          >
-            <Sparkles className={cn("h-5 w-5", pathname === "/tutor" && "stroke-[2.5px]")} />
-            <span className="text-[8px] font-black uppercase">
-              {language === 'ar' ? "المعلم" : "Tutor"}
-            </span>
-          </Link>
-
           <Link
             href={user ? "/dashboard" : "/auth"}
             className={cn("nav-item-mobile", (pathname === "/auth" || pathname === "/dashboard") && "nav-item-mobile-active")}
