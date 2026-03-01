@@ -41,29 +41,31 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
-        <div className="container mx-auto flex h-24 items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-4 group">
-            <div className="logo-container w-48 h-20">
+      {/* Desktop Navigation - Enhanced visibility and Z-index */}
+      <header className="fixed top-0 left-0 right-0 z-[999] hidden border-b border-white/10 bg-background/90 backdrop-blur-2xl md:block shadow-sm">
+        <div className="container mx-auto flex h-20 items-center justify-between px-6">
+          <Link href="/" className="flex items-center gap-4 group shrink-0">
+            <div className="logo-container w-40 h-14">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
                   alt="Driving Free Logo" 
-                  width={160}
-                  height={80}
+                  width={140}
+                  height={56}
                   className="object-contain"
                   priority
                   unoptimized
                 />
               ) : (
                 <div className="flex items-center gap-2">
-                  <CarFront className="h-8 w-8 text-primary" />
-                  <span className="font-headline font-black text-xl text-primary uppercase">Driving Free</span>
+                  <CarFront className="h-6 w-6 text-primary" />
+                  <span className="font-headline font-black text-lg text-primary uppercase">Driving Free</span>
                 </div>
               )}
             </div>
           </Link>
-          <nav className="flex items-center gap-2">
+          
+          <nav className="flex items-center gap-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -84,8 +86,8 @@ export function Navigation() {
                 <button 
                   onClick={() => setLanguage('ar')}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
-                    language === 'ar' ? "bg-primary text-white" : "text-muted-foreground"
+                    "px-2.5 py-1 rounded-lg text-xs font-black transition-all",
+                    language === 'ar' ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   AR
@@ -93,8 +95,8 @@ export function Navigation() {
                 <button 
                   onClick={() => setLanguage('en')}
                   className={cn(
-                    "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
-                    language === 'en' ? "bg-primary text-white" : "text-muted-foreground"
+                    "px-2.5 py-1 rounded-lg text-xs font-black transition-all",
+                    language === 'en' ? "bg-primary text-white" : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   EN
@@ -111,7 +113,7 @@ export function Navigation() {
                       </AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 glass-card border-white/10 mt-2">
+                  <DropdownMenuContent align="end" className="w-56 glass-card border-white/10 mt-2 z-[1000]">
                     <DropdownMenuLabel className="font-headline font-bold">
                       {language === 'ar' ? 'حسابي' : 'My Account'}
                     </DropdownMenuLabel>
@@ -128,7 +130,7 @@ export function Navigation() {
                 </DropdownMenu>
               ) : (
                 <Link href="/auth">
-                  <button className="px-6 py-2 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-xl shadow-primary/20">
+                  <button className="px-6 py-2 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
                     {language === 'ar' ? 'دخول' : 'Login'}
                   </button>
                 </Link>
@@ -138,16 +140,20 @@ export function Navigation() {
         </div>
       </header>
 
-      <nav className="fixed bottom-6 left-6 right-6 z-[100] md:hidden">
-        <div className="flex h-20 items-center justify-between px-2 bg-background/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-          {navItems.slice(0, 5).map((item) => {
+      {/* Mobile Bottom Navigation - Ensuring high visibility and Z-index */}
+      <nav className="fixed bottom-6 left-6 right-6 z-[999] md:hidden">
+        <div className="flex h-20 items-center justify-between px-2 bg-background/95 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+          {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn("nav-item-mobile", isActive && "nav-item-mobile-active")}
+                className={cn(
+                  "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
+                  isActive ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
+                )}
               >
                 <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
                 <span className="text-[8px] font-black uppercase">
@@ -159,7 +165,10 @@ export function Navigation() {
           
           <Link
             href={user ? "/dashboard" : "/auth"}
-            className={cn("nav-item-mobile", (pathname === "/auth" || pathname === "/dashboard") && "nav-item-mobile-active")}
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
+              (pathname === "/auth" || pathname === "/dashboard") ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
+            )}
           >
             <User className={cn("h-5 w-5", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
             <span className="text-[8px] font-black uppercase">
