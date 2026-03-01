@@ -24,21 +24,21 @@ export function Navigation() {
     <>
       {/* Desktop Top Nav */}
       <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
-        <div className="container mx-auto flex h-20 items-center justify-between px-6">
+        <div className="container mx-auto flex h-24 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="relative w-20 h-20 transition-all duration-500 group-hover:scale-110 flex items-center justify-center">
+            <div className="relative w-40 h-24 transition-all duration-500 group-hover:scale-105 flex items-center justify-center">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
                   alt="Driving Free Logo" 
-                  width={80}
-                  height={80}
+                  width={160}
+                  height={96}
                   className="object-contain"
                   priority
                   unoptimized
                 />
               ) : (
-                <CarFront className="h-8 w-8 text-primary" />
+                <CarFront className="h-12 w-12 text-primary" />
               )}
             </div>
             <span className="font-headline text-2xl font-black tracking-tighter">

@@ -37,7 +37,7 @@ export default function Home() {
             </h1>
             
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
-              الأكاديمية الأولى في دبي التي تحول الخبرة الميدانية العميقة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
+              الأكاديمية الأولى في دبي التي تحول خبرة ميدانية عميقة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
@@ -184,18 +184,18 @@ export default function Home() {
         <div className="container mx-auto px-6 text-center space-y-16">
           <div className="flex flex-col items-center gap-8">
             <Link href="/" className="flex flex-col items-center gap-4 group">
-              <div className="relative flex items-center justify-center w-24 h-24 transition-transform duration-500 group-hover:rotate-6">
+              <div className="relative flex items-center justify-center w-48 h-24 transition-transform duration-500 group-hover:scale-105">
                 {logo?.imageUrl ? (
                   <Image 
                     src={logo.imageUrl} 
                     alt="Driving Free Official Logo" 
-                    width={96}
+                    width={192}
                     height={96}
                     className="object-contain"
                     unoptimized
                   />
                 ) : (
-                  <Shield className="h-10 w-10 text-primary" fill="currentColor" />
+                  <Shield className="h-16 w-16 text-primary" fill="currentColor" />
                 )}
               </div>
               <span className="font-headline font-black text-4xl tracking-tighter">
