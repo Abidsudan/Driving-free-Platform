@@ -1,19 +1,17 @@
-
 'use client';
 import {
   Auth,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 import { getRecaptchaToken } from '@/lib/recaptcha';
 
 /** Initiate anonymous sign-in (non-blocking) with reCAPTCHA protection. */
 export function initiateAnonymousSignIn(authInstance: Auth): void {
-  // CRITICAL: Call grecaptcha.enterprise.execute before the sensitive action.
   getRecaptchaToken('LOGIN').then((token) => {
-    // In a full production app, you would verify the token on your backend.
-    // For client-side Firebase Auth, we proceed after reCAPTCHA check.
     signInAnonymously(authInstance);
   });
 }
@@ -29,5 +27,13 @@ export function initiateEmailSignUp(authInstance: Auth, email: string, password:
 export function initiateEmailSignIn(authInstance: Auth, email: string, password: string): void {
   getRecaptchaToken('LOGIN').then((token) => {
     signInWithEmailAndPassword(authInstance, email, password);
+  });
+}
+
+/** Initiate Google sign-in (non-blocking). */
+export function initiateGoogleSignIn(authInstance: Auth): void {
+  const provider = new GoogleAuthProvider();
+  getRecaptchaToken('LOGIN').then((token) => {
+    signInWithPopup(authInstance, provider);
   });
 }
