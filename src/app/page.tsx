@@ -1,7 +1,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { BookOpen, Library, GraduationCap, ChevronLeft, CheckCircle, ArrowUpRight, Target, Users, Clock, Shield, Zap } from "lucide-react"
+import { BookOpen, Library, GraduationCap, ChevronLeft, CircleCheckBig, ArrowUpRight, Target, Users, Clock, Shield, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -41,8 +41,12 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 justify-center lg:justify-start pt-6">
-              <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xl px-12 h-20 rounded-[2rem] shadow-2xl shadow-primary/40 group overflow-hidden relative border-none"><Link href="/curriculum" className="flex items-center gap-3 relative z-10"><span>ابدأ رحلة التعلم</span><ArrowUpRight className="h-6 w-6 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2" /></Link></Button>
-              <Button size="lg" variant="outline" asChild className="text-xl px-12 h-20 rounded-[2rem] glass-card border-white/10 hover:bg-white/5 font-bold"><Link href="/assessment">خوض اختبار ذكاء RTA</Link></Button>
+              <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xl px-12 h-20 rounded-[2rem] shadow-2xl shadow-primary/40 group overflow-hidden relative">
+                <Link href="/curriculum" className="flex items-center gap-3 relative z-10">ابدأ رحلة التعلم <ArrowUpRight className="h-6 w-6 transition-transform group-hover:translate-x-2 group-hover:-translate-y-2" /></Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild className="text-xl px-12 h-20 rounded-[2rem] glass-card border-white/10 hover:bg-white/5 font-bold">
+                <Link href="/assessment">خوض اختبار ذكاء RTA</Link>
+              </Button>
             </div>
           </div>
 
@@ -86,7 +90,6 @@ export default function Home() {
                       alt="student" 
                       width={40} 
                       height={40} 
-                      className="object-cover" 
                     />
                   </div>
                 ))}
@@ -103,7 +106,7 @@ export default function Home() {
         <section className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 py-24 px-12 rounded-[4rem] glass-card border-white/10 mb-40 animate-fade-in-up stagger-1 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
           {[
-            { label: "منهج RTA المطور", value: "100%", icon: CheckCircle, color: "text-primary" },
+            { label: "منهج RTA المطور", value: "100%", icon: CircleCheckBig, color: "text-primary" },
             { label: "دقة محاكي الذكاء", value: "98%", icon: Target, color: "text-accent" },
             { label: "ساعة تدريب ميداني", value: "5000+", icon: Clock, color: "text-indigo-400" },
             { label: "خريج رخصة قيادة", value: "1200+", icon: Users, color: "text-emerald-400" },
@@ -181,18 +184,18 @@ export default function Home() {
         <div className="container mx-auto px-6 text-center space-y-16">
           <div className="flex flex-col items-center gap-8">
             <Link href="/" className="flex flex-col items-center gap-4 group">
-              <div className="relative flex items-center justify-center w-20 h-20 rounded-3xl overflow-hidden bg-primary shadow-2xl shadow-primary/40 transition-transform duration-500 group-hover:rotate-12">
+              <div className="relative flex items-center justify-center w-24 h-24 transition-transform duration-500 group-hover:rotate-6">
                 {logo?.imageUrl ? (
                   <Image 
                     src={logo.imageUrl} 
                     alt="Driving Free Official Logo" 
-                    width={80}
-                    height={80}
-                    className="object-contain p-2"
+                    width={96}
+                    height={96}
+                    className="object-contain"
                     unoptimized
                   />
                 ) : (
-                  <Shield className="h-10 w-10 text-background" fill="currentColor" />
+                  <Shield className="h-10 w-10 text-primary" fill="currentColor" />
                 )}
               </div>
               <span className="font-headline font-black text-4xl tracking-tighter">
@@ -210,7 +213,7 @@ export default function Home() {
           </div>
           
           <div className="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black text-muted-foreground/50 uppercase tracking-[0.2em]">
-            <p>© 2025 أكاديمية القيادة الحرة • دبي ، الإمارات العربية المتحدة</p>
+            <p>© 2026 أكاديمية القيادة الحرة • دبي ، الإمارات العربية المتحدة</p>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
               النظام يعمل بكفاءة كاملة عبر drivingfreee.online
