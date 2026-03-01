@@ -79,22 +79,27 @@ export function Navigation() {
             ))}
             
             <div className="flex items-center gap-4 mr-4 border-r border-white/10 pr-4 rtl:mr-0 rtl:ml-4 rtl:border-r-0 rtl:border-l rtl:pr-0 rtl:pl-4">
-              {/* Language Switcher */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/10">
-                    <Languages className="h-5 w-5 text-primary" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="glass-card border-white/10">
-                  <DropdownMenuItem onClick={() => setLanguage('ar')} className="cursor-pointer font-bold">
-                    العربية
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setLanguage('en')} className="cursor-pointer font-bold">
-                    English
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              {/* Desktop Language Buttons */}
+              <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl">
+                <button 
+                  onClick={() => setLanguage('ar')}
+                  className={cn(
+                    "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
+                    language === 'ar' ? "bg-primary text-white shadow-lg shadow-primary/20" : "text-muted-foreground hover:text-white"
+                  )}
+                >
+                  AR
+                </button>
+                <button 
+                  onClick={() => setLanguage('en')}
+                  className={cn(
+                    "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
+                    language === 'en' ? "bg-primary text-white shadow-lg shadow-primary/20" : "text-muted-foreground hover:text-white"
+                  )}
+                >
+                  EN
+                </button>
+              </div>
 
               {user ? (
                 <DropdownMenu>
@@ -135,8 +140,8 @@ export function Navigation() {
 
       {/* Mobile Bottom Nav */}
       <nav className="fixed bottom-6 left-6 right-6 z-[100] md:hidden">
-        <div className="flex h-20 items-center justify-between px-4 bg-background/60 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl">
-          {navItems.map((item) => {
+        <div className="flex h-20 items-center justify-between px-2 bg-background/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+          {navItems.slice(0, 3).map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
             return (
@@ -144,26 +149,38 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center justify-center flex-1 gap-1.5 h-full rounded-2xl transition-all duration-300",
+                  "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
                   isActive ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
                 )}
               >
-                <Icon className={cn("h-6 w-6", isActive && "stroke-[2.5px]")} />
-                <span className="text-[10px] font-black uppercase tracking-tighter">
+                <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
+                <span className="text-[8px] font-black uppercase tracking-tighter">
                   {language === 'ar' ? item.name : item.nameEn}
                 </span>
               </Link>
             )
           })}
+          
+          {/* Mobile Language Toggle */}
+          <button
+            onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')}
+            className="flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl text-primary"
+          >
+            <Languages className="h-5 w-5" />
+            <span className="text-[8px] font-black uppercase tracking-tighter">
+              {language === 'ar' ? "EN" : "AR"}
+            </span>
+          </button>
+
           <Link
             href={user ? "/dashboard" : "/auth"}
             className={cn(
-              "flex flex-col items-center justify-center flex-1 gap-1.5 h-full rounded-2xl transition-all duration-300",
+              "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
               pathname === "/auth" || pathname === "/dashboard" ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
             )}
           >
-            <User className={cn("h-6 w-6", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
-            <span className="text-[10px] font-black uppercase tracking-tighter">
+            <User className={cn("h-5 w-5", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
+            <span className="text-[8px] font-black uppercase tracking-tighter">
               {user ? (language === 'ar' ? "لوحتي" : "Panel") : (language === 'ar' ? "دخول" : "Login")}
             </span>
           </Link>
