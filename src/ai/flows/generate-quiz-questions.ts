@@ -58,6 +58,7 @@ export async function generateQuizQuestions(
 
 const prompt = ai.definePrompt({
   name: 'generateQuizQuestionsPrompt',
+  model: 'googleai/gemini-1.5-pro',
   input: { schema: GenerateQuizQuestionsInputSchema },
   output: { schema: GenerateQuizQuestionsOutputSchema },
   prompt: `You are an expert in designing RTA driving exam questions for Dubai. 
