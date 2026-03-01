@@ -53,24 +53,22 @@
 }
 
 @layer components {
+  /* Simplified classes to avoid Firebase Performance Attribute length limits */
   .nav-item-mobile {
     @apply flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300 text-muted-foreground;
   }
   .nav-item-mobile-active {
     @apply text-accent bg-accent/10 scale-105;
   }
-}
-
-.glass-card {
-  @apply bg-card/40 backdrop-blur-xl border border-white/5 hover:border-primary/30 shadow-2xl;
-}
-
-.premium-gradient {
-  @apply bg-gradient-to-br from-primary via-primary/80 to-accent/20;
-}
-
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  .logo-container {
+    @apply relative flex items-center justify-center bg-white rounded-2xl transition-all duration-500 p-2 shadow-xl overflow-hidden;
+  }
+  .glass-card {
+    @apply bg-card/40 backdrop-blur-xl border border-white/5 hover:border-primary/30 shadow-2xl;
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
 }
 
 @keyframes fade-in-up {

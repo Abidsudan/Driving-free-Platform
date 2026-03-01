@@ -4,7 +4,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Languages, Sparkles } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -42,11 +42,10 @@ export function Navigation() {
 
   return (
     <>
-      {/* Desktop Top Nav */}
       <header className="fixed top-0 left-0 right-0 z-[100] hidden border-b border-white/5 bg-background/40 backdrop-blur-2xl md:block">
         <div className="container mx-auto flex h-24 items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4 group">
-            <div className="relative w-48 h-20 bg-white rounded-2xl transition-all duration-500 group-hover:scale-105 flex items-center justify-center p-2 shadow-xl overflow-hidden">
+            <div className="logo-container w-48 h-20">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
@@ -60,7 +59,7 @@ export function Navigation() {
               ) : (
                 <div className="flex items-center gap-2">
                   <CarFront className="h-8 w-8 text-primary" />
-                  <span className="font-headline font-black text-xl text-primary">DRIVING FREE</span>
+                  <span className="font-headline font-black text-xl text-primary uppercase">DRIVING FREE</span>
                 </div>
               )}
             </div>
@@ -71,7 +70,7 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-6 py-2 rounded-full text-sm font-bold tracking-tight transition-all duration-300 flex items-center gap-2",
+                  "px-4 py-2 rounded-full text-sm font-bold tracking-tight transition-all duration-300 flex items-center gap-2",
                   pathname === item.href 
                     ? "text-accent bg-accent/10 border border-accent/20" 
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
@@ -82,14 +81,13 @@ export function Navigation() {
               </Link>
             ))}
             
-            <div className="flex items-center gap-4 mr-4 border-r border-white/10 pr-4 rtl:mr-0 rtl:ml-4 rtl:border-r-0 rtl:border-l rtl:pr-0 rtl:pl-4">
-              {/* Desktop Language Buttons */}
+            <div className="flex items-center gap-4 ml-4 border-r border-white/10 pr-4 rtl:mr-0 rtl:ml-4 rtl:border-r-0 rtl:border-l rtl:pr-0 rtl:pl-4">
               <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl">
                 <button 
                   onClick={() => setLanguage('ar')}
                   className={cn(
                     "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
-                    language === 'ar' ? "bg-primary text-white shadow-lg shadow-primary/20" : "text-muted-foreground hover:text-white"
+                    language === 'ar' ? "bg-primary text-white" : "text-muted-foreground"
                   )}
                 >
                   AR
@@ -98,7 +96,7 @@ export function Navigation() {
                   onClick={() => setLanguage('en')}
                   className={cn(
                     "px-3 py-1.5 rounded-lg text-xs font-black transition-all",
-                    language === 'en' ? "bg-primary text-white shadow-lg shadow-primary/20" : "text-muted-foreground hover:text-white"
+                    language === 'en' ? "bg-primary text-white" : "text-muted-foreground"
                   )}
                 >
                   EN
@@ -111,7 +109,7 @@ export function Navigation() {
                     <Avatar className="h-10 w-10 cursor-pointer border-2 border-primary/20 hover:border-primary/50 transition-all">
                       <AvatarImage src={user.photoURL || undefined} />
                       <AvatarFallback className="bg-primary/20 text-primary font-bold">
-                        {user.displayName?.charAt(0) || user.email?.charAt(0) || <User className="h-4 w-4" />}
+                        {user.displayName?.charAt(0) || user.email?.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
@@ -125,15 +123,15 @@ export function Navigation() {
                         <LayoutDashboard className="h-4 w-4" /> {language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-400 focus:text-red-400 flex items-center gap-2">
+                    <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-400 flex items-center gap-2">
                       <LogOut className="h-4 w-4" /> {language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
                 <Link href="/auth">
-                  <button className="px-8 py-2.5 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
-                    {language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}
+                  <button className="px-6 py-2 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-xl shadow-primary/20">
+                    {language === 'ar' ? 'دخول' : 'Login'}
                   </button>
                 </Link>
               )}
@@ -142,7 +140,6 @@ export function Navigation() {
         </div>
       </header>
 
-      {/* Mobile Bottom Nav */}
       <nav className="fixed bottom-6 left-6 right-6 z-[100] md:hidden">
         <div className="flex h-20 items-center justify-between px-2 bg-background/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
           {navItems.slice(0, 4).map((item) => {
@@ -155,20 +152,19 @@ export function Navigation() {
                 className={cn("nav-item-mobile", isActive && "nav-item-mobile-active")}
               >
                 <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
-                <span className="text-[8px] font-black uppercase tracking-tighter">
+                <span className="text-[8px] font-black uppercase">
                   {language === 'ar' ? item.name : item.nameEn}
                 </span>
               </Link>
             )
           })}
           
-          {/* Mobile Tutor Icon */}
           <Link
             href="/tutor"
             className={cn("nav-item-mobile", pathname === "/tutor" && "nav-item-mobile-active")}
           >
             <Sparkles className={cn("h-5 w-5", pathname === "/tutor" && "stroke-[2.5px]")} />
-            <span className="text-[8px] font-black uppercase tracking-tighter">
+            <span className="text-[8px] font-black uppercase">
               {language === 'ar' ? "المعلم" : "Tutor"}
             </span>
           </Link>
@@ -178,7 +174,7 @@ export function Navigation() {
             className={cn("nav-item-mobile", (pathname === "/auth" || pathname === "/dashboard") && "nav-item-mobile-active")}
           >
             <User className={cn("h-5 w-5", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
-            <span className="text-[8px] font-black uppercase tracking-tighter">
+            <span className="text-[8px] font-black uppercase">
               {user ? (language === 'ar' ? "لوحتي" : "Panel") : (language === 'ar' ? "دخول" : "Login")}
             </span>
           </Link>
