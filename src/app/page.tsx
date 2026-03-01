@@ -3,7 +3,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { BookOpen, Library, GraduationCap, ChevronLeft, CircleCheckBig, ArrowUpRight, Target, Users, Clock, Shield, Zap, ChevronRight } from "lucide-react"
+import { BookOpen, Library, GraduationCap, ChevronLeft, CircleCheckBig, ArrowUpRight, Target, Users, Clock, Shield, Zap, ChevronRight, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -12,7 +12,7 @@ import { useLanguage } from "@/components/language-provider"
 
 export default function Home() {
   const { language, dir } = useLanguage()
-  const instructorImg = PlaceHolderImages.find(img => img.id === "instructor-hero")
+  const heroBg = PlaceHolderImages.find(img => img.id === "hero-bg")
   const logo = PlaceHolderImages.find(img => img.id === "site-logo")
 
   const t = {
@@ -26,7 +26,6 @@ export default function Home() {
     btnQuiz: language === 'ar' ? "خوض اختبار ذكاء RTA" : "Take AI RTA Test",
     statsConfidence: language === 'ar' ? "ثقة وأمان" : "Trust & Safety",
     statsExperience: language === 'ar' ? "خبرة تدريبية موثقة" : "Certified Experience",
-    statsStudents: language === 'ar' ? "طلاب ناجحون في دبي" : "Successful Students in Dubai",
     statRta: language === 'ar' ? "منهج RTA المطور" : "Advanced RTA Curriculum",
     statAi: language === 'ar' ? "دقة محاكي الذكاء" : "AI Simulator Accuracy",
     statHours: language === 'ar' ? "ساعة تدريب ميداني" : "Field Training Hours",
@@ -71,16 +70,24 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* Dynamic Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] opacity-40 animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent/10 rounded-full blur-[120px] opacity-30" />
-      </div>
+      {/* Hero Section with Image Background */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {heroBg?.imageUrl && (
+          <div className="absolute inset-0 z-0">
+            <Image 
+              src={heroBg.imageUrl} 
+              alt="Driving Free Background" 
+              fill
+              priority
+              className="object-cover opacity-60"
+              data-ai-hint="dubai highway night"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/40 to-background" />
+          </div>
+        )}
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        {/* Hero Section */}
-        <section className="flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-24 pt-16 md:pt-32 pb-24 animate-fade-in-up">
-          <div className={cn("flex-1 space-y-10 text-center", dir === 'rtl' ? "lg:text-right" : "lg:text-left")}>
+        <div className="container mx-auto px-4 md:px-6 relative z-10 text-center animate-fade-in-up">
+          <div className="flex flex-col items-center gap-12 max-w-5xl mx-auto">
             <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs md:text-sm font-bold tracking-wide backdrop-blur-md">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
@@ -94,11 +101,11 @@ export default function Home() {
               <span className="text-gradient">{t.heroTitleSpan}</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
+            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed font-medium max-w-2xl">
               {t.heroDesc}
             </p>
             
-            <div className={cn("flex flex-col sm:flex-row items-center gap-6 justify-center", dir === 'rtl' ? "lg:justify-start" : "lg:justify-end")}>
+            <div className="flex flex-col sm:flex-row items-center gap-6 justify-center w-full">
               <Button size="lg" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground font-black text-xl px-12 h-20 rounded-[2rem] shadow-2xl shadow-primary/40 group overflow-hidden relative">
                 <Link href="/curriculum" className="flex items-center gap-3 relative z-10">
                   {t.btnStart} 
@@ -110,41 +117,12 @@ export default function Home() {
               </Button>
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="flex-1 relative w-full aspect-square max-w-xl lg:max-w-none group">
-            <div className="absolute inset-0 bg-primary/30 rounded-[4rem] blur-[80px] group-hover:bg-primary/40 transition-all duration-1000" />
-            {instructorImg?.imageUrl && (
-              <div className="relative z-10 w-full h-full overflow-hidden rounded-[4rem] border-2 border-white/20 shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.02]">
-                <Image 
-                  src={instructorImg.imageUrl} 
-                  alt="Professional Instructor" 
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
-                  data-ai-hint="dubai driving instructor"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-60" />
-              </div>
-            )}
-            
-            {/* Experience Floating Badge */}
-            <div className={cn("absolute z-20 glass-card p-8 rounded-[2.5rem] border-white/20 animate-fade-in-up stagger-2 shadow-2xl shadow-black/50", dir === 'rtl' ? "-bottom-10 -left-10" : "-bottom-10 -right-10")}>
-                <div className="flex items-center gap-5">
-                    <div className="bg-accent p-4 rounded-2xl shadow-xl shadow-accent/30">
-                        <Zap className="h-8 w-8 text-background" fill="currentColor" />
-                    </div>
-                    <div>
-                        <span className="block text-4xl font-black text-accent tracking-tighter">{t.statsConfidence}</span>
-                        <span className="text-xs font-black text-muted-foreground uppercase tracking-[0.3em]">{t.statsExperience}</span>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </section>
-
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Stats Grid */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 py-24 px-12 rounded-[4rem] glass-card border-white/10 mb-40 animate-fade-in-up stagger-1 relative overflow-hidden">
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 py-24 px-12 rounded-[4rem] glass-card border-white/10 -mt-20 mb-40 animate-fade-in-up stagger-1 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50" />
           {[
             { label: t.statRta, value: "100%", icon: CircleCheckBig, color: "text-primary" },
