@@ -4,11 +4,12 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Languages } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
 import { signOut } from "firebase/auth"
+import { useLanguage } from "@/components/language-provider"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,19 +19,21 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { name: "الرئيسية", href: "/", icon: Home },
-  { name: "المنهج", href: "/curriculum", icon: BookOpen },
-  { name: "المكتبة", href: "/library", icon: Library },
-  { name: "القواعد", href: "/rules", icon: ShieldCheck },
-  { name: "التقييم", href: "/assessment", icon: ClipboardCheck },
+  { name: "الرئيسية", nameEn: "Home", href: "/", icon: Home },
+  { name: "المنهج", nameEn: "Curriculum", href: "/curriculum", icon: BookOpen },
+  { name: "المكتبة", nameEn: "Library", href: "/library", icon: Library },
+  { name: "القواعد", nameEn: "Rules", href: "/rules", icon: ShieldCheck },
+  { name: "التقييم", nameEn: "Assessment", href: "/assessment", icon: ClipboardCheck },
 ]
 
 export function Navigation() {
   const pathname = usePathname()
   const { user } = useUser()
   const auth = useAuth()
+  const { language, setLanguage } = useLanguage()
   const logo = PlaceHolderImages.find(img => img.id === "site-logo")
 
   const handleSignOut = () => {
@@ -71,11 +74,28 @@ export function Navigation() {
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
-                {item.name}
+                {language === 'ar' ? item.name : item.nameEn}
               </Link>
             ))}
             
-            <div className="mr-4 border-r border-white/10 pr-4">
+            <div className="flex items-center gap-4 mr-4 border-r border-white/10 pr-4 rtl:mr-0 rtl:ml-4 rtl:border-r-0 rtl:border-l rtl:pr-0 rtl:pl-4">
+              {/* Language Switcher */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/10">
+                    <Languages className="h-5 w-5 text-primary" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="glass-card border-white/10">
+                  <DropdownMenuItem onClick={() => setLanguage('ar')} className="cursor-pointer font-bold">
+                    العربية
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setLanguage('en')} className="cursor-pointer font-bold">
+                    English
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -87,22 +107,24 @@ export function Navigation() {
                     </Avatar>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56 glass-card border-white/10 mt-2">
-                    <DropdownMenuLabel className="font-headline font-bold">حسابي</DropdownMenuLabel>
+                    <DropdownMenuLabel className="font-headline font-bold">
+                      {language === 'ar' ? 'حسابي' : 'My Account'}
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator className="bg-white/5" />
                     <DropdownMenuItem asChild>
                       <Link href="/dashboard" className="cursor-pointer flex items-center gap-2">
-                        <LayoutDashboard className="h-4 w-4" /> لوحة التحكم
+                        <LayoutDashboard className="h-4 w-4" /> {language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer text-red-400 focus:text-red-400 flex items-center gap-2">
-                      <LogOut className="h-4 w-4" /> تسجيل الخروج
+                      <LogOut className="h-4 w-4" /> {language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               ) : (
                 <Link href="/auth">
                   <button className="px-8 py-2.5 rounded-2xl bg-primary text-primary-foreground font-black text-sm shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
-                    تسجيل الدخول
+                    {language === 'ar' ? 'تسجيل الدخول' : 'Sign In'}
                   </button>
                 </Link>
               )}
@@ -127,7 +149,9 @@ export function Navigation() {
                 )}
               >
                 <Icon className={cn("h-6 w-6", isActive && "stroke-[2.5px]")} />
-                <span className="text-[10px] font-black uppercase tracking-tighter">{item.name}</span>
+                <span className="text-[10px] font-black uppercase tracking-tighter">
+                  {language === 'ar' ? item.name : item.nameEn}
+                </span>
               </Link>
             )
           })}
@@ -139,7 +163,9 @@ export function Navigation() {
             )}
           >
             <User className={cn("h-6 w-6", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
-            <span className="text-[10px] font-black uppercase tracking-tighter">{user ? "لوحتي" : "دخول"}</span>
+            <span className="text-[10px] font-black uppercase tracking-tighter">
+              {user ? (language === 'ar' ? "لوحتي" : "Panel") : (language === 'ar' ? "دخول" : "Login")}
+            </span>
           </Link>
         </div>
       </nav>

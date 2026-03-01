@@ -4,6 +4,7 @@ import './globals.css';
 import { Navigation } from '@/components/navigation';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import { LanguageProvider } from '@/components/language-provider';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
@@ -28,13 +29,15 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased min-h-screen flex flex-col">
-        <FirebaseClientProvider>
-          <Navigation />
-          <main className="flex-1 pt-16 pb-24 md:pb-0 md:pt-20">
-            {children}
-          </main>
-          <Toaster />
-        </FirebaseClientProvider>
+        <LanguageProvider>
+          <FirebaseClientProvider>
+            <Navigation />
+            <main className="flex-1 pt-16 pb-24 md:pb-0 md:pt-20">
+              {children}
+            </main>
+            <Toaster />
+          </FirebaseClientProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
