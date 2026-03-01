@@ -8,21 +8,25 @@
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
+const DailyTipInputSchema = z.object({
+  language: z.enum(['ar', 'en']).default('ar').describe('The language for the tip.'),
+});
+
 const DailyTipOutputSchema = z.object({
   title: z.string().describe('The title of the tip.'),
-  content: z.string().describe('The detailed professional advice in Arabic.'),
+  content: z.string().describe('The detailed professional advice.'),
   category: z.string().describe('The category (e.g., Physics of Driving, Psychology, RTA Rules).'),
 });
 
 export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
 
-export async function getDailyDrivingTip(): Promise<DailyTipOutput> {
+export async function getDailyDrivingTip(language: 'ar' | 'en' = 'ar'): Promise<DailyTipOutput> {
   const { output } = await ai.generate({
     model: 'googleai/gemini-2.5-flash',
     output: { schema: DailyTipOutputSchema },
-    prompt: `أنت كبير مدربي القيادة في دبي. قدم نصيحة أكاديمية وعلمية قصيرة واحترافية اليوم لطلاب القيادة باللغة العربية. 
-    ركز على جوانب تقنية مثل (فيزياء الكبح، التعامل مع النقاط العمياء، سيكولوجية القيادة تحت الضغط، أو قواعد نظام DSSSM).
-    اجعل الأسلوب علمياً، رصيناً ومفيداً جداً.`,
+    prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: ${language}. 
+    Focus on technical aspects like (Braking Physics, Blind Spot Management, Psychology under pressure, or DSSSM rules).
+    Keep the style scientific, formal, and highly informative.`,
   });
 
   if (!output) {

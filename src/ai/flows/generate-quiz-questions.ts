@@ -26,15 +26,19 @@ const GenerateQuizQuestionsInputSchema = z.object({
     .enum(['easy', 'medium', 'hard'])
     .default('medium')
     .describe('The difficulty level of the generated questions.'),
+  language: z
+    .enum(['ar', 'en'])
+    .default('ar')
+    .describe('The language of the generated questions.'),
 });
 
 export type GenerateQuizQuestionsInput = z.infer<typeof GenerateQuizQuestionsInputSchema>;
 
 const QuizQuestionSchema = z.object({
-  questionText: z.string().describe('The question text in Arabic.'),
-  options: z.array(z.string()).min(2).max(4).describe('An array of possible answer options in Arabic.'),
+  questionText: z.string().describe('The question text in the requested language.'),
+  options: z.array(z.string()).min(2).max(4).describe('An array of possible answer options.'),
   correctAnswerIndex: z.number().int().describe('The zero-based index of the correct answer in the options array.'),
-  explanation: z.string().describe('A detailed explanation in Arabic of why the chosen answer is correct.'),
+  explanation: z.string().describe('A detailed explanation of why the chosen answer is correct.'),
   category: z
     .string()
     .describe('The category of the question (e.g., "Driving Scenario", "Rule Comprehension", "Road Sign").'),
@@ -56,21 +60,22 @@ const prompt = ai.definePrompt({
   name: 'generateQuizQuestionsPrompt',
   input: { schema: GenerateQuizQuestionsInputSchema },
   output: { schema: GenerateQuizQuestionsOutputSchema },
-  prompt: `أنت خبير في تصميم أسئلة امتحانات القيادة لهيئة الطرق والمواصلات (RTA) في دبي. مهمتك هي إنشاء ${'{{{numberOfQuestions}}}'} سؤالاً متعدد الخيارات باللغة العربية.
+  prompt: `You are an expert in designing RTA driving exam questions for Dubai. 
+Your task is to create {{{numberOfQuestions}}} multiple-choice questions in the language: {{{language}}}.
 
-الأسئلة يجب أن تحاكي اختبار RTA النظري، مع التركيز على سيناريوهات القيادة وفهم القواعد واللوائح. يجب أن تستند الأسئلة إلى دليل القيادة الخاص بهيئة الطرق والمواصلات وقواعد نظام DSSSM، بالإضافة إلى أسباب الرسوب الفوري في الاختبارات العملية والأسئلة النظرية الشائعة.
+The questions must simulate the official RTA theory test, focusing on driving scenarios, rules, and regulations. Use RTA handbooks, DSSSM rules, and common failure reasons.
 
-الموضوع: ${'{{{topic}}}'}
-مستوى الصعوبة: ${'{{{difficulty}}}'}
+Topic: {{{topic}}}
+Difficulty: {{{difficulty}}}
 
-لكل سؤال، قم بتوفير:
-- نص السؤال (بالعربية).
-- قائمة بالخيارات الممكنة (2-4 خيارات، بالعربية).
-- فهرس الإجابة الصحيحة (فهرس صفري).
-- شرح مفصل للإجابة الصحيحة (بالعربية).
-- فئة السؤال (مثل "سيناريو قيادة"، "فهم القواعد"، "إشارات المرور").
+For each question, provide:
+- Question text.
+- List of possible options (2-4).
+- Correct answer index (zero-based).
+- Detailed explanation.
+- Category (e.g., "Driving Scenario", "Rule Comprehension", "Road Sign").
 
-تأكد من أن الأسئلة متنوعة وذات صلة بسياق القيادة في دبي.
+Ensure the questions are diverse and relevant to the Dubai context.
 `,
 });
 
