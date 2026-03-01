@@ -3,3 +3,4 @@ config();
 
 import '@/ai/flows/generate-quiz-questions.ts';
 import '@/ai/flows/get-daily-tip.ts';
+import '@/ai/flows/driving-tutor.ts';

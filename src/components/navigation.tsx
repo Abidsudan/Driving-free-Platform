@@ -1,10 +1,9 @@
-
 "use client"
 
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Languages } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Languages, Sparkles } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -27,6 +26,7 @@ const navItems = [
   { name: "المكتبة", nameEn: "Library", href: "/library", icon: Library },
   { name: "القواعد", nameEn: "Rules", href: "/rules", icon: ShieldCheck },
   { name: "التقييم", nameEn: "Assessment", href: "/assessment", icon: ClipboardCheck },
+  { name: "المعلم الذكي", nameEn: "AI Tutor", href: "/tutor", icon: Sparkles },
 ]
 
 export function Navigation() {
@@ -68,12 +68,13 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-6 py-2 rounded-full text-sm font-bold tracking-tight transition-all duration-300",
+                  "px-6 py-2 rounded-full text-sm font-bold tracking-tight transition-all duration-300 flex items-center gap-2",
                   pathname === item.href 
                     ? "text-accent bg-accent/10 border border-accent/20" 
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
+                {item.icon === Sparkles && <Sparkles className="h-4 w-4" />}
                 {language === 'ar' ? item.name : item.nameEn}
               </Link>
             ))}
@@ -141,7 +142,7 @@ export function Navigation() {
       {/* Mobile Bottom Nav */}
       <nav className="fixed bottom-6 left-6 right-6 z-[100] md:hidden">
         <div className="flex h-20 items-center justify-between px-2 bg-background/80 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
-          {navItems.slice(0, 3).map((item) => {
+          {navItems.slice(0, 4).map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
             return (
@@ -161,16 +162,19 @@ export function Navigation() {
             )
           })}
           
-          {/* Mobile Language Toggle */}
-          <button
-            onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')}
-            className="flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl text-primary"
+          {/* Mobile Tutor Icon */}
+          <Link
+            href="/tutor"
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300",
+              pathname === "/tutor" ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
+            )}
           >
-            <Languages className="h-5 w-5" />
+            <Sparkles className={cn("h-5 w-5", pathname === "/tutor" && "stroke-[2.5px]")} />
             <span className="text-[8px] font-black uppercase tracking-tighter">
-              {language === 'ar' ? "EN" : "AR"}
+              {language === 'ar' ? "المعلم" : "Tutor"}
             </span>
-          </button>
+          </Link>
 
           <Link
             href={user ? "/dashboard" : "/auth"}
