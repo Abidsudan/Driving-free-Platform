@@ -22,7 +22,6 @@ export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
 
 export async function getDailyDrivingTip(language: 'ar' | 'en' = 'ar'): Promise<DailyTipOutput> {
   const { output } = await ai.generate({
-    model: 'googleai/gemini-2.5-flash',
     output: { schema: DailyTipOutputSchema },
     prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: ${language}. 
     Focus on technical aspects like (Braking Physics, Blind Spot Management, Psychology under pressure, or DSSSM rules).
