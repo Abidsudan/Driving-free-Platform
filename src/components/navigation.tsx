@@ -31,7 +31,8 @@ export function Navigation() {
                 <Image 
                   src={logo.imageUrl} 
                   alt="Driving Free Logo" 
-                  fill 
+                  width={64}
+                  height={64}
                   className="object-contain p-1"
                   priority
                   unoptimized
