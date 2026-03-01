@@ -8,7 +8,7 @@ import { LanguageProvider } from '@/components/language-provider';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Driving Free Academe | أكاديمية القيادة الحرة',
+  title: 'Driving Free | أكاديمية القيادة الحرة',
   description: 'أكاديمية تعليم القيادة العلمية والعملية في دبي - منهج أكاديمي متطور وخبرة ميدانية واسعة',
 };
 

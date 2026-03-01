@@ -1,3 +1,4 @@
+
 'use client';
 
 import Image from "next/image"
@@ -34,7 +35,7 @@ export default function Home() {
     featureDesc: language === 'ar' ? "أدوات تعليمية رقمية صممت لتبسيط المفاهيم الفيزيائية والقواعد المعقدة لهيئة الطرق والمواصلات." : "Digital tools designed to simplify complex RTA rules and physical concepts.",
     exploreNow: language === 'ar' ? "استكشف الآن" : "Explore Now",
     footerDesc: language === 'ar' ? "نحن نؤمن أن القيادة ليست مجرد مهارة، بل هي علم يجمع بين الفيزياء والسلوك البشري لضمان حياة آمنة للجميع في دبي." : "We believe driving is not just a skill, but a science combining physics and human behavior for safe lives in Dubai.",
-    footerRights: language === 'ar' ? "© 2026 أكاديمية القيادة الحرة • دبي ، الإمارات العربية المتحدة" : "© 2026 Driving Free Academe • Dubai, UAE",
+    footerRights: language === 'ar' ? "© 2026 Driving Free • دبي ، الإمارات العربية المتحدة" : "© 2026 Driving Free • Dubai, UAE",
     footerStatus: language === 'ar' ? "النظام يعمل بكفاءة كاملة" : "System running at full capacity"
   }
 
@@ -212,7 +213,7 @@ export default function Home() {
                 )}
               </div>
               <span className="font-headline font-black text-4xl tracking-tighter">
-                <span className="text-accent">DRIVING</span> FREE <span className="text-primary/80">ACADEME</span>
+                <span className="text-accent">DRIVING</span> FREE
               </span>
             </Link>
             <p className="text-muted-foreground max-w-md font-medium">{t.footerDesc}</p>

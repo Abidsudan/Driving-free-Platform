@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -48,11 +49,11 @@ export default function AuthPage() {
             <GraduationCap className="h-10 w-10 text-primary" />
           </div>
           <CardTitle className="text-3xl font-headline font-bold">
-            {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب أكاديمي'}
+            {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
           </CardTitle>
           <CardDescription>
             {isLogin 
-              ? 'مرحباً بك مجدداً في أكاديمية القيادة الحرة' 
+              ? 'مرحباً بك مجدداً في Driving Free' 
               : 'انضم إلينا لتبدأ رحلتك التعليمية الموثقة'}
           </CardDescription>
         </CardHeader>

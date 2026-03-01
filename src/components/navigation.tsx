@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -58,7 +59,10 @@ export function Navigation() {
                   unoptimized
                 />
               ) : (
-                <CarFront className="h-12 w-12 text-primary" />
+                <div className="flex items-center gap-2">
+                  <CarFront className="h-8 w-8 text-primary" />
+                  <span className="font-headline font-black text-xl text-primary">DRIVING FREE</span>
+                </div>
               )}
             </div>
           </Link>
