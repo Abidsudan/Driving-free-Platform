@@ -60,7 +60,6 @@ const prompt = ai.definePrompt({
   name: 'generateQuizQuestionsPrompt',
   input: { schema: GenerateQuizQuestionsInputSchema },
   output: { schema: GenerateQuizQuestionsOutputSchema },
-  config: { model: 'googleai/gemini-1.5-flash' },
   prompt: `You are an expert in designing RTA driving exam questions for Dubai. 
 Your task is to create {{{numberOfQuestions}}} multiple-choice questions in the language: {{{language}}}.
 

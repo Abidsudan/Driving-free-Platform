@@ -27,7 +27,6 @@ export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
 export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
   const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
     output: { schema: TutorOutputSchema },
     system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academe in Dubai.
     Your expertise is strictly limited to Dubai RTA rules, DSSSM system, vehicle physics, and driving psychology.
