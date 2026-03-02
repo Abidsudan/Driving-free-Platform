@@ -13,6 +13,7 @@ import { useUser } from '@/firebase';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Separator } from '@/components/ui/separator';
+import { useLanguage } from '@/components/language-provider';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -21,6 +22,22 @@ export default function AuthPage() {
   const auth = useAuth();
   const { user } = useUser();
   const router = useRouter();
+  const { language } = useLanguage();
+
+  const t = {
+    loginTitle: language === 'ar' ? 'تسجيل الدخول' : 'Sign In',
+    signupTitle: language === 'ar' ? 'إنشاء حساب' : 'Sign Up',
+    welcomeLogin: language === 'ar' ? 'مرحباً بك مجدداً في Driving Free' : 'Welcome back to Driving Free',
+    welcomeSignup: language === 'ar' ? 'انضم إلينا لتبدأ رحلتك التعليمية الموثقة' : 'Join us to start your verified learning journey',
+    emailLabel: language === 'ar' ? 'البريد الإلكتروني' : 'Email Address',
+    passwordLabel: language === 'ar' ? 'كلمة المرور' : 'Password',
+    btnActionLogin: language === 'ar' ? 'دخول' : 'Login',
+    btnActionSignup: language === 'ar' ? 'تسجيل' : 'Sign Up',
+    orContinue: language === 'ar' ? 'أو عبر' : 'Or continue with',
+    googleSignIn: language === 'ar' ? 'متابعة باستخدام Google' : 'Continue with Google',
+    switchSignup: language === 'ar' ? 'ليس لديك حساب؟ سجل الآن' : "Don't have an account? Sign Up",
+    switchLogin: language === 'ar' ? 'لديك حساب بالفعل؟ سجل دخولك' : 'Already have an account? Sign In'
+  };
 
   useEffect(() => {
     if (user) {
@@ -49,18 +66,16 @@ export default function AuthPage() {
             <GraduationCap className="h-10 w-10 text-primary" />
           </div>
           <CardTitle className="text-3xl font-headline font-bold">
-            {isLogin ? 'تسجيل الدخول' : 'إنشاء حساب'}
+            {isLogin ? t.loginTitle : t.signupTitle}
           </CardTitle>
           <CardDescription>
-            {isLogin 
-              ? 'مرحباً بك مجدداً في Driving Free' 
-              : 'انضم إلينا لتبدأ رحلتك التعليمية الموثقة'}
+            {isLogin ? t.welcomeLogin : t.welcomeSignup}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">البريد الإلكتروني</Label>
+              <Label htmlFor="email">{t.emailLabel}</Label>
               <Input 
                 id="email" 
                 type="email" 
@@ -72,7 +87,7 @@ export default function AuthPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">كلمة المرور</Label>
+              <Label htmlFor="password">{t.passwordLabel}</Label>
               <Input 
                 id="password" 
                 type="password" 
@@ -84,9 +99,9 @@ export default function AuthPage() {
             </div>
             <Button type="submit" className="w-full h-12 text-lg font-bold">
               {isLogin ? (
-                <span className="flex items-center gap-2"><LogIn className="h-5 w-5" /> دخول</span>
+                <span className="flex items-center gap-2"><LogIn className="h-5 w-5" /> {t.btnActionLogin}</span>
               ) : (
-                <span className="flex items-center gap-2"><UserPlus className="h-5 w-5" /> تسجيل</span>
+                <span className="flex items-center gap-2"><UserPlus className="h-5 w-5" /> {t.btnActionSignup}</span>
               )}
             </Button>
           </form>
@@ -96,7 +111,7 @@ export default function AuthPage() {
               <Separator className="w-full bg-white/10" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">أو عبر</span>
+              <span className="bg-card px-2 text-muted-foreground">{t.orContinue}</span>
             </div>
           </div>
 
@@ -123,7 +138,7 @@ export default function AuthPage() {
                 fill="#EA4335"
               />
             </svg>
-            متابعة باستخدام Google
+            {t.googleSignIn}
           </Button>
         </CardContent>
         <CardFooter className="flex justify-center border-t border-white/5 pt-6">
@@ -131,7 +146,7 @@ export default function AuthPage() {
             onClick={() => setIsLogin(!isLogin)}
             className="text-primary hover:underline text-sm font-bold"
           >
-            {isLogin ? 'ليس لديك حساب؟ سجل الآن' : 'لديك حساب بالفعل؟ سجل دخولك'}
+            {isLogin ? t.switchSignup : t.switchLogin}
           </button>
         </CardFooter>
       </Card>

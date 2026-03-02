@@ -3,39 +3,7 @@
 
 import { BookOpen, FileText, Clock, Sparkles } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { useLanguage } from "@/components/language-provider"
-
-const articles = [
-  {
-    title: "التحكم في المركبة: من الأساسيات إلى القيادة الآمنة",
-    category: "أساسيات القيادة",
-    type: "درس شامل",
-    readTime: "20 دقيقة",
-    desc: "إتقان التحكم في المركبة هو حجر الزاوية في فن القيادة الآمنة والواثقة. يغطي هذا الدرس وضعيات الجلوس الصحيحة، أدوات التحكم الرئيسية، وديناميكيات الحركة."
-  },
-  {
-    title: "القيادة الدفاعية: فن استباق المخاطر",
-    category: "سلوك السائق",
-    type: "دليل إرشادي",
-    readTime: "15 دقيقة",
-    desc: "القيادة الدفاعية هي ممارسة تهدف لتقليل المخاطر من خلال التنبؤ بأخطاء الآخرين والتعامل مع الظروف الصعبة بتركيز تام."
-  },
-  {
-    title: "ديناميكيات نقل الوزن عند الكبح",
-    category: "فيزياء القيادة",
-    type: "مقال علمي",
-    readTime: "12 دقيقة",
-    desc: "دراسة تقنية حول كيفية تأثر توازن المركبة عند استخدام المكابح المفاجئة وكيفية تجنب الانزلاق."
-  },
-  {
-    title: "سيكولوجية اتخاذ القرار في الأزمات",
-    category: "سلوك السائق",
-    type: "دراسة حالة",
-    readTime: "10 دقيقة",
-    desc: "فهم العمليات الذهنية التي يمر بها السائق لتجنب الاصطدام وكيفية الحفاظ على الهدوء تحت الضغط."
-  }
-]
 
 export default function LibraryPage() {
   const { language } = useLanguage()
@@ -46,7 +14,48 @@ export default function LibraryPage() {
     desc: language === 'ar' ? "تعمق في الجانب التقني والعلمي لعالم القيادة من خلال دراسات ومقالات أعدها خبراء الميدان." : "Deep dive into the technical and scientific world of driving through studies by field experts.",
     readMore: language === 'ar' ? "اقرأ المقال الكامل" : "Read Full Article",
     searchTitle: language === 'ar' ? "هل تبحث عن موضوع محدد؟" : "Looking for a specific topic?",
-    searchDesc: language === 'ar' ? "مكتبتنا العلمية هي نتاج سنوات من الخبرة الميدانية والدراسة الأكاديمية." : "Our scientific library is the result of years of field experience and academic study."
+    searchDesc: language === 'ar' ? "مكتبتنا العلمية هي نتاج سنوات من الخبرة الميدانية والدراسة الأكاديمية." : "Our scientific library is the result of years of field experience and academic study.",
+    tags: language === 'ar' 
+      ? ["الإسعافات الأولية", "صيانة المحرك", "القيادة الليلية", "توفير الوقود", "ديناميكا الهواء", "سيكولوجية السائق"]
+      : ["First Aid", "Engine Maintenance", "Night Driving", "Fuel Efficiency", "Aerodynamics", "Driver Psychology"],
+    articles: [
+      {
+        title: language === 'ar' ? "التحكم في المركبة: من الأساسيات إلى القيادة الآمنة" : "Vehicle Control: From Basics to Safe Driving",
+        category: language === 'ar' ? "أساسيات القيادة" : "Driving Basics",
+        type: language === 'ar' ? "درس شامل" : "Comprehensive Lesson",
+        readTime: language === 'ar' ? "20 دقيقة" : "20 mins",
+        desc: language === 'ar' 
+          ? "إتقان التحكم في المركبة هو حجر الزاوية في فن القيادة الآمنة والواثقة. يغطي هذا الدرس وضعيات الجلوس الصحيحة، أدوات التحكم الرئيسية، وديناميكيات الحركة."
+          : "Mastering vehicle control is the cornerstone of safe and confident driving. This lesson covers correct seating, primary controls, and movement dynamics."
+      },
+      {
+        title: language === 'ar' ? "القيادة الدفاعية: فن استباق المخاطر" : "Defensive Driving: Art of Anticipation",
+        category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
+        type: language === 'ar' ? "دليل إرشادي" : "Instructional Guide",
+        readTime: language === 'ar' ? "15 دقيقة" : "15 mins",
+        desc: language === 'ar' 
+          ? "القيادة الدفاعية هي ممارسة تهدف لتقليل المخاطر من خلال التنبؤ بأخطاء الآخرين والتعامل مع الظروف الصعبة بتركيز تام."
+          : "Defensive driving aims to reduce risk by predicting others' mistakes and handling difficult conditions with total focus."
+      },
+      {
+        title: language === 'ar' ? "ديناميكيات نقل الوزن عند الكبح" : "Weight Transfer Dynamics in Braking",
+        category: language === 'ar' ? "فيزياء القيادة" : "Driving Physics",
+        type: language === 'ar' ? "مقال علمي" : "Scientific Article",
+        readTime: language === 'ar' ? "12 دقيقة" : "12 mins",
+        desc: language === 'ar' 
+          ? "دراسة تقنية حول كيفية تأثر توازن المركبة عند استخدام المكابح المفاجئة وكيفية تجنب الانزلاق."
+          : "Technical study on how vehicle balance is affected during sudden braking and how to avoid skidding."
+      },
+      {
+        title: language === 'ar' ? "سيكولوجية اتخاذ القرار في الأزمات" : "Crisis Decision-Making Psychology",
+        category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
+        type: language === 'ar' ? "دراسة حالة" : "Case Study",
+        readTime: language === 'ar' ? "10 دقيقة" : "10 mins",
+        desc: language === 'ar' 
+          ? "فهم العمليات الذهنية التي يمر بها السائق لتجنب الاصطدام وكيفية الحفاظ على الهدوء تحت الضغط."
+          : "Understanding the mental processes a driver undergoes to avoid collisions and how to remain calm under pressure."
+      }
+    ]
   }
 
   return (
@@ -62,7 +71,7 @@ export default function LibraryPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {articles.map((item, idx) => (
+        {t.articles.map((item, idx) => (
           <div key={idx} className="group">
             <Card className="h-full bg-card/40 backdrop-blur-xl border-white/5 hover:border-primary/30 hover:bg-card/60 transition-all cursor-pointer relative overflow-hidden rounded-[2rem]">
               <CardHeader className="flex flex-row items-start justify-between relative z-10">
@@ -107,7 +116,7 @@ export default function LibraryPage() {
             {t.searchDesc}
           </p>
           <div className="flex flex-wrap justify-center gap-3">
-            {["الإسعافات الأولية", "صيانة المحرك", "القيادة الليلية", "توفير الوقود", "ديناميكا الهواء", "سيكولوجية السائق"].map((tag, i) => (
+            {t.tags.map((tag, i) => (
               <div key={i} className="px-6 py-2.5 rounded-2xl bg-background/50 border border-white/10 text-xs font-bold hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer backdrop-blur-sm">
                 {tag}
               </div>
