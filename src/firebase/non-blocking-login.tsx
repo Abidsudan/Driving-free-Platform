@@ -1,8 +1,6 @@
-
 'use client';
 import {
   Auth,
-  signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
@@ -22,10 +20,10 @@ async function syncUserProfile(user: User) {
   const profileData = {
     uid: user.uid,
     email: user.email,
-    displayName: user.displayName || user.email?.split('@')[0] || 'سائق محترف',
+    displayName: user.displayName || user.email?.split('@')[0] || 'Professional Driver',
     photoUrl: user.photoURL || '',
     createdAt: serverTimestamp(),
-    isPremium: true,
+    isPremium: true, // All users get premium features in this academy
   };
 
   try {
@@ -35,21 +33,21 @@ async function syncUserProfile(user: User) {
   }
 }
 
-/** Helper to handle common Auth errors */
-function handleAuthError(error: any) {
+/** Helper to handle common Auth errors with localization support */
+function handleAuthError(error: any, language: 'ar' | 'en') {
   if (error instanceof FirebaseError) {
-    let title = "خطأ في النظام";
+    let title = language === 'ar' ? "خطأ في النظام" : "System Error";
     let description = error.message;
 
-    if (error.code === 'auth/unauthorized-domain') {
-      title = "نطاق غير مصرح به";
-      description = "يرجى إضافة هذا النطاق إلى 'Authorized domains' في لوحة تحكم Firebase Console.";
-    } else if (error.code === 'auth/email-already-in-use') {
-      title = "البريد مستخدم بالفعل";
-      description = "هذا البريد الإلكتروني مسجل مسبقاً، يرجى تسجيل الدخول بدلاً من ذلك.";
+    if (error.code === 'auth/email-already-in-use') {
+      title = language === 'ar' ? "البريد مستخدم بالفعل" : "Email Already in Use";
+      description = language === 'ar' ? "هذا البريد الإلكتروني مسجل مسبقاً، يرجى تسجيل الدخول بدلاً من ذلك." : "This email is already registered. Please sign in instead.";
     } else if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
-      title = "بيانات غير صحيحة";
-      description = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+      title = language === 'ar' ? "بيانات غير صحيحة" : "Invalid Credentials";
+      description = language === 'ar' ? "البريد الإلكتروني أو كلمة المرور غير صحيحة." : "The email or password you entered is incorrect.";
+    } else if (error.code === 'auth/popup-closed-by-user') {
+      title = language === 'ar' ? "تم إلغاء العملية" : "Operation Cancelled";
+      description = language === 'ar' ? "تم إغلاق نافذة تسجيل الدخول قبل إتمام العملية." : "The sign-in window was closed before completion.";
     }
 
     toast({
@@ -57,38 +55,54 @@ function handleAuthError(error: any) {
       title,
       description,
     });
+  } else {
+    toast({
+      variant: "destructive",
+      title: language === 'ar' ? "خطأ غير متوقع" : "Unexpected Error",
+      description: language === 'ar' ? "حدث خطأ غير متوقع، يرجى المحاولة لاحقاً." : "An unexpected error occurred. Please try again later.",
+    });
   }
 }
 
-export function initiateAnonymousSignIn(authInstance: Auth): void {
-  getRecaptchaToken('LOGIN').then((token) => {
-    signInAnonymously(authInstance)
-      .then((result) => syncUserProfile(result.user))
-      .catch(handleAuthError);
-  });
+export async function initiateEmailSignUp(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
+  try {
+    const token = await getRecaptchaToken('SIGNUP');
+    const result = await createUserWithEmailAndPassword(authInstance, email, password);
+    await syncUserProfile(result.user);
+    toast({
+      title: language === 'ar' ? "تم إنشاء الحساب بنجاح" : "Account Created Successfully",
+      description: language === 'ar' ? "مرحباً بك في أكاديمية القيادة الحرة." : "Welcome to Driving Free Academy.",
+    });
+  } catch (error) {
+    handleAuthError(error, language);
+  }
 }
 
-export function initiateEmailSignUp(authInstance: Auth, email: string, password: string): void {
-  getRecaptchaToken('SIGNUP').then((token) => {
-    createUserWithEmailAndPassword(authInstance, email, password)
-      .then((result) => syncUserProfile(result.user))
-      .catch(handleAuthError);
-  });
+export async function initiateEmailSignIn(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
+  try {
+    const token = await getRecaptchaToken('LOGIN');
+    const result = await signInWithEmailAndPassword(authInstance, email, password);
+    await syncUserProfile(result.user);
+    toast({
+      title: language === 'ar' ? "تم تسجيل الدخول" : "Signed In Successfully",
+      description: language === 'ar' ? "مرحباً بك مجدداً." : "Welcome back.",
+    });
+  } catch (error) {
+    handleAuthError(error, language);
+  }
 }
 
-export function initiateEmailSignIn(authInstance: Auth, email: string, password: string): void {
-  getRecaptchaToken('LOGIN').then((token) => {
-    signInWithEmailAndPassword(authInstance, email, password)
-      .then((result) => syncUserProfile(result.user))
-      .catch(handleAuthError);
-  });
-}
-
-export function initiateGoogleSignIn(authInstance: Auth): void {
+export async function initiateGoogleSignIn(authInstance: Auth, language: 'ar' | 'en'): Promise<void> {
   const provider = new GoogleAuthProvider();
-  getRecaptchaToken('LOGIN').then((token) => {
-    signInWithPopup(authInstance, provider)
-      .then((result) => syncUserProfile(result.user))
-      .catch(handleAuthError);
-  });
+  try {
+    const token = await getRecaptchaToken('LOGIN');
+    const result = await signInWithPopup(authInstance, provider);
+    await syncUserProfile(result.user);
+    toast({
+      title: language === 'ar' ? "تم تسجيل الدخول بنجاح" : "Signed In Successfully",
+      description: language === 'ar' ? `مرحباً بك ${result.user.displayName}` : `Welcome ${result.user.displayName}`,
+    });
+  } catch (error) {
+    handleAuthError(error, language);
+  }
 }

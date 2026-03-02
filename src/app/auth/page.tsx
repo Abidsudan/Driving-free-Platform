@@ -1,17 +1,14 @@
-
 'use client';
 
-import { useState } from 'react';
-import { useAuth } from '@/firebase';
+import { useState, useEffect } from 'react';
+import { useAuth, useUser } from '@/firebase';
 import { initiateEmailSignIn, initiateEmailSignUp, initiateGoogleSignIn } from '@/firebase/non-blocking-login';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { GraduationCap, LogIn, UserPlus } from 'lucide-react';
-import { useUser } from '@/firebase';
+import { GraduationCap, LogIn, UserPlus, Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { useLanguage } from '@/components/language-provider';
 
@@ -19,6 +16,8 @@ export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  
   const auth = useAuth();
   const { user } = useUser();
   const router = useRouter();
@@ -36,7 +35,8 @@ export default function AuthPage() {
     orContinue: language === 'ar' ? 'أو عبر' : 'Or continue with',
     googleSignIn: language === 'ar' ? 'متابعة باستخدام Google' : 'Continue with Google',
     switchSignup: language === 'ar' ? 'ليس لديك حساب؟ سجل الآن' : "Don't have an account? Sign Up",
-    switchLogin: language === 'ar' ? 'لديك حساب بالفعل؟ سجل دخولك' : 'Already have an account? Sign In'
+    switchLogin: language === 'ar' ? 'لديك حساب بالفعل؟ سجل دخولك' : 'Already have an account? Sign In',
+    processing: language === 'ar' ? 'جاري المعالجة...' : 'Processing...'
   };
 
   useEffect(() => {
@@ -45,37 +45,53 @@ export default function AuthPage() {
     }
   }, [user, router]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isLogin) {
-      initiateEmailSignIn(auth, email, password);
-    } else {
-      initiateEmailSignUp(auth, email, password);
+    if (isLoading) return;
+    
+    setIsLoading(true);
+    try {
+      if (isLogin) {
+        await initiateEmailSignIn(auth, email, password, language);
+      } else {
+        await initiateEmailSignUp(auth, email, password, language);
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleGoogleSignIn = () => {
-    initiateGoogleSignIn(auth);
+  const handleGoogleSignIn = async () => {
+    if (isLoading) return;
+    setIsLoading(true);
+    try {
+      await initiateGoogleSignIn(auth, language);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="container mx-auto px-6 py-20 flex justify-center items-center min-h-[80vh] animate-fade-in">
-      <Card className="w-full max-w-md glass-card border-primary/20">
-        <CardHeader className="text-center space-y-2">
-          <div className="mx-auto w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-4">
+      <Card className="w-full max-w-md glass-card border-primary/20 shadow-2xl overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary via-accent to-primary animate-gradient-x" />
+        
+        <CardHeader className="text-center space-y-2 pt-8">
+          <div className="mx-auto w-16 h-16 bg-primary/10 rounded-3xl flex items-center justify-center mb-4 border border-primary/20 shadow-inner">
             <GraduationCap className="h-10 w-10 text-primary" />
           </div>
-          <CardTitle className="text-3xl font-headline font-bold">
+          <CardTitle className="text-3xl font-headline font-black tracking-tight">
             {isLogin ? t.loginTitle : t.signupTitle}
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-muted-foreground font-medium">
             {isLogin ? t.welcomeLogin : t.welcomeSignup}
           </CardDescription>
         </CardHeader>
+
         <CardContent className="space-y-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">{t.emailLabel}</Label>
+              <Label htmlFor="email" className="font-bold text-xs uppercase tracking-widest">{t.emailLabel}</Label>
               <Input 
                 id="email" 
                 type="email" 
@@ -83,42 +99,53 @@ export default function AuthPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-background/50 border-white/10"
+                disabled={isLoading}
+                className="bg-background/50 border-white/10 h-12 focus:border-primary/50 rounded-xl"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">{t.passwordLabel}</Label>
+              <Label htmlFor="password" className="font-bold text-xs uppercase tracking-widest">{t.passwordLabel}</Label>
               <Input 
                 id="password" 
                 type="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-background/50 border-white/10"
+                disabled={isLoading}
+                className="bg-background/50 border-white/10 h-12 focus:border-primary/50 rounded-xl"
               />
             </div>
-            <Button type="submit" className="w-full h-12 text-lg font-bold">
-              {isLogin ? (
-                <span className="flex items-center gap-2"><LogIn className="h-5 w-5" /> {t.btnActionLogin}</span>
+            <Button 
+              type="submit" 
+              className="w-full h-14 text-lg font-black rounded-2xl shadow-lg shadow-primary/20"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center gap-2"><Loader2 className="h-5 w-5 animate-spin" /> {t.processing}</span>
               ) : (
-                <span className="flex items-center gap-2"><UserPlus className="h-5 w-5" /> {t.btnActionSignup}</span>
+                isLogin ? (
+                  <span className="flex items-center gap-2"><LogIn className="h-5 w-5" /> {t.btnActionLogin}</span>
+                ) : (
+                  <span className="flex items-center gap-2"><UserPlus className="h-5 w-5" /> {t.btnActionSignup}</span>
+                )
               )}
             </Button>
           </form>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <Separator className="w-full bg-white/10" />
+              <Separator className="w-full bg-white/5" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">{t.orContinue}</span>
+              <span className="bg-card px-3 text-muted-foreground font-bold tracking-tighter">{t.orContinue}</span>
             </div>
           </div>
 
           <Button 
             variant="outline" 
             onClick={handleGoogleSignIn}
-            className="w-full h-12 border-white/10 hover:bg-white/5 gap-3"
+            disabled={isLoading}
+            className="w-full h-14 border-white/10 hover:bg-white/5 gap-3 rounded-2xl font-bold glass-card"
           >
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path
@@ -141,10 +168,12 @@ export default function AuthPage() {
             {t.googleSignIn}
           </Button>
         </CardContent>
-        <CardFooter className="flex justify-center border-t border-white/5 pt-6">
+        
+        <CardFooter className="flex justify-center border-t border-white/5 py-8 bg-black/20">
           <button 
             onClick={() => setIsLogin(!isLogin)}
-            className="text-primary hover:underline text-sm font-bold"
+            className="text-primary hover:text-primary/80 transition-colors text-sm font-black uppercase tracking-widest"
+            disabled={isLoading}
           >
             {isLogin ? t.switchSignup : t.switchLogin}
           </button>
