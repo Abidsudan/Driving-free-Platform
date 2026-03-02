@@ -22,7 +22,7 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
-  // Wait for params to comply with Next.js 15 standards
+  // Unwrapping params for Next.js 15 compliance
   await params;
 
   return (
@@ -40,7 +40,7 @@ export default async function RootLayout({
         <LanguageProvider>
           <FirebaseClientProvider>
             <Navigation />
-            <main className="flex-1 pt-16 md:pt-20 pb-20 md:pb-0">
+            <main className="flex-1 pt-16 md:pt-20">
               {children}
             </main>
             <Toaster />
