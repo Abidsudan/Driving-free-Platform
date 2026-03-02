@@ -12,24 +12,17 @@ export const metadata: Metadata = {
   description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
 };
 
-interface RootLayoutProps {
-  children: ReactNode;
-  params: Promise<any>;
-}
-
 export default async function RootLayout({
   children,
-  params,
-}: RootLayoutProps) {
-  // Unwrapping params for Next.js 15 compliance
-  await params;
-
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <Script 
           src="https://www.google.com/recaptcha/enterprise.js?render=6LentHosAAAAAPU47L-1tuSMFhiUQTlPguCQ15aS" 
           strategy="afterInteractive"

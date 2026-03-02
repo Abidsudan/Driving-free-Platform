@@ -21,11 +21,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 
 const navItems = [
-  { name: "الرئيسية", nameEn: "Home", href: "/", icon: Home },
-  { name: "المنهج", nameEn: "Curriculum", href: "/curriculum", icon: BookOpen },
-  { name: "المكتبة", nameEn: "Library", href: "/library", icon: Library },
-  { name: "الإشارات", nameEn: "Traffic Signs", href: "/rules", icon: ShieldCheck },
-  { name: "التقييم", nameEn: "Assessment", href: "/assessment", icon: ClipboardCheck },
+  { name: "Home", nameAr: "الرئيسية", href: "/", icon: Home },
+  { name: "Curriculum", nameAr: "المنهج", href: "/curriculum", icon: BookOpen },
+  { name: "Library", nameAr: "المكتبة", href: "/library", icon: Library },
+  { name: "Traffic Signs", nameAr: "الإشارات", href: "/traffic-signs", icon: ShieldCheck },
+  { name: "Assessment", nameAr: "التقييم", href: "/assessment", icon: ClipboardCheck },
 ]
 
 export function Navigation() {
@@ -39,7 +39,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[9999] bg-background border-b border-white/5 h-16 md:h-20 flex items-center">
+      <header className="fixed top-0 left-0 right-0 z-[9999] bg-background border-b border-white/5 h-16 md:h-20 flex items-center shadow-2xl">
         <div className="container mx-auto flex items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative flex items-center justify-center bg-white rounded-2xl p-1 shadow-2xl w-32 md:w-40 h-10 md:h-12 overflow-hidden transition-transform active:scale-95">
@@ -59,7 +59,7 @@ export function Navigation() {
             </div>
           </Link>
           
-          <nav className="hidden lg:flex items-center gap-2 bg-secondary/50 p-1 rounded-full border border-white/5">
+          <nav className="hidden lg:flex items-center gap-2 bg-secondary/30 p-1 rounded-full border border-white/5">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -71,7 +71,7 @@ export function Navigation() {
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
-                {language === 'ar' ? item.name : item.nameEn}
+                {language === 'ar' ? item.nameAr : item.name}
               </Link>
             ))}
           </nav>
@@ -141,7 +141,7 @@ export function Navigation() {
               >
                 <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
                 <span className="text-[8px] font-black uppercase tracking-tighter">
-                  {language === 'ar' ? item.name : item.nameEn}
+                  {language === 'ar' ? item.nameAr : item.name}
                 </span>
               </Link>
             )

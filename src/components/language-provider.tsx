@@ -13,7 +13,7 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  // Defaulting to 'en' as requested
+  // Default to English as the primary academic language
   const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
