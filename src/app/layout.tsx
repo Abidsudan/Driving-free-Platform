@@ -28,11 +28,11 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="font-body antialiased min-h-screen flex flex-col">
+      <body className="font-body antialiased min-h-screen flex flex-col bg-background">
         <LanguageProvider>
           <FirebaseClientProvider>
             <Navigation />
-            <main className="flex-1 pt-16 pb-24 md:pb-0 md:pt-20">
+            <main className="flex-1 pt-20 pb-28 md:pb-0 md:pt-24">
               {children}
             </main>
             <Toaster />
