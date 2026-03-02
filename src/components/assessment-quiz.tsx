@@ -25,6 +25,27 @@ export function AssessmentQuiz() {
   const { user } = useUser()
   const db = useFirestore()
 
+  const t = {
+    loadingTitle: language === 'ar' ? "جاري التحليل وتوليد الأسئلة..." : "Analyzing and Generating Questions...",
+    loadingSubtitle: language === 'ar' ? "الذكاء الاصطناعي يقوم ببناء محاكاة فريدة لك" : "AI is building a unique simulation for you",
+    resultTitle: language === 'ar' ? "معدل الكفاءة المعرفية" : "Cognitive Efficiency Rate",
+    strengthTitle: language === 'ar' ? "نقاط القوة" : "Key Strengths",
+    strengthDesc: language === 'ar' ? "أداء ممتاز في فهم قواعد السرعة والمسافات الآمنة." : "Excellent performance in understanding speed rules and safe distances.",
+    adviceTitle: language === 'ar' ? "نصيحة الخبير" : "Expert Advice",
+    adviceDesc: language === 'ar' ? "راجع قوانين الأولوية في المناطق السكنية المزدحمة." : "Review priority laws in congested residential areas.",
+    btnRetry: language === 'ar' ? "إعادة التقييم" : "Retry Assessment",
+    btnDashboard: language === 'ar' ? "لوحة التحكم" : "Dashboard",
+    simulatorTitle: language === 'ar' ? "محاكي اختبار RTA الذكي" : "Smart RTA Test Simulator",
+    simulatorDesc: language === 'ar' ? "استخدم قوة الذكاء الاصطناعي لاختبار مستواك المعرفي وتوقع نتيجتك في اختبار RTA النظري الحقيقي في دبي." : "Use AI power to test your knowledge and predict your result in the real RTA theory test in Dubai.",
+    btnStart: language === 'ar' ? "ابدأ المحاكاة الآن" : "Start Simulation Now",
+    statsLabel: language === 'ar' ? "5 أسئلة تقنية • تحليل فوري • مجاني بالكامل" : "5 Technical Questions • Instant Analysis • 100% Free",
+    questionLabel: language === 'ar' ? "السؤال" : "Question",
+    ofLabel: language === 'ar' ? "من" : "of",
+    analysisLabel: language === 'ar' ? "التحليل العلمي" : "Scientific Analysis",
+    btnFinish: language === 'ar' ? "إنهاء المحاكاة" : "Finish Simulation",
+    btnNext: language === 'ar' ? "السؤال التالي" : "Next Question"
+  };
+
   const startQuiz = async () => {
     setIsLoading(true)
     try {
@@ -81,8 +102,8 @@ export function AssessmentQuiz() {
       <div className="flex flex-col items-center justify-center py-32 text-center gap-6 animate-pulse">
         <RefreshCw className="h-20 w-20 animate-spin text-primary" />
         <div className="space-y-2">
-          <h3 className="text-3xl font-black font-headline text-primary">جاري التحليل وتوليد الأسئلة...</h3>
-          <p className="text-muted-foreground text-sm uppercase tracking-widest font-black">AI is generating your unique simulation</p>
+          <h3 className="text-3xl font-black font-headline text-primary">{t.loadingTitle}</h3>
+          <p className="text-muted-foreground text-sm uppercase tracking-widest font-black">{t.loadingSubtitle}</p>
         </div>
       </div>
     )
@@ -97,28 +118,28 @@ export function AssessmentQuiz() {
         <CardContent className="p-16 text-center space-y-12">
           <Trophy className="h-24 w-24 text-accent mx-auto animate-float" />
           <div className="space-y-4">
-            <h2 className="text-5xl font-black font-headline">معدل الكفاءة المعرفية</h2>
+            <h2 className="text-5xl font-black font-headline">{t.resultTitle}</h2>
             <div className="text-8xl font-black smart-gradient-text">{Math.round(cognitiveRate)}%</div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-8 rounded-[2rem] bg-secondary/40 border border-white/5 space-y-2 text-center">
               <Zap className="h-6 w-6 text-primary mx-auto" />
-              <h4 className="font-black text-sm uppercase">نقاط القوة</h4>
-              <p className="text-muted-foreground text-xs leading-relaxed">أداء ممتاز في فهم قواعد السرعة والمسافات الآمنة.</p>
+              <h4 className="font-black text-sm uppercase">{t.strengthTitle}</h4>
+              <p className="text-muted-foreground text-xs leading-relaxed">{t.strengthDesc}</p>
             </div>
             <div className="p-8 rounded-[2rem] bg-secondary/40 border border-white/5 space-y-2 text-center">
               <Lightbulb className="h-6 w-6 text-accent mx-auto" />
-              <h4 className="font-black text-sm uppercase">نصيحة الخبير</h4>
-              <p className="text-muted-foreground text-xs leading-relaxed">راجع قوانين الأولوية في المناطق السكنية المزدحمة.</p>
+              <h4 className="font-black text-sm uppercase">{t.adviceTitle}</h4>
+              <p className="text-muted-foreground text-xs leading-relaxed">{t.adviceDesc}</p>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={startQuiz} size="lg" className="h-16 px-12 rounded-2xl font-black text-xl w-full sm:w-auto">إعادة التقييم</Button>
+            <Button onClick={startQuiz} size="lg" className="h-16 px-12 rounded-2xl font-black text-xl w-full sm:w-auto">{t.btnRetry}</Button>
             {user && (
               <Button variant="outline" asChild className="h-16 px-12 rounded-2xl font-black text-xl glass-card w-full sm:w-auto">
-                <Link href="/dashboard">لوحة التحكم</Link>
+                <Link href="/dashboard">{t.btnDashboard}</Link>
               </Button>
             )}
           </div>
@@ -134,15 +155,15 @@ export function AssessmentQuiz() {
           <Target className="h-16 w-16" />
         </div>
         <div className="space-y-4">
-          <h2 className="text-4xl md:text-7xl font-black font-headline leading-none">محاكي اختبار RTA الذكي</h2>
+          <h2 className="text-4xl md:text-7xl font-black font-headline leading-none">{t.simulatorTitle}</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            استخدم قوة الذكاء الاصطناعي لاختبار مستواك المعرفي وتوقع نتيجتك في اختبار RTA النظري الحقيقي في دبي.
+            {t.simulatorDesc}
           </p>
         </div>
         <Button size="lg" onClick={startQuiz} className="h-20 px-16 rounded-3xl font-black text-2xl shadow-2xl shadow-primary/30 active:scale-95 transition-all">
-          ابدأ المحاكاة الآن
+          {t.btnStart}
         </Button>
-        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em]">5 أسئلة تقنية • تحليل فوري • مجاني بالكامل</p>
+        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em]">{t.statsLabel}</p>
       </div>
     )
   }
@@ -154,7 +175,7 @@ export function AssessmentQuiz() {
     <div className="max-w-3xl mx-auto space-y-8 animate-fade-in px-4">
       <div className="flex items-center justify-between">
         <div className="space-y-1">
-          <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">السؤال {currentIndex + 1} من {questions.length}</span>
+          <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t.questionLabel} {currentIndex + 1} {t.ofLabel} {questions.length}</span>
           <h3 className="text-2xl font-black font-headline text-accent uppercase tracking-tighter">{q.category}</h3>
         </div>
         <div className="h-16 w-16 rounded-2xl glass-card flex items-center justify-center text-2xl font-black text-primary border-primary/20">
@@ -197,12 +218,12 @@ export function AssessmentQuiz() {
           <CardFooter className="flex flex-col items-start gap-8 p-12 bg-primary/5 border-t border-white/5">
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-accent font-black text-xs uppercase tracking-widest">
-                <Lightbulb className="h-4 w-4" /> التحليل العلمي
+                <Lightbulb className="h-4 w-4" /> {t.analysisLabel}
               </div>
               <p className="text-lg leading-relaxed text-muted-foreground font-medium italic">{q.explanation}</p>
             </div>
             <Button onClick={nextQuestion} className="h-16 w-full rounded-2xl font-black text-xl shadow-xl shadow-primary/20">
-              {currentIndex === questions.length - 1 ? 'إنهاء المحاكاة' : 'السؤال التالي'}
+              {currentIndex === questions.length - 1 ? t.btnFinish : t.btnNext}
               {dir === 'rtl' ? <ArrowLeft className="h-5 w-5 mr-3" /> : <ArrowRight className="h-5 w-5 ml-3" />}
             </Button>
           </CardFooter>

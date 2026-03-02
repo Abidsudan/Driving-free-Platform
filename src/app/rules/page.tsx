@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Map as MapIcon, Layers, ListChecks } from "lucide-react"
@@ -32,12 +31,38 @@ export default function RulesPage() {
       guide: language === 'ar' ? "الإرشادية" : "Guide",
       road: language === 'ar' ? "علامات الطريق" : "Road Signs",
     },
+    regulatory: {
+      title: language === 'ar' ? "١- الإشارات التنظيمية" : "1- Regulatory Signs",
+      desc: language === 'ar' ? "تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات. تشمل إشارات \"قف\"، \"إفسح الطريق\"، والإشارات الإلزامية التي يجب على السائق اتباعها بدقة لتجنب المخالفات والحوادث." : "These signs are used to regulate traffic and define obligations and prohibitions. They include 'STOP', 'GIVE WAY', and mandatory signs that drivers must follow strictly to avoid violations and accidents.",
+      items: language === 'ar' ? ["قف (STOP)", "إفسح الطريق", "ممنوع الدخول", "اتجاه إلزامي"] : ["STOP", "Give Way", "No Entry", "Mandatory Direction"]
+    },
+    warning: {
+      title: language === 'ar' ? "٢- الإشارات التحذيرية" : "2- Warning Signs",
+      desc: language === 'ar' ? "تنبيه السائقين إلى مخاطر محتملة على الطريق تتطلب الحذر الشديد." : "Alerting drivers to potential road hazards that require extreme caution.",
+      content: language === 'ar' ? "هذا القسم يحتوي على تحذيرات المنعطفات الحادة، مناطق عبور المشاة، والظروف الجوية المتغيرة. الإدراك السريع لهذه الإشارات يمنحك وقتاً كافياً لاتخاذ القرار الصحيح." : "This section contains warnings for sharp curves, pedestrian crossings, and changing weather conditions. Quick perception of these signs gives you enough time to make the right decision."
+    },
+    road: [
+      { title: language === 'ar' ? "علامات الترام" : "Tram Signs", icon: TrafficCone, color: "text-blue-400" },
+      { title: language === 'ar' ? "منطقة عبور المشاة" : "Pedestrian Crossing", icon: Navigation, color: "text-green-400" },
+      { title: language === 'ar' ? "خطوط سطح الطريق" : "Road Surface Markings", icon: Layers, color: "text-purple-400" },
+    ],
+    dsssm: {
+      title: "DSSSM System",
+      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة. يقوم النظام برصد الانحرافات والقيادة المتهورة آلياً." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure the highest safety levels. The system monitors deviations and reckless driving automatically.",
+      benefit1: language === 'ar' ? "يحسن جودة القيادة بنسبة 40%" : "Improves driving quality by 40%",
+      benefit2: language === 'ar' ? "مرتبط مباشرة بسجل السائق المروري" : "Directly linked to the driver's traffic record"
+    },
     failureReasons: [
-      { title: language === 'ar' ? "عدم التوقف عند إشارة قف" : "Failure to stop at STOP sign", desc: language === 'ar' ? "يجب التوقف تماماً لثلاث ثوانٍ قبل خط الوقوف." : "Must come to a complete stop for 3 seconds." },
-      { title: language === 'ar' ? "أولوية الدوار" : "Roundabout Priority", desc: language === 'ar' ? "دخول الدوار دون إعطاء الأولوية للقادم من اليسار." : "Entering without giving way to the left." },
-      { title: language === 'ar' ? "تجاوز السرعة" : "Speeding", desc: language === 'ar' ? "تجاوز سرعة الطريق المحددة ولو قليلاً أثناء الاختبار." : "Exceeding road speed limit even slightly." },
-      { title: language === 'ar' ? "النقطة العمياء" : "Blind Spot", desc: language === 'ar' ? "إهمال فحص الكتف عند تغيير المسار." : "Neglecting shoulder check when changing lanes." },
-    ]
+      { title: language === 'ar' ? "عدم التوقف عند إشارة قف" : "Failure to stop at STOP sign", desc: language === 'ar' ? "يجب التوقف تماماً لثلاث ثوانٍ قبل خط الوقوف." : "Must come to a complete stop for 3 seconds before the stop line." },
+      { title: language === 'ar' ? "أولوية الدوار" : "Roundabout Priority", desc: language === 'ar' ? "دخول الدوار دون إعطاء الأولوية للقادم من اليسار." : "Entering a roundabout without giving priority to traffic from the left." },
+      { title: language === 'ar' ? "تجاوز السرعة" : "Speeding", desc: language === 'ar' ? "تجاوز سرعة الطريق المحددة ولو قليلاً أثناء الاختبار." : "Exceeding the specified road speed even slightly during the test." },
+      { title: language === 'ar' ? "النقطة العمياء" : "Blind Spot", desc: language === 'ar' ? "إهمال فحص الكتف عند تغيير المسار." : "Neglecting the shoulder check when changing lanes." },
+    ],
+    footer: {
+      title: language === 'ar' ? "هل تريد الدليل الكامل؟" : "Want the Full Guide?",
+      desc: language === 'ar' ? "نقوم حالياً بتجهيز نسخة PDF تفاعلية تحتوي على شرح لكل إشارة من الإشارات الـ 170 المعتمدة في دبي." : "We are currently preparing an interactive PDF version containing explanations for each of the 170 approved signs in Dubai.",
+      tags: language === 'ar' ? ["إشارات قف", "أولويات الدوار", "مواقف ذوي الهمم", "خطوط المشاة الصفراء"] : ["Stop Signs", "Roundabout Priorities", "POD Parking", "Yellow Pedestrian Lines"]
+    }
   }
 
   return (
@@ -92,12 +117,12 @@ export default function RulesPage() {
           <TabsContent value="regulatory" className="space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <h2 className="text-3xl font-headline font-black text-primary">١- الإشارات التنظيمية</h2>
+                <h2 className="text-3xl font-headline font-black text-primary">{t.regulatory.title}</h2>
                 <p className="text-muted-foreground text-lg leading-relaxed">
-                  تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات. تشمل إشارات "قف"، "إفسح الطريق"، والإشارات الإلزامية التي يجب على السائق اتباعها بدقة لتجنب المخالفات والحوادث.
+                  {t.regulatory.desc}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {["قف (STOP)", "إفسح الطريق", "ممنوع الدخول", "اتجاه إلزامي"].map((item, i) => (
+                  {t.regulatory.items.map((item, i) => (
                     <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-secondary/40 border border-white/5">
                       <div className="h-2 w-2 rounded-full bg-primary" />
                       <span className="font-bold text-sm">{item}</span>
@@ -113,7 +138,7 @@ export default function RulesPage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <Badge className="absolute bottom-6 right-6 bg-primary px-4 py-2 text-lg font-bold">نموذج الإشارات</Badge>
+                <Badge className="absolute bottom-6 right-6 bg-primary px-4 py-2 text-lg font-bold">RTA Signs Gallery</Badge>
               </div>
             </div>
           </TabsContent>
@@ -122,14 +147,14 @@ export default function RulesPage() {
           <TabsContent value="warning" className="space-y-8">
             <Card className="glass-card border-yellow-500/20 overflow-hidden">
                <div className="bg-yellow-500/10 p-8 border-b border-yellow-500/20">
-                  <h2 className="text-3xl font-headline font-black text-yellow-500">٢- الإشارات التحذيرية</h2>
-                  <p className="text-muted-foreground mt-2">تنبيه السائقين إلى مخاطر محتملة على الطريق تتطلب الحذر الشديد.</p>
+                  <h2 className="text-3xl font-headline font-black text-yellow-500">{t.warning.title}</h2>
+                  <p className="text-muted-foreground mt-2">{t.warning.desc}</p>
                </div>
                <CardContent className="p-8">
                   <div className="text-center py-12 space-y-6">
                     <AlertTriangle className="h-20 w-20 text-yellow-500 mx-auto animate-pulse" />
                     <p className="max-w-md mx-auto text-muted-foreground leading-relaxed">
-                      هذا القسم يحتوي على تحذيرات المنعطفات الحادة، مناطق عبور المشاة، والظروف الجوية المتغيرة. الإدراك السريع لهذه الإشارات يمنحك وقتاً كافياً لاتخاذ القرار الصحيح.
+                      {t.warning.content}
                     </p>
                   </div>
                </CardContent>
@@ -139,11 +164,7 @@ export default function RulesPage() {
           {/* Road Signs Section */}
           <TabsContent value="road" className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { title: "علامات الترام", icon: TrafficCone, color: "text-blue-400" },
-                { title: "منطقة عبور المشاة", icon: Navigation, color: "text-green-400" },
-                { title: "خطوط سطح الطريق", icon: Layers, color: "text-purple-400" },
-              ].map((item, i) => (
+              {t.road.map((item, i) => (
                 <Card key={i} className="glass-card border-white/5 p-8 text-center hover:border-primary/50 transition-colors">
                   <item.icon className={cn("h-12 w-12 mx-auto mb-4", item.color)} />
                   <h3 className="text-xl font-bold font-headline">{item.title}</h3>
@@ -176,18 +197,18 @@ export default function RulesPage() {
             <Card className="glass-card border-primary/20 overflow-hidden">
                <div className="p-10 bg-primary/5 flex flex-col md:flex-row gap-10 items-center">
                   <div className="flex-1 space-y-6">
-                    <h2 className="text-4xl font-headline font-black text-primary">نظام DSSSM</h2>
+                    <h2 className="text-4xl font-headline font-black text-primary">{t.dsssm.title}</h2>
                     <p className="text-lg text-muted-foreground leading-relaxed italic">
-                      "نظام مراقبة سلوك السائقين" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة. يقوم النظام برصد الانحرافات والقيادة المتهورة آلياً.
+                      {t.dsssm.desc}
                     </p>
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500" />
-                        <span className="font-bold">يحسن جودة القيادة بنسبة 40%</span>
+                        <span className="font-bold">{t.dsssm.benefit1}</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <CheckCircle className="h-5 w-5 text-green-500" />
-                        <span className="font-bold">مرتبط مباشرة بسجل السائق المروري</span>
+                        <span className="font-bold">{t.dsssm.benefit2}</span>
                       </div>
                     </div>
                   </div>
@@ -204,12 +225,12 @@ export default function RulesPage() {
           <div className="inline-flex p-4 rounded-3xl bg-primary/10 text-primary">
             <ListChecks className="h-10 w-10" />
           </div>
-          <h2 className="text-3xl font-headline font-black">{language === 'ar' ? "هل تريد الدليل الكامل؟" : "Want the Full Guide?"}</h2>
+          <h2 className="text-3xl font-headline font-black">{t.footer.title}</h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            نقوم حالياً بتجهيز نسخة PDF تفاعلية تحتوي على شرح لكل إشارة من الإشارات الـ 170 المعتمدة في دبي.
+            {t.footer.desc}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            {["إشارات قف", "أولويات الدوار", "مواقف ذوي الهمم", "خطوط المشاة الصفراء"].map((tag, i) => (
+            {t.footer.tags.map((tag, i) => (
               <Badge key={i} variant="secondary" className="px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest bg-white/5 hover:bg-primary hover:text-white transition-all cursor-default">
                 {tag}
               </Badge>
