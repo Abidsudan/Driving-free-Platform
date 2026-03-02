@@ -55,7 +55,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         {heroBg?.imageUrl && (
           <Image 
@@ -97,7 +96,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Stats Bar */}
       <section className="container mx-auto px-6 -mt-20 relative z-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-8 rounded-[2.5rem] glass-card border-white/10">
           {t.stats.map((stat, i) => (
@@ -109,7 +107,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Grid */}
       <section className="container mx-auto px-6 py-32 space-y-16">
         <div className="text-center space-y-4">
           <h2 className="text-4xl font-headline font-black">{t.featuresTitle}</h2>
@@ -137,7 +134,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer Note */}
       <footer className="container mx-auto px-6 py-20 border-t border-white/5 text-center">
         <div className="max-w-2xl mx-auto space-y-6">
           <div className="logo-container w-32 h-16 mx-auto opacity-50 grayscale hover:grayscale-0 transition-all">

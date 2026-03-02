@@ -4,7 +4,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, LogOut, LayoutDashboard } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -41,8 +41,7 @@ export function Navigation() {
 
   return (
     <>
-      {/* Top Navigation - Fixed and High Z-Index */}
-      <header className="fixed top-0 left-0 right-0 z-[9999] border-b border-white/10 bg-background shadow-xl">
+      <header className="fixed top-0 left-0 right-0 z-[9999] border-b border-white/10 bg-background/95 backdrop-blur-md shadow-xl">
         <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative flex items-center justify-center bg-white rounded-xl p-1.5 md:p-2 shadow-lg overflow-hidden w-32 md:w-40 h-10 md:h-14">
@@ -65,7 +64,6 @@ export function Navigation() {
             </div>
           </Link>
           
-          {/* Desktop Links */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <Link
@@ -84,7 +82,6 @@ export function Navigation() {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
-            {/* Language Switcher */}
             <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl">
               <button 
                 onClick={() => setLanguage('ar')}
@@ -116,8 +113,8 @@ export function Navigation() {
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-56 glass-card border-white/10 mt-2 z-[10001]">
-                  <DropdownMenuLabel className="font-headline font-bold">
+                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-56 glass-card border-white/10 mt-2">
+                  <DropdownMenuLabel className="font-bold">
                     {language === 'ar' ? 'حسابي' : 'My Account'}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/5" />
@@ -142,9 +139,8 @@ export function Navigation() {
         </div>
       </header>
 
-      {/* Mobile Bottom Navigation */}
       <nav className="fixed bottom-6 left-6 right-6 z-[9999] md:hidden">
-        <div className="flex h-16 items-center justify-between px-2 bg-background shadow-2xl rounded-2xl border border-white/10 overflow-hidden">
+        <div className="flex h-16 items-center justify-between px-2 bg-background/95 backdrop-blur-md shadow-2xl rounded-2xl border border-white/10 overflow-hidden">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
