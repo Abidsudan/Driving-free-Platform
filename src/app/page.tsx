@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { BookOpen, ShieldCheck, ClipboardCheck, ArrowLeft, ArrowRight, Star, Users, Clock } from "lucide-react"
+import { BookOpen, ShieldCheck, ClipboardCheck, ArrowLeft, ArrowRight, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function Home() {
@@ -14,11 +14,11 @@ export default function Home() {
   const heroBg = PlaceHolderImages.find(img => img.id === "hero-bg")
 
   const t = {
-    heroBadge: language === 'ar' ? "منصة تعليمية معتمدة وفق معايير RTA" : "Accredited platform per RTA standards",
+    heroBadge: language === 'ar' ? "منصة تعليمية معتمدة وفق معايير RTA دبي" : "Accredited platform per RTA standards Dubai",
     heroTitle: language === 'ar' ? "احترف القيادة بمنهج أكاديمي" : "Master Driving with Academic Curriculum",
-    heroDesc: language === 'ar' ? "الأكاديمية الأولى في دبي التي تحول الخبرة الميدانية العميقة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى." : "The first academy in Dubai converting deep field experience into an interactive scientific curriculum ensuring your success from the first attempt.",
+    heroDesc: language === 'ar' ? "الأكاديمية الأولى في دبي التي تحول خبرة ميدانية عميقة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى." : "The first academy in Dubai converting deep field experience into an interactive scientific curriculum ensuring your success from the first attempt.",
     btnStart: language === 'ar' ? "ابدأ رحلة التعلم" : "Start Learning Journey",
-    btnAssessment: language === 'ar' ? "خوض اختبار RTA" : "Take RTA Test",
+    btnAssessment: language === 'ar' ? "خوض اختبار ذكاء RTA" : "Take RTA Test",
     stats: [
       { num: "100%", label: language === 'ar' ? "منهج RTA المطور" : "Advanced RTA Curriculum" },
       { num: "98%", label: language === 'ar' ? "دقة محاكي الذكاء" : "AI Simulator Accuracy" },
@@ -44,13 +44,13 @@ export default function Home() {
       },
       {
         title: language === 'ar' ? "محاكي RTA الذكي" : "Smart RTA Simulator",
-        desc: language === 'ar' ? "نظام توليد أسئلة يحاكي الاختبار النظري الحقيقي بدقة مذهلة لبناء ثقتك قبل الاختبار." : "A question generation system accurately simulating the real theory test to build your confidence.",
+        desc: language === 'ar' ? "نظام توليد أسئلة بالذكاء الاصطناعي يحاكي الاختبار النظري الحقيقي بدقة مذهلة." : "A question generation system accurately simulating the real theory test to build your confidence.",
         icon: ClipboardCheck,
         href: "/assessment",
         color: "bg-green-500/10 text-green-500"
       }
     ],
-    footerNote: language === 'ar' ? "نحن نؤمن أن القيادة ليست مجرد مهارة، بل هي علم يجمع بين الفيزياء والسلوك البشري." : "We believe driving is not just a skill, but a science combining physics and human behavior."
+    footerNote: language === 'ar' ? "نحن نؤمن أن القيادة ليست مجرد مهارة، بل هي علم يجمع بين الفيزياء والسلوك البشري لضمان حياة آمنة للجميع في دبي." : "We believe driving is not just a skill, but a science combining physics and human behavior for safe life in Dubai."
   }
 
   return (

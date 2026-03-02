@@ -6,19 +6,27 @@ import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { LanguageProvider } from '@/components/language-provider';
 import Script from 'next/script';
+import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Driving Free | أكاديمية القيادة الحرة',
   description: 'أكاديمية تعليم القيادة العلمية والعملية في دبي - منهج أكاديمي متطور وخبرة ميدانية واسعة',
 };
 
-export default function RootLayout({
+interface RootLayoutProps {
+  children: ReactNode;
+  params: Promise<any>;
+}
+
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+  params,
+}: RootLayoutProps) {
+  // Wait for params to comply with Next.js 15 standards
+  await params;
+
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -28,11 +36,11 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="font-body antialiased min-h-screen flex flex-col bg-background">
+      <body className="font-body antialiased min-h-screen flex flex-col bg-background overflow-x-hidden">
         <LanguageProvider>
           <FirebaseClientProvider>
             <Navigation />
-            <main className="flex-1 pt-20 pb-28 md:pb-0 md:pt-24">
+            <main className="flex-1 pt-16 md:pt-20 pb-20 md:pb-0">
               {children}
             </main>
             <Toaster />

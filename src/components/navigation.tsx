@@ -4,7 +4,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard, Globe } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, User, LogOut, LayoutDashboard } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -41,8 +41,8 @@ export function Navigation() {
 
   return (
     <>
-      {/* Top Navigation - Visible on ALL screens now */}
-      <header className="fixed top-0 left-0 right-0 z-[1000] border-b border-white/10 bg-background shadow-2xl">
+      {/* Top Navigation - Fixed and High Z-Index */}
+      <header className="fixed top-0 left-0 right-0 z-[9999] border-b border-white/10 bg-background shadow-xl">
         <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4 md:px-6">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative flex items-center justify-center bg-white rounded-xl p-1.5 md:p-2 shadow-lg overflow-hidden w-32 md:w-40 h-10 md:h-14">
@@ -65,7 +65,7 @@ export function Navigation() {
             </div>
           </Link>
           
-          {/* Desktop Links - Hidden on Mobile */}
+          {/* Desktop Links */}
           <nav className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <Link
@@ -84,7 +84,7 @@ export function Navigation() {
           </nav>
 
           <div className="flex items-center gap-2 md:gap-4">
-            {/* Language Switcher - Simplified for mobile */}
+            {/* Language Switcher */}
             <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl">
               <button 
                 onClick={() => setLanguage('ar')}
@@ -116,7 +116,7 @@ export function Navigation() {
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-56 glass-card border-white/10 mt-2 z-[1001]">
+                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-56 glass-card border-white/10 mt-2 z-[10001]">
                   <DropdownMenuLabel className="font-headline font-bold">
                     {language === 'ar' ? 'حسابي' : 'My Account'}
                   </DropdownMenuLabel>
@@ -142,9 +142,9 @@ export function Navigation() {
         </div>
       </header>
 
-      {/* Mobile Bottom Navigation - Keep for quick access */}
-      <nav className="fixed bottom-6 left-6 right-6 z-[1000] md:hidden">
-        <div className="flex h-16 items-center justify-between px-2 bg-background/95 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl overflow-hidden">
+      {/* Mobile Bottom Navigation */}
+      <nav className="fixed bottom-6 left-6 right-6 z-[9999] md:hidden">
+        <div className="flex h-16 items-center justify-between px-2 bg-background shadow-2xl rounded-2xl border border-white/10 overflow-hidden">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -164,19 +164,6 @@ export function Navigation() {
               </Link>
             )
           })}
-          
-          <Link
-            href={user ? "/dashboard" : "/auth"}
-            className={cn(
-              "flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-xl transition-all duration-300",
-              (pathname === "/auth" || pathname === "/dashboard") ? "text-accent bg-accent/10 scale-105" : "text-muted-foreground"
-            )}
-          >
-            <User className={cn("h-4 w-4", (pathname === "/auth" || pathname === "/dashboard") && "stroke-[2.5px]")} />
-            <span className="text-[7px] font-black uppercase">
-              {user ? (language === 'ar' ? "لوحتي" : "Panel") : (language === 'ar' ? "دخول" : "Login")}
-            </span>
-          </Link>
         </div>
       </nav>
     </>
