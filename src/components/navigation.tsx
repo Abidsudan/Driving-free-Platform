@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, CarFront, LogOut, LayoutDashboard, Languages } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -24,7 +24,7 @@ const navItems = [
   { name: "الرئيسية", nameEn: "Home", href: "/", icon: Home },
   { name: "المنهج", nameEn: "Curriculum", href: "/curriculum", icon: BookOpen },
   { name: "المكتبة", nameEn: "Library", href: "/library", icon: Library },
-  { name: "القواعد", nameEn: "Rules", href: "/rules", icon: ShieldCheck },
+  { name: "الإشارات", nameEn: "Traffic Signs", href: "/rules", icon: ShieldCheck },
   { name: "التقييم", nameEn: "Assessment", href: "/assessment", icon: ClipboardCheck },
 ]
 
@@ -39,7 +39,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[1000] nav-blur h-16 md:h-20 flex items-center">
+      <header className="fixed top-0 left-0 right-0 z-[9999] bg-background border-b border-white/5 h-16 md:h-20 flex items-center">
         <div className="container mx-auto flex items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative flex items-center justify-center bg-white rounded-2xl p-1 shadow-2xl w-32 md:w-40 h-10 md:h-12 overflow-hidden transition-transform active:scale-95">
@@ -125,7 +125,7 @@ export function Navigation() {
       </header>
 
       {/* Mobile Nav */}
-      <nav className="fixed bottom-6 left-6 right-6 z-[1000] lg:hidden">
+      <nav className="fixed bottom-6 left-6 right-6 z-[9999] lg:hidden">
         <div className="flex h-16 items-center justify-around bg-background/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[2rem] border border-white/10 px-2">
           {navItems.map((item) => {
             const Icon = item.icon

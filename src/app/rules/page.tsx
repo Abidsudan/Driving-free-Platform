@@ -1,6 +1,6 @@
 'use client';
 
-import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Map as MapIcon, Layers, ListChecks } from "lucide-react"
+import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
