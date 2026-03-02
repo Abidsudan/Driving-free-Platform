@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview A Genkit flow for the AI Driving Tutor (Maalam Al-Qiada).
@@ -13,7 +12,7 @@ const TutorInputSchema = z.object({
     role: z.enum(['user', 'model']),
     content: z.string(),
   })).optional().describe('Chat history for context.'),
-  language: z.enum(['ar', 'en']).default('ar').describe('The language for the response.'),
+  language: z.enum(['ar', 'en']).default('en').describe('The language for the response.'),
 });
 
 const TutorOutputSchema = z.object({

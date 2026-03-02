@@ -1,4 +1,3 @@
-
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navigation } from '@/components/navigation';
@@ -9,8 +8,8 @@ import Script from 'next/script';
 import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Driving Free | أكاديمية القيادة الحرة',
-  description: 'أكاديمية تعليم القيادة العلمية والعملية في دبي - منهج أكاديمي متطور وخبرة ميدانية واسعة',
+  title: 'Driving Free | Professional Driving Academy',
+  description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
 };
 
 interface RootLayoutProps {
@@ -26,7 +25,7 @@ export default async function RootLayout({
   await params;
 
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

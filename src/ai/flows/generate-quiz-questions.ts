@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
@@ -11,7 +10,7 @@ const GenerateQuizQuestionsInputSchema = z.object({
   numberOfQuestions: z.number().int().min(1).max(10).default(5),
   topic: z.string().optional(),
   difficulty: z.enum(['easy', 'medium', 'hard']).default('medium'),
-  language: z.enum(['ar', 'en']).default('ar'),
+  language: z.enum(['ar', 'en']).default('en'),
 });
 
 export type GenerateQuizQuestionsInput = z.infer<typeof GenerateQuizQuestionsInputSchema>;
