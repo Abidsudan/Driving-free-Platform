@@ -1,10 +1,10 @@
-'use client';
+"use client"
 
 import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebase';
-import { collection, query, orderBy } from 'firebase/firestore';
+import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, ChevronLeft, Star, ChevronRight } from 'lucide-react';
+import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { getDailyDrivingTip, type DailyTipOutput } from '@/ai/flows/get-daily-tip';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/components/language-provider';
+import { cn } from '@/lib/utils';
 
 export default function DashboardPage() {
   const { user, isUserLoading } = useUser();
@@ -20,59 +21,53 @@ export default function DashboardPage() {
   const [dailyTip, setDailyTip] = useState<DailyTipOutput | null>(null);
 
   const t = {
-    loading: language === 'ar' ? "جاري تحميل بياناتك الأكاديمية..." : "Loading academic data...",
-    noLogin: language === 'ar' ? "يجب تسجيل الدخول للوصول إلى لوحة التحكم" : "Login required to access dashboard",
-    noLoginDesc: language === 'ar' ? "انضم إلينا اليوم لتبدأ في تتبع تقدمك والحصول على تقييمات الذكاء الاصطناعي." : "Join us today to start tracking progress and get AI assessments.",
-    btnLogin: language === 'ar' ? "انتقل لصفحة الدخول" : "Go to Login",
-    welcome: language === 'ar' ? "مرحباً،" : "Welcome,",
-    proDriver: language === 'ar' ? "أيها السائق المحترف" : "Pro Driver",
-    welcomeDesc: language === 'ar' ? "أهلاً بك في فضاء التميز الأكاديمي. سجلاتك محدثة وجاهزة." : "Welcome to academic excellence. Your records are updated.",
-    successRate: language === 'ar' ? "معدل النجاح العام" : "Overall Success Rate",
-    aiTip: language === 'ar' ? "نصيحة الخبير اليومية (ذكاء اصطناعي)" : "Daily Expert Tip (AI)",
-    currentLevel: language === 'ar' ? "المرحلة الحالية" : "Current Level",
-    level1: language === 'ar' ? "المستوى 1" : "Level 1",
-    level1Desc: language === 'ar' ? "الأساسيات والبيئة المحيطة" : "Basics & Environment",
-    levelsLeft: language === 'ar' ? "باقي 3 مراحل للاحتراف" : "3 levels left to mastery",
-    recordsTitle: language === 'ar' ? "سجل التدريب المعرفي" : "Cognitive Training Log",
-    loadingRecords: language === 'ar' ? "جاري جلب السجلات من الأرشيف..." : "Fetching records from archive...",
-    score: language === 'ar' ? "النتيجة" : "Score",
-    status: language === 'ar' ? "الحالة" : "Status",
-    passed: language === 'ar' ? "ناجح" : "Passed",
-    review: language === 'ar' ? "مراجعة" : "Review",
-    noRecords: language === 'ar' ? "لا توجد سجلات أكاديمية حالياً. ابدأ أول خطوة لك!" : "No academic records yet. Take your first step!",
-    firstAssessment: language === 'ar' ? "خوض التقييم الأول" : "Take First Assessment",
-    nextSteps: language === 'ar' ? "خطواتك التالية" : "Next Steps",
-    recommended: language === 'ar' ? "موصى به" : "Recommended"
+    loading: language === 'ar' ? "مزامنة البيانات الذكية..." : "Syncing Smart Data...",
+    welcome: language === 'ar' ? "أهلاً بك،" : "Welcome,",
+    pro: language === 'ar' ? "السائق الأكاديمي" : "Academic Driver",
+    success: language === 'ar' ? "مؤشر الكفاءة" : "Efficiency Index",
+    dailyTip: language === 'ar' ? "نصيحة الذكاء الاصطناعي اليومية" : "Daily AI Insight",
+    level: language === 'ar' ? "المرحلة الحالية" : "Current Phase",
+    levelTitle: language === 'ar' ? "المرحلة 1: الأساسيات" : "Phase 1: Foundations",
+    recent: language === 'ar' ? "السجل الأكاديمي الأخير" : "Recent Academic Log",
+    noData: language === 'ar' ? "لا توجد بيانات حالياً. ابدأ تقييمك الأول." : "No data found. Start your first assessment.",
+    btnStart: language === 'ar' ? "ابدأ التقييم" : "Start Assessment",
+    nextStep: language === 'ar' ? "توصيات ذكية" : "Smart Recommendations"
   }
 
   const attemptsQuery = useMemoFirebase(() => {
     if (!db || !user) return null;
     return query(
       collection(db, 'users', user.uid, 'quizAttempts'),
-      orderBy('startTime', 'desc')
+      orderBy('startTime', 'desc'),
+      limit(5)
     );
   }, [db, user]);
 
   const { data: attempts, isLoading: isAttemptsLoading } = useCollection(attemptsQuery);
 
   useEffect(() => {
-    getDailyDrivingTip(language).then(setDailyTip).catch(console.error);
+    getDailyDrivingTip(language).then(setDailyTip).catch(() => {});
   }, [language]);
 
   if (isUserLoading) {
-    return <div className="container mx-auto p-12 text-center text-muted-foreground animate-pulse">{t.loading}</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 animate-pulse">
+        <Zap className="h-12 w-12 text-primary animate-bounce" />
+        <span className="font-black text-muted-foreground">{t.loading}</span>
+      </div>
+    );
   }
 
   if (!user) {
     return (
-      <div className="container mx-auto p-12 text-center space-y-6">
-        <div className="inline-flex p-6 rounded-full bg-primary/10 mb-4">
-          <BookOpen className="h-12 w-12 text-primary" />
+      <div className="container mx-auto p-12 text-center space-y-8">
+        <div className="inline-flex p-8 rounded-full bg-primary/10 mb-4 animate-float">
+          <GraduationCap className="h-16 w-16 text-primary" />
         </div>
-        <h2 className="text-3xl font-headline font-bold">{t.noLogin}</h2>
-        <p className="text-muted-foreground max-w-md mx-auto">{t.noLoginDesc}</p>
+        <h2 className="text-4xl font-black font-headline">{language === 'ar' ? "تتطلب الوصول الأكاديمي" : "Access Denied"}</h2>
+        <p className="text-muted-foreground max-w-md mx-auto">{language === 'ar' ? "يرجى تسجيل الدخول لتتمكن من تتبع تقدمك والحصول على التحليلات الذكية." : "Please login to track your progress and get smart insights."}</p>
         <Link href="/auth">
-          <Button size="lg" className="px-12 h-14 rounded-2xl font-bold">{t.btnLogin}</Button>
+          <Button size="lg" className="h-16 px-12 rounded-2xl font-black text-lg">سجل دخولك الآن</Button>
         </Link>
       </div>
     );
@@ -84,179 +79,162 @@ export default function DashboardPage() {
 
   return (
     <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      {/* Smart Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-primary/5 p-8 rounded-[3rem] border border-primary/10">
         <div className="space-y-2">
-          <h1 className="text-4xl font-headline font-black tracking-tighter">
-            {t.welcome} <span className="text-gradient">{user.displayName || t.proDriver}</span>
+          <div className="flex items-center gap-2 text-primary text-xs font-black uppercase tracking-widest">
+            <LayoutDashboard className="h-4 w-4" /> {t.pro}
+          </div>
+          <h1 className="text-5xl font-black font-headline tracking-tighter">
+            {t.welcome} <span className="smart-gradient-text">{user.displayName?.split(' ')[0] || "User"}</span>
           </h1>
-          <p className="text-muted-foreground">{t.welcomeDesc}</p>
         </div>
-        <div className="flex items-center gap-4 p-4 rounded-3xl bg-secondary/30 border border-white/5 backdrop-blur-xl">
-           <div className={dir === 'rtl' ? "text-right" : "text-left"}>
-              <span className="block text-xs font-bold text-muted-foreground uppercase tracking-widest">{t.successRate}</span>
-              <span className="text-2xl font-black text-accent">{averageScore}%</span>
+        <div className="flex items-center gap-6 glass-card p-6 rounded-3xl">
+           <div className="text-center">
+              <span className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">{t.success}</span>
+              <span className="text-3xl font-black text-accent">{averageScore}%</span>
            </div>
-           <div className="bg-accent/20 p-3 rounded-2xl">
-            <Trophy className="h-8 w-8 text-accent" />
+           <div className="h-12 w-px bg-white/10" />
+           <div className="bg-accent/20 p-4 rounded-2xl">
+            <Trophy className="h-8 w-8 text-accent animate-float" />
            </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Daily Tip Card */}
-        <Card className="lg:col-span-2 glass-card border-primary/20 overflow-hidden relative group">
-          <div className={cn("absolute top-0 w-1 h-full bg-primary", dir === 'rtl' ? "right-0" : "left-0")} />
-          <CardHeader className="pb-2">
-            <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-tighter mb-2">
-              <Lightbulb className="h-4 w-4" /> {t.aiTip}
+        {/* AI Insight Card */}
+        <Card className="lg:col-span-2 glass-card border-primary/20 p-8 overflow-hidden relative">
+          <div className="absolute top-0 left-0 w-2 h-full bg-primary" />
+          <CardHeader className="p-0 mb-6">
+            <div className="flex items-center gap-2 text-primary font-black text-xs uppercase tracking-tighter">
+              <Zap className="h-4 w-4" /> {t.dailyTip}
             </div>
-            {dailyTip ? (
-              <>
-                <CardTitle className="text-2xl font-headline group-hover:text-primary transition-colors">{dailyTip.title}</CardTitle>
-                <div className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold mt-2 uppercase">{dailyTip.category}</div>
-              </>
-            ) : (
-              <div className="h-8 w-48 bg-white/5 animate-pulse rounded-lg" />
-            )}
+            {dailyTip && <CardTitle className="text-2xl font-black font-headline mt-4">{dailyTip.title}</CardTitle>}
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             {dailyTip ? (
-              <p className="text-muted-foreground leading-relaxed italic">"{dailyTip.content}"</p>
+              <div className="space-y-6">
+                <p className="text-muted-foreground leading-relaxed text-lg italic">"{dailyTip.content}"</p>
+                <div className="inline-block px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">
+                  {dailyTip.category}
+                </div>
+              </div>
             ) : (
-              <div className="space-y-2">
-                <div className="h-4 w-full bg-white/5 animate-pulse rounded" />
-                <div className="h-4 w-3/4 bg-white/5 animate-pulse rounded" />
+              <div className="space-y-4">
+                <div className="h-6 w-3/4 bg-white/5 animate-pulse rounded-lg" />
+                <div className="h-20 w-full bg-white/5 animate-pulse rounded-lg" />
               </div>
             )}
           </CardContent>
         </Card>
 
-        {/* Level Stats */}
-        <Card className="glass-card border-accent/20 p-8 space-y-6">
-          <div className="flex items-center justify-between">
-            <div className="bg-accent/10 p-3 rounded-2xl">
-              <Star className="h-6 w-6 text-accent" fill="currentColor" />
+        {/* Phase Progress */}
+        <Card className="glass-card border-accent/20 p-8 flex flex-col justify-between">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="bg-accent/10 p-3 rounded-2xl">
+                <Star className="h-6 w-6 text-accent fill-accent" />
+              </div>
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t.level}</span>
             </div>
-            <span className="text-xs font-bold text-muted-foreground">{t.currentLevel}</span>
+            <div className="space-y-2">
+              <h3 className="text-3xl font-black font-headline">{t.levelTitle}</h3>
+              <p className="text-xs text-muted-foreground">{language === 'ar' ? 'أساسيات فيزياء المركبة والبيئة المحيطة' : 'Vehicle Physics and Environment Foundations'}</p>
+            </div>
           </div>
-          <div className="space-y-2">
-            <h3 className="text-3xl font-black font-headline">{t.level1}</h3>
-            <p className="text-xs text-muted-foreground">{t.level1Desc}</p>
+          <div className="space-y-4 pt-8">
+            <Progress value={25} className="h-3 bg-secondary" />
+            <p className="text-[10px] text-center text-muted-foreground font-black uppercase tracking-widest">باقي 3 مراحل للاحتراف الكامل</p>
           </div>
-          <Progress value={25} className="h-2 bg-secondary" />
-          <p className="text-[10px] text-center text-muted-foreground uppercase tracking-widest font-bold">{t.levelsLeft}</p>
         </Card>
       </div>
 
+      {/* Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Main Records Section */}
         <div className="lg:col-span-2 space-y-8">
-          <h2 className="text-2xl font-headline font-bold flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-xl">
+          <h2 className="text-3xl font-black font-headline flex items-center gap-4">
+            <div className="p-3 bg-primary/10 rounded-2xl">
               <Clock className="h-6 w-6 text-primary" />
             </div>
-            {t.recordsTitle}
+            {t.recent}
           </h2>
           
-          <div className="grid gap-4">
+          <div className="space-y-4">
             {isAttemptsLoading ? (
-              <div className="text-center py-12 text-muted-foreground">{t.loadingRecords}</div>
+              <div className="text-center py-20 text-muted-foreground animate-pulse">جاري تحديث السجلات...</div>
             ) : attempts && attempts.length > 0 ? (
               attempts.map((attempt) => (
-                <Card key={attempt.id} className="bg-card/40 border-white/5 hover:border-primary/20 hover:bg-card/60 transition-all group">
-                  <div className="p-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="flex items-center gap-5 w-full md:w-auto">
-                      <div className={`p-4 rounded-2xl shadow-inner ${attempt.score / attempt.totalQuestions >= 0.8 ? 'bg-green-500/10 text-green-400' : 'bg-orange-500/10 text-orange-400'}`}>
+                <Card key={attempt.id} className="glass-card p-6 border-white/5 hover:border-primary/40 transition-all">
+                  <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-5">
+                      <div className={cn(
+                        "p-4 rounded-2xl",
+                        attempt.score / attempt.totalQuestions >= 0.8 ? "bg-green-500/10 text-green-400" : "bg-orange-500/10 text-orange-400"
+                      )}>
                         <Trophy className="h-6 w-6" />
                       </div>
                       <div className={dir === 'rtl' ? "text-right" : "text-left"}>
-                        <h4 className="font-bold text-lg">{attempt.topic || (language === 'ar' ? 'اختبار تقييم عام' : 'General Assessment')}</h4>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {format(new Date(attempt.startTime), 'do MMMM yyyy • HH:mm', { locale: language === 'ar' ? ar : enUS })}
+                        <h4 className="font-black text-lg">{attempt.topic || "تقييم RTA الذكي"}</h4>
+                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">
+                          {format(new Date(attempt.startTime), 'do MMM yyyy • HH:mm', { locale: language === 'ar' ? ar : enUS })}
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-12 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-white/5 pt-4 md:pt-0">
+                    <div className="flex items-center gap-10">
                       <div className="text-center">
-                        <span className="block text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{t.score}</span>
-                        <span className="text-2xl font-black tabular-nums">{attempt.score} <span className="text-sm font-medium text-muted-foreground">/ {attempt.totalQuestions}</span></span>
+                        <span className="block text-[8px] font-black text-muted-foreground uppercase tracking-widest mb-1">النتيجة</span>
+                        <span className="text-2xl font-black">{attempt.score} <span className="text-xs text-muted-foreground">/ {attempt.totalQuestions}</span></span>
                       </div>
-                      <div className="text-center">
-                        <span className="block text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1">{t.status}</span>
-                        <span className={`text-sm font-black flex items-center gap-1 ${attempt.score / attempt.totalQuestions >= 0.8 ? 'text-green-400' : 'text-orange-400'}`}>
-                          {attempt.score / attempt.totalQuestions >= 0.8 ? (
-                            <><CheckCircle2 className="h-4 w-4" /> {t.passed}</>
-                          ) : (
-                            <><Target className="h-4 w-4" /> {t.review}</>
-                          )}
-                        </span>
+                      <div className={cn(
+                        "px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest",
+                        attempt.score / attempt.totalQuestions >= 0.8 ? "bg-green-500/20 text-green-400" : "bg-orange-500/20 text-orange-400"
+                      )}>
+                        {attempt.score / attempt.totalQuestions >= 0.8 ? (language === 'ar' ? 'ناجح' : 'Passed') : (language === 'ar' ? 'مراجعة' : 'Review')}
                       </div>
                     </div>
                   </div>
                 </Card>
               ))
             ) : (
-              <div className="text-center py-20 bg-secondary/10 rounded-[3rem] border border-dashed border-white/10 space-y-6">
-                <div className="bg-primary/5 p-6 rounded-full inline-block">
-                  <Target className="h-12 w-12 text-primary/40" />
-                </div>
-                <div className="space-y-2">
-                  <p className="text-muted-foreground font-medium">{t.noRecords}</p>
-                  <Link href="/assessment">
-                    <Button variant="link" className="text-primary font-bold gap-2">
-                      {t.firstAssessment} {dir === 'rtl' ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                    </Button>
-                  </Link>
-                </div>
+              <div className="text-center py-20 glass-card rounded-[3rem] border-dashed space-y-6">
+                <Target className="h-16 w-16 text-primary/20 mx-auto" />
+                <p className="text-muted-foreground font-bold">{t.noData}</p>
+                <Link href="/assessment">
+                  <Button className="rounded-2xl h-14 px-8 font-black">{t.btnStart}</Button>
+                </Link>
               </div>
             )}
           </div>
         </div>
 
-        {/* Sidebar Suggestions */}
+        {/* Sidebar Recommendations */}
         <div className="space-y-8">
-          <h2 className="text-2xl font-headline font-bold flex items-center gap-3">
-            <div className="p-2 bg-accent/10 rounded-xl">
-              <BookOpen className="h-6 w-6 text-accent" />
+          <h2 className="text-3xl font-black font-headline flex items-center gap-4">
+            <div className="p-3 bg-accent/10 rounded-2xl">
+              <Lightbulb className="h-6 w-6 text-accent" />
             </div>
-            {t.nextSteps}
+            {t.nextStep}
           </h2>
           
-          <div className="grid gap-6">
+          <div className="space-y-6">
             {[
-              { 
-                title: language === 'ar' ? "أكمل المرحلة الأولى" : "Complete Level 1", 
-                desc: language === 'ar' ? "دراسة فيزياء المركبة وكيفية الفحص قبل الرحلة." : "Study vehicle physics and pre-trip inspection.", 
-                icon: CheckCircle2, 
-                status: "suggested" 
-              },
-              { 
-                title: language === 'ar' ? "دراسة إشارات المرور" : "Study Traffic Signs", 
-                desc: language === 'ar' ? "تحدي الـ 150 إشارة مرورية المعتمدة في دبي." : "Master the 150 official Dubai road signs.", 
-                icon: Lightbulb, 
-                status: "new" 
-              },
-              { 
-                title: language === 'ar' ? "اختبار الـ RTA النظري" : "RTA Theory Test", 
-                desc: language === 'ar' ? "محاكاة شاملة لـ 40 سؤال في ظروف زمنية واقعية." : "Comprehensive 40-question simulation under time constraints.", 
-                icon: Trophy, 
-                status: "locked" 
-              },
+              { title: "أكمل أساسيات الفيزياء", icon: Zap, status: "top" },
+              { title: "دراسة إشارات المنع", icon: ShieldCheck, status: "new" },
+              { title: "اختبار المحاكاة الكامل", icon: ClipboardCheck, status: "locked" }
             ].map((step, i) => (
-              <div key={i} className="relative p-6 rounded-[2rem] bg-card/40 border border-white/5 hover:border-primary/20 transition-all cursor-pointer group">
+              <div key={i} className="glass-card p-6 rounded-[2.5rem] hover:border-primary/50 cursor-pointer relative group">
                 <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 p-3 rounded-xl group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    <step.icon className="h-5 w-5" />
+                  <div className="bg-primary/10 p-3 rounded-xl group-hover:bg-primary transition-colors">
+                    <step.icon className="h-5 w-5 text-primary group-hover:text-white" />
                   </div>
-                  <div className={cn("space-y-1", dir === 'rtl' ? "text-right" : "text-left")}>
-                    <h4 className="font-bold">{step.title}</h4>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
+                  <div>
+                    <h4 className="font-black text-sm">{step.title}</h4>
+                    <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-widest">توصية الذكاء الاصطناعي</p>
                   </div>
                 </div>
-                {step.status === "suggested" && (
-                  <div className={cn("absolute -top-2 px-3 py-1 rounded-full bg-primary text-[8px] font-black text-white uppercase tracking-tighter shadow-lg shadow-primary/20", dir === 'rtl' ? "-right-2" : "-left-2")}>
-                    {t.recommended}
+                {step.status === "top" && (
+                  <div className="absolute -top-3 right-6 bg-accent text-[8px] font-black text-accent-foreground px-3 py-1 rounded-full uppercase tracking-widest">
+                    موصى به بشدة
                   </div>
                 )}
               </div>

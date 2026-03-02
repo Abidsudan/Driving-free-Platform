@@ -1,12 +1,11 @@
-
-'use client';
+"use client"
 
 import Image from "next/image"
 import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { BookOpen, ShieldCheck, ClipboardCheck, ArrowLeft, ArrowRight, Star } from "lucide-react"
+import { BookOpen, ShieldCheck, ClipboardCheck, ArrowLeft, ArrowRight, Star, GraduationCap } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 export default function Home() {
@@ -14,81 +13,80 @@ export default function Home() {
   const heroBg = PlaceHolderImages.find(img => img.id === "hero-bg")
 
   const t = {
-    heroBadge: language === 'ar' ? "منصة تعليمية معتمدة وفق معايير RTA دبي" : "Accredited platform per RTA standards Dubai",
-    heroTitle: language === 'ar' ? "احترف القيادة بمنهج أكاديمي" : "Master Driving with Academic Curriculum",
-    heroDesc: language === 'ar' ? "الأكاديمية الأولى في دبي التي تحول خبرة ميدانية عميقة إلى منهج علمي تفاعلي يضمن لك النجاح من المحاولة الأولى." : "The first academy in Dubai converting deep field experience into an interactive scientific curriculum ensuring your success from the first attempt.",
-    btnStart: language === 'ar' ? "ابدأ رحلة التعلم" : "Start Learning Journey",
-    btnAssessment: language === 'ar' ? "خوض اختبار ذكاء RTA" : "Take RTA Test",
+    heroBadge: language === 'ar' ? "أكاديمية رقمية معتمدة وفق معايير RTA" : "Accredited Digital Academy per RTA Standards",
+    heroTitle: language === 'ar' ? "صناعة السائق المحترف بالعلم" : "Engineering Professional Drivers through Science",
+    heroDesc: language === 'ar' ? "المنصة الأولى في دبي التي تحول الخبرة الميدانية إلى منهج أكاديمي ذكي يضمن لك النجاح من المحاولة الأولى." : "The #1 platform in Dubai transforming field experience into a smart academic curriculum ensuring first-attempt success.",
+    btnStart: language === 'ar' ? "ابدأ المنهج الأكاديمي" : "Start Academic Curriculum",
+    btnAssessment: language === 'ar' ? "محاكي اختبار RTA" : "RTA Test Simulator",
     stats: [
-      { num: "100%", label: language === 'ar' ? "منهج RTA المطور" : "Advanced RTA Curriculum" },
-      { num: "98%", label: language === 'ar' ? "دقة محاكي الذكاء" : "AI Simulator Accuracy" },
-      { num: "5000+", label: language === 'ar' ? "ساعة تدريب ميداني" : "Field Training Hours" },
-      { num: "1200+", label: language === 'ar' ? "خريج رخصة قيادة" : "License Graduates" },
+      { num: "100%", label: language === 'ar' ? "دقة المنهج" : "Curriculum Accuracy" },
+      { num: "98%", label: language === 'ar' ? "نسبة النجاح" : "Success Rate" },
+      { num: "5000+", label: language === 'ar' ? "ساعة تدريب" : "Training Hours" },
+      { num: "FREE", label: language === 'ar' ? "مجاني للجميع" : "Free for Everyone" },
     ],
-    featuresTitle: language === 'ar' ? "بوابتك لإتقان القيادة" : "Your Gateway to Driving Mastery",
-    featuresDesc: language === 'ar' ? "أدوات تعليمية رقمية صممت لتبسيط المفاهيم الفيزيائية والقواعد المعقدة لهيئة الطرق والمواصلات." : "Digital educational tools designed to simplify physical concepts and complex RTA regulations.",
+    featuresTitle: language === 'ar' ? "بوابتك للتميز الأكاديمي" : "Your Gateway to Academic Excellence",
     features: [
       {
-        title: language === 'ar' ? "المنهج الأكاديمي" : "Academic Curriculum",
-        desc: language === 'ar' ? "رحلة تعليمية منظمة من 4 مستويات تغطي كل ما تحتاجه من فحص المركبة إلى القيادة في الطرق السريعة." : "A structured 4-level journey covering everything from vehicle inspection to highway driving.",
+        title: language === 'ar' ? "المنهج المتكامل" : "Integrated Curriculum",
+        desc: language === 'ar' ? "رحلة تعليمية من 4 مستويات تغطي فيزياء المركبة وقواعد الطرق السريعة." : "A 4-level educational journey covering vehicle physics and highway rules.",
         icon: BookOpen,
         href: "/curriculum",
         color: "bg-blue-500/10 text-blue-500"
       },
       {
-        title: language === 'ar' ? "المكتبة التقنية" : "Technical Library",
-        desc: language === 'ar' ? "مقالات علمية حصرية تتناول فيزياء كبح المركبات وسيكولوجية السائق تحت الضغط المروري." : "Exclusive scientific articles on vehicle braking physics and driver psychology under pressure.",
-        icon: Star,
+        title: language === 'ar' ? "المكتبة العلمية" : "Scientific Library",
+        desc: language === 'ar' ? "دراسات حصرية حول سيكولوجية السائق وديناميكيات نقل الوزن." : "Exclusive studies on driver psychology and weight transfer dynamics.",
+        icon: GraduationCap,
         href: "/library",
         color: "bg-amber-500/10 text-amber-500"
       },
       {
-        title: language === 'ar' ? "محاكي RTA الذكي" : "Smart RTA Simulator",
-        desc: language === 'ar' ? "نظام توليد أسئلة بالذكاء الاصطناعي يحاكي الاختبار النظري الحقيقي بدقة مذهلة." : "A question generation system accurately simulating the real theory test to build your confidence.",
+        title: language === 'ar' ? "محاكي الذكاء" : "AI Simulator",
+        desc: language === 'ar' ? "مولد أسئلة ذكي يحاكي الاختبار النظري الحقيقي لهيئة الطرق والمواصلات." : "Smart question generator simulating the real RTA theory test accurately.",
         icon: ClipboardCheck,
         href: "/assessment",
         color: "bg-green-500/10 text-green-500"
       }
-    ],
-    footerNote: language === 'ar' ? "نحن نؤمن أن القيادة ليست مجرد مهارة، بل هي علم يجمع بين الفيزياء والسلوك البشري لضمان حياة آمنة للجميع في دبي." : "We believe driving is not just a skill, but a science combining physics and human behavior for safe life in Dubai."
+    ]
   }
 
   return (
     <div className="flex flex-col min-h-screen">
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
         {heroBg?.imageUrl && (
           <Image 
             src={heroBg.imageUrl} 
             alt="Dubai Highway" 
             fill 
-            className="object-cover opacity-40"
+            className="object-cover opacity-30 scale-110 animate-pulse-slow"
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/40 to-background" />
         
-        <div className="container relative z-10 px-6 text-center space-y-8 animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-bold">
+        <div className="container relative z-10 px-6 mx-auto text-center space-y-10">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-primary text-xs font-black uppercase tracking-widest animate-fade-in">
             <ShieldCheck className="h-4 w-4" />
             {t.heroBadge}
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black font-headline tracking-tighter max-w-4xl mx-auto leading-tight">
+          <h1 className="text-5xl md:text-8xl font-black font-headline tracking-tighter max-w-5xl mx-auto leading-[0.9] smart-gradient-text">
             {t.heroTitle}
           </h1>
           
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium">
             {t.heroDesc}
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/curriculum">
-              <Button size="lg" className="h-14 px-8 rounded-2xl font-bold text-lg bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+            <Link href="/curriculum" className="w-full sm:w-auto">
+              <Button size="lg" className="h-16 px-10 rounded-2xl font-black text-lg bg-primary hover:bg-primary/90 shadow-[0_20px_50px_rgba(59,130,246,0.3)] w-full">
                 {t.btnStart}
               </Button>
             </Link>
-            <Link href="/assessment">
-              <Button size="lg" variant="outline" className="h-14 px-8 rounded-2xl font-bold text-lg border-white/10 hover:bg-white/5 w-full sm:w-auto">
+            <Link href="/assessment" className="w-full sm:w-auto">
+              <Button size="lg" variant="outline" className="h-16 px-10 rounded-2xl font-black text-lg glass-card border-white/10 w-full">
                 {t.btnAssessment}
               </Button>
             </Link>
@@ -96,37 +94,39 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 -mt-20 relative z-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-8 rounded-[2.5rem] glass-card border-white/10">
+      {/* Stats Bar */}
+      <section className="container mx-auto px-6 -mt-16 relative z-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-10 rounded-[3rem] glass-card">
           {t.stats.map((stat, i) => (
             <div key={i} className="text-center space-y-1">
-              <span className="block text-3xl md:text-4xl font-black text-gradient">{stat.num}</span>
-              <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{stat.label}</span>
+              <span className="block text-4xl md:text-5xl font-black smart-gradient-text">{stat.num}</span>
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.3em]">{stat.label}</span>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="container mx-auto px-6 py-32 space-y-16">
-        <div className="text-center space-y-4">
-          <h2 className="text-4xl font-headline font-black">{t.featuresTitle}</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">{t.featuresDesc}</p>
+      {/* Features */}
+      <section className="container mx-auto px-6 py-32 space-y-20">
+        <div className="text-center space-y-6">
+          <h2 className="text-4xl md:text-6xl font-headline font-black">{t.featuresTitle}</h2>
+          <div className="h-1.5 w-24 bg-primary mx-auto rounded-full" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {t.features.map((feature, i) => (
             <Link href={feature.href} key={i} className="group">
-              <div className="h-full p-8 rounded-[2.5rem] glass-card border-white/5 hover:border-primary/20 transition-all space-y-6">
-                <div className={cn("inline-flex p-4 rounded-2xl", feature.color)}>
-                  <feature.icon className="h-8 w-8" />
+              <div className="h-full p-10 rounded-[3rem] glass-card hover:-translate-y-2 transition-transform space-y-8">
+                <div className={cn("inline-flex p-5 rounded-3xl", feature.color)}>
+                  <feature.icon className="h-10 w-10" />
                 </div>
-                <div className="space-y-3">
-                  <h3 className="text-2xl font-headline font-bold group-hover:text-primary transition-colors">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
+                <div className="space-y-4">
+                  <h3 className="text-3xl font-headline font-bold group-hover:text-primary transition-colors">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-lg">{feature.desc}</p>
                 </div>
-                <div className="flex items-center gap-2 text-sm font-bold text-primary">
-                  {language === 'ar' ? 'استكشف الآن' : 'Explore Now'}
-                  {dir === 'rtl' ? <ArrowLeft className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
+                <div className="flex items-center gap-3 text-sm font-black text-primary group-hover:gap-5 transition-all">
+                  {language === 'ar' ? 'استكشف المنهج' : 'Explore Curriculum'}
+                  {dir === 'rtl' ? <ArrowLeft className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
                 </div>
               </div>
             </Link>
@@ -134,23 +134,27 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="container mx-auto px-6 py-20 border-t border-white/5 text-center">
-        <div className="max-w-2xl mx-auto space-y-6">
-          <div className="logo-container w-32 h-16 mx-auto opacity-50 grayscale hover:grayscale-0 transition-all">
-            <Image 
-              src={PlaceHolderImages.find(img => img.id === "site-logo")?.imageUrl || ""} 
-              alt="Driving Free Logo" 
-              width={128}
-              height={64}
-              className="object-contain"
-            />
+      <footer className="mt-auto border-t border-white/5 py-20 glass-card rounded-t-[4rem]">
+        <div className="container mx-auto px-6 text-center space-y-10">
+          <div className="bg-white rounded-3xl p-4 w-48 mx-auto shadow-2xl animate-float">
+             <Image 
+                src={PlaceHolderImages.find(img => img.id === "site-logo")?.imageUrl || ""} 
+                alt="Driving Free" 
+                width={192}
+                height={60}
+                className="object-contain"
+              />
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed font-medium">
-            {t.footerNote}
+          <p className="text-muted-foreground max-w-2xl mx-auto font-medium">
+            {language === 'ar' 
+              ? "نحن نؤمن أن القيادة علم يجمع بين الفيزياء والسلوك البشري. هدفنا بناء جيل من السائقين المحترفين في دبي."
+              : "We believe driving is a science of physics and human behavior. Our goal is to build professional drivers in Dubai."}
           </p>
-          <p className="text-[10px] font-bold text-muted-foreground/40 uppercase tracking-[0.3em]">
-            © 2026 Driving Free • Dubai, UAE
-          </p>
+          <div className="flex justify-center gap-8 text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em]">
+            <span>© 2026 Driving Free</span>
+            <span className="text-primary">•</span>
+            <span>Dubai, UAE</span>
+          </div>
         </div>
       </footer>
     </div>

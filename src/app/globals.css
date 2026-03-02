@@ -1,42 +1,39 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Background: Deep Midnight Navy */
-    --background: 222 47% 4%;
+    /* Deep Tech & Academic Theme */
+    --background: 222 47% 3%;
     --foreground: 210 40% 98%;
     
-    --card: 222 47% 6%;
+    --card: 222 47% 5%;
     --card-foreground: 210 40% 98%;
     
     --popover: 222 47% 4%;
     --popover-foreground: 210 40% 98%;
     
-    /* Primary: Royal Azure Blue */
     --primary: 217 91% 60%;
     --primary-foreground: 222 47% 11%;
     
-    --secondary: 217 32% 17%;
+    --secondary: 217 32% 15%;
     --secondary-foreground: 210 40% 98%;
     
-    --muted: 217 32% 17%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 217 32% 12%;
+    --muted-foreground: 215 20.2% 70%;
     
-    /* Accent: Radiant Amber Gold */
-    --accent: 38 92% 50%;
+    --accent: 38 92% 55%;
     --accent-foreground: 222 47% 4%;
     
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
     
-    --border: 217 32% 17%;
-    --input: 217 32% 17%;
+    --border: 217 32% 15%;
+    --input: 217 32% 15%;
     --ring: 224.3 76.3% 48%;
     
-    --radius: 1.25rem;
+    --radius: 1.5rem;
   }
 }
 
@@ -48,44 +45,42 @@
     @apply bg-background text-foreground font-body antialiased selection:bg-primary selection:text-primary-foreground;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-headline tracking-tight;
+    @apply font-headline tracking-tighter;
   }
 }
 
 @layer components {
-  /* Simplified classes to avoid Firebase Performance Attribute length limits */
-  .nav-item-mobile {
-    @apply flex flex-col items-center justify-center flex-1 gap-1 h-full rounded-2xl transition-all duration-300 text-muted-foreground;
-  }
-  .nav-item-mobile-active {
-    @apply text-accent bg-accent/10 scale-105;
-  }
-  .logo-container {
-    @apply relative flex items-center justify-center bg-white rounded-2xl transition-all duration-500 p-2 shadow-xl overflow-hidden;
-  }
   .glass-card {
-    @apply bg-card/40 backdrop-blur-xl border border-white/5 hover:border-primary/30 shadow-2xl;
+    @apply bg-card/50 backdrop-blur-2xl border border-white/5 shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:border-primary/30;
   }
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  .smart-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient-x;
   }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .nav-blur {
+    @apply bg-background/95 backdrop-blur-xl border-b border-white/10;
   }
 }
 
-.animate-fade-in-up {
-  animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.stagger-1 { animation-delay: 150ms; }
-.stagger-2 { animation-delay: 300ms; }
-.stagger-3 { animation-delay: 450ms; }
+.animate-gradient-x {
+  animation: gradient-x 6s ease infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
