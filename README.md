@@ -3,15 +3,25 @@
 
 أول أكاديمية رقمية متخصصة في تعليم القيادة في دبي بأسلوب أكاديمي وعلمي، مصممة وفق معايير هيئة الطرق والمواصلات (RTA).
 
-## النطاق المربوط
-[drivingfreee.online](https://drivingfreee.online)
+## النطاق المربوط (Custom Domain)
+[drivingfree.online](https://drivingfree.online)
+
+## إعدادات هامة لتفعيل تسجيل الدخول (Crucial Auth Fix)
+بسبب استخدام نطاق خاص، يجب عليك القيام بالخطوات التالية في Firebase Console ليعمل تسجيل الدخول:
+
+1. اذهب إلى **Firebase Console**.
+2. اختر المشروع: **studio-241001251-5d1e7**.
+3. ادخل على **Authentication** من القائمة الجانبية.
+4. اذهب إلى تبويب **Settings**.
+5. اختر **Authorized domains**.
+6. اضغط **Add domain** وأضف: `drivingfree.online`
+7. اضغط **Add domain** مرة أخرى وأضف: `www.drivingfree.online`
 
 ## المميزات الرئيسية
 - **منهج أكاديمي متكامل:** مراحل تعليمية شاملة من الصفر للاحتراف (مجانية بالكامل).
 - **مكتبة علمية:** دراسات تقنية حول فيزياء القيادة وسيكولوجية السائق.
 - **محاكي RTA الذكي:** مولد أسئلة مدعوم بالذكاء الاصطناعي (Genkit) يحاكي الاختبارات الرسمية.
 - **أمان وحماية:** محمي بواسطة Google reCAPTCHA Enterprise.
-- **مراقبة الأداء:** متصل بـ Firebase Performance Monitoring.
 
 ## إرشادات النشر (Deployment)
 الموقع في بيئة التطوير (Preview) يتوقف عند إغلاق المتصفح. لجعل الموقع يعمل بشكل دائم:
@@ -27,7 +37,3 @@ firebase deploy --only hosting
 ```bash
 firebase hosting:channel:deploy preview_name
 ```
-
-## ملاحظات هامة
-1. تم إعداد `next.config.ts` للسماح بجميع النطاقات المستخدمة للصور.
-2. تأكد من ضبط سجلات DNS في لوحة تحكم النطاق لتوجيهها إلى Firebase.

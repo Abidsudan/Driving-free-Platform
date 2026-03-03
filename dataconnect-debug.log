@@ -1,26 +1,13 @@
-I0302 22:05:05.289175    8701 load.go:31] Reloading schema and connectors...
-I0302 22:05:05.355280    8701 control.go:100] [projects/emulator/locations/emulator/services/studio b60b] UpdateResources(): done
-Main schema: sources: schema/schema.gql [1992B] 
-Connector "example": sources: example/queries.gql [1801B] example/mutations.gql [1243B] 
-I0302 22:05:05.412137    8701 codegen.go:80] [connector "example" javascriptSdk] Generating sources into "/home/user/studio/src/dataconnect-generated"
-I0302 22:05:05.479021    8701 collector.go:107] schema extensions wrote into "/home/user/studio/dataconnect/.dataconnect/schema"
-Generated sources: main/relation.gql [14318B] main/query.gql [5099B] main/mutation.gql [13679B] prelude.gql [80730B] main/implicit.gql [1261B] main/input.gql [28173B] 
-I0302 22:05:05.480679    8701 collector.go:107] connector "example" javascriptSdk wrote into "/home/user/studio/src/dataconnect-generated"
-Generated sources: react/index.d.ts [3961B] .guides/config.json [236B] README.md [40931B] react/esm/package.json [17B] react/README.md [48299B] .guides/usage.md [3489B] .guides/setup.md [1682B] esm/index.esm.js [3556B] package.json [863B] react/package.json [460B] react/index.cjs.js [3439B] react/esm/index.esm.js [3269B] index.d.ts [8025B] esm/package.json [17B] index.cjs.js [4046B] 
-I0302 22:05:05.517810    8701 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation
-I0302 22:05:05.517916    8701 load.go:109] Finished reloading
-I0302 22:05:05.556030    8701 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:9399
-I0302 22:05:16.799221    8701 migrate.go:24] Running migration SQL:
-Step 1: CREATE EXI0302 22:05:18.674132    8048 engine.go:208] [/emulator/studio bb5f] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
-I0302 22:49:45.204667    8048 docs.go:34] Docs Server: GET /docs
-I0302 22:49:45.461707    8048 docs.go:34] Docs Server: GET /docs/studio/query.md
- "username" character varying(50) NOT NULL, PRIMARY KEY ("id"))
-Step 4: CREATE TABLE "public"."Reviews" ("movie_id" uuid NOT NULL, "user_id" text NOT NULL, "rating" integer NULL, "review_date" date NOT NULL, "review_text" text NULL, PRIMARY KEY ("movie_id", "user_id"), CONSTRAINT "Reviews_movie_id_fkey" FOREIGN KEY ("movie_id") REFERENCES "public"."movie" ("id") ON DELETE CASCADE, CONSTRAINT "Reviews_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "public"."user" ("id") ON DELETE CASCADE)
-Step 5: CREATE INDEX "Reviews_movieId_idx" ON "public"."Reviews" ("movie_id")
-Step 6: CREATE INDEX "Reviews_userId_idx" ON "public"."Reviews" ("user_id")
-Step 7: CREATE TABLE "public"."movie_metadata" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "movie_id" uuid NOT NULL, "description" text NULL, "rating" double precision NULL, "release_year" integer NULL, PRIMARY KEY ("id"), CONSTRAINT "movie_metadata_movie_id_fkey" FOREIGN KEY ("movie_id") REFERENCES "public"."movie" ("id") ON DELETE CASCADE)
-Step 8: CREATE INDEX "movie_metadata_movieId_idx" ON "public"."movie_metadata" ("movie_id")
-Step 9: CREATE UNIQUE INDEX "movie_metadata_movieId_uidx" ON "public"."movie_metadata" ("movie_id")
-I0302 22:05:18.262240    8701 control.go:100] [projects/emulator/locations/emulator/services/studio 7b80] UpdateResources(): done
+I0303 00:46:08.662183     514 load.go:31] Reloading schema and connectors...
+I0303 00:46:08.861169     514 control.go:100] [/emulator/studio 80ab] UpdateResources(): done
 Main schema: sources: schema/schema.gql [1992B] 
 Connector "example": sources: example/mutations.gql [1243B] example/queries.gql [1801B] 
+I0303 00:46:09.057329     514 codegen.go:80] [connector "example" javascriptSdk] Generating sources into "/home/user/studio/src/dataconnect-generated"
+I0303 00:46:09.096141     514 collector.go:107] schema extensions wrote into "/home/user/studio/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [80731B] main/input.gql [28173B] main/relation.gql [14318B] main/query.gql [5099B] main/mutation.gql [13679B] main/implicit.gql [1261B] 
+I0303 00:46:09.102221     514 collector.go:107] connector "example" javascriptSdk wrote into "/home/user/studio/src/dataconnect-generated"
+Generated sources: esm/package.json [17B] react/esm/package.json [17B] .guides/setup.md [1682B] index.d.ts [8025B] index.cjs.js [4046B] package.json [863B] react/index.cjs.js [3439B] .guides/usage.md [3489B] README.md [40931B] react/index.d.ts [3961B] react/esm/index.esm.js [3269B] esm/index.esm.js [3556B] react/package.json [460B] react/README.md [48299B] .guides/config.json [236B] 
+I0303 00:46:09.138506     514 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation
+I0303 00:46:09.138734     514 load.go:109] Finished reloading
+I0303 00:46:09.154559     514 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+I0303 00:46:09.340546     514 engine.go:208] [/emulator/studio 80ab] ExecuteGraphqlRead IntrospectionQuery: succeeded. 

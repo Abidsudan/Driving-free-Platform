@@ -22,7 +22,7 @@ async function syncUserProfile(user: User) {
     email: user.email,
     displayName: user.displayName || user.email?.split('@')[0] || 'Professional Driver',
     photoUrl: user.photoURL || '',
-    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
     isPremium: true, // All users get premium features in this academy
   };
 
@@ -48,6 +48,11 @@ function handleAuthError(error: any, language: 'ar' | 'en') {
     } else if (error.code === 'auth/popup-closed-by-user') {
       title = language === 'ar' ? "تم إلغاء العملية" : "Operation Cancelled";
       description = language === 'ar' ? "تم إغلاق نافذة تسجيل الدخول قبل إتمام العملية." : "The sign-in window was closed before completion.";
+    } else if (error.code === 'auth/unauthorized-domain') {
+      title = language === 'ar' ? "نطاق غير مصرح به" : "Unauthorized Domain";
+      description = language === 'ar' 
+        ? "يرجى إضافة 'drivingfree.online' إلى النطاقات المعتمدة في Firebase Console." 
+        : "Please add 'drivingfree.online' to Authorized Domains in Firebase Console Settings.";
     }
 
     toast({
@@ -66,7 +71,7 @@ function handleAuthError(error: any, language: 'ar' | 'en') {
 
 export async function initiateEmailSignUp(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
   try {
-    const token = await getRecaptchaToken('SIGNUP');
+    await getRecaptchaToken('SIGNUP');
     const result = await createUserWithEmailAndPassword(authInstance, email, password);
     await syncUserProfile(result.user);
     toast({
@@ -80,7 +85,7 @@ export async function initiateEmailSignUp(authInstance: Auth, email: string, pas
 
 export async function initiateEmailSignIn(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
   try {
-    const token = await getRecaptchaToken('LOGIN');
+    await getRecaptchaToken('LOGIN');
     const result = await signInWithEmailAndPassword(authInstance, email, password);
     await syncUserProfile(result.user);
     toast({
@@ -95,7 +100,7 @@ export async function initiateEmailSignIn(authInstance: Auth, email: string, pas
 export async function initiateGoogleSignIn(authInstance: Auth, language: 'ar' | 'en'): Promise<void> {
   const provider = new GoogleAuthProvider();
   try {
-    const token = await getRecaptchaToken('LOGIN');
+    await getRecaptchaToken('LOGIN');
     const result = await signInWithPopup(authInstance, provider);
     await syncUserProfile(result.user);
     toast({
