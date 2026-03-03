@@ -1,10 +1,9 @@
-
 "use client"
 
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2 } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -41,35 +40,35 @@ export function Navigation() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[9999] bg-background border-b border-white/5 h-16 md:h-20 flex items-center shadow-2xl">
+      <header className="fixed top-0 left-0 right-0 z-[9999] bg-background/80 backdrop-blur-3xl border-b border-white/5 h-20 md:h-24 flex items-center shadow-2xl">
         <div className="container mx-auto flex items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
-            <div className="relative flex items-center justify-center bg-white rounded-2xl p-1 shadow-2xl w-32 md:w-40 h-10 md:h-12 overflow-hidden transition-transform active:scale-95">
+            <div className="relative flex items-center justify-center bg-white rounded-2xl p-2 shadow-2xl w-40 md:w-48 h-12 md:h-14 overflow-hidden transition-all active:scale-95 group-hover:shadow-primary/20">
               {logo?.imageUrl ? (
                 <Image 
                   src={logo.imageUrl} 
                   alt="Driving Free" 
-                  width={140}
-                  height={50}
+                  width={180}
+                  height={60}
                   className="object-contain"
                   priority
                   unoptimized
                 />
               ) : (
-                <span className="font-black text-primary">DRIVING FREE</span>
+                <span className="font-black text-primary tracking-tighter">DRIVING FREE</span>
               )}
             </div>
           </Link>
           
-          <nav className="hidden lg:flex items-center gap-2 bg-secondary/30 p-1 rounded-full border border-white/5">
+          <nav className="hidden lg:flex items-center gap-1 bg-secondary/40 p-1.5 rounded-full border border-white/5 shadow-inner">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-5 py-2 rounded-full text-xs font-black transition-all",
+                  "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest",
                   pathname === item.href 
-                    ? "bg-primary text-white shadow-lg shadow-primary/25" 
+                    ? "bg-primary text-white shadow-[0_8px_24px_-4px_rgba(59,130,246,0.5)] scale-105" 
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
@@ -78,12 +77,12 @@ export function Navigation() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex items-center gap-3 md:gap-4">
             <ShareDialog>
               <Button
                 variant="ghost"
                 size="icon"
-                className="rounded-xl hover:bg-white/5 text-muted-foreground hidden sm:flex"
+                className="rounded-2xl hover:bg-white/10 text-muted-foreground hidden sm:flex h-12 w-12"
               >
                 <Share2 className="h-5 w-5" />
               </Button>
@@ -93,7 +92,7 @@ export function Navigation() {
               variant="ghost"
               size="icon"
               onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')}
-              className="rounded-xl hover:bg-white/5 text-muted-foreground"
+              className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12"
             >
               <Languages className="h-5 w-5" />
             </Button>
@@ -101,34 +100,34 @@ export function Navigation() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Avatar className="h-10 w-10 cursor-pointer border-2 border-primary/20 hover:border-primary transition-all">
+                  <Avatar className="h-12 w-12 cursor-pointer border-2 border-primary/20 hover:border-primary hover:scale-110 transition-all shadow-xl">
                     <AvatarImage src={user.photoURL || undefined} />
-                    <AvatarFallback className="bg-primary/20 text-primary font-bold">
+                    <AvatarFallback className="bg-primary/20 text-primary font-black">
                       {user.displayName?.charAt(0) || 'U'}
                     </AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-56 glass-card border-white/10 mt-4">
-                  <DropdownMenuLabel className="font-bold py-3">
+                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-64 glass-card border-white/10 mt-6 rounded-[2rem] p-3">
+                  <DropdownMenuLabel className="font-black py-4 px-4 text-sm uppercase tracking-widest text-primary">
                     {language === 'ar' ? 'حسابك الأكاديمي' : 'Academic Account'}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/5" />
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="cursor-pointer py-3 flex items-center gap-3">
-                      <LayoutDashboard className="h-4 w-4 text-primary" /> 
-                      {language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}
+                    <Link href="/dashboard" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-primary/10 px-4">
+                      <LayoutDashboard className="h-5 w-5 text-primary" /> 
+                      <span className="font-bold">{language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-white/5" />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-3 text-red-400 flex items-center gap-3">
-                    <LogOut className="h-4 w-4" /> 
-                    {language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4">
+                    <LogOut className="h-5 w-5" /> 
+                    <span className="font-bold">{language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Link href="/auth">
-                <Button className="rounded-xl font-black px-6 shadow-xl shadow-primary/20">
+                <Button className="rounded-2xl font-black px-8 h-12 shadow-xl shadow-primary/20 text-sm uppercase tracking-widest">
                   {language === 'ar' ? 'دخول' : 'Login'}
                 </Button>
               </Link>
@@ -138,8 +137,8 @@ export function Navigation() {
       </header>
 
       {/* Mobile Nav */}
-      <nav className="fixed bottom-6 left-6 right-6 z-[9999] lg:hidden">
-        <div className="flex h-16 items-center justify-around bg-background/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-[2rem] border border-white/10 px-2">
+      <nav className="fixed bottom-8 left-8 right-8 z-[9999] lg:hidden">
+        <div className="flex h-20 items-center justify-around bg-background/90 backdrop-blur-3xl shadow-[0_32px_80px_rgba(0,0,0,0.8)] rounded-[2.5rem] border border-white/10 px-4">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -148,12 +147,12 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex flex-col items-center justify-center flex-1 gap-1 h-12 rounded-2xl transition-all",
-                  isActive ? "text-accent bg-accent/10" : "text-muted-foreground"
+                  "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
+                  isActive ? "text-accent bg-accent/10 shadow-inner" : "text-muted-foreground"
                 )}
               >
-                <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
-                <span className="text-[8px] font-black uppercase tracking-tighter">
+                <Icon className={cn("h-6 w-6", isActive && "stroke-[3px]")} />
+                <span className="text-[10px] font-black uppercase tracking-tighter">
                   {language === 'ar' ? item.nameAr : item.name}
                 </span>
               </Link>
