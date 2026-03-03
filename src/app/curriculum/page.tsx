@@ -6,7 +6,8 @@ import Link from "next/link"
 import { 
   BookOpen, Map, Zap, Construction, Gauge, Navigation, 
   ShieldCheck, Award, Info, ChevronRight, CheckCircle2, 
-  Sparkles, Target, Eye, Settings, Stepper, Car
+  Sparkles, Target, Eye, Settings, Car, ShieldAlert,
+  Thermometer, Fuel, Search, LogIn, UserCheck, Play, Move, SquareSlash
 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -33,93 +34,145 @@ export default function CurriculumPage() {
     roadStages: [
       {
         id: "stage-1",
-        title: language === 'ar' ? "الخطوات الأساسية (ميدان التدريب)" : "Foundational Steps (Training Field)",
-        desc: language === 'ar' ? "التعرف الميكانيكي والهندسي على المركبة في بيئة آمنة ومغلقة." : "Mechanical and engineering familiarity with the vehicle in a safe, closed environment.",
+        title: language === 'ar' ? "المرحلة الأولى: الخطوات الأساسية" : "Stage 1: Foundational Steps",
+        desc: language === 'ar' ? "التعرف الميكانيكي والهندسي على المركبة في بيئة آمنة ومغلقة." : "Mechanical and engineering familiarity with the vehicle in a safe environment.",
         icon: Gauge,
         details: [
           { 
-            sub: language === 'ar' ? "فحص المركبة من الخارج" : "External Vehicle Inspection", 
-            desc: language === 'ar' ? "التأكد من سلامة الإطارات (عدم وجود انثقاب)، عمل جميع الأضواء، نظافة المرايا، والبحث عن أي تسريبات للسوائل أو الزيوت أسفل المركبة." : "Checking tyres for punctures, verifying all lights, mirror cleanliness, and scanning for fluid or oil leaks under the vehicle." 
+            sub: language === 'ar' ? "فحص الجاهزية الخارجية" : "External Readiness Inspection", 
+            desc: language === 'ar' 
+              ? "التأكد من سلامة الإطارات من الانثقاب، عمل كافة الأضواء (الأمامية، الخلفية، والجانبية)، نظافة المرايا، والبحث عن أي تسريبات للزيوت أو السوائل أسفل الهيكل لضمان رحلة آمنة." 
+              : "Checking tyres for punctures, verifying all lights, mirror cleanliness, and scanning for fluid or oil leaks under the chassis to ensure a safe journey." 
           },
           { 
-            sub: language === 'ar' ? "الدخول الآمن للمركبة" : "Safe Vehicle Entry", 
-            desc: language === 'ar' ? "فتح الباب ببطء وحذر، التأكد من عدم وجود مركبات أو دراجات مقتربة، الدخول بسلاسة، وإغلاق الباب بقوة كافية لضمان الإحكام." : "Opening the door cautiously, checking for approaching traffic or bikes, entering smoothly, and closing the door firmly for security." 
+            sub: language === 'ar' ? "بروتوكول الدخول الآمن" : "Safe Entry Protocol", 
+            desc: language === 'ar' 
+              ? "فتح الباب ببطء وحذر، مراقبة خلو الطريق من المركبات أو الدراجات المقتربة، الدخول بسلاسة، ثم إغلاق الباب بقوة كافية لضمان الإحكام والأمان." 
+              : "Opening the door cautiously, monitoring traffic or bikes, entering smoothly, and closing the door firmly for security." 
           },
           { 
-            sub: language === 'ar' ? "لوحة الأجهزة (الطبلون)" : "Instrument Cluster (Dashboard)", 
-            desc: language === 'ar' ? "فهم عداد السرعة، مقياس الوقود، مقياس الحرارة، وأضواء التحذير التي تنبهك فوراً عند وجود مشاكل فنية." : "Understanding the speedometer, fuel gauge, temperature gauge, and warning lights that signal technical issues immediately." 
+            sub: language === 'ar' ? "تحليل لوحة الأجهزة (الطبلون)" : "Instrument Cluster Analysis", 
+            desc: language === 'ar' 
+              ? "فهم عداد السرعة (km/h)، ومقياس الوقود، ومراقب حرارة المحرك، بالإضافة لفك رموز أضواء التحذير التي تنبهك فوراً لأي خلل فني طارئ." 
+              : "Understanding the speedometer, fuel gauge, engine temperature monitor, and warning light symbols that signal technical issues immediately." 
           },
           { 
-            sub: language === 'ar' ? "مقصورة القيادة والرؤية" : "Cockpit & Vision Setup", 
-            desc: language === 'ar' ? "إغلاق الأبواب بإحكام، تفعيل قفل الأطفال، تنظيف الزجاج داخلياً، وضمان خلو المقصورة من أي عوائق تحجب الرؤية." : "Ensuring doors are locked, child locks active, internal glass is clean, and the cabin is free of visual obstructions." 
+            sub: language === 'ar' ? "تهيئة مقصورة القيادة" : "Cabin Configuration", 
+            desc: language === 'ar' 
+              ? "ضمان إغلاق الأبواب، تفعيل قفل أمان الأطفال، تنظيف الزجاج داخلياً، والتأكد من خلو المقصورة من أي عوائق قد تحجب مجال الرؤية الأكاديمي." 
+              : "Ensuring doors are locked, child safety locks are active, internal glass is clean, and the cabin is free of visual obstructions." 
           },
           { 
-            sub: language === 'ar' ? "هندسة الجلوس الصحيح" : "Correct Seating Geometry", 
-            desc: language === 'ar' ? "الجلوس بظهر مستقيم، ضبط المسافة لضمان انثناء خفيف في الركبة عند الضغط على الدواسات، وضبط مسند الرأس لحماية الرقبة." : "Sitting with a straight back, adjusting distance for slight knee flex on pedals, and aligning the headrest to protect the neck." 
+            sub: language === 'ar' ? "هندسة الجلوس الصحيح" : "Ergonomic Seating Geometry", 
+            desc: language === 'ar' 
+              ? "الجلوس بظهر مستقيم، ضبط مسافة المقعد لضمان انثناء خفيف في الركبة عند الضغط، ضبط مساند الرأس لحماية الرقبة، وإمساك المقود في موضع الساعة (9 و 3)." 
+              : "Sitting with a straight back, adjusting pedal distance for knee flex, aligning headrests, and holding the wheel at the (9 and 3) position." 
           },
           { 
-            sub: language === 'ar' ? "أجهزة التحكم والدواسات" : "Primary Controls & Pedals", 
-            desc: language === 'ar' ? "الاستخدام الدقيق لدواسة الوقود (يمين)، الفرامل (وسط)، والقابض/الكلتش (يسار في اليدوي)، بالإضافة لفرامل اليد وناقل الحركة." : "Precise use of the gas pedal (right), brake (center), and clutch (left in manual), along with the handbrake and gear lever." 
+            sub: language === 'ar' ? "سلامة الركاب والحمولة" : "Passenger & Cargo Safety", 
+            desc: language === 'ar' 
+              ? "الالتزام بربط حزام الأمان لكافة الركاب، استخدام مقاعد الأطفال المخصصة، وعدم تجاوز الحد الأقصى للركاب المسجل في رخصة المركبة." 
+              : "Mandatory seatbelt usage for all, using appropriate child seats, and adhering to the legal maximum passenger capacity." 
           },
           { 
-            sub: language === 'ar' ? "تشغيل المحرك والانطلاق" : "Engine Start & Launch", 
-            desc: language === 'ar' ? "التأكد من وضعية P أو N، الضغط على الفرامل، تشغيل المحرك، الانتظار لثوانٍ لتوزع الزيت، ثم الانطلاق بتدرج ولطف." : "Checking P or N position, pressing the brake, starting the engine, allowing oil circulation, and launching with gradual smoothness." 
+            sub: language === 'ar' ? "فهم أجهزة التحكم" : "Mastering Primary Controls", 
+            desc: language === 'ar' 
+              ? "الاستخدام الدقيق لدواسة الوقود (يمين)، والفرامل (وسط)، والقابض/الكلتش (يسار في اليدوي)، بالإضافة لفرامل اليد وناقل الحركة لتوجيه طاقة المركبة." 
+              : "Precise control of the gas (right), brake (center), and clutch (left in manual), along with the handbrake and gear lever." 
           },
           { 
-            sub: language === 'ar' ? "المحافظة على المسار" : "Lane Keeping & Steering", 
-            desc: language === 'ar' ? "النظر بعيداً للأمام للحفاظ على التوسيط، استخدام المقود بحركة انسيابية، وتجنب الحركات المفاجئة أو الحادة." : "Looking far ahead for centering, using smooth steering movements, and avoiding sudden or sharp turns." 
+            sub: language === 'ar' ? "تشغيل المحرك التقني" : "Technical Engine Start", 
+            desc: language === 'ar' 
+              ? "التأكد من وضعية P أو N، الضغط بقوة على الفرامل، التشغيل، ثم الانتظار لثوانٍ لضمان توزيع الزيت داخل أجزاء المحرك الحيوية." 
+              : "Checking P or N position, firm brake pressure, starting the engine, and allowing oil circulation before movement." 
+          },
+          { 
+            sub: language === 'ar' ? "معايرة المرايا الدقيقة" : "Precision Mirror Calibration", 
+            desc: language === 'ar' 
+              ? "ضبط المرآة الوسطى لكشف الزجاج الخلفي بالكامل، والمرايا الجانبية لكشف المسارات المجاورة مع ظهور جزء ضئيل جداً من هيكل المركبة لتقليل النقاط العمياء." 
+              : "Adjusting the center mirror for full rear view, and side mirrors to cover adjacent lanes with minimal vehicle body visibility." 
+          },
+          { 
+            sub: language === 'ar' ? "فن الانطلاق والتوقف" : "Smooth Launch & Stop Art", 
+            desc: language === 'ar' 
+              ? "تحريك ناقل الحركة لـ D أو R، تحرير فرامل اليد، رفع القدم عن الفرامل ببطء، والضغط على الوقود بتدرج ناعم يمنع الاهتزاز المفاجئ." 
+              : "Shifting to D or R, releasing the handbrake, slowly releasing the foot brake, and applying gas with gradual smoothness." 
+          },
+          { 
+            sub: language === 'ar' ? "السيطرة والمحافظة على المسار" : "Steering & Lane Maintenance", 
+            desc: language === 'ar' 
+              ? "النظر بعيداً للأمام لتوسيط المركبة، استخدام المقود بحركة انسيابية، وتجنب الحركات الحادة، مع تخفيف السرعة الإلزامي قبل دخول المنحنيات." 
+              : "Looking far ahead for centering, smooth steering movements, avoiding sharp turns, and mandatory deceleration before curves." 
           }
         ]
       },
       {
         id: "stage-2",
-        title: language === 'ar' ? "الطرق العامة (كثافة خفيفة)" : "Public Roads (Low Traffic)",
-        desc: language === 'ar' ? "تطبيق مهارات التحكم في بيئة حية مع التركيز على المراقبة والاندماج." : "Applying control skills in a live environment with focus on observation and integration.",
+        title: language === 'ar' ? "المرحلة الثانية: الطرق العامة (كثافة خفيفة)" : "Stage 2: Public Roads (Low Traffic)",
+        desc: language === 'ar' ? "تطبيق مهارات التحكم في بيئة حية مع التركيز على المراقبة والاندماج." : "Applying skills in a live environment with focus on observation and integration.",
         icon: Navigation,
         details: [
           { 
             sub: language === 'ar' ? "بروتوكول النقطة العمياء" : "Blind Spot Protocol", 
-            desc: language === 'ar' ? "إدراك المناطق التي لا تغطيها المرايا، واستخدام 'نظرة الكتف' الإلزامية قبل أي تغيير للمسار أو انعطاف." : "Recognizing areas mirrors don't cover, and performing the mandatory 'shoulder check' before any lane change or turn." 
+            desc: language === 'ar' 
+              ? "إدراك المناطق غير المرئية في المرايا، واستخدام 'نظرة الكتف' الإلزامية كخطوة تأكيد أخيرة قبل أي تغيير للمسار أو انعطاف." 
+              : "Identifying invisible zones and performing the mandatory 'shoulder check' as a final verification before any lane change or turn." 
           },
           { 
-            sub: language === 'ar' ? "الخروج من طريق جانبي" : "Exiting Side Roads", 
-            desc: language === 'ar' ? "التوقف التام، فحص المرايا والنقاط العمياء، استخدام الإشارة، والبحث عن فجوة زمنية آمنة للاندماج دون إرباك الآخرين." : "Stopping completely, checking mirrors and blind spots, signaling, and finding a safe time gap to merge without disrupting others." 
+            sub: language === 'ar' ? "الخروج من طريق جانبي" : "Side Road Exit Mastery", 
+            desc: language === 'ar' 
+              ? "التوقف، الفحص الدقيق، استخدام الإشارة مبكراً، والبحث عن فجوة زمنية آمنة تضمن الاندماج دون إجبار الآخرين على تخفيف سرعتهم." 
+              : "Stopping, thorough checking, early signaling, and finding a safe time gap to merge without disrupting traffic flow." 
           },
           { 
-            sub: language === 'ar' ? "فنون الدوران لليسار" : "The Art of Left Turns", 
-            desc: language === 'ar' ? "تفعيل الإشارة مبكراً، التموضع الصحيح، تخفيف السرعة، إعطاء الأولوية للقادم من المواجه، وتنفيذ الدوران بشكل واسع وسلس." : "Signaling early, correct positioning, slowing down, giving priority to oncoming traffic, and executing a wide, smooth turn." 
+            sub: language === 'ar' ? "فنون الدوران لليسار" : "Advanced Left Turn Art", 
+            desc: language === 'ar' 
+              ? "تفعيل الإشارة، فحص النقطة العمياء اليسرى، تخفيف السرعة، إعطاء الأولوية للقادم من المواجه، وتنفيذ الدوران بشكل واسع وسلس." 
+              : "Signaling, blind spot check, deceleration, yielding to oncoming traffic, and executing a wide, smooth turn." 
           },
           { 
-            sub: language === 'ar' ? "أولوية معابر المشاة" : "Pedestrian Crossing Priority", 
-            desc: language === 'ar' ? "المسح البصري المستمر، الاستعداد للتوقف التام، ومنح الأولوية المطلقة للمشاة بمجرد ملامستهم لسطح الطريق." : "Continuous visual scanning, preparing for a total stop, and giving absolute priority to pedestrians once they step onto the road." 
+            sub: language === 'ar' ? "أولوية معابر المشاة" : "Pedestrian Crossing Sovereignty", 
+            desc: language === 'ar' 
+              ? "المسح البصري المستمر، الاستعداد للتوقف التام، ومنح الأولوية المطلقة للمشاة بمجرد ملامستهم لسطح الطريق، دون أي استعجال لهم." 
+              : "Continuous visual scanning, preparing for a total stop, and granting absolute priority to pedestrians the moment they step on the road." 
           }
         ]
       },
       {
         id: "stage-3",
-        title: language === 'ar' ? "الطرق العامة (كثافة عالية)" : "Public Roads (High Traffic)",
+        title: language === 'ar' ? "المرحلة الثالثة: الطرق العامة (كثافة عالية)" : "Stage 3: Public Roads (High Traffic)",
         desc: language === 'ar' ? "التعامل مع الازدحام، السرعات العالية، والإشارات الضوئية المعقدة." : "Handling congestion, high speeds, and complex traffic signals.",
         icon: Zap,
         details: [
           { 
-            sub: language === 'ar' ? "الإشارات الضوئية والتقاطعات" : "Traffic Lights & Intersections", 
-            desc: language === 'ar' ? "التوقف التام عند الأحمر، الاستعداد عند الأصفر، والانطلاق بحذر عند الأخضر بعد التأكد من خلو التقاطع وتقدير 'نقطة اللاعودة'." : "Stopping at red, preparing at yellow, and launching at green after clearing the junction and judging the 'point of no return'." 
+            sub: language === 'ar' ? "الإشارات الضوئية والتقاطعات" : "Traffic Signal Logic", 
+            desc: language === 'ar' 
+              ? "التوقف التام عند الأحمر، الاستعداد عند الأصفر، والانطلاق بحذر عند الأخضر. تعلم تقدير 'نقطة اللاعودة' لتفادي الفرملة العنيفة الخطرة." 
+              : "Stopping at red, preparing at yellow, and cautious green launches. Learning the 'point of no return' to avoid dangerous hard braking." 
           },
           { 
-            sub: language === 'ar' ? "قانون مسافة الأمان" : "The Safety Distance Law", 
-            desc: language === 'ar' ? "تطبيق قاعدة الثانيتين في الظروف الطبيعية، ومضاعفتها إلى 4 ثوانٍ أو أكثر في حالات المطر، الضباب، أو الغبار." : "Applying the 2-second rule in normal conditions, and doubling it to 4+ seconds in rain, fog, or dust." 
+            sub: language === 'ar' ? "قانون مسافة الأمان الفيزيائي" : "The Physics of Safety Distance", 
+            desc: language === 'ar' 
+              ? "تطبيق قاعدة الثانيتين في الظروف المثالية، ومضاعفتها (4 ثوانٍ أو أكثر) في المطر أو الضباب لتفادي الاصطدام الخلفي الناتج عن القصور الذاتي." 
+              : "Applying the 2-second rule in ideal conditions, and doubling it (4+ seconds) in rain or fog to avoid inertia-based collisions." 
           },
           { 
-            sub: language === 'ar' ? "تغيير المسار الانسيابي" : "Smooth Lane Changing", 
-            desc: language === 'ar' ? "استخدام نظام (إشارة، مرايا، كتف)، البحث عن فجوة آمنة، والانتقال بحركة مقود ناعمة مع الحفاظ على التسارع الإيجابي." : "Using the (Signal, Mirror, Shoulder) system, finding a safe gap, and moving with smooth steering while maintaining positive acceleration." 
+            sub: language === 'ar' ? "فن الانتقال بين المسارات" : "Fluid Lane Changing Art", 
+            desc: language === 'ar' 
+              ? "نظام (إشارة، مرايا، كتف)، البحث عن فجوة آمنة، والانتقال بحركة مقود ناعمة مع الحفاظ على 'التسارع الإيجابي' لعدم إرباك السير." 
+              : "Using (Signal, Mirror, Shoulder), finding gaps, and moving with smooth steering and 'positive acceleration' to maintain flow." 
           },
           { 
-            sub: language === 'ar' ? "الدوران للخلف والدوارات" : "U-Turns & Roundabouts", 
-            desc: language === 'ar' ? "اختيار المسار الصحيح مبكراً، إعطاء الأولوية للقادم من اليسار في الدوار، واستخدام إشارة الخروج الإلزامية لتعريف الآخرين بنيتك." : "Selecting the correct lane early, giving priority to traffic from the left in roundabouts, and using mandatory exit signals." 
+            sub: language === 'ar' ? "الدوران للخلف والدوارات" : "U-Turns & Roundabout Mastery", 
+            desc: language === 'ar' 
+              ? "اختيار المسار الصحيح مبكراً، إعطاء الأولوية للقادم من اليسار في الدوار، واستخدام إشارة الخروج الإلزامية لتعريف الآخرين بنيتك." 
+              : "Early lane selection, yielding to the left in roundabouts, and using mandatory exit signals to clarify intentions." 
           },
           { 
-            sub: language === 'ar' ? "تحديات القيادة الليلية" : "Night Driving Challenges", 
-            desc: language === 'ar' ? "تشغيل الأنوار المنخفضة عند الغروب، تجنب الضوء العالي عند وجود مواجه، ومطابقة السرعة مع المدى المحدود للرؤية." : "Activating low beams at sunset, avoiding high beams for oncoming traffic, and matching speed to the limited visibility range." 
+            sub: language === 'ar' ? "تحديات القيادة الليلية" : "Night Driving Dynamics", 
+            desc: language === 'ar' 
+              ? "تشغيل الأنوار المنخفضة، تجنب الضوء العالي للمواجه، تقليل السرعة لمطابقة مدى الرؤية، ومضاعفة التركيز لاكتشاف الأجسام غير المضاءة." 
+              : "Low beam usage, avoiding high beams for oncoming traffic, speed reduction for visibility range, and heightened focus." 
           }
         ]
       }
@@ -144,7 +197,7 @@ export default function CurriculumPage() {
       <div className="max-w-4xl mx-auto text-center space-y-8">
         <div className="academic-badge mx-auto glass-card flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-accent" />
-          {language === 'ar' ? "دليل الاحتراف المعرفي" : "Professional Mastery Guide"}
+          {language === 'ar' ? "دليل الاحتراف المعرفي الشامل" : "Professional Knowledge Guide"}
         </div>
         <h1 className="text-4xl md:text-7xl font-black font-headline tracking-tighter leading-tight smart-gradient-text">
           {t.title}
