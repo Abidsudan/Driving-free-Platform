@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from "next/image"
@@ -5,8 +6,9 @@ import Link from "next/link"
 import { useLanguage } from "@/components/language-provider"
 import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { BookOpen, ShieldCheck, ClipboardCheck, ArrowLeft, ArrowRight, Star, GraduationCap } from "lucide-react"
+import { BookOpen, ShieldCheck, ClipboardCheck, ArrowLeft, ArrowRight, Star, GraduationCap, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ShareDialog } from "@/components/share-dialog"
 
 export default function Home() {
   const { language, dir } = useLanguage()
@@ -47,7 +49,9 @@ export default function Home() {
         href: "/assessment",
         color: "bg-green-500/10 text-green-500"
       }
-    ]
+    ],
+    shareTitle: language === 'ar' ? "ادعُ زملاءك للتعلم" : "Invite Peers to Learn",
+    shareDesc: language === 'ar' ? "شارك الأكاديمية مع أصدقائك وساهم في تعزيز السلامة المرورية في دبي." : "Share the academy with your friends and help promote road safety in Dubai."
   }
 
   return (
@@ -134,6 +138,23 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Share CTA */}
+      <section className="container mx-auto px-6 pb-32">
+        <div className="p-12 md:p-20 rounded-[4rem] glass-card border-primary/20 text-center space-y-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl -mr-32 -mt-32" />
+          <div className="relative z-10 space-y-6">
+            <h2 className="text-4xl md:text-6xl font-headline font-black leading-tight">{t.shareTitle}</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t.shareDesc}</p>
+            <ShareDialog>
+              <Button size="lg" className="h-16 px-12 rounded-2xl font-black text-xl gap-3 shadow-2xl shadow-primary/30 active:scale-95 transition-all">
+                <Share2 className="h-6 w-6" />
+                {language === 'ar' ? 'شارك الأكاديمية الآن' : 'Share Academy Now'}
+              </Button>
+            </ShareDialog>
+          </div>
+        </div>
+      </section>
+
       <footer className="mt-auto border-t border-white/5 py-20 glass-card rounded-t-[4rem]">
         <div className="container mx-auto px-6 text-center space-y-10">
           <div className="bg-white rounded-3xl p-4 w-48 mx-auto shadow-2xl animate-float">
@@ -143,6 +164,7 @@ export default function Home() {
                 width={192}
                 height={60}
                 className="object-contain"
+                unoptimized
               />
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto font-medium">

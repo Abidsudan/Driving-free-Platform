@@ -1,9 +1,10 @@
+
 "use client"
 
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -19,6 +20,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
+import { ShareDialog } from "@/components/share-dialog"
 
 const navItems = [
   { name: "Home", nameAr: "الرئيسية", href: "/", icon: Home },
@@ -76,7 +78,17 @@ export function Navigation() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
+            <ShareDialog>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-xl hover:bg-white/5 text-muted-foreground hidden sm:flex"
+              >
+                <Share2 className="h-5 w-5" />
+              </Button>
+            </ShareDialog>
+
             <Button
               variant="ghost"
               size="icon"
@@ -107,6 +119,7 @@ export function Navigation() {
                       {language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-white/5" />
                   <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-3 text-red-400 flex items-center gap-3">
                     <LogOut className="h-4 w-4" /> 
                     {language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}
