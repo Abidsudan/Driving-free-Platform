@@ -37,85 +37,112 @@ export default function CurriculumPage() {
     roadStages: [
       {
         id: "stage-1",
-        title: language === 'ar' ? "المرحلة الأولى: البداية (التأسيس والتحكم)" : "Stage 1: The Beginning (Foundations & Control)",
-        desc: language === 'ar' ? "مخصصة للطالب الذي يجلس خلف عجلة القيادة لأول مرة لبناء روتين أمان ثابت." : "Designed for first-time drivers to build a consistent safety routine.",
+        title: language === 'ar' ? "المرحلة الأولى: البداية والتأسيس" : "Stage 1: The Beginning & Foundations",
+        desc: language === 'ar' ? "بناء روتين أمان ثابت وفهم أبعاد المركبة قبل تشغيل المحرك." : "Building a consistent safety routine and understanding vehicle dimensions before starting.",
         icon: Gauge,
         details: [
           { 
-            sub: language === 'ar' ? "الروتين المسبق (أبواب - مقعد - مرايا - حزام)" : "Pre-Driving Routine (D-S-M-B)", 
+            sub: language === 'ar' ? "الروتين المسبق (قاعدة أبواب - مقعد - مرايا - حزام)" : "Pre-Driving Routine (D-S-M-B)", 
             desc: language === 'ar' 
               ? `بمجرد دخولك للسيارة، هناك تسلسل إلزامي:
                 • الأبواب: تأكد من إغلاق جميع الأبواب بإحكام (تحقق من لوحة العدادات).
                 • تعديل المقعد: اضبط المسافة بحيث تضغط الفرامل بالكامل مع انحناء بسيط في الركبة.
-                • الظهر: اضبط زاوية الظهر لراحة اليدين مع انحناء خفيف في المرفقين.
+                • الظهر: اضبط زاوية الظهر لراحة اليدين (100-110 درجة) مع انحناء خفيف في المرفقين.
                 • مسند الرأس: يجب أن يكون في مستوى منتصف رأسك لحماية الرقبة.
                 • المرايا: الوسطى تكشف الزجاج الخلفي كاملاً، والجانبية تكشف 90% من الطريق و10% من هيكل السيارة.
                 • حزام الأمان: اربط حزامك وتأكد من ربط المرافقين لحزامهم.` 
-              : "Mandatory sequence: Doors (fully closed), Seat (knee flex), Back (elbow flex), Headrest (mid-head), Mirrors (Max road view), and Seatbelt usage.",
+              : "Mandatory sequence: Doors (fully closed), Seat (knee flex), Back (100-110 degrees), Headrest (mid-head), Mirrors (Max road view), and Seatbelt usage.",
             tip: language === 'ar' ? "تحريك السيارة قبل ربط حزام الأمان لك أو لمرافقك يُعتبر خطأً ورسوباً فورياً." : "Moving the car before buckling up yourself or passengers is an immediate fail."
           },
           { 
-            sub: language === 'ar' ? "أدوات التحكم (السيارات الأوتوماتيكية)" : "Control Interface (Automatic)", 
+            sub: language === 'ar' ? "أدوات التحكم وبروتوكول الانطلاق" : "Controls & Moving Off Protocol", 
             desc: language === 'ar' 
-              ? `• قاعدة القدم الواحدة: استخدم القدم اليمنى فقط للتحكم في البنزين والفرامل. القدم اليسرى تبقى مرتاحة تماماً على الأرضية.
-                • ناقل الحركة (الجير): 
-                (P) Parking للوقوف والإطفاء.
-                (R) Reverse للرجوع للخلف.
-                (N) Neutral الوضع المحايد.
-                (D) Drive للانطلاق للأمام.` 
-              : "One-foot rule: Right foot for Gas/Brake. Gear positions: P (Park), R (Reverse), N (Neutral), D (Drive).",
+              ? `• قاعدة القدم الواحدة: استخدم القدم اليمنى فقط للبنزين والفرامل. اليسرى تبقى مرتاحة تماماً.
+                • ناقل الحركة (P, R, N, D).
+                • بروتوكول الانطلاق: 1. فرامل قدم، 2. غيّر لـ (D)، 3. أنزل الهاند بريك، 4. مرايا وإشارة، 5. نظرة الكتف (حاسمة)، 6. انطلق بنعومة.` 
+              : "One-foot rule: Right foot for Gas/Brake. Gear positions (P,R,N,D). Moving off: 1. Brake, 2. Shift to D, 3. Release Handbrake, 4. Mirrors/Signal, 5. Crucial Shoulder Check, 6. Smooth roll.",
             tip: language === 'ar' ? "استخدام قدمين في سيارة أوتوماتيكية خطر جداً ويؤدي للرسوب." : "Using two feet in an automatic car is extremely dangerous and leads to failure."
-          },
-          { 
-            sub: language === 'ar' ? "بروتوكول الانطلاق الآمن" : "Safe Moving Off Protocol", 
-            desc: language === 'ar' 
-              ? `1. اضغط بقوة على الفرامل.
-                2. غيّر الجير إلى (D).
-                3. أنزل الفرامل اليدوية (Handbrake).
-                4. المراقبة: افحص المرايا وأعطِ إشارة لليسار.
-                5. نظرة الكتف (حاسمة): التفت يساراً لفحص النقطة العمياء.
-                6. ارفع قدمك تدريجياً عن الفرامل وانتقل للبنزين بنعومة.` 
-              : "1. Brake. 2. Shift to D. 3. Release Handbrake. 4. Mirrors & Signal. 5. Crucial Shoulder Check. 6. Smooth roll and gas transition.",
           },
           { 
             sub: language === 'ar' ? "بروتوكول التوقف الآمن" : "Safe Stopping Protocol", 
             desc: language === 'ar' 
-              ? `1. افحص المرايا وأعطِ إشارة لليمين.
-                2. ارفع قدمك عن البنزين واضغط الفرامل تدريجياً لتجنب التوقف العنيف.
+              ? `1. افحص المرآة الوسطى واليمنى، وأعطِ إشارة لليمين.
+                2. ارفع قدمك عن البنزين واضغط الفرامل بتدرج لتجنب التوقف العنيف.
                 3. بعد الوقوف: اسحب فرامل اليد أولاً، ثم ضع الجير على (P)، ثم ارفع قدمك عن الفرامل.` 
               : "1. Mirrors & Right Signal. 2. Gradual Braking. 3. After stopping: Handbrake FIRST, then shift to P, then release foot brake.",
-            note: language === 'ar' ? "سحب فرامل اليد قبل وضع الجير على P يضمن تحميل وزن السيارة على الفرامل وليس ناقل الحركة، مما يحافظ على عمر الـ Gearbox." : "Pulling the handbrake before shifting to P ensures the vehicle weight is held by the brakes, protecting the gearbox."
+            note: language === 'ar' ? "سحب فرامل اليد قبل وضع الجير على P يضمن تحميل وزن السيارة على الفرامل وليس ناقل الحركة." : "Pulling the handbrake before shifting to P ensures the vehicle weight is held by the brakes."
           }
         ]
       },
       {
         id: "stage-2",
-        title: language === 'ar' ? "المرحلة الثانية: الطرق العامة (كثافة خفيفة)" : "Stage 2: Public Roads (Low Traffic)",
-        desc: language === 'ar' ? "تطبيق مهارات التحكم في بيئة حية مع التركيز على المراقبة والاندماج." : "Applying skills in a live environment with focus on observation and integration.",
+        title: language === 'ar' ? "المرحلة الثانية: الطرق الداخلية والتقاطعات" : "Stage 2: Internal Roads & Junctions",
+        desc: language === 'ar' ? "إدارة المساحات والسرعة في المناطق السكنية والتعامل الاحترافي مع التقاطعات." : "Managing space and speed in residential areas and professional handling of junctions.",
         icon: Navigation,
         details: [
-          { sub: language === 'ar' ? "النقاط العمياء" : "Blind Spots", desc: language === 'ar' ? "الفحص البصري للمناطق التي لا تغطيها المرايا. استخدم نظرة الكتف دائماً قبل أي تغيير للمسار أو انعطاف." : "Visual check of areas not covered by mirrors. Always use shoulder check before lane changes." },
-          { sub: language === 'ar' ? "الخروج من طريق جانبي" : "Side Road Exit", desc: language === 'ar' ? "توقف، تحقق، استخدم الإشارة، وابحث عن فجوة زمنية آمنة للاندماج بسلاسة." : "Stop, check, signal, and find a safe time gap to merge smoothly." },
-          { sub: language === 'ar' ? "الدوران لليسار" : "Left Turns", desc: language === 'ar' ? "تفعيل الإشارة، فحص النقطة العمياء، تخفيف السرعة، وإعطاء الأولوية للقادم من الاتجاه المعاكس." : "Signal, blind spot check, slow down, and yield to oncoming traffic." },
-          { sub: language === 'ar' ? "معابر المشاة" : "Pedestrian Crossings", desc: language === 'ar' ? "الأولوية المطلقة للمشاة. استعد للتوقف التام بمجرد ملامستهم لسطح الطريق." : "Absolute priority for pedestrians. Prepare to stop as soon as they step on the road." }
+          { 
+            sub: language === 'ar' ? "القيادة في المناطق السكنية (40 كم/ساعة)" : "Driving in Residential Areas (40km/h)", 
+            desc: language === 'ar' 
+              ? `تتطلب المناطق الداخلية إدارة صارمة للمساحات وتوقعاً مستمراً للمخاطر:
+                • السرعة: التزم بـ 40 كم/ساعة كحد أقصى لضمان مسافة توقف آمنة.
+                • التموضع: حافظ على مسارك في الجهة اليمنى وتجنب الاقتراب من الخط الفاصل.
+                • قاعدة الـ 1.5 متر: عند المرور بجانب سيارات مركونة، اترك مسافة لا تقل عن 1.5 متر لتفادي فتح الأبواب المفاجئ.` 
+              : "Residential areas require strict space management: Max 40km/h speed, keeping to the right, and the 1.5m side distance rule when passing parked cars." 
+          },
+          { 
+            sub: language === 'ar' ? "فن التعامل مع تقاطعات (T-Junctions)" : "Handling T-Junctions", 
+            desc: language === 'ar' 
+              ? `• علامة قف (STOP): توقف تام (سكون العجلات) قبل الخط، حتى لو كان الطريق خالياً. تفقد (يسار - يمين - يسار).
+                • علامة افسح الطريق (Give Way): خفف السرعة واستعد للتوقف. الأولوية للقادمين في الطريق الرئيسي.
+                • لغة التواصل: استخدم التواصل البصري (Eye Contact) أو إشارات اليد الودية لتسهيل الحركة المرورية.` 
+              : "STOP sign requires a full wheel stop before the line. Give Way sign requires yielding priority to the main road. Use eye contact to facilitate flow." 
+          },
+          { 
+            sub: language === 'ar' ? "التجاوز والاندماج الآمن" : "Overtaking & Safe Merging", 
+            desc: language === 'ar' 
+              ? `• التجاوز للضرورة فقط: يُسمح به عند وجود عائق ثابت (سيارة متوقفة تماماً).
+                • خطوات التجاوز: (مرآة - إشارة - نظرة كتف - مناورة حذرة - العودة للمسار).
+                • الاندماج: ابحث عن فجوة زمنية آمنة لا تجبر الآخرين على تغيير سرعتهم.` 
+              : "Overtaking is for static obstacles only. Follow the (Mirror-Signal-Shoulder) protocol. Merge without forcing others to brake." 
+          }
         ]
       },
       {
         id: "stage-3",
-        title: language === 'ar' ? "المرحلة الثالثة: الطرق العامة (كثافة عالية)" : "Stage 3: Public Roads (High Traffic)",
-        desc: language === 'ar' ? "التعامل مع الازدحام، السرعات العالية، والإشارات الضوئية المعقدة." : "Handling congestion, high speeds, and complex traffic signals.",
+        title: language === 'ar' ? "المرحلة الثالثة: الطرق العامة والسرعات" : "Stage 3: Public Roads & High Speeds",
+        desc: language === 'ar' ? "التعامل مع الازدحام، الإشارات الضوئية المعقدة، والقيادة الدفاعية المتقدمة." : "Handling congestion, complex signals, and advanced defensive driving.",
         icon: Zap,
         details: [
-          { sub: language === 'ar' ? "الإشارات الضوئية" : "Traffic Signals", desc: language === 'ar' ? "الأحمر توقف، الأصفر استعد، والأخضر انطلق بحذر. تعلم تقدير 'نقطة اللاعودة' لتفادي الفرملة العنيفة." : "Red stop, Yellow prepare, Green proceed. Learn the 'point of no return'." },
-          { sub: language === 'ar' ? "مسافة الأمان" : "Safety Distance", desc: language === 'ar' ? "قانون الثانيتين في الظروف المثالية، ومضاعفتها في المطر أو الضباب لتفادي الاصطدام الخلفي." : "The 2-second rule in ideal conditions, doubled in rain or fog." },
-          { sub: language === 'ar' ? "تغيير المسار" : "Lane Changing", desc: language === 'ar' ? "نظام (إشارة، مرايا، كتف)، البحث عن فجوة، والانتقال مع الحفاظ على التسارع الإيجابي." : "Using (Signal, Mirror, Shoulder), finding gaps, and moving with positive acceleration." },
-          { sub: language === 'ar' ? "الدوارات" : "Roundabouts", desc: language === 'ar' ? "اختيار المسار الصحيح، إعطاء الأولوية للقادم من اليسار، واستخدام إشارة الخروج الإلزامية." : "Correct lane selection, yielding to the left, and using mandatory exit signals." }
+          { 
+            sub: language === 'ar' ? "بروتوكول الإشارات الضوئية" : "Traffic Signal Protocol", 
+            desc: language === 'ar' 
+              ? `• الأحمر: توقف تام قبل الخط.
+                • الأصفر: استعد للتوقف (لا تسرع لاختراقها).
+                • الأخضر: انطلق بحذر بعد التأكد من خلو التقاطع.
+                • نقطة اللاعودة: تقدير المسافة التي يصبح فيها العبور آمناً أفضل من الفرملة العنيفة.` 
+              : "Red: Full stop. Yellow: Prepare to stop. Green: Proceed with caution. Learn the 'Point of No Return'." 
+          },
+          { 
+            sub: language === 'ar' ? "القيادة الدفاعية ومسافة الأمان" : "Defensive Driving & Safety Distance", 
+            desc: language === 'ar' 
+              ? `• قانون الثانيتين: اترك مسافة ثانيتين في الظروف الطبيعية.
+                • ضاعف المسافة (4 ثوانٍ) في المطر أو الضباب.
+                • المراقبة البعيدة: انظر لمسافة 15-20 مركبة أمامك لتوقع المخاطر مبكراً.` 
+              : "2-second rule in ideal conditions, 4 seconds in rain. Scan 15-20 vehicles ahead to anticipate hazards." 
+          },
+          { 
+            sub: language === 'ar' ? "الدوارات والـ U-Turn" : "Roundabouts & U-Turns", 
+            desc: language === 'ar' 
+              ? `• الدوارات: حدد مخرجك مبكراً، التزم بمسارك، والأولوية دائماً لليسار (داخل الدوار).
+                • U-Turn: تأكد من الشاخصة المسموحة، التموضع في أقصى اليسار، ودوران كامل وسلس.` 
+              : "Roundabouts: Choose lane early, yield to the left. U-Turns: Check signs, position left, and execute a smooth rotation." 
+          }
         ]
       }
     ],
     parkingStage: {
       id: "stage-4",
-      title: language === 'ar' ? "الميدان الذكي (المواقف)" : "Smart Field (Parking)",
+      title: language === 'ar' ? "المرحلة الرابعة: المواقف الذكية (Smart Parking)" : "Stage 4: Smart Parking Exam",
       desc: language === 'ar' ? "إتقان مناورات المواقف الخمس باستخدام التقنيات الذكية والنقاط المرجعية." : "Mastering the five parking maneuvers using smart tech and reference points.",
       icon: Construction,
       details: [
