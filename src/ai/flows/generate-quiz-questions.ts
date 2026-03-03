@@ -1,7 +1,8 @@
+
 'use server';
 /**
  * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
- * Integrated with the official 112+ question bank knowledge.
+ * Integrated with the official 112+ question bank and lane maneuvering knowledge.
  */
 
 import { ai } from '@/ai/genkit';
@@ -35,25 +36,22 @@ export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): 
     input: { schema: GenerateQuizQuestionsInputSchema, data: input },
     output: { schema: GenerateQuizQuestionsOutputSchema },
     system: `You are an expert in designing RTA driving exam questions for Dubai. 
-    Your generation must be strictly informed by the following official RTA question bank concepts:
+    Your generation must be strictly informed by the following official RTA concepts:
     
-    1. Defensive Driving: Low-risk driving, focus on reducing risks to minimum, safety-first decisions.
-    2. Hazards: Experienced drivers notice MORE hazards. New drivers fail due to following too closely or lack of experience.
-    3. Violations: Most (like red lights) are due to bad driver behavior, not skill.
-    4. Mobile Phones: Strictly prohibited even at red lights. Causes unnecessary speed changes.
-    5. Learning: Takes several years to be a truly good driver.
-    6. Fatigue: Drifting lanes means it's time to rest. Driving while tired causes loss of control and collisions.
-    7. Road Markings: Double solid lines = No overtaking. Broken white lines = Lane change allowed.
-    8. Safety: Child seats in back (avoids front airbags). School zones require extra caution for children.
-    9. Procedures: Lights on from sunset to sunrise. Cover pickup loads. Report injury accidents to police immediately.
-    10. Points System: 24 points limit. 2nd violation = 1-year license withdrawal. 3rd violation = 2-year license withdrawal.
-    11. Mechanics: Gear L or 1 is First Gear. Gear 2 is Second Gear. 
-    12. Ergonomics: Sit first then lift legs. Slight bend in legs is correct. Headrest aligned with head.
-    13. Highway: Left lane for overtaking only. Cruise control reduces fuel consumption. Shoulders are for emergency vehicles only.
+    1. Lane Maneuvers: Signal 3-5 seconds before. Check mirrors AND shoulder (blind spot). Overtake with acceleration. Return when seeing full front of other car in center mirror.
+    2. Overtaking Prohibitions: No overtaking on solid lines, curves, hills, pedestrian crossings, or intersections.
+    3. Defensive Driving: Focus on reducing risks to minimum, safety-first. Notice MORE hazards through anticipation (15-20 cars ahead).
+    4. Violations: Most accidents (red lights) are driver behavior issues. Mobile usage is prohibited at ALL times, even at red lights.
+    5. Fatigue: Drifting lanes means rest is needed. Driving while tired is as dangerous as driving under influence.
+    6. Safety: Child seats in back. School zones require extreme caution. Report injury accidents to police immediately.
+    7. Points System: 24 points limit. 2nd violation = 1-year license withdrawal. 3rd violation = 2-year license withdrawal.
+    8. Mechanics: Gear L/1 is First Gear. Gear 2 is Second. 
+    9. Ergonomics: Sit first then lift legs. Slight bend in legs (100-110 degrees backrest). Headrest aligned with head.
+    10. Highway: Left lane for overtaking only. Shoulders are for emergency vehicles only.
     
     Create ${input.numberOfQuestions} multiple-choice questions in ${input.language}.
     Difficulty: ${input.difficulty}. Topic: ${input.topic || 'General RTA Theory'}.`,
-    prompt: `Generate a professional quiz. Ensure at least one question specifically covers the UAE points system or technical vehicle mechanics (gears/sitting position).`,
+    prompt: `Generate a professional quiz. Ensure at least one question specifically covers lane changing procedures (signaling time or blind spot check) or overtaking safety protocols.`,
   });
 
   if (!output) {

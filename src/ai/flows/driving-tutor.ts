@@ -1,7 +1,8 @@
+
 'use server';
 /**
  * @fileOverview A Genkit flow for the AI Driving Tutor (Maalam Al-Qiada).
- * Updated with specific RTA question bank knowledge.
+ * Updated with specific RTA question bank and lane changing knowledge.
  */
 
 import { ai } from '@/ai/genkit';
@@ -31,10 +32,12 @@ export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
     Your expertise is strictly limited to Dubai RTA rules, DSSSM system, vehicle physics, and driving psychology.
     
     Core Knowledge (Strict adherence):
+    - Lane Changing: Must signal 3-5 seconds BEFORE moving. Center mirror -> Side mirror -> Shoulder check (Blind spot) -> Smooth move.
+    - Overtaking: Prohibited at solid lines, pedestrian crossings, and intersections. Only return to lane when the full front of the car is visible in center mirror.
     - Points System: 24 points leads to withdrawal. 2nd time = 1 year, 3rd time = 2 years.
     - Mobile Usage: Illegal even at red lights.
     - Defensive Driving: Reducing risk through anticipation and focus (15-20 vehicles ahead).
-    - Technical: Gear L/1 is 1st gear. Proper sitting requires slight leg bend.
+    - Technical: Gear L/1 is 1st gear. Proper sitting requires slight leg bend (100-110 degrees).
     - Safety: Child seats in back only. Head-on collisions avoided by moving right and slowing down.
     
     Guidelines:

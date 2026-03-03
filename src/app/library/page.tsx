@@ -1,7 +1,7 @@
 
 "use client"
 
-import { BookOpen, FileText, Clock, Sparkles, ShieldCheck, Zap, MessageCircle, Eye, Gauge, Settings } from "lucide-react"
+import { BookOpen, FileText, Clock, Sparkles, ShieldCheck, Zap, MessageCircle, Eye, Gauge, Settings, ArrowRightLeft, Navigation } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "@/components/language-provider"
 import { cn } from "@/lib/utils"
@@ -20,6 +20,32 @@ export default function LibraryPage() {
       ? ["القيادة الدفاعية", "صيانة المحرك", "القيادة الليلية", "توفير الوقود", "ديناميكا الهواء", "سيكولوجية السائق"]
       : ["Defensive Driving", "Engine Maintenance", "Night Driving", "Fuel Efficiency", "Aerodynamics", "Driver Psychology"],
     articles: [
+      {
+        title: language === 'ar' ? "فن الانتقال بين المسارات والتجاوز الآمن" : "The Art of Lane Changing & Safe Overtaking",
+        category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
+        type: language === 'ar' ? "دليل تقني شامل" : "Comprehensive Technical Guide",
+        readTime: language === 'ar' ? "20 دقيقة" : "20 mins",
+        icon: ArrowRightLeft,
+        content: language === 'ar' ? {
+          intro: "يُعد الانتقال بين المسارات والتجاوز من أكثر المناورات التي تتطلب دقة ومهارة. تنفيذها بوعي يضمن سلاسة المرور، بينما التهور فيها يجعلها من أخطر مسببات الحوادث.",
+          pillars: [
+            { t: "النية والقرار", d: "خطط لمسارك مسبقاً واتخذ قرارك بالانتقال مبكراً، لا تتخذ قرارات مفاجئة في اللحظة الأخيرة." },
+            { t: "نظام الإشارة (3-5 ثوانٍ)", d: "شغل الإشارة قبل 3-5 ثوانٍ على الأقل من بدء الحركة لتعطى الآخرين وقتاً للاستجابة." },
+            { t: "فحص البقعة العمياء", d: "الخطوة الأهم؛ ألقِ نظرة سريعة وخاطفة فوق كتفك للتحقق من المنطقة التي لا تظهر في المرايا." },
+            { t: "بروتوكول العودة الآمنة", d: "عند التجاوز، لا تعد لمسارك إلا بعد رؤية الواجهة الأمامية الكاملة للمركبة المتجاوزة في مرآتك الوسطى." }
+          ],
+          deep: "تذكر دائماً: التجاوز يمنع تماماً عند الخطوط المتصلة، التقاطعات، ممرات المشاة، وفي ظروف الرؤية المحدودة مثل الضباب أو المنعطفات الحادة."
+        } : {
+          intro: "Lane changing and overtaking are precision maneuvers. Executing them mindfully ensures traffic flow, while recklessness makes them a leading cause of accidents.",
+          pillars: [
+            { t: "Intention & Decision", d: "Plan your route in advance and decide to move early; never make sudden last-minute decisions." },
+            { t: "Signaling (3-5s)", d: "Activate your signal at least 3-5 seconds before moving to give others time to respond." },
+            { t: "Blind Spot Check", d: "The most critical step; perform a quick shoulder check to verify areas not visible in mirrors." },
+            { t: "Safe Return Protocol", d: "When overtaking, only return to your lane once the full front of the overtaken vehicle is visible in your center mirror." }
+          ],
+          deep: "Always remember: Overtaking is strictly prohibited at solid lines, intersections, pedestrian crossings, and in limited visibility like fog or sharp curves."
+        }
+      },
       {
         title: language === 'ar' ? "التحكم في المركبة: من الأساسيات إلى الاحتراف" : "Vehicle Control: From Foundations to Mastery",
         category: language === 'ar' ? "فيزياء التحكم" : "Control Physics",
@@ -56,18 +82,18 @@ export default function LibraryPage() {
           intro: "القيادة الدفاعية هي أكثر من مجرّد معرفة قواعد المرور. تهدف إلى تقليل المخاطر عبر التعرّف على الحالات الخطرة بوقت مبكّر كافٍ لتجنبها، بغض النظر عن أخطاء الآخرين.",
           pillars: [
             { t: "التركيز", d: "ركّز على القيادة 100% في الأوقات كافة وتجنب المشتتات الذهنية." },
-            { t: "المراقبة", d: "مسح المشهد أمامك ومن جانبك وخلفك بشكل دائم عبر المرايا." },
-            { t: "التوقع", d: "توقع أفعال مستعملي الطريق الآخرين بنسبة 15-20 مركبة للأمام." },
-            { t: "التواصل", d: "استعمل الإشارات وأنوار التحذير لتعريف الآخرين بنيتك بوضوح." }
+            { t: "المراقبة", d: "مسح المشهد أمامك ومن جانبك وخلفك بشكل دائم عبر المرايا (15-20 مركبة للأمام)." },
+            { t: "التوقع", d: "توقع أفعال مستعملي الطريق الآخرين؛ لا تفترض أبداً أنهم سيقومون بما تتوقعه." },
+            { t: "التواصل", d: "استعمل الإشارات وأنوار التحذير لتعريف الآخرين بنيتك بوضوح وحافظ على موقعك في المسار." }
           ],
           deep: "القيادة بمسؤولية وعناية وكياسة تجاه الآخرين هي مفتاح تقليل المخاطر. إذا ارتكب الآخرون أخطاء، ساعدهم عوضاً عن جعل الحالة أصعب."
         } : {
           intro: "Defensive driving is more than just knowing traffic rules. It aims to reduce risks by recognizing dangerous situations early enough to avoid them, regardless of others' mistakes.",
           pillars: [
             { t: "Focus", d: "Maintain 100% focus on driving at all times and avoid mental distractions." },
-            { t: "Observation", d: "Scan the scene ahead, beside, and behind you constantly via mirrors." },
-            { t: "Anticipation", d: "Anticipate the actions of others by looking 15-20 vehicles ahead." },
-            { t: "Communication", d: "Use signals and hazard lights to clearly define your intentions." }
+            { t: "Observation", d: "Scan the scene ahead, beside, and behind you constantly (15-20 vehicles ahead)." },
+            { t: "Anticipation", d: "Anticipate the actions of others; never assume they will do what you expect." },
+            { t: "Communication", d: "Use signals and hazard lights to clearly define your intentions and maintain lane positioning." }
           ],
           deep: "Driving responsibly, carefully, and showing courtesy to others is the key to risk reduction. If others make mistakes, help them instead of making the situation harder."
         }
