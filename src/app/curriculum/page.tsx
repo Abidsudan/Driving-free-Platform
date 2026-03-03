@@ -2,312 +2,225 @@
 "use client"
 
 import Image from "next/image"
-import { CheckCircle2, Info, BookOpen, ShieldCheck, Zap, Target, Gauge } from "lucide-react"
+import { CheckCircle2, BookOpen, ShieldCheck, Zap, Target, Gauge, Car, Construction, Map, Award, Eye, Navigation } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useLanguage } from "@/components/language-provider"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function CurriculumPage() {
   const { language } = useLanguage();
 
   const t = {
-    title: language === 'ar' ? "المنهج الأكاديمي التفصيلي" : "Detailed Academic Curriculum",
+    title: language === 'ar' ? "المنهج الأكاديمي المطور" : "Advanced Academic Curriculum",
     description: language === 'ar' 
-      ? "هيكل تعليمي منطقي يأخذك من الصفر وحتى الحصول على رخصة القيادة، مصمم وفقاً لمعايير RTA وأحدث النظريات العلمية. هذا المنهج يركز على فيزياء الحركة وسيكولوجية السائق الدفاعي."
-      : "A logical educational structure that takes you from zero to obtaining a driver's license, designed according to RTA standards. This curriculum focuses on motion physics and defensive driving psychology.",
+      ? "هيكل تعليمي متكامل ينقسم إلى تدريب الطريق (الميدان والشوارع العامة) وامتحان المواقف الذكي، مصمم وفق أحدث معايير RTA."
+      : "A comprehensive educational structure divided into Road Training (Field and Public Streets) and the Smart Parking Exam.",
+    part1Title: language === 'ar' ? "القسم الأول: مهارات الطريق" : "Part 1: Road Skills",
+    part2Title: language === 'ar' ? "القسم الثاني: المواقف الذكية" : "Part 2: Smart Parking",
     stageLabel: language === 'ar' ? "المرحلة" : "Stage",
-    learnMore: language === 'ar' ? "التفاصيل الأكاديمية للدرس" : "Academic Lesson Details",
-    stages: [
+    roadStages: [
       {
-        title: language === 'ar' ? "المرحلة الأولى: هندسة المركبة والبيئة" : "Stage 1: Vehicle Engineering & Environment",
-        description: language === 'ar' ? "تأسيس القاعدة المعرفية حول ميكانيكا المركبة وكيفية تهيئة بيئة القيادة المثالية." : "Establishing the knowledge base on vehicle mechanics and how to create the ideal driving environment.",
+        id: "stage-1",
+        title: language === 'ar' ? "المرحلة الأولى: الخطوات الأساسية (الميدان)" : "Stage 1: Basic Steps (Training Field)",
+        desc: language === 'ar' ? "التعرف على المركبة والتحكم بها في بيئة آمنة." : "Getting to know the vehicle and controlling it in a safe environment.",
         icon: Gauge,
-        details: language === 'ar' ? [
-          {
-            sub: "فحص ما قبل الانطلاق (P.O.W.D.E.R.S)",
-            desc: "دراسة بروتوكول الفحص الشامل: البنزين، الزيت، الماء، الضرر الخارجي، الكهرباء، والمطاط (الإطارات). فهم ضغط الإطارات وتأثيره على التماسك."
-          },
-          {
-            sub: "هندسة الجلوس ووضعيات القيادة",
-            desc: "تطبيق قاعدة 'المعصم' لضبط المسافة مع المقود، وزاوية الظهر (100-110 درجة) لتقليل التعب وحماية العمود الفقري، وضبط مسند الرأس لمنع إصابات الرقبة."
-          },
-          {
-            sub: "إدارة الرؤية والمجال البصري",
-            desc: "ضبط المرايا الثلاث لتقليل النقاط العمياء (Blind Spots). شرح مفهوم 'الرؤية المحيطية' و'الرؤية المركزية' في استيعاب الطريق."
-          }
-        ] : [
-          {
-            sub: "Pre-trip Inspection (P.O.W.D.E.R.S)",
-            desc: "Studying the comprehensive inspection protocol: Petrol, Oil, Water, Damage, Electrics, and Rubber (Tyres). Understanding tyre pressure's impact on grip."
-          },
-          {
-            sub: "Seating Geometry & Driving Positions",
-            desc: "Applying the 'wrist rule' for steering distance, backrest angle (100-110°) to minimize fatigue, and headrest adjustment to prevent whiplash."
-          },
-          {
-            sub: "Vision Management & Visual Field",
-            desc: "Adjusting the three mirrors to minimize blind spots. Explaining 'peripheral' vs 'central' vision in road perception."
-          }
-        ],
-        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
+        details: [
+          { sub: language === 'ar' ? "1.01 فحص المركبة من الخارج" : "1.01 Exterior Check", desc: language === 'ar' ? "فحص الإطارات، الأضواء، المرايا، وتسريبات الزيوت لضمان سلامة الرحلة." : "Checking tires, lights, mirrors, and oil leaks to ensure trip safety." },
+          { sub: language === 'ar' ? "1.02 الدخول للمركبة" : "1.02 Entering the Vehicle", desc: language === 'ar' ? "فتح الباب بحذر، التأكد من خلو الطريق، والدخول بسلاسة مع إغلاق الباب بإحكام." : "Opening the door carefully, checking the road, and entering smoothly while closing the door firmly." },
+          { sub: language === 'ar' ? "1.03 لوحة الأجهزة (الطبلون)" : "1.03 Instrument Panel", desc: language === 'ar' ? "فهم عداد السرعة، مقياس الوقود، الحرارة، وأضواء التحذير الفنية." : "Understanding the speedometer, fuel gauge, temperature, and technical warning lights." },
+          { sub: language === 'ar' ? "1.05 الجلوس الصحيح" : "1.05 Correct Seating", desc: language === 'ar' ? "ضبط المسافة مع الدواسات، زاوية الظهر (100-110 درجة)، ومسند الرأس لحماية الرقبة." : "Adjusting distance to pedals, backrest angle (100-110°), and headrest for neck protection." },
+          { sub: language === 'ar' ? "1.07 أجهزة التحكم" : "1.07 Basic Controls", desc: language === 'ar' ? "إتقان وظائف الدواسات (وقود، فرامل، كلتش) وفرامل اليد وناقل الحركة." : "Mastering pedal functions (fuel, brake, clutch), handbrake, and gear shifter." },
+          { sub: language === 'ar' ? "1.10 ضبط المرايا" : "1.10 Mirror Adjustment", desc: language === 'ar' ? "تأمين رؤية شاملة وتغطية النقاط العمياء عبر ضبط المرايا الثلاث بدقة." : "Securing comprehensive vision and covering blind spots by precisely adjusting the three mirrors." },
+          { sub: language === 'ar' ? "1.12 الانطلاق والوقوف" : "1.12 Launching & Stopping", desc: language === 'ar' ? "تحريك المركبة وإيقافها بسلاسة تامة دون أي اهتزازات مفاجئة." : "Moving and stopping the vehicle perfectly smoothly without any sudden jerks." },
+        ]
       },
       {
-        title: language === 'ar' ? "المرحلة الثانية: فيزياء التحكم والقيادة الدفاعية" : "Stage 2: Physics of Control & Defensive Driving",
-        description: language === 'ar' ? "الانتقال من الميكانيكا الساكنة إلى ديناميكيات الحركة وفن استباق المخاطر." : "Moving from static mechanics to movement dynamics and the art of anticipating risks.",
-        icon: ShieldCheck,
-        details: language === 'ar' ? [
-          {
-            sub: "بروتوكول القيادة الدفاعية المتقدم",
-            desc: "القيادة بتركيز 100%. مسح المشهد للأمام والخلف. النظر لمسافة 15-20 مركبة أمامك لتحديد المخاطر المحتملة مبكراً وإعطاء وقت أطول للتصرف."
-          },
-          {
-            sub: "قاعدة الثانيتين (2-Second Rule)",
-            desc: "التفسير العلمي لمسافة الأمان: كيف تزيد هذه المسافة بناءً على مربع السرعة، وكيفية مضاعفتها في الظروف الرطبة لتجنب الاصطدام الخلفي."
-          },
-          {
-            sub: "ديناميكيات الانعطاف ونقل الوزن",
-            desc: "فهم كيف ينتقل ثقل المركبة عند الكبح (إلى الأمام) وعند التسارع (إلى الخلف). كيفية استخدام المكابح قبل المنعطف وليس داخله للحفاظ على التوازن."
-          }
-        ] : [
-          {
-            sub: "Advanced Defensive Driving Protocol",
-            desc: "100% focus. Scanning front and back. Looking 15-20 vehicles ahead to identify potential hazards early and provide more reaction time."
-          },
-          {
-            sub: "The 2-Second Rule",
-            desc: "Scientific explanation of safe distance: how it increases based on speed square, and doubling it in wet conditions to avoid rear-end collisions."
-          },
-          {
-            sub: "Cornering Dynamics & Weight Transfer",
-            desc: "Understanding vehicle weight shift during braking (forward) and acceleration (backward). Brake before the turn, not inside it, to maintain balance."
-          }
-        ],
-        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
+        id: "stage-2",
+        title: language === 'ar' ? "المرحلة الثانية: الطرق العامة (كثافة خفيفة)" : "Stage 2: Public Roads (Light Traffic)",
+        desc: language === 'ar' ? "تطبيق مهارات التحكم في بيئة مرورية حقيقية وبسيطة." : "Applying control skills in a real and simple traffic environment.",
+        icon: Navigation,
+        details: [
+          { sub: language === 'ar' ? "2.01 النقاط العمياء" : "2.01 Blind Spots", desc: language === 'ar' ? "التزام بنظرة الكتف للتحقق من المناطق التي لا تظهر في المرايا قبل أي مناورة." : "Committing to the shoulder check to verify areas not visible in mirrors before any maneuver." },
+          { sub: language === 'ar' ? "2.03 الخروج من طريق جانبي" : "2.03 Exiting a Side Road", desc: language === 'ar' ? "الاندماج الآمن مع حركة المرور الرئيسية باختيار فجوة زمنية مناسبة." : "Safe integration with main traffic by choosing an appropriate time gap." },
+          { sub: language === 'ar' ? "2.08 الدوران لليسار" : "2.08 Left Turns", desc: language === 'ar' ? "عبور التقاطعات والانعطاف يساراً بشكل واسع وسلس مع إعطاء الأولوية." : "Crossing intersections and turning left widely and smoothly while giving priority." },
+          { sub: language === 'ar' ? "2.12 معابر المشاة" : "2.12 Pedestrian Crossings", desc: language === 'ar' ? "الاحترام الكامل لحقوق المشاة والأولوية المطلقة لهم بمجرد لمسهم للشارع." : "Full respect for pedestrian rights and absolute priority once they touch the street." },
+        ]
       },
       {
-        title: language === 'ar' ? "المرحلة الثالثة: قواعد الطرق السريعة" : "Stage 3: Highway Regulations & Flow",
-        description: language === 'ar' ? "إتقان السرعات العالية، الانتقال بين المسارات، وإدارة التدفق المروري الكثيف." : "Mastering high speeds, lane transitions, and managing heavy traffic flow.",
+        id: "stage-3",
+        title: language === 'ar' ? "المرحلة الثالثة: الطرق العامة (كثافة عالية)" : "Stage 3: Public Roads (Heavy Traffic)",
+        desc: language === 'ar' ? "التعامل المتقدم مع الازدحام، السرعات العالية، والإشارات المعقدة." : "Advanced handling of congestion, high speeds, and complex signals.",
         icon: Zap,
-        details: language === 'ar' ? [
-          {
-            sub: "بروتوكول منحدرات التسارع (Joining)",
-            desc: "كيفية الوصول إلى سرعة الطريق (100-120 كم/س) داخل منحدر الدخول لضمان الاندماج الآمن دون عرقلة التدفق المروري."
-          },
-          {
-            sub: "تغيير المسار المتقدم (M.S.M)",
-            desc: "تطبيق نظام: مرآة (Mirror) -> إشارة (Signal) -> مناورة (Maneuver). شرح توقيت الإشارة (5 ثوانٍ على الأقل) قبل البدء في التحرك."
-          },
-          {
-            sub: "إدارة المسار السريع والتجاوز",
-            desc: "فهم أن المسار الأيسر هو للتجاوز فقط. بروتوكول العودة للمسار الأوسط بعد التجاوز لتجنب المخالفات المرورية في دبي."
-          }
-        ] : [
-          {
-            sub: "Acceleration Ramp Protocol (Joining)",
-            desc: "How to reach road speed (100-120 km/h) within the entry ramp to ensure safe merging without obstructing traffic flow."
-          },
-          {
-            sub: "Advanced Lane Change (M.S.M)",
-            desc: "Applying the system: Mirror -> Signal -> Maneuver. Explaining the signaling timing (at least 5 seconds) before initiating movement."
-          },
-          {
-            sub: "Fast Lane Management & Overtaking",
-            desc: "Understanding that the leftmost lane is for overtaking only. The protocol for returning to the middle lane after overtaking to avoid fines in Dubai."
-          }
-        ],
-        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
-      },
-      {
-        title: language === 'ar' ? "المرحلة الرابعة: اختبار المدينة والدوارات" : "Stage 4: City Test & Roundabout Logic",
-        description: language === 'ar' ? "التعامل مع التقاطعات المعقدة، الدوارات المتعددة المسارات، وإدارة المخاطر الحضرية." : "Handling complex intersections, multi-lane roundabouts, and urban risk management.",
-        icon: Target,
-        details: language === 'ar' ? [
-          {
-            sub: "منطق الدوارات في دبي",
-            desc: "تحديد المسار الصحيح قبل دخول الدوار بناءً على المخرج المطلوب. قواعد الأولوية للقادم من اليسار واستخدام الإشارات داخل وخارج الدوار."
-          },
-          {
-            sub: "إدراك المخاطر (Hazard Perception)",
-            desc: "تطوير 'المسح البصري' للتعرف على المخاطر الكامنة: مشاة يقتربون من الرصيف، مركبات مركونة قد تتحرك فجأة، وتغيير الأضواء المرورية."
-          },
-          {
-            sub: "بروتوكول الوقوف الاضطراري",
-            desc: "كيفية التوقف التام في حالات الطوارئ مع الحفاظ على السيطرة على المقود، واستخدام أضواء التنبيه الرباعية (Hazard Lights) بشكل صحيح."
-          }
-        ] : [
-          {
-            sub: "Dubai Roundabout Logic",
-            desc: "Selecting the correct lane before entry based on the desired exit. Priority rules for traffic from the left and signaling inside/outside the roundabout."
-          },
-          {
-            sub: "Hazard Perception",
-            desc: "Developing 'visual scanning' to recognize latent hazards: pedestrians approaching curbs, parked cars that might move, and changing traffic lights."
-          },
-          {
-            sub: "Emergency Stop Protocol",
-            desc: "How to come to a full stop in emergencies while maintaining steering control, and the correct usage of hazard lights."
-          }
-        ],
-        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
-      },
-      {
-        title: language === 'ar' ? "المرحلة الخامسة: الظروف القاسية والليل" : "Stage 5: Extreme Conditions & Night Physics",
-        description: language === 'ar' ? "إدارة الرؤية المنخفضة، الانزلاق المائي، والقيادة تحت الضغط البيئي." : "Managing low visibility, hydroplaning, and driving under environmental pressure.",
-        icon: ShieldCheck,
-        details: language === 'ar' ? [
-          {
-            sub: "فيزياء الانزلاق المائي (Hydroplaning)",
-            desc: "شرح كيف تفقد الإطارات التماس مع الأسفلت عند تجمع المياه، وكيفية استعادة السيطرة برفع القدم عن التسارع دون استخدام المكابح المفاجئة."
-          },
-          {
-            sub: "الرؤية الليلية والإجهاد البصري",
-            desc: "كيفية التعامل مع وهج الأضواء العالية، تقنيات النظر إلى 'الخط الجانبي' عند مواجهة مركبة مبهرة، وتأثير التعب على وقت الاستجابة."
-          },
-          {
-            sub: "الرياح العرضية والضباب",
-            desc: "استراتيجيات القيادة في العواصف الرملية والضباب في دبي: استخدام أضواء الضباب الخلفية، تقليل السرعة، وزيادة مسافة الأمان إلى 4 ثوانٍ."
-          }
-        ] : [
-          {
-            sub: "Hydroplaning Physics",
-            desc: "Explaining how tyres lose contact with asphalt in standing water, and regaining control by easing off acceleration without sudden braking."
-          },
-          {
-            sub: "Night Vision & Visual Fatigue",
-            desc: "Handling high-beam glare, techniques for looking at the 'side line' when facing dazzling lights, and fatigue's impact on response time."
-          },
-          {
-            sub: "Crosswinds & Fog",
-            desc: "Strategies for sandstorms and fog in Dubai: using rear fog lights, reducing speed, and increasing following distance to 4 seconds."
-          }
-        ],
-        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
-      },
-      {
-        title: language === 'ar' ? "المرحلة السادسة: إتقان اختبار الطريق النهائي" : "Stage 6: Final Road Test Mastery",
-        description: language === 'ar' ? "المحاكاة النهائية، ضبط النفس، وتجنب الأخطاء التي تؤدي للرسوب الفوري." : "Final simulation, self-control, and avoiding instant failure errors.",
-        icon: BookOpen,
-        details: language === 'ar' ? [
-          {
-            sub: "قائمة الأخطاء الكبرى (Major Errors)",
-            desc: "تحليل الأسباب الستة للرسوب الفوري: عدم الوقوف عند 'قف'، التدخل اليدوي للفاحص، تجاوز السرعة، تعريض الآخرين للخطر، صعود الرصيف، وتجاوز الإشارة الحمراء."
-          },
-          {
-            sub: "سيكولوجية الاختبار والثقة",
-            desc: "تقنيات التنفس والتركيز لتقليل التوتر أثناء وجود الفاحص. كيفية إظهار الثقة من خلال التحكم السلس في المقود والبدالات."
-          },
-          {
-            sub: "بروتوكول ما بعد النجاح",
-            desc: "فهم مسؤولية السائق الجديد، قوانين النقاط السوداء في دبي، وكيفية الاستمرار في تطوير مهارات القيادة الدفاعية مدى الحياة."
-          }
-        ] : [
-          {
-            sub: "Major Errors Analysis",
-            desc: "Analyzing the 6 reasons for instant failure: skipping STOP signs, examiner intervention, speeding, endangering others, hitting curbs, and running red lights."
-          },
-          {
-            sub: "Test Psychology & Confidence",
-            desc: "Breathing and focus techniques to reduce stress with the examiner. Showing confidence through smooth steering and pedal control."
-          },
-          {
-            sub: "Post-Success Protocol",
-            desc: "Understanding new driver responsibilities, black point laws in Dubai, and the lifelong journey of developing defensive driving skills."
-          }
-        ],
-        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
+        details: [
+          { sub: language === 'ar' ? "3.02 الإشارات الضوئية" : "3.02 Traffic Lights", desc: language === 'ar' ? "التفاعل القانوني مع الألوان الثلاثة وتقدير 'نقطة اللاعودة' عند اللون الأصفر." : "Legal interaction with the three colors and estimating the 'point of no return' at yellow." },
+          { sub: language === 'ar' ? "3.04 مسافة الأمان" : "3.04 Safety Distance", desc: language === 'ar' ? "تطبيق قانون الثانيتين ومضاعفتها في الظروف الجوية السيئة لتجنب الاصطدام." : "Applying the two-second rule and doubling it in bad weather to avoid collisions." },
+          { sub: language === 'ar' ? "3.08 تغيير المسار" : "3.08 Lane Changing", desc: language === 'ar' ? "الانتقال الانسيابي باستخدام نظام (إشارة، مرايا، كتف) مع التسارع الإيجابي." : "Fluid transition using the (signal, mirrors, shoulder) system with positive acceleration." },
+          { sub: language === 'ar' ? "3.12 الدوارات" : "3.12 Roundabouts", desc: language === 'ar' ? "تحديد المسار الصحيح، إعطاء الأولوية لليسار، واستخدام إشارة الخروج يميناً." : "Choosing the correct lane, giving priority to the left, and using the right exit signal." },
+          { sub: language === 'ar' ? "3.14 القيادة الليلية" : "3.14 Night Driving", desc: language === 'ar' ? "التعامل مع ضعف الرؤية، استخدام المصابيح بشكل صحيح، وتقليل السرعة." : "Handling poor visibility, using lights correctly, and reducing speed." },
+        ]
       }
-    ]
+    ],
+    parkingStage: {
+      id: "stage-4",
+      title: language === 'ar' ? "المرحلة الرابعة: امتحان المواقف الذكي" : "Stage 4: Smart Parking Exam",
+      desc: language === 'ar' ? "إتقان المناورات الخمس الأساسية في الميدان الذكي المجهز بالحساسات." : "Mastering the five basic maneuvers in the sensor-equipped smart field.",
+      icon: Construction,
+      details: [
+        { sub: language === 'ar' ? "المواقف المتوازية (Parallel)" : "Parallel Parking", desc: language === 'ar' ? "ركن المركبة في مساحة ضيقة بين سيارتين باستخدام علامات دقيقة وحساسات ذكية." : "Parking the vehicle in a tight space between two cars using precise markers and smart sensors." },
+        { sub: language === 'ar' ? "المواقف العمودية (90 Degree)" : "Perpendicular Parking", desc: language === 'ar' ? "الدخول في الموقف بزاوية قائمة لضمان توسيط المركبة تماماً داخل الخطوط." : "Entering the parking spot at a right angle to ensure the vehicle is perfectly centered." },
+        { sub: language === 'ar' ? "المواقف المائلة (60 Degree)" : "Angle Parking", desc: language === 'ar' ? "مناورة الدخول والخروج من المواقف المائلة المعتمدة في المراكز التجارية." : "Maneuvering in and out of angled parking spots common in shopping malls." },
+        { sub: language === 'ar' ? "الوقوف الاضطراري (Emergency)" : "Emergency Stop", desc: language === 'ar' ? "التفاعل الفوري مع إشارة التوقف المفاجئ والسيطرة على المركبة بذكاء." : "Instant reaction to a sudden stop signal and controlling the vehicle intelligently." },
+        { sub: language === 'ar' ? "المرتفع (Hill Start)" : "Hill Start", desc: language === 'ar' ? "الوقوف والانطلاق من المنحدر دون رجوع المركبة للخلف باستخدام فرامل اليد." : "Stopping and starting on an incline without the vehicle rolling back using the handbrake." },
+      ]
+    }
   };
 
   return (
-    <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in">
+    <div className="container mx-auto px-6 py-12 space-y-16 animate-fade-in">
+      {/* Hero Header */}
       <div className="max-w-4xl space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest">
           <BookOpen className="h-4 w-4" />
           {language === 'ar' ? "خارطة الطريق للاحتراف" : "Professional Roadmap"}
         </div>
-        <h1 className="font-headline text-4xl md:text-6xl font-black leading-tight tracking-tighter">{t.title}</h1>
-        <p className="text-xl text-muted-foreground leading-relaxed font-medium">
+        <h1 className="font-headline text-4xl md:text-7xl font-black leading-tight tracking-tighter">{t.title}</h1>
+        <p className="text-xl text-muted-foreground leading-relaxed font-medium max-w-2xl">
           {t.description}
         </p>
       </div>
 
-      <div className="grid grid-cols-1 gap-12">
-        {t.stages.map((stage, idx) => (
-          <Card key={idx} className="overflow-hidden border-white/5 bg-card/40 backdrop-blur-xl rounded-[3rem] group hover:border-primary/30 transition-all duration-500">
+      <Tabs defaultValue="road" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 max-w-2xl mx-auto h-16 p-2 bg-secondary/30 rounded-3xl border border-white/5 mb-16">
+          <TabsTrigger value="road" className="rounded-2xl font-black text-lg flex items-center gap-3 data-[state=active]:bg-primary">
+            <Map className="h-5 w-5" /> {t.part1Title}
+          </TabsTrigger>
+          <TabsTrigger value="parking" className="rounded-2xl font-black text-lg flex items-center gap-3 data-[state=active]:bg-accent">
+            <Construction className="h-5 w-5" /> {t.part2Title}
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Section 1: Road Training */}
+        <TabsContent value="road" className="space-y-12">
+          <div className="grid grid-cols-1 gap-12">
+            {t.roadStages.map((stage, idx) => (
+              <Card key={stage.id} className="overflow-hidden border-white/5 bg-card/40 backdrop-blur-xl rounded-[3rem] group hover:border-primary/30 transition-all duration-500">
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  <div className="lg:col-span-4 relative h-64 lg:h-auto overflow-hidden">
+                    <Image 
+                      src={PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl || ""} 
+                      alt={stage.title} 
+                      fill 
+                      className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-40 grayscale"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-card/90 to-transparent lg:block hidden" />
+                    <div className="absolute top-8 left-8 bg-primary text-white h-14 w-14 rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl shadow-primary/40">
+                      {idx + 1}
+                    </div>
+                    <div className="absolute bottom-8 left-8 text-white/80 font-black text-xs uppercase tracking-widest">
+                      {t.stageLabel} {idx + 1}
+                    </div>
+                  </div>
+
+                  <div className="lg:col-span-8 p-8 md:p-12 space-y-8">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4">
+                        <div className="p-4 rounded-2xl bg-primary/10 text-primary">
+                          <stage.icon className="h-8 w-8" />
+                        </div>
+                        <CardTitle className="text-3xl md:text-4xl font-headline font-black tracking-tight">{stage.title}</CardTitle>
+                      </div>
+                      <p className="text-xl text-muted-foreground leading-relaxed font-medium">{stage.desc}</p>
+                    </div>
+
+                    <Accordion type="single" collapsible className="w-full">
+                      {stage.details.map((detail, i) => (
+                        <AccordionItem key={i} value={`item-${i}`} className="border-white/5">
+                          <AccordionTrigger className="hover:no-underline py-5 group">
+                            <div className="flex items-center gap-5 text-left">
+                              <div className="h-10 w-10 rounded-xl bg-secondary/50 flex items-center justify-center font-bold text-primary group-hover:bg-primary group-hover:text-white transition-all">
+                                {i + 1}
+                              </div>
+                              <span className="font-black text-lg group-hover:text-primary transition-colors">{detail.sub}</span>
+                            </div>
+                          </AccordionTrigger>
+                          <AccordionContent className="text-muted-foreground text-lg leading-relaxed pb-8 pl-14 border-l-4 border-primary/20 ml-5">
+                            {detail.desc}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </TabsContent>
+
+        {/* Section 2: Smart Parking */}
+        <TabsContent value="parking">
+          <Card className="overflow-hidden border-white/5 bg-accent/5 backdrop-blur-xl rounded-[4rem] group hover:border-accent/30 transition-all duration-500">
             <div className="grid grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-4 relative h-64 lg:h-auto overflow-hidden">
-                {stage.image && (
-                  <Image 
-                    src={stage.image} 
-                    alt={stage.title} 
-                    fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-60"
-                    data-ai-hint="driving curriculum detail"
-                  />
-                )}
+                <Image 
+                  src={PlaceHolderImages.find(img => img.id === "scientific-library")?.imageUrl || ""} 
+                  alt={t.parkingStage.title} 
+                  fill 
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 opacity-40"
+                />
                 <div className="absolute inset-0 bg-gradient-to-r from-card/90 to-transparent lg:block hidden" />
-                <div className="absolute top-8 left-8 bg-primary text-white h-12 w-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-2xl shadow-primary/40">
-                  {idx + 1}
-                </div>
-                <div className="absolute bottom-8 left-8 text-white/80 font-black text-xs uppercase tracking-widest">
-                  {t.stageLabel} {idx + 1}
+                <div className="absolute top-10 left-10 bg-accent text-accent-foreground h-16 w-16 rounded-3xl flex items-center justify-center font-black text-3xl shadow-2xl">
+                  4
                 </div>
               </div>
 
-              <div className="lg:col-span-8 p-8 md:p-12 space-y-8">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-xl bg-primary/10 text-primary">
-                      <stage.icon className="h-6 w-6" />
+              <div className="lg:col-span-8 p-8 md:p-16 space-y-10">
+                <div className="space-y-6">
+                  <div className="flex items-center gap-5">
+                    <div className="p-5 rounded-3xl bg-accent/10 text-accent">
+                      <t.parkingStage.icon className="h-10 w-10" />
                     </div>
-                    <CardTitle className="text-3xl font-headline font-black">{stage.title}</CardTitle>
+                    <CardTitle className="text-4xl md:text-5xl font-headline font-black text-accent">{t.parkingStage.title}</CardTitle>
                   </div>
-                  <p className="text-lg text-muted-foreground leading-relaxed">{stage.description}</p>
+                  <p className="text-2xl text-muted-foreground leading-relaxed italic">{t.parkingStage.desc}</p>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="flex items-center gap-3 text-xs font-black text-primary uppercase tracking-widest">
-                    <Info className="h-4 w-4" />
-                    {t.learnMore}
-                  </div>
-                  
-                  <Accordion type="single" collapsible className="w-full">
-                    {stage.details.map((detail, i) => (
-                      <AccordionItem key={i} value={`item-${i}`} className="border-white/5">
-                        <AccordionTrigger className="hover:no-underline py-4">
-                          <div className="flex items-center gap-4 text-left">
-                            <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
-                            <span className="font-bold text-base group-hover:text-primary transition-colors">{detail.sub}</span>
-                          </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-6 pl-9 border-l-2 border-primary/20 ml-2.5">
-                          {detail.desc}
-                        </AccordionContent>
-                      </AccordionItem>
-                    ))}
-                  </Accordion>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {t.parkingStage.details.map((detail, i) => (
+                    <div key={i} className="p-8 rounded-[2.5rem] bg-black/40 border border-white/5 space-y-4 hover:border-accent/50 transition-all">
+                      <div className="flex items-center gap-3 text-accent">
+                        <Award className="h-5 w-5" />
+                        <h4 className="font-black text-lg uppercase tracking-tighter">{detail.sub}</h4>
+                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{detail.desc}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
           </Card>
-        ))}
-      </div>
+        </TabsContent>
+      </Tabs>
 
-      <div className="mt-20 p-12 rounded-[4rem] glass-card border-primary/20 text-center space-y-6">
-        <h2 className="text-3xl font-headline font-black">
-          {language === 'ar' ? "هل أنت مستعد لاختبار معلوماتك؟" : "Ready to test your knowledge?"}
-        </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          {language === 'ar' 
-            ? "بعد دراسة هذه المراحل المعمقة، يمكنك الانتقال إلى المحاكي الذكي لتجربة اختبار RTA النظري الحقيقي."
-            : "After studying these in-depth stages, you can proceed to the Smart Simulator to experience the real RTA theory test."}
-        </p>
-        <div className="pt-4">
-          <a href="/assessment" className="inline-flex items-center justify-center h-16 px-12 rounded-2xl bg-primary text-white font-black text-xl shadow-2xl shadow-primary/30 hover:bg-primary/90 transition-all active:scale-95">
-            {language === 'ar' ? "ابدأ التقييم الآن" : "Start Assessment Now"}
-          </a>
+      {/* CTA Final */}
+      <div className="mt-20 p-16 rounded-[5rem] glass-card border-primary/20 text-center space-y-10 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -mr-48 -mt-48" />
+        <div className="relative z-10 space-y-6">
+          <h2 className="text-4xl md:text-6xl font-headline font-black">
+            {language === 'ar' ? "هل أنت مستعد للمحاكاة النهائية؟" : "Ready for the Final Simulation?"}
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto font-medium">
+            {language === 'ar' 
+              ? "بعد دراسة هذه المراحل الأكاديمية والعملية، يمكنك الآن اختبار معرفتك في محاكي RTA الذكي الذي يغطي كامل بنك الأسئلة المطور."
+              : "After studying these academic and practical phases, you can now test your knowledge in the Smart RTA simulator covering the entire updated question bank."}
+          </p>
+          <div className="pt-8">
+            <a href="/assessment" className="inline-flex items-center justify-center h-20 px-16 rounded-3xl bg-primary text-white font-black text-2xl shadow-[0_20px_50px_rgba(59,130,246,0.4)] hover:bg-primary/90 transition-all active:scale-95 group">
+              {language === 'ar' ? "ابدأ التقييم الشامل الآن" : "Start Full Assessment Now"}
+              <Zap className="ml-4 h-6 w-6 fill-white group-hover:scale-125 transition-transform" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
