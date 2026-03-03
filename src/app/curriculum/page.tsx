@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { BookOpen, Map, Zap, Construction, Gauge, Navigation, CheckCircle2, ShieldCheck, Award, Info, ChevronRight, ArrowDownCircle } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
