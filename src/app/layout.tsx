@@ -12,11 +12,11 @@ export const metadata: Metadata = {
   description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
 };
 
-export default async function RootLayout({
-  children,
-}: {
+export default async function RootLayout(props: {
   children: ReactNode;
 }) {
+  const { children } = props;
+  
   return (
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>

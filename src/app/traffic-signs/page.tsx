@@ -138,7 +138,22 @@ export default function TrafficSignsPage() {
               </div>
             </div>
           </TabsContent>
-          {/* Other Tabs Content logic remains similar to previous version */}
+          {/* Content for other tabs */}
+          <TabsContent value="failure" className="space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {t.failureReasons.map((reason, i) => (
+                <Card key={i} className="border-red-500/20 bg-red-500/5 p-6">
+                  <CardHeader className="p-0 mb-4 flex flex-row items-center gap-4">
+                    <ShieldAlert className="h-6 w-6 text-red-500" />
+                    <CardTitle className="text-xl font-bold">{reason.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <p className="text-muted-foreground">{reason.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
