@@ -8,7 +8,7 @@ import {
   ShieldCheck, Award, Info, ChevronRight, CheckCircle2, 
   Sparkles, Target, Eye, Settings, Car, ShieldAlert,
   Thermometer, Fuel, Search, LogIn, UserCheck, Play, Move, SquareSlash,
-  UserCircle, AlertCircle
+  UserCircle, AlertCircle, ArrowRightLeft, Sunrise, Moon
 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -42,7 +42,7 @@ export default function CurriculumPage() {
         icon: Gauge,
         details: [
           { 
-            sub: language === 'ar' ? "الروتين المسبق (قاعدة أبواب - مقعد - مرايا - حزام)" : "Pre-Driving Routine (D-S-M-B)", 
+            sub: language === 'ar' ? "الروتين المسبق (أبواب - مقعد - مرايا - حزام)" : "Pre-Driving Routine (D-S-M-B)", 
             desc: language === 'ar' 
               ? `بمجرد دخولك للسيارة، هناك تسلسل إلزامي:
                 • الأبواب: تأكد من إغلاق جميع الأبواب بإحكام (تحقق من لوحة العدادات).
@@ -58,7 +58,7 @@ export default function CurriculumPage() {
             sub: language === 'ar' ? "أدوات التحكم وبروتوكول الانطلاق" : "Controls & Moving Off Protocol", 
             desc: language === 'ar' 
               ? `• قاعدة القدم الواحدة: استخدم القدم اليمنى فقط للبنزين والفرامل. اليسرى تبقى مرتاحة تماماً.
-                • ناقل الحركة (P, R, N, D).
+                • ناقل الحركة: (P) للوقوف، (R) للرجوع، (N) للمحايد، (D) للقيادة.
                 • بروتوكول الانطلاق: 1. فرامل قدم، 2. غيّر لـ (D)، 3. أنزل الهاند بريك، 4. مرايا وإشارة، 5. نظرة الكتف (حاسمة)، 6. انطلق بنعومة.` 
               : "One-foot rule: Right foot for Gas/Brake. Gear positions (P,R,N,D). Moving off: 1. Brake, 2. Shift to D, 3. Release Handbrake, 4. Mirrors/Signal, 5. Crucial Shoulder Check, 6. Smooth roll.",
             tip: language === 'ar' ? "استخدام قدمين في سيارة أوتوماتيكية خطر جداً ويؤدي للرسوب." : "Using two feet in an automatic car is extremely dangerous and leads to failure."
@@ -81,7 +81,7 @@ export default function CurriculumPage() {
         icon: Navigation,
         details: [
           { 
-            sub: language === 'ar' ? "القيادة في المناطق السكنية (40 كم/ساعة)" : "Driving in Residential Areas (40km/h)", 
+            sub: language === 'ar' ? "القيادة السكنية وإدارة المساحات" : "Residential Driving & Space Management", 
             desc: language === 'ar' 
               ? `تتطلب المناطق الداخلية إدارة صارمة للمساحات وتوقعاً مستمراً للمخاطر:
                 • السرعة: التزم بـ 40 كم/ساعة كحد أقصى لضمان مسافة توقف آمنة.
@@ -96,46 +96,62 @@ export default function CurriculumPage() {
                 • علامة افسح الطريق (Give Way): خفف السرعة واستعد للتوقف. الأولوية للقادمين في الطريق الرئيسي.
                 • لغة التواصل: استخدم التواصل البصري (Eye Contact) أو إشارات اليد الودية لتسهيل الحركة المرورية.` 
               : "STOP sign requires a full wheel stop before the line. Give Way sign requires yielding priority to the main road. Use eye contact to facilitate flow." 
-          },
-          { 
-            sub: language === 'ar' ? "التجاوز والاندماج الآمن" : "Overtaking & Safe Merging", 
-            desc: language === 'ar' 
-              ? `• التجاوز للضرورة فقط: يُسمح به عند وجود عائق ثابت (سيارة متوقفة تماماً).
-                • خطوات التجاوز: (مرآة - إشارة - نظرة كتف - مناورة حذرة - العودة للمسار).
-                • الاندماج: ابحث عن فجوة زمنية آمنة لا تجبر الآخرين على تغيير سرعتهم.` 
-              : "Overtaking is for static obstacles only. Follow the (Mirror-Signal-Shoulder) protocol. Merge without forcing others to brake." 
           }
         ]
       },
       {
         id: "stage-3",
-        title: language === 'ar' ? "المرحلة الثالثة: الطرق العامة والسرعات" : "Stage 3: Public Roads & High Speeds",
-        desc: language === 'ar' ? "التعامل مع الازدحام، الإشارات الضوئية المعقدة، والقيادة الدفاعية المتقدمة." : "Handling congestion, complex signals, and advanced defensive driving.",
+        title: language === 'ar' ? "المرحلة الثالثة: القيادة المتقدمة في الطرق العامة" : "Stage 3: Advanced Public Road Driving",
+        desc: language === 'ar' ? "التعامل مع السرعات العالية (60-80 كم/ساعة)، الاندماج في الطرق السريعة، وإتقان الدوارات." : "Handling high speeds (60-80km/h), merging into highways, and mastering roundabouts.",
         icon: Zap,
         details: [
           { 
-            sub: language === 'ar' ? "بروتوكول الإشارات الضوئية" : "Traffic Signal Protocol", 
+            sub: language === 'ar' ? "الاندماج والتسارع الإيجابي" : "Merging & Positive Acceleration", 
             desc: language === 'ar' 
-              ? `• الأحمر: توقف تام قبل الخط.
-                • الأصفر: استعد للتوقف (لا تسرع لاختراقها).
-                • الأخضر: انطلق بحذر بعد التأكد من خلو التقاطع.
-                • نقطة اللاعودة: تقدير المسافة التي يصبح فيها العبور آمناً أفضل من الفرملة العنيفة.` 
-              : "Red: Full stop. Yellow: Prepare to stop. Green: Proceed with caution. Learn the 'Point of No Return'." 
+              ? `الهدف هو الدخول للطريق الرئيسي بأمان وبدون عرقلة التدفق المروري:
+                • اختيار الفجوة: لا تندمج إلا إذا كانت المساحة خالية تماماً ولا تجبر الآخرين على الفرملة.
+                • التسارع الإيجابي: الخطأ الأكبر هو الدخول ببطء! بمجرد استقامة السيارة، اضغط بقوة لتصل لسرعة الشارع (مثلاً 60-80 كم/ساعة) لتندمج مع حركة المرور وتتجنب الاصطدام الخلفي.` 
+              : "Enter main roads without disrupting flow. Use 'Positive Acceleration' to reach road speed (60-80km/h) immediately after straightening to avoid rear-end collisions."
           },
           { 
-            sub: language === 'ar' ? "القيادة الدفاعية ومسافة الأمان" : "Defensive Driving & Safety Distance", 
+            sub: language === 'ar' ? "القاعدة الذهبية: الالتزام باليمين" : "The Golden Rule: Keeping Right", 
             desc: language === 'ar' 
-              ? `• قانون الثانيتين: اترك مسافة ثانيتين في الظروف الطبيعية.
-                • ضاعف المسافة (4 ثوانٍ) في المطر أو الضباب.
-                • المراقبة البعيدة: انظر لمسافة 15-20 مركبة أمامك لتوقع المخاطر مبكراً.` 
-              : "2-second rule in ideal conditions, 4 seconds in rain. Scan 15-20 vehicles ahead to anticipate hazards." 
+              ? `• المسار الإلزامي: بصفتك تقود سيارة تدريب أو فحص، المسار الأيمن هو مسارك الإلزامي الدائم.
+                • مغادرة اليمين: فقط للضرورة القصوى (تجاوز مركبة بطيئة جداً، أو الاستعداد للانعطاف يساراً/U-Turn).
+                • العودة الفورية: بمجرد انتهاء الضرورة، يجب العودة فوراً للمسار الأيمن. البقاء في الوسط أو الأيسر دون مبرر يؤدي للرسوب.` 
+              : "Trainees must strictly stay in the right lane. Depart only for overtaking or preparing for a left turn/U-turn, and return immediately after."
           },
           { 
-            sub: language === 'ar' ? "الدوارات والـ U-Turn" : "Roundabouts & U-Turns", 
+            sub: language === 'ar' ? "أسرار تغيير المسار (Lane Changing)" : "Secrets of Lane Changing", 
             desc: language === 'ar' 
-              ? `• الدوارات: حدد مخرجك مبكراً، التزم بمسارك، والأولوية دائماً لليسار (داخل الدوار).
-                • U-Turn: تأكد من الشاخصة المسموحة، التموضع في أقصى اليسار، ودوران كامل وسلس.` 
-              : "Roundabouts: Choose lane early, yield to the left. U-Turns: Check signs, position left, and execute a smooth rotation." 
+              ? `تطبيق (مرآة - إشارة - كتف - مناورة) حتمي، مع الانتباه لهذه الأخطاء:
+                • ثبات الجسم: عند فحص النقطة العمياء، التفت برقبتك فقط. تحريك الكتف سيحرف المقود لا إرادياً (خطأ رسوب).
+                • توجيه النظر: بمجرد بدء المناورة، ارفع نظرك عن المرآة وانظر لمنتصف المسار الجديد. النظر للمرآة أثناء الانتقال يفقدك السيطرة.` 
+              : "Apply the (Mirror-Signal-Shoulder) rule. Keep shoulders steady during shoulder check to avoid involuntary steering. Look at the center of the target lane during the maneuver."
+          },
+          { 
+            sub: language === 'ar' ? "مسافة الأمان وقانون الثانيتين" : "Safety Distance & 2-Second Rule", 
+            desc: language === 'ar' 
+              ? `• القاعدة: اترك مسافة ثانيتين على الأقل (اختر علامة ثابتة، وعند تجاوز السيارة الأمامية لها، عد: واحد، اثنان).
+                • الظروف الصعبة: في المطر، الضباب، أو الغبار، ضاعف المسافة لتصبح 4 ثوانٍ أو أكثر.` 
+              : "Maintain a 2-second gap in ideal conditions and double it to 4 seconds during rain, fog, or dust storms."
+          },
+          { 
+            sub: language === 'ar' ? "إتقان الدوارات (Roundabouts)" : "Mastering Roundabouts", 
+            desc: language === 'ar' 
+              ? `• الأولوية: دائماً للمركبات داخل الدوار (القادمة من اليسار).
+                • إشارات اليمين: مسار أيمن + إشارة يمين من البداية.
+                • إشارات للأمام: مسار أيمن/أوسط + بدون إشارة دخول + إشارة يمين قبل الخروج (بعد المخرج الأول).
+                • لليسار / U-Turn: مسار أيسر + إشارة يسار دخول + إشارة يمين قبل الخروج.` 
+              : "Priority to traffic inside (from the left). Master direction-specific signaling: Right (Right lane/signal), Straight (No entry signal, exit signal), Left/U-turn (Left lane/signal, exit signal)." ,
+            tip: language === 'ar' ? "فخ المسار الأيسر: عند الخروج من الدوار لليسار، ستجد نفسك في المسار الأيسر للطريق الجديد. افحص فوراً وانتقل للمسار الأيمن بمبادرة منك لتطبيق قانون الالتزام باليمين." : "Left Lane Trap: After a left exit, you'll be in the left lane. Check mirrors and move back to the right lane immediately without waiting for instructions."
+          },
+          { 
+            sub: language === 'ar' ? "القيادة الليلية (Night Driving)" : "Night Driving Protocol", 
+            desc: language === 'ar' 
+              ? `• الأضواء: شغل المنخفض (Low Beam) فور غروب الشمس. يمنع العالي (High Beam) في الشوارع المضاءة أو مقابل السير.
+                • السرعة والتركيز: خفف سرعتك لتقدير المسافات بدقة، وضاعف تركيزك على الحواف لاكتشاف المشاة أو الدراجات.` 
+              : "Use Low Beams after sunset. Avoid High Beams in lit streets or facing traffic. Reduce speed to accurately judge distances and focus on road edges for hazards."
           }
         ]
       }
