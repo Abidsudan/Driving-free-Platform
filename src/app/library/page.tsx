@@ -1,4 +1,3 @@
-
 "use client"
 
 import { BookOpen, FileText, Clock, Sparkles } from "lucide-react"
@@ -54,6 +53,42 @@ export default function LibraryPage() {
         desc: language === 'ar' 
           ? "فهم العمليات الذهنية التي يمر بها السائق لتجنب الاصطدام وكيفية الحفاظ على الهدوء تحت الضغط."
           : "Understanding the mental processes a driver undergoes to avoid collisions and how to remain calm under pressure."
+      },
+      {
+        title: language === 'ar' ? "فيزياء الليل: الضوء والإدراك البصري" : "Physics of the Night: Light & Visual Perception",
+        category: language === 'ar' ? "فيزياء القيادة" : "Driving Physics",
+        type: language === 'ar' ? "دراسة علمية" : "Scientific Study",
+        readTime: language === 'ar' ? "18 دقيقة" : "18 mins",
+        desc: language === 'ar' 
+          ? "كيف يتغير إدراك المسافات والسرعات تحت الأضواء الاصطناعية، وتأثير إجهاد العين على وقت الاستجابة."
+          : "How distance and speed perception change under artificial lighting, and the impact of eye fatigue on response time."
+      },
+      {
+        title: language === 'ar' ? "القيادة الاقتصادية: الديناميكا الهوائية" : "Eco-Driving: Aerodynamics & Efficiency",
+        category: language === 'ar' ? "تكنولوجيا المركبات" : "Vehicle Tech",
+        type: language === 'ar' ? "بحث تقني" : "Technical Paper",
+        readTime: language === 'ar' ? "14 دقيقة" : "14 mins",
+        desc: language === 'ar' 
+          ? "دراسة حول علاقة مقاومة الهواء باستهلاك الوقود وكيفية تحسين انسيابية القيادة على الطرق السريعة."
+          : "Study on the relationship between air resistance and fuel consumption and how to optimize driving flow on highways."
+      },
+      {
+        title: language === 'ar' ? "احتكاك الإطارات: علم التماسك والسطوح" : "Tyre Friction: The Science of Grip",
+        category: language === 'ar' ? "فيزياء القيادة" : "Driving Physics",
+        type: language === 'ar' ? "مقال فني" : "Technical Article",
+        readTime: language === 'ar' ? "11 دقيقة" : "11 mins",
+        desc: language === 'ar' 
+          ? "تحليل لمعامل الاحتكاك بين المطاط والأسفلت في درجات الحرارة المرتفعة بدبي."
+          : "Analysis of the friction coefficient between rubber and asphalt in Dubai's high-temperature conditions."
+      },
+      {
+        title: language === 'ar' ? "الانزلاق المائي: النجاة من المفاجآت" : "Hydroplaning: Surviving Sudden Surprises",
+        category: language === 'ar' ? "إدارة المخاطر" : "Risk Management",
+        type: language === 'ar' ? "دليل الطوارئ" : "Emergency Guide",
+        readTime: language === 'ar' ? "9 دقيقة" : "9 mins",
+        desc: language === 'ar' 
+          ? "التفسير العلمي لفقدان التماسك على الأسطح المبللة وكيفية استعادة السيطرة برياضيات الحركة."
+          : "Scientific explanation of losing grip on wet surfaces and how to regain control using motion mathematics."
       }
     ]
   }

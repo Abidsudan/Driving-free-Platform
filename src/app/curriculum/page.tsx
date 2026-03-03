@@ -1,5 +1,4 @@
-
-'use client';
+"use client"
 
 import Image from "next/image"
 import { CheckCircle2 } from "lucide-react"
@@ -26,7 +25,7 @@ export default function CurriculumPage() {
       },
       {
         title: language === 'ar' ? "المرحلة الثانية: التحكم والمناورة" : "Stage 2: Control & Maneuvering",
-        description: language === 'ar' ? "إتقان التحرك، التوقف، الانعطافات، والتعامل مع التقاطعات البسيطة." : "Mastering movement, stopping, turns, and handling simple intersections.",
+        description: language === 'ar' ? "إتقان التحرك، التوقف، الانعطافات، والتعامل مع التقاطعات البية." : "Mastering movement, stopping, turns, and handling simple intersections.",
         topics: language === 'ar' 
           ? ["قاعدة 2 ثانية للمسافات", "تقنيات الدوران الصحيحة", "فهم نقاط العمياء"]
           : ["2-second distance rule", "Correct turning techniques", "Understanding blind spots"],
@@ -46,6 +45,22 @@ export default function CurriculumPage() {
         topics: language === 'ar' 
           ? ["القيادة في المناطق المزدحمة", "أولويات الدوارات المعقدة", "الوقوف الاضطراري"]
           : ["Driving in congested areas", "Complex roundabout priorities", "Emergency stopping"],
+        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
+      },
+      {
+        title: language === 'ar' ? "المرحلة الخامسة: القيادة الليلية والظروف الصعبة" : "Stage 5: Night & Adverse Weather",
+        description: language === 'ar' ? "إدارة الرؤية المنخفضة والتعامل مع الأمطار والرياح القوية في دبي." : "Managing low visibility and handling rain and strong winds in Dubai.",
+        topics: language === 'ar' 
+          ? ["استخدام الأضواء العالية والمنخفضة", "التحكم في الانزلاق المائي", "إدارة الإجهاد البصري"]
+          : ["High and low beam usage", "Hydroplaning control", "Visual fatigue management"],
+        image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
+      },
+      {
+        title: language === 'ar' ? "المرحلة السادسة: إتقان اختبار الطريق النهائي" : "Stage 6: Final Road Test Mastery",
+        description: language === 'ar' ? "التحضير النفسي والفني النهائي للحصول على الرخصة من المحاولة الأولى." : "Final psychological and technical preparation to get the license on the first try.",
+        topics: language === 'ar' 
+          ? ["بروتوكول الفحص النهائي", "تجنب أخطاء التدخل اليدوي", "الثقة خلف المقود"]
+          : ["Final exam protocol", "Avoiding intervention errors", "Confidence behind the wheel"],
         image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
       }
     ],
