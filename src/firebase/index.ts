@@ -1,11 +1,9 @@
-
 'use client';
 
 import { firebaseConfig } from '@/firebase/config';
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getPerformance } from 'firebase/performance';
 
 export function initializeFirebase() {
   if (!getApps().length) {
@@ -24,15 +22,6 @@ export function initializeFirebase() {
 }
 
 export function getSdks(firebaseApp: FirebaseApp) {
-  if (typeof window !== 'undefined') {
-    try {
-      // Safely initialize performance monitoring
-      getPerformance(firebaseApp);
-    } catch (error) {
-      // Silence performance initialization errors to avoid crashing the app
-    }
-  }
-
   return {
     firebaseApp,
     auth: getAuth(firebaseApp),
