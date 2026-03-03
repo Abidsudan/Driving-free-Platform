@@ -1,4 +1,3 @@
-
 "use client"
 
 import Image from "next/image"
@@ -8,7 +7,7 @@ import {
   ShieldCheck, Award, Info, ChevronRight, CheckCircle2, 
   Sparkles, Target, Eye, Settings, Car, ShieldAlert,
   Thermometer, Fuel, Search, LogIn, UserCheck, Play, Move, SquareSlash,
-  UserCircle, AlertCircle, ArrowRightLeft, Sunrise, Moon
+  UserCircle, AlertCircle, ArrowRightLeft, Sunrise, Moon, LayoutDashboard
 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -37,10 +36,31 @@ export default function CurriculumPage() {
     roadStages: [
       {
         id: "stage-1",
-        title: language === 'ar' ? "المرحلة الأولى: البداية والتأسيس" : "Stage 1: The Beginning & Foundations",
-        desc: language === 'ar' ? "بناء روتين أمان ثابت وفهم أبعاد المركبة قبل تشغيل المحرك." : "Building a consistent safety routine and understanding vehicle dimensions before starting.",
+        title: language === 'ar' ? "المرحلة الأولى: التأسيس والتحكم" : "Stage 1: Foundations & Control",
+        desc: language === 'ar' ? "التعرف على المركبة وبناء روتين أمان ثابت في بيئة مغلقة." : "Vehicle orientation and building a solid safety routine in a closed environment.",
         icon: Gauge,
         details: [
+          { 
+            sub: language === 'ar' ? "الفحص الخارجي للجاهزية" : "External Readiness Check", 
+            desc: language === 'ar' 
+              ? `التأكد من سلامة المركبة قبل بدء القيادة:
+                • فحص الإطارات: التأكد من عدم وجود تسريبات للهواء أو انثقاب.
+                • الأضواء: التحقق من عمل جميع الأضواء (الأمامية، الخلفية، والجانبية).
+                • المرايا: فحص نظافة وسلامة المرايا الجانبية والخلفية.
+                • السوائل: البحث عن أي تسريبات للزيوت أو السوائل أسفل المركبة.
+                • الرؤية: التأكد من نظافة الزجاج الأمامي والخلفي لضمان رؤية واضحة.` 
+              : "Checking vehicle integrity before driving: Tire pressure, all lights operation, mirror cleanliness, searching for fluid leaks, and ensuring glass clarity."
+          },
+          { 
+            sub: language === 'ar' ? "بروتوكول الدخول الآمن" : "Safe Entry Protocol", 
+            desc: language === 'ar' 
+              ? `الدخول بطريقة آمنة دون الإضرار بالمركبات المجاورة:
+                • افتح الباب ببطء وحذر شديد.
+                • تأكد من عدم وجود مركبات أو دراجات نارية مقتربة قبل فتح الباب.
+                • ادخل إلى المركبة بسلاسة.
+                • أغلق الباب بقوة كافية لضمان إغلاقه بإحكام وأمان.` 
+              : "Entering safely: Open door slowly, check for approaching traffic, enter smoothly, and close firmly for safety."
+          },
           { 
             sub: language === 'ar' ? "الروتين المسبق (أبواب - مقعد - مرايا - حزام)" : "Pre-Driving Routine (D-S-M-B)", 
             desc: language === 'ar' 
@@ -55,7 +75,15 @@ export default function CurriculumPage() {
             tip: language === 'ar' ? "تحريك السيارة قبل ربط حزام الأمان لك أو لمرافقك يُعتبر خطأً ورسوباً فورياً." : "Moving the car before buckling up yourself or passengers is an immediate fail."
           },
           { 
-            sub: language === 'ar' ? "أدوات التحكم وبروتوكول الانطلاق" : "Controls & Moving Off Protocol", 
+            sub: language === 'ar' ? "لوحة الأجهزة وبروتوكول التشغيل" : "Dashboard & Ignition Protocol", 
+            desc: language === 'ar' 
+              ? `• عداد السرعة ومقاييس الوقود والحرارة: فهم حالة المركبة الميكانيكية.
+                • أضواء التحذير: الانتباه الفوري لأي ضوء أحمر في اللوحة.
+                • التشغيل: تأكد من وضع (P) أو (N)، اضغط الفرامل بقوة، ثم شغل المحرك وانتظر ثوانٍ لتوزع الزيت.` 
+              : "Understanding speed, fuel, and heat gauges. Red warning lights require immediate attention. Ensure P or N position, press brake, and start engine."
+          },
+          { 
+            sub: language === 'ar' ? "قاعدة القدم الواحدة وأدوات التحكم" : "One-Foot Rule & Controls", 
             desc: language === 'ar' 
               ? `• قاعدة القدم الواحدة: استخدم القدم اليمنى فقط للبنزين والفرامل. اليسرى تبقى مرتاحة تماماً.
                 • ناقل الحركة: (P) للوقوف، (R) للرجوع، (N) للمحايد، (D) للقيادة.
@@ -76,16 +104,23 @@ export default function CurriculumPage() {
       },
       {
         id: "stage-2",
-        title: language === 'ar' ? "المرحلة الثانية: الطرق الداخلية والتقاطعات" : "Stage 2: Internal Roads & Junctions",
-        desc: language === 'ar' ? "إدارة المساحات والسرعة في المناطق السكنية والتعامل الاحترافي مع التقاطعات." : "Managing space and speed in residential areas and professional handling of junctions.",
+        title: language === 'ar' ? "المرحلة الثانية: الطرق العامة (كثافة خفيفة)" : "Stage 2: Public Roads (Light Traffic)",
+        desc: language === 'ar' ? "إدارة المساحات والسرعة في المناطق السكنية والتعامل مع التقاطعات." : "Managing space and speed in residential areas and handling junctions.",
         icon: Navigation,
         details: [
+          { 
+            sub: language === 'ar' ? "فحص النقطة العمياء (Shoulder Check)" : "Blind Spot & Shoulder Check", 
+            desc: language === 'ar' 
+              ? `القاعدة الأساسية: المرايا لا تكفي وحدها أبداً لاتخاذ قرار الانتقال.
+                • أدرك أن هناك مساحات بجانبك وخلفك لا تظهر في أي مرآة.
+                • التفت برأسك (نظرة الكتف) للتحقق من النقاط العمياء قبل أي تغيير للمسار أو انعطاف.` 
+              : "Mirrors alone are never enough. Perform a quick shoulder check to verify areas not visible in mirrors before any lane change or turn." 
+          },
           { 
             sub: language === 'ar' ? "القيادة السكنية وإدارة المساحات" : "Residential Driving & Space Management", 
             desc: language === 'ar' 
               ? `تتطلب المناطق الداخلية إدارة صارمة للمساحات وتوقعاً مستمراً للمخاطر:
                 • السرعة: التزم بـ 40 كم/ساعة كحد أقصى لضمان مسافة توقف آمنة.
-                • التموضع: حافظ على مسارك في الجهة اليمنى وتجنب الاقتراب من الخط الفاصل.
                 • قاعدة الـ 1.5 متر: عند المرور بجانب سيارات مركونة، اترك مسافة لا تقل عن 1.5 متر لتفادي فتح الأبواب المفاجئ.` 
               : "Residential areas require strict space management: Max 40km/h speed, keeping to the right, and the 1.5m side distance rule when passing parked cars." 
           },
@@ -96,12 +131,19 @@ export default function CurriculumPage() {
                 • علامة افسح الطريق (Give Way): خفف السرعة واستعد للتوقف. الأولوية للقادمين في الطريق الرئيسي.
                 • لغة التواصل: استخدم التواصل البصري (Eye Contact) أو إشارات اليد الودية لتسهيل الحركة المرورية.` 
               : "STOP sign requires a full wheel stop before the line. Give Way sign requires yielding priority to the main road. Use eye contact to facilitate flow." 
+          },
+          { 
+            sub: language === 'ar' ? "احترام حقوق معابر المشاة" : "Respecting Pedestrian Crossings", 
+            desc: language === 'ar' 
+              ? `• المسح البصري: ابحث عن معابر المشاة والشاخصات التحذيرية مبكراً.
+                • الأولوية المطلقة: دائماً للمشاة، حتى لو لمسوا الشارع بقدم واحدة. يُمنع منعاً باتاً استعجالهم.` 
+              : "Scan ahead for crossings. Pedestrians have absolute priority even if they've just stepped onto the road. Never rush them." 
           }
         ]
       },
       {
         id: "stage-3",
-        title: language === 'ar' ? "المرحلة الثالثة: القيادة المتقدمة في الطرق العامة" : "Stage 3: Advanced Public Road Driving",
+        title: language === 'ar' ? "المرحلة الثالثة: القيادة المتقدمة (كثافة عالية)" : "Stage 3: Advanced Road Driving",
         desc: language === 'ar' ? "التعامل مع السرعات العالية (60-80 كم/ساعة)، الاندماج في الطرق السريعة، وإتقان الدوارات." : "Handling high speeds (60-80km/h), merging into highways, and mastering roundabouts.",
         icon: Zap,
         details: [
@@ -110,24 +152,24 @@ export default function CurriculumPage() {
             desc: language === 'ar' 
               ? `الهدف هو الدخول للطريق الرئيسي بأمان وبدون عرقلة التدفق المروري:
                 • اختيار الفجوة: لا تندمج إلا إذا كانت المساحة خالية تماماً ولا تجبر الآخرين على الفرملة.
-                • التسارع الإيجابي: الخطأ الأكبر هو الدخول ببطء! بمجرد استقامة السيارة، اضغط بقوة لتصل لسرعة الشارع (مثلاً 60-80 كم/ساعة) لتندمج مع حركة المرور وتتجنب الاصطدام الخلفي.` 
+                • التسارع الإيجابي: الخطأ الأكبر هو الدخول ببطء! بمجرد استقامة السيارة، اضغط بقوة لتصل لسرعة الشارع (60-80 كم/ساعة) لتندمج مع حركة المرور وتتجنب الاصطدام الخلفي.` 
               : "Enter main roads without disrupting flow. Use 'Positive Acceleration' to reach road speed (60-80km/h) immediately after straightening to avoid rear-end collisions."
           },
           { 
             sub: language === 'ar' ? "القاعدة الذهبية: الالتزام باليمين" : "The Golden Rule: Keeping Right", 
             desc: language === 'ar' 
               ? `• المسار الإلزامي: بصفتك تقود سيارة تدريب أو فحص، المسار الأيمن هو مسارك الإلزامي الدائم.
-                • مغادرة اليمين: فقط للضرورة القصوى (تجاوز مركبة بطيئة جداً، أو الاستعداد للانعطاف يساراً/U-Turn).
-                • العودة الفورية: بمجرد انتهاء الضرورة، يجب العودة فوراً للمسار الأيمن. البقاء في الوسط أو الأيسر دون مبرر يؤدي للرسوب.` 
+                • مغادرة اليمين: فقط للضرورة القصوى (تجاوز مركبة بطيئة، أو الاستعداد للانعطاف يساراً/U-Turn).
+                • العودة الفورية: بمجرد انتهاء الضرورة، يجب العودة فوراً للمسار الأيمن.` 
               : "Trainees must strictly stay in the right lane. Depart only for overtaking or preparing for a left turn/U-turn, and return immediately after."
           },
           { 
             sub: language === 'ar' ? "أسرار تغيير المسار (Lane Changing)" : "Secrets of Lane Changing", 
             desc: language === 'ar' 
               ? `تطبيق (مرآة - إشارة - كتف - مناورة) حتمي، مع الانتباه لهذه الأخطاء:
-                • ثبات الجسم: عند فحص النقطة العمياء، التفت برقبتك فقط. تحريك الكتف سيحرف المقود لا إرادياً (خطأ رسوب).
-                • توجيه النظر: بمجرد بدء المناورة، ارفع نظرك عن المرآة وانظر لمنتصف المسار الجديد. النظر للمرآة أثناء الانتقال يفقدك السيطرة.` 
-              : "Apply the (Mirror-Signal-Shoulder) rule. Keep shoulders steady during shoulder check to avoid involuntary steering. Look at the center of the target lane during the maneuver."
+                • ثبات الجسم: عند فحص النقطة العمياء، التفت برقبتك فقط. تحريك الكتف سيحرف المقود لا إرادياً (رسوب فوري).
+                • توجيه النظر: بمجرد بدء المناورة، انظر لمنتصف المسار الجديد. النظر للمرآة أثناء الانتقال يفقدك السيطرة.` 
+              : "Apply (Mirror-Signal-Shoulder). Keep shoulders steady during shoulder check to avoid involuntary steering. Look at the center of the target lane during the maneuver."
           },
           { 
             sub: language === 'ar' ? "مسافة الأمان وقانون الثانيتين" : "Safety Distance & 2-Second Rule", 
@@ -137,21 +179,28 @@ export default function CurriculumPage() {
               : "Maintain a 2-second gap in ideal conditions and double it to 4 seconds during rain, fog, or dust storms."
           },
           { 
+            sub: language === 'ar' ? "الإشارات الضوئية والتقاطعات" : "Traffic Lights & Intersections", 
+            desc: language === 'ar' 
+              ? `• الأصفر: يعني "توقف بأمان". لا تزد سرعتك لمحاولة لحاق الإشارة.
+                • الأخضر (الانطلاق الحذر): انظر سريعاً (يسار - يمين) للتأكد من عدم وجود مركبة متأخرة تقطع الإشارة قبل أن تنطلق.` 
+              : "Yellow means stop safely. Never accelerate to 'beat' the light. Green requires a quick scan (left-right) for late cross-traffic before proceeding."
+          },
+          { 
             sub: language === 'ar' ? "إتقان الدوارات (Roundabouts)" : "Mastering Roundabouts", 
             desc: language === 'ar' 
               ? `• الأولوية: دائماً للمركبات داخل الدوار (القادمة من اليسار).
                 • إشارات اليمين: مسار أيمن + إشارة يمين من البداية.
                 • إشارات للأمام: مسار أيمن/أوسط + بدون إشارة دخول + إشارة يمين قبل الخروج (بعد المخرج الأول).
                 • لليسار / U-Turn: مسار أيسر + إشارة يسار دخول + إشارة يمين قبل الخروج.` 
-              : "Priority to traffic inside (from the left). Master direction-specific signaling: Right (Right lane/signal), Straight (No entry signal, exit signal), Left/U-turn (Left lane/signal, exit signal)." ,
-            tip: language === 'ar' ? "فخ المسار الأيسر: عند الخروج من الدوار لليسار، ستجد نفسك في المسار الأيسر للطريق الجديد. افحص فوراً وانتقل للمسار الأيمن بمبادرة منك لتطبيق قانون الالتزام باليمين." : "Left Lane Trap: After a left exit, you'll be in the left lane. Check mirrors and move back to the right lane immediately without waiting for instructions."
+              : "Priority to traffic inside. Master signaling: Right (Right lane/signal), Straight (No entry signal, exit signal), Left/U-turn (Left lane/signal, exit signal)." ,
+            tip: language === 'ar' ? "فخ المسار الأيسر: عند الخروج من الدوار لليسار، ستجد نفسك في المسار الأيسر. افحص فوراً وانتقل للمسار الأيمن بمبادرة منك لتطبيق قانون الالتزام باليمين." : "Left Lane Trap: After a left exit, check mirrors and move back to the right lane immediately without waiting for instructions."
           },
           { 
             sub: language === 'ar' ? "القيادة الليلية (Night Driving)" : "Night Driving Protocol", 
             desc: language === 'ar' 
-              ? `• الأضواء: شغل المنخفض (Low Beam) فور غروب الشمس. يمنع العالي (High Beam) في الشوارع المضاءة أو مقابل السير.
-                • السرعة والتركيز: خفف سرعتك لتقدير المسافات بدقة، وضاعف تركيزك على الحواف لاكتشاف المشاة أو الدراجات.` 
-              : "Use Low Beams after sunset. Avoid High Beams in lit streets or facing traffic. Reduce speed to accurately judge distances and focus on road edges for hazards."
+              ? `• الأضواء: شغل المنخفض (Low Beam) فور غروب الشمس. يمنع العالي (High Beam) في الشوارع المضاءة.
+                • السرعة والتركيز: خفف سرعتك لتقدير المسافات بدقة، وضاعف تركيزك على الحواف لاكتشاف المشاة.` 
+              : "Use Low Beams after sunset. Avoid High Beams in lit streets. Reduce speed to accurately judge distances and focus on road edges."
           }
         ]
       }
@@ -269,7 +318,6 @@ export default function CurriculumPage() {
           ))}
         </TabsContent>
 
-        {/* Smart Parking Content */}
         <TabsContent value="parking">
           <Card className="overflow-hidden border-white/5 bg-accent/5 backdrop-blur-2xl rounded-[3rem] md:rounded-[5rem] group hover:border-accent/20 transition-all duration-700 shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12">
