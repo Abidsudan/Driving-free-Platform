@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState } from "react"
@@ -5,7 +6,7 @@ import { generateQuizQuestions, type GenerateQuizQuestionsOutput } from "@/ai/fl
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, ShieldCheck, Database, BrainCircuit } from "lucide-react"
+import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, ShieldCheck, Database, BrainCircuit, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser, useFirestore } from "@/firebase"
 import { collection } from "firebase/firestore"
@@ -26,23 +27,23 @@ export function AssessmentQuiz() {
   const db = useFirestore()
 
   const t = {
-    loadingTitle: language === 'ar' ? "جاري التحليل وتوليد الأسئلة..." : "Analyzing and Generating Questions...",
-    loadingSubtitle: language === 'ar' ? "الذكاء الاصطناعي يقوم ببناء محاكاة فريدة لك" : "AI is building a unique simulation for you",
-    resultTitle: language === 'ar' ? "معدل الكفاءة المعرفية" : "Cognitive Efficiency Rate",
+    loadingTitle: language === 'ar' ? "جاري استحضار مجموعة التميز..." : "Summoning Mastery Set...",
+    loadingSubtitle: language === 'ar' ? "الذكاء الاصطناعي يقوم ببناء اختبار الـ 16 قاعدة الذهبية" : "AI is building the 16 Golden Rules test",
+    resultTitle: language === 'ar' ? "معدل التميز الأكاديمي" : "Academic Excellence Rate",
     strengthTitle: language === 'ar' ? "نقاط القوة" : "Key Strengths",
-    strengthDesc: language === 'ar' ? "أداء ممتاز في فهم قواعد السرعة والمسافات الآمنة." : "Excellent performance in understanding speed rules and safe distances.",
-    adviceTitle: language === 'ar' ? "نصيحة الخبير" : "Expert Advice",
-    adviceDesc: language === 'ar' ? "راجع قوانين الأولوية في المناطق السكنية المزدحمة." : "Review priority laws in congested residential areas.",
-    btnRetry: language === 'ar' ? "إعادة التقييم" : "Retry Assessment",
+    strengthDesc: language === 'ar' ? "أداء ممتاز في فهم قواعد الالتزام وأخطاء الرسوب الفوري." : "Excellent performance in lane rules and immediate failure errors.",
+    adviceTitle: language === 'ar' ? "نصيحة المعلم" : "Teacher's Advice",
+    adviceDesc: language === 'ar' ? "يجب أن تجيد هذه الأسئلة بنسبة 100% لتضمن النجاح في الاختبار الحقيقي." : "You must master these questions 100% to guarantee success in the real test.",
+    btnRetry: language === 'ar' ? "إعادة اختبار التميز" : "Retry Mastery Test",
     btnDashboard: language === 'ar' ? "لوحة التحكم" : "Dashboard",
-    simulatorTitle: language === 'ar' ? "محاكي اختبار RTA الذكي" : "Smart RTA Test Simulator",
-    simulatorDesc: language === 'ar' ? "استخدم قوة الذكاء الاصطناعي لاختبار مستواك المعرفي وتوقع نتيجتك في اختبار RTA النظري الحقيقي في دبي." : "Use AI power to test your knowledge and predict your result in the real RTA theory test in Dubai.",
-    btnStart: language === 'ar' ? "ابدأ المحاكاة الآن" : "Start Simulation Now",
-    statsLabel: language === 'ar' ? "5 أسئلة تقنية • تحليل فوري • مجاني بالكامل" : "5 Technical Questions • Instant Analysis • 100% Free",
+    simulatorTitle: language === 'ar' ? "اختبار التميز الأكاديمي (Mastery Set)" : "Academic Mastery Test",
+    simulatorDesc: language === 'ar' ? "تدرب على الـ 16 سؤالاً الأكثر حيوية في اختبار RTA. يجب عليك إتقانها بنسبة 100% للنجاح المضمون." : "Train on the 16 most vital questions in the RTA test. You must master them 100% for guaranteed success.",
+    btnStart: language === 'ar' ? "ابدأ اختبار التميز الآن" : "Start Mastery Test Now",
+    statsLabel: language === 'ar' ? "16 قاعدة ذهبية • تحليل فوري • مجاني بالكامل" : "16 Golden Rules • Instant Analysis • 100% Free",
     questionLabel: language === 'ar' ? "السؤال" : "Question",
     ofLabel: language === 'ar' ? "من" : "of",
     analysisLabel: language === 'ar' ? "التحليل العلمي" : "Scientific Analysis",
-    btnFinish: language === 'ar' ? "إنهاء المحاكاة" : "Finish Simulation",
+    btnFinish: language === 'ar' ? "إنهاء الاختبار" : "Finish Test",
     btnNext: language === 'ar' ? "السؤال التالي" : "Next Question"
   };
 
@@ -50,9 +51,9 @@ export function AssessmentQuiz() {
     setIsLoading(true)
     try {
       const result = await generateQuizQuestions({
-        numberOfQuestions: 5,
-        difficulty: "medium",
-        topic: "RTA Theory Test Dubai",
+        numberOfQuestions: 16,
+        difficulty: "hard",
+        topic: "RTA Mastery Set 16 Questions",
         language: language
       })
       setQuestions(result.questions)
@@ -91,7 +92,7 @@ export function AssessmentQuiz() {
           score: score + (selectedAnswer === questions![currentIndex].correctAnswerIndex ? 1 : 0),
           totalQuestions: questions!.length,
           isCompleted: true,
-          topic: language === 'ar' ? "محاكاة اختبار RTA الذكية" : "Smart RTA Test Simulation"
+          topic: language === 'ar' ? "اختبار مجموعة التميز" : "Mastery Set Test"
         });
       }
     }
@@ -136,7 +137,7 @@ export function AssessmentQuiz() {
               <p className="text-muted-foreground text-sm leading-relaxed font-medium">{t.strengthDesc}</p>
             </div>
             <div className="p-10 rounded-[3rem] bg-secondary/40 border border-white/5 space-y-4 text-center shadow-xl hover:border-accent/30 transition-all">
-              <Lightbulb className="h-10 w-10 text-accent mx-auto" />
+              <Star className="h-10 w-10 text-accent mx-auto fill-accent" />
               <h4 className="font-black text-lg uppercase tracking-widest">{t.adviceTitle}</h4>
               <p className="text-muted-foreground text-sm leading-relaxed font-medium">{t.adviceDesc}</p>
             </div>
@@ -162,7 +163,7 @@ export function AssessmentQuiz() {
       <div className="max-w-5xl mx-auto p-16 md:p-32 text-center glass-card rounded-[5rem] border-white/5 space-y-16 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32" />
         <div className="relative z-10 inline-flex p-8 rounded-[2.5rem] bg-primary/10 text-primary animate-float mb-4">
-          <BrainCircuit className="h-20 w-20" />
+          <Star className="h-20 w-20 fill-primary" />
         </div>
         <div className="relative z-10 space-y-8">
           <h2 className="text-6xl md:text-9xl font-black font-headline leading-[0.85] tracking-tighter smart-gradient-text">{t.simulatorTitle}</h2>

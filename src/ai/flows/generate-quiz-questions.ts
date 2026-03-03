@@ -2,14 +2,14 @@
 'use server';
 /**
  * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
- * Integrated with the official 112+ question bank and lane maneuvering knowledge.
+ * Updated with the "Mastery Set" (16 mandatory questions) provided by the instructor.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
 
 const GenerateQuizQuestionsInputSchema = z.object({
-  numberOfQuestions: z.number().int().min(1).max(10).default(5),
+  numberOfQuestions: z.number().int().min(1).max(16).default(5),
   topic: z.string().optional(),
   difficulty: z.enum(['easy', 'medium', 'hard']).default('medium'),
   language: z.enum(['ar', 'en']).default('en'),
@@ -35,23 +35,28 @@ export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): 
   const { output } = await ai.generate({
     input: { schema: GenerateQuizQuestionsInputSchema, data: input },
     output: { schema: GenerateQuizQuestionsOutputSchema },
-    system: `You are an expert in designing RTA driving exam questions for Dubai. 
-    Your generation must be strictly informed by the following official RTA concepts:
+    system: `You are an expert in Dubai RTA theory tests. You MUST prioritize generating questions based on the "Mastery Set" provided by the academy. 
     
-    1. Lane Maneuvers: Signal 3-5 seconds before. Check mirrors AND shoulder (blind spot). Overtake with acceleration. Return when seeing full front of other car in center mirror.
-    2. Overtaking Prohibitions: No overtaking on solid lines, curves, hills, pedestrian crossings, or intersections.
-    3. Defensive Driving: Focus on reducing risks to minimum, safety-first. Notice MORE hazards through anticipation (15-20 cars ahead).
-    4. Violations: Most accidents (red lights) are driver behavior issues. Mobile usage is prohibited at ALL times, even at red lights.
-    5. Fatigue: Drifting lanes means rest is needed. Driving while tired is as dangerous as driving under influence.
-    6. Safety: Child seats in back. School zones require extreme caution. Report injury accidents to police immediately.
-    7. Points System: 24 points limit. 2nd violation = 1-year license withdrawal. 3rd violation = 2-year license withdrawal.
-    8. Mechanics: Gear L/1 is First Gear. Gear 2 is Second. 
-    9. Ergonomics: Sit first then lift legs. Slight bend in legs (100-110 degrees backrest). Headrest aligned with head.
-    10. Highway: Left lane for overtaking only. Shoulders are for emergency vehicles only.
-    
-    Create ${input.numberOfQuestions} multiple-choice questions in ${input.language}.
-    Difficulty: ${input.difficulty}. Topic: ${input.topic || 'General RTA Theory'}.`,
-    prompt: `Generate a professional quiz. Ensure at least one question specifically covers lane changing procedures (signaling time or blind spot check) or overtaking safety protocols.`,
+    CORE KNOWLEDGE BANK (Mastery Set):
+    1. Lane Commitment: Education vehicles must ALWAYS stay in the RIGHT lane.
+    2. Post U-Turn/Left Exit: If you end up in the left lane, move back to the RIGHT lane immediately without instructions.
+    3. Shoulder Check Error: Avoid moving your entire body; move only your neck to prevent steering deviation.
+    4. Vision during Lane Change: Focus on the center of the target lane, NOT the mirror, during the maneuver.
+    5. Roundabout Priority: Priority is ALWAYS for vehicles inside (from the left).
+    6. Roundabout Exit Signal: Signal RIGHT after passing the exit before your intended exit.
+    7. Roundabout U-Turn/Left: Take the LEFT lane before entry and stay in it until exit.
+    8. STOP Sign: Absolute full stop (zero speed) even if the road is empty.
+    9. Red Triangle Sign: Warning signs (danger ahead).
+    10. Solid vs Broken Lines: Solid = No crossing/overtaking. Broken = Crossing allowed after checking.
+    11. Immediate Failure (Intervention): Physical intervention by examiner (touching wheel/brake) = Instant fail.
+    12. Immediate Failure (Violations): Jumping red lights or ignoring STOP signs = Instant fail.
+    13. Immediate Failure (No Entry): Entering a "No Entry" street = Instant fail.
+    14. Immediate Failure (Curb): Strong hitting of the curb = Instant fail.
+    15. Immediate Failure (Speed): Exceeding the speed limit = Instant fail.
+    16. Human Senses: Hearing system consists of Outer, Middle, and Inner ear.
+
+    Ensure questions are in ${input.language}. Return exactly ${input.numberOfQuestions} questions.`,
+    prompt: `Generate a quiz that specifically tests the "Mastery Set" knowledge. Ensure at least one question covers "Immediate Failure" rules and one covers "Roundabout" logic.`,
   });
 
   if (!output) {
