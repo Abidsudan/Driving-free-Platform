@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from "next/image"
@@ -13,8 +14,8 @@ export default function CurriculumPage() {
   const t = {
     title: language === 'ar' ? "المنهج الأكاديمي التفصيلي" : "Detailed Academic Curriculum",
     description: language === 'ar' 
-      ? "هيكل تعليمي منطقي يأخذك من الصفر وحتى الحصول على رخصة القيادة، مصمم وفقاً لمعايير RTA وأحدث النظريات العلمية في تدريب السائقين. هذا المنهج ليس مجرد تعليمات، بل هو دراسة لفيزياء الحركة وسلوك الطريق."
-      : "A logical educational structure that takes you from zero to obtaining a driver's license, designed according to RTA standards and the latest scientific theories in driver training. This curriculum is a study of motion physics and road behavior.",
+      ? "هيكل تعليمي منطقي يأخذك من الصفر وحتى الحصول على رخصة القيادة، مصمم وفقاً لمعايير RTA وأحدث النظريات العلمية. هذا المنهج يركز على فيزياء الحركة وسيكولوجية السائق الدفاعي."
+      : "A logical educational structure that takes you from zero to obtaining a driver's license, designed according to RTA standards. This curriculum focuses on motion physics and defensive driving psychology.",
     stageLabel: language === 'ar' ? "المرحلة" : "Stage",
     learnMore: language === 'ar' ? "التفاصيل الأكاديمية للدرس" : "Academic Lesson Details",
     stages: [
@@ -52,10 +53,14 @@ export default function CurriculumPage() {
         image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
       },
       {
-        title: language === 'ar' ? "المرحلة الثانية: فيزياء التحكم والمناورة" : "Stage 2: Physics of Control & Maneuvering",
-        description: language === 'ar' ? "الانتقال من الميكانيكا الساكنة إلى ديناميكيات الحركة والتحكم في عزم الدوران." : "Moving from static mechanics to movement dynamics and torque control.",
-        icon: Zap,
+        title: language === 'ar' ? "المرحلة الثانية: فيزياء التحكم والقيادة الدفاعية" : "Stage 2: Physics of Control & Defensive Driving",
+        description: language === 'ar' ? "الانتقال من الميكانيكا الساكنة إلى ديناميكيات الحركة وفن استباق المخاطر." : "Moving from static mechanics to movement dynamics and the art of anticipating risks.",
+        icon: ShieldCheck,
         details: language === 'ar' ? [
+          {
+            sub: "بروتوكول القيادة الدفاعية المتقدم",
+            desc: "القيادة بتركيز 100%. مسح المشهد للأمام والخلف. النظر لمسافة 15-20 مركبة أمامك لتحديد المخاطر المحتملة مبكراً وإعطاء وقت أطول للتصرف."
+          },
           {
             sub: "قاعدة الثانيتين (2-Second Rule)",
             desc: "التفسير العلمي لمسافة الأمان: كيف تزيد هذه المسافة بناءً على مربع السرعة، وكيفية مضاعفتها في الظروف الرطبة لتجنب الاصطدام الخلفي."
@@ -63,23 +68,19 @@ export default function CurriculumPage() {
           {
             sub: "ديناميكيات الانعطاف ونقل الوزن",
             desc: "فهم كيف ينتقل ثقل المركبة عند الكبح (إلى الأمام) وعند التسارع (إلى الخلف). كيفية استخدام المكابح قبل المنعطف وليس داخله للحفاظ على التوازن."
-          },
-          {
-            sub: "إدارة النقاط العمياء (Shoulder Check)",
-            desc: "بروتوكول 'فحص الكتف' الإلزامي: متى وكيف يتم، ولماذا تعجز المرايا عن تغطية الزاوية الحادة (45 درجة) بجانب المركبة."
           }
         ] : [
           {
+            sub: "Advanced Defensive Driving Protocol",
+            desc: "100% focus. Scanning front and back. Looking 15-20 vehicles ahead to identify potential hazards early and provide more reaction time."
+          },
+          {
             sub: "The 2-Second Rule",
-            desc: "Scientific explanation of following distance: how it increases based on the square of speed, and doubling it in wet conditions to avoid rear-end collisions."
+            desc: "Scientific explanation of safe distance: how it increases based on speed square, and doubling it in wet conditions to avoid rear-end collisions."
           },
           {
             sub: "Cornering Dynamics & Weight Transfer",
-            desc: "Understanding vehicle weight shift during braking (forward) and acceleration (backward). How to brake before the turn, not inside it, to maintain balance."
-          },
-          {
-            sub: "Blind Spot Management (Shoulder Check)",
-            desc: "The mandatory shoulder check protocol: when and how to perform it, and why mirrors fail to cover the acute 45° angle beside the vehicle."
+            desc: "Understanding vehicle weight shift during braking (forward) and acceleration (backward). Brake before the turn, not inside it, to maintain balance."
           }
         ],
         image: PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl
@@ -87,7 +88,7 @@ export default function CurriculumPage() {
       {
         title: language === 'ar' ? "المرحلة الثالثة: قواعد الطرق السريعة" : "Stage 3: Highway Regulations & Flow",
         description: language === 'ar' ? "إتقان السرعات العالية، الانتقال بين المسارات، وإدارة التدفق المروري الكثيف." : "Mastering high speeds, lane transitions, and managing heavy traffic flow.",
-        icon: Gauge,
+        icon: Zap,
         details: language === 'ar' ? [
           {
             sub: "بروتوكول منحدرات التسارع (Joining)",
@@ -161,7 +162,7 @@ export default function CurriculumPage() {
           },
           {
             sub: "الرؤية الليلية والإجهاد البصري",
-            desc: "كيفية التعامل مع وهج الأضواء العالية، تقنيات النظر إلى 'الخط الجانبي' عند مواجهة مركبة مبهرة، وتأثير التعب على وقت الاستجابة (Response Time)."
+            desc: "كيفية التعامل مع وهج الأضواء العالية، تقنيات النظر إلى 'الخط الجانبي' عند مواجهة مركبة مبهرة، وتأثير التعب على وقت الاستجابة."
           },
           {
             sub: "الرياح العرضية والضباب",
@@ -221,7 +222,6 @@ export default function CurriculumPage() {
 
   return (
     <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in">
-      {/* Header */}
       <div className="max-w-4xl space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest">
           <BookOpen className="h-4 w-4" />
@@ -233,12 +233,10 @@ export default function CurriculumPage() {
         </p>
       </div>
 
-      {/* Stages Grid */}
       <div className="grid grid-cols-1 gap-12">
         {t.stages.map((stage, idx) => (
           <Card key={idx} className="overflow-hidden border-white/5 bg-card/40 backdrop-blur-xl rounded-[3rem] group hover:border-primary/30 transition-all duration-500">
             <div className="grid grid-cols-1 lg:grid-cols-12">
-              {/* Image Section */}
               <div className="lg:col-span-4 relative h-64 lg:h-auto overflow-hidden">
                 {stage.image && (
                   <Image 
@@ -258,7 +256,6 @@ export default function CurriculumPage() {
                 </div>
               </div>
 
-              {/* Content Section */}
               <div className="lg:col-span-8 p-8 md:p-12 space-y-8">
                 <div className="space-y-4">
                   <div className="flex items-center gap-4">
@@ -298,7 +295,6 @@ export default function CurriculumPage() {
         ))}
       </div>
 
-      {/* Footer Info */}
       <div className="mt-20 p-12 rounded-[4rem] glass-card border-primary/20 text-center space-y-6">
         <h2 className="text-3xl font-headline font-black">
           {language === 'ar' ? "هل أنت مستعد لاختبار معلوماتك؟" : "Ready to test your knowledge?"}
