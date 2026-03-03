@@ -1,7 +1,7 @@
 
 "use client"
 
-import { BookOpen, FileText, Clock, Sparkles, ShieldCheck, Zap, MessageCircle, Eye } from "lucide-react"
+import { BookOpen, FileText, Clock, Sparkles, ShieldCheck, Zap, MessageCircle, Eye, Gauge, Settings } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "@/components/language-provider"
 import { cn } from "@/lib/utils"
@@ -21,29 +21,55 @@ export default function LibraryPage() {
       : ["Defensive Driving", "Engine Maintenance", "Night Driving", "Fuel Efficiency", "Aerodynamics", "Driver Psychology"],
     articles: [
       {
+        title: language === 'ar' ? "التحكم في المركبة: من الأساسيات إلى الاحتراف" : "Vehicle Control: From Foundations to Mastery",
+        category: language === 'ar' ? "فيزياء التحكم" : "Control Physics",
+        type: language === 'ar' ? "درس تقني شامل" : "Comprehensive Technical Lesson",
+        readTime: language === 'ar' ? "25 دقيقة" : "25 mins",
+        icon: Gauge,
+        content: language === 'ar' ? {
+          intro: "إتقان التحكم في المركبة هو حجر الزاوية في فن القيادة الآمنة والواثقة. لا يقتصر الأمر على تحريك السيارة، بل يشمل فهماً عميقاً لكيفية استجابتها لأوامرك وتفاعلها مع الطريق.",
+          pillars: [
+            { t: "هندسة الجلوس", d: "ضبط المقعد بزاوية 100-110 درجة مع انثناء بسيط في الركبة لضمان سرعة رد الفعل." },
+            { t: "قاعدة النظر", d: "انظر حيث تريد أن تذهب؛ يداك ستتبعان اتجاه نظرك بشكل لا إرادي (قاعدة التوجيه الذهبي)." },
+            { t: "قاعدة الثانيتين", d: "الحفاظ على مسافة أمان عبر اختيار علامة ثابتة والعد (واحد، اثنان) قبل الوصول إليها." },
+            { t: "الصيانة الوقائية", d: "ضغط الإطارات، كفاءة المكابح، ومستويات السوائل هي المحرك الفعلي للتحكم المثالي." }
+          ],
+          deep: "تذكر دائماً أن القيادة مسؤولية، والتحكم الجيد هو المفتاح للوفاء بهذه المسؤولية. الانتقال السلس بين البدالات والتوجيه الهادئ هو ما يميز السائق الأكاديمي عن السائق العادي."
+        } : {
+          intro: "Mastering vehicle control is the cornerstone of safe and confident driving. It's not just about moving the car; it involves a deep understanding of how it responds to your commands and interacts with the road.",
+          pillars: [
+            { t: "Seating Geometry", d: "Adjust the seat at 100-110 degrees with a slight knee bend to ensure rapid reaction time." },
+            { t: "Vision Rule", d: "Look where you want to go; your hands will involuntarily follow your gaze (The Golden Steering Rule)." },
+            { t: "2-Second Rule", d: "Maintain a safe distance by choosing a fixed mark and counting (one, two) before reaching it." },
+            { t: "Preventive Care", d: "Tire pressure, brake efficiency, and fluid levels are the actual engines of perfect control." }
+          ],
+          deep: "Always remember that driving is a responsibility, and good control is the key to fulfilling it. Smooth transitions between pedals and calm steering distinguish the academic driver from the average driver."
+        }
+      },
+      {
         title: language === 'ar' ? "القيادة الدفاعية: فن استباق المخاطر" : "Defensive Driving: Art of Anticipation",
         category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
         type: language === 'ar' ? "دليل إرشادي شامل" : "Comprehensive Guide",
         readTime: language === 'ar' ? "15 دقيقة" : "15 mins",
         icon: ShieldCheck,
         content: language === 'ar' ? {
-          intro: "القيادة الدفاعية هي أكثر من مجرّد معرفة قواعد المرور والتقنيات الأساسية للقيادة. وتهدف إلى تقليل مخاطر القيادة من خلال التعرّف على الحالات الخطرة بوقت مبكّر كافٍ لتجنبها.",
+          intro: "القيادة الدفاعية هي أكثر من مجرّد معرفة قواعد المرور. تهدف إلى تقليل المخاطر عبر التعرّف على الحالات الخطرة بوقت مبكّر كافٍ لتجنبها، بغض النظر عن أخطاء الآخرين.",
           pillars: [
-            { t: "التركيز", d: "ركّز على القيادة 100% في الأوقات كافة." },
-            { t: "المراقبة", d: "تفحص المشهد أمامك ومن جانبك وخلفك بشكل دائم." },
-            { t: "التوقع", d: "توقع أفعال مستعملي الطريق الآخرين وكن مستعداً لغير المتوقع." },
-            { t: "التواصل", d: "استعمل إشارات الانعطاف، التنبيه، وأنوار التحذير لتعريف الآخرين بنيتك." }
+            { t: "التركيز", d: "ركّز على القيادة 100% في الأوقات كافة وتجنب المشتتات الذهنية." },
+            { t: "المراقبة", d: "مسح المشهد أمامك ومن جانبك وخلفك بشكل دائم عبر المرايا." },
+            { t: "التوقع", d: "توقع أفعال مستعملي الطريق الآخرين بنسبة 15-20 مركبة للأمام." },
+            { t: "التواصل", d: "استعمل الإشارات وأنوار التحذير لتعريف الآخرين بنيتك بوضوح." }
           ],
-          deep: "إن النظر إلى مسافة 15-20 مركبة أمامك يتيح لك وقتاً أطول للتصرف. تذكر أن القيادة بمسؤولية وعناية وكياسة تجاه الآخرين هي مفتاح تقليل المخاطر."
+          deep: "القيادة بمسؤولية وعناية وكياسة تجاه الآخرين هي مفتاح تقليل المخاطر. إذا ارتكب الآخرون أخطاء، ساعدهم عوضاً عن جعل الحالة أصعب."
         } : {
-          intro: "Defensive driving is more than just knowing traffic rules. It aims to reduce risks by training drivers to recognize dangerous situations early enough to avoid them.",
+          intro: "Defensive driving is more than just knowing traffic rules. It aims to reduce risks by recognizing dangerous situations early enough to avoid them, regardless of others' mistakes.",
           pillars: [
-            { t: "Focus", d: "Maintain 100% focus on driving at all times." },
-            { t: "Observation", d: "Scan the scene ahead, beside, and behind you constantly." },
-            { t: "Anticipation", d: "Anticipate the actions of others and be ready for the unexpected." },
-            { t: "Communication", d: "Use signals, horn, and hazard lights to let others know your intentions." }
+            { t: "Focus", d: "Maintain 100% focus on driving at all times and avoid mental distractions." },
+            { t: "Observation", d: "Scan the scene ahead, beside, and behind you constantly via mirrors." },
+            { t: "Anticipation", d: "Anticipate the actions of others by looking 15-20 vehicles ahead." },
+            { t: "Communication", d: "Use signals and hazard lights to clearly define your intentions." }
           ],
-          deep: "Looking 15-20 vehicles ahead gives you more time to act. Remember, driving responsibly and showing courtesy to others is the key to risk reduction."
+          deep: "Driving responsibly, carefully, and showing courtesy to others is the key to risk reduction. If others make mistakes, help them instead of making the situation harder."
         }
       },
       {
@@ -53,8 +79,8 @@ export default function LibraryPage() {
         readTime: language === 'ar' ? "12 دقيقة" : "12 mins",
         icon: Zap,
         desc: language === 'ar' 
-          ? "دراسة تقنية حول كيفية تأثر توازن المركبة عند استخدام المكابح المفاجئة وكيفية تجنب الانزلاق."
-          : "Technical study on how vehicle balance is affected during sudden braking and how to avoid skidding."
+          ? "دراسة تقنية حول كيفية تأثر توازن المركبة عند استخدام المكابح المفاجئة وكيفية تجنب الانزلاق عبر توزيع الضغط."
+          : "Technical study on how vehicle balance is affected during sudden braking and how to avoid skidding through pressure distribution."
       },
       {
         title: language === 'ar' ? "سيكولوجية اتخاذ القرار في الأزمات" : "Crisis Decision-Making Psychology",
@@ -63,8 +89,8 @@ export default function LibraryPage() {
         readTime: language === 'ar' ? "10 دقيقة" : "10 mins",
         icon: MessageCircle,
         desc: language === 'ar' 
-          ? "فهم العمليات الذهنية التي يمر بها السائق لتجنب الاصطدام وكيفية الحفاظ على الهدوء تحت الضغط."
-          : "Understanding the mental processes a driver undergoes to avoid collisions and how to remain calm under pressure."
+          ? "فهم العمليات الذهنية التي يمر بها السائق لتجنب الاصطدام وكيفية الحفاظ على الهدوء التام تحت الضغط العصبي."
+          : "Understanding the mental processes a driver undergoes to avoid collisions and how to remain perfectly calm under nervous pressure."
       },
       {
         title: language === 'ar' ? "فيزياء الليل: الضوء والإدراك البصري" : "Physics of the Night: Light & Visual Perception",
@@ -73,8 +99,8 @@ export default function LibraryPage() {
         readTime: language === 'ar' ? "18 دقيقة" : "18 mins",
         icon: Eye,
         desc: language === 'ar' 
-          ? "كيف يتغير إدراك المسافات والسرعات تحت الأضواء الاصطناعية، وتأثير إجهاد العين على وقت الاستجابة."
-          : "How distance and speed perception change under artificial lighting, and the impact of eye fatigue on response time."
+          ? "كيف يتغير إدراك المسافات والسرعات تحت الأضواء الاصطناعية، وتأثير إجهاد العين على وقت الاستجابة الفيزيائي."
+          : "How distance and speed perception change under artificial lighting, and the impact of eye fatigue on physical response time."
       }
     ]
   }
