@@ -33,7 +33,11 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 const generateQuizPrompt = ai.definePrompt({
   name: 'generateQuizPrompt',
   model: gemini15Flash,
-  input: { schema: GenerateQuizQuestionsInputSchema },
+  input: { 
+    schema: GenerateQuizQuestionsInputSchema.extend({
+      isArabic: z.boolean().optional()
+    }) 
+  },
   output: { schema: GenerateQuizQuestionsOutputSchema },
   system: `You are an expert in Dubai RTA theory tests. You MUST generate exactly {{numberOfQuestions}} questions strictly based on the "Mastery Set" rules provided below.
     
@@ -51,7 +55,7 @@ const generateQuizPrompt = ai.definePrompt({
     11. Automatic Safety: Handbrake first, then 'P' to protect gearbox.
     12. Seating: 100-110 degree back angle, slight knee bend.
 
-    Ensure questions are in {{#if (eq language 'ar')}}Arabic{{else}}English{{/if}}. Include scientific explanations for each answer.`,
+    Ensure questions are in {{#if isArabic}}Arabic{{else}}English{{/if}}. Include scientific explanations for each answer.`,
   prompt: `Generate a comprehensive assessment covering the RTA Mastery Set with exactly {{numberOfQuestions}} unique questions.`,
 });
 
@@ -62,7 +66,11 @@ const generateQuizFlow = ai.defineFlow(
     outputSchema: GenerateQuizQuestionsOutputSchema,
   },
   async (input) => {
-    const { output } = await generateQuizPrompt(input);
+    const isArabic = input.language === 'ar';
+    const { output } = await generateQuizPrompt({
+      ...input,
+      isArabic
+    });
     if (!output) throw new Error('Failed to generate quiz content.');
     return output;
   }

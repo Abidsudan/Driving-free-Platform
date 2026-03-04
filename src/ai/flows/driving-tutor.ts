@@ -27,7 +27,11 @@ export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 const tutorPrompt = ai.definePrompt({
   name: 'tutorPrompt',
   model: gemini15Flash,
-  input: { schema: TutorInputSchema },
+  input: { 
+    schema: TutorInputSchema.extend({
+      isArabic: z.boolean().optional()
+    }) 
+  },
   output: { schema: TutorOutputSchema },
   system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academe.
     Your expertise includes the "Mastery Set" of 16 essential RTA questions.
@@ -41,7 +45,7 @@ const tutorPrompt = ai.definePrompt({
     - Health: Human ear (Outer, Middle, Inner).
     
     Guidelines:
-    1. Respond in {{#if (eq language 'ar')}}Arabic{{else}}English{{/if}}.
+    1. Respond in {{#if isArabic}}Arabic{{else}}English{{/if}}.
     2. Tone: Professional, academic, and encouraging.
     3. Always refer to these as "Rules of Mastery" if applicable.`,
   prompt: `{{question}}`,
@@ -54,7 +58,11 @@ const tutorFlow = ai.defineFlow(
     outputSchema: TutorOutputSchema,
   },
   async (input) => {
-    const { output } = await tutorPrompt(input);
+    const isArabic = input.language === 'ar';
+    const { output } = await tutorPrompt({
+      ...input,
+      isArabic
+    });
     if (!output) throw new Error('Failed to get response from AI Tutor.');
     return output;
   }
