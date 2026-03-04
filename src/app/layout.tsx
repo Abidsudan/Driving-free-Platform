@@ -1,6 +1,8 @@
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navigation } from '@/components/navigation';
+import { Footer } from '@/components/footer';
 import { Toaster } from '@/components/ui/toaster';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { LanguageProvider } from '@/components/language-provider';
@@ -8,8 +10,34 @@ import Script from 'next/script';
 import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Driving Free | Professional Driving Academy',
-  description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
+  title: 'Driving Free | الأكاديمية الرقمية للقيادة في دبي',
+  description: 'أول أكاديمية رقمية متخصصة في تعليم القيادة بأسلوب علمي حديث وفق معايير RTA دبي. منهج متكامل، مكتبة علمية، ومحاكي اختبار ذكي.',
+  metadataBase: new URL('https://drivingfree.online'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Driving Free | Professional Driving Academy',
+    description: 'Engineering Professional Drivers through Science. Accredited Digital Academy per RTA Standards.',
+    url: 'https://drivingfree.online',
+    siteName: 'Driving Free',
+    images: [
+      {
+        url: 'https://i.ibb.co/Y7x5sZwJ/1000124780-Photo-Grid.png',
+        width: 1200,
+        height: 630,
+        alt: 'Driving Free Academe Logo',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Driving Free Academe',
+    description: 'The #1 platform in Dubai for academic driving education.',
+    images: ['https://i.ibb.co/Y7x5sZwJ/1000124780-Photo-Grid.png'],
+  },
 };
 
 export default async function RootLayout(props: {
@@ -35,6 +63,7 @@ export default async function RootLayout(props: {
             <main className="flex-1 pt-16 md:pt-20">
               {children}
             </main>
+            <Footer />
             <Toaster />
           </FirebaseClientProvider>
         </LanguageProvider>
