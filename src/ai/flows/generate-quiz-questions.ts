@@ -1,12 +1,11 @@
 'use server';
 /**
  * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
- * Updated with the "Mastery Set" (16 mandatory questions) provided by the instructor.
+ * Updated with the "Mastery Set" (16 mandatory questions) for the academy.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const GenerateQuizQuestionsInputSchema = z.object({
   numberOfQuestions: z.number().int().min(1).max(16).default(5),
@@ -33,28 +32,21 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
   const { output } = await ai.generate({
-    model: gemini15Flash,
+    model: 'googleai/gemini-1.5-flash',
     input: { schema: GenerateQuizQuestionsInputSchema, data: input },
     output: { schema: GenerateQuizQuestionsOutputSchema },
-    system: `You are an expert in Dubai RTA theory tests. You MUST prioritize generating questions based on the "Mastery Set" knowledge bank. 
+    system: `You are an expert in Dubai RTA theory tests. You MUST prioritize generating questions based on the "Mastery Set" provided by the academy. 
     
-    CORE KNOWLEDGE BANK (Mastery Set):
-    1. Lane Commitment: Education vehicles must ALWAYS stay in the RIGHT lane.
-    2. Post U-Turn/Left Exit: If you end up in the left lane, move back to the RIGHT lane immediately without instructions.
-    3. Shoulder Check Error: Avoid moving your entire body; move only your neck to prevent steering deviation.
-    4. Vision during Lane Change: Focus on the center of the target lane, NOT the mirror, during the maneuver.
-    5. Roundabout Priority: Priority is ALWAYS for vehicles inside (from the left).
-    6. Roundabout Exit Signal: Signal RIGHT after passing the exit before your intended exit.
-    7. Roundabout U-Turn/Left: Take the LEFT lane before entry and stay in it until exit.
-    8. STOP Sign: Absolute full stop (zero speed) even if the road is empty.
-    9. Red Triangle Sign: Warning signs (danger ahead).
-    10. Solid vs Broken Lines: Solid = No crossing/overtaking. Broken = Crossing allowed after checking.
-    11. Immediate Failure (Intervention): Physical intervention by examiner (touching wheel/brake) = Instant fail.
-    12. Immediate Failure (Violations): Jumping red lights or ignoring STOP signs = Instant fail.
-    13. Immediate Failure (No Entry): Entering a "No Entry" street = Instant fail.
-    14. Immediate Failure (Curb): Strong hitting of the curb = Instant fail.
-    15. Immediate Failure (Speed): Exceeding the speed limit = Instant fail.
-    16. Human Senses: Hearing system consists of Outer, Middle, and Inner ear.
+    MASTERY SET RULES:
+    1. Lane: Education vehicles MUST stay in the RIGHT lane. Return to right automatically after U-turn.
+    2. Shoulder Check: Move only NECK, not body, to prevent steering deviation.
+    3. Vision: Focus on target lane CENTER, not mirrors, during maneuver.
+    4. Roundabout Priority: Vehicles inside (from left) have priority.
+    5. Roundabout Signal: Signal RIGHT after passing the exit before yours.
+    6. STOP Sign: Full 3-second stop (zero speed).
+    7. Red Triangle: Warning signs.
+    8. Immediate Failure: Examiner intervention, jumping red lights, ignoring STOP, entering No Entry, hitting curb, or speeding.
+    9. Senses: Hearing = Outer, Middle, Inner ear.
 
     Ensure questions are in ${input.language}. Return exactly ${input.numberOfQuestions} questions.`,
     prompt: `Generate a quiz that specifically tests the "Mastery Set" knowledge. Ensure at least one question covers "Immediate Failure" rules and one covers "Roundabout" logic.`,

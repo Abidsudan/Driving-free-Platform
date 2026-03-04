@@ -5,7 +5,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const DailyTipOutputSchema = z.object({
   title: z.string().describe('The title of the tip.'),
@@ -17,7 +16,7 @@ export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
 
 export async function getDailyDrivingTip(language: 'ar' | 'en' = 'en'): Promise<DailyTipOutput> {
   const { output } = await ai.generate({
-    model: gemini15Flash,
+    model: 'googleai/gemini-1.5-flash',
     output: { schema: DailyTipOutputSchema },
     prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: ${language}. 
     Focus on technical aspects like (Braking Physics, Blind Spot Management, Psychology under pressure, or DSSSM rules).
