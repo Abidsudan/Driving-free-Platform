@@ -3,7 +3,7 @@ import { googleAI } from '@genkit-ai/google-genai';
 
 /**
  * إعداد Genkit الأساسي للأكاديمية.
- * يتم استخدام المعرف النصي الموحد لضمان التوافق التام مع API ومنع أخطاء الاستيراد.
+ * نستخدم الموديل المستقر gemini-1.5-flash لضمان أعلى سرعة وأقل تكلفة.
  */
 export const ai = genkit({
   plugins: [

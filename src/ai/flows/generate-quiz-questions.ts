@@ -1,11 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
- * Focused on the "Mastery Set" (16 mandatory questions) for the academy.
- *
- * - generateQuizQuestions - A function that handles the quiz generation process.
- * - GenerateQuizQuestionsInput - The input type for the function.
- * - GenerateQuizQuestionsOutput - The return type for the function.
+ * @fileOverview توليد أسئلة اختبار RTA بناءً على "مجموعة التميز" الـ 16.
  */
 
 import { ai } from '@/ai/genkit';
@@ -35,7 +30,6 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 const generateQuizPrompt = ai.definePrompt({
   name: 'generateQuizPrompt',
-  model: 'googleai/gemini-1.5-flash',
   input: { 
     schema: GenerateQuizQuestionsInputSchema.extend({
       isArabic: z.boolean().optional()
@@ -44,43 +38,26 @@ const generateQuizPrompt = ai.definePrompt({
   output: { schema: GenerateQuizQuestionsOutputSchema },
   system: `You are an expert in Dubai RTA theory tests. You MUST generate exactly {{numberOfQuestions}} questions strictly based on the "Mastery Set" rules provided below.
     
-    MASTERY SET RULES (MANDATORY):
+    MASTERY SET RULES:
     1. Lane: Education vehicles MUST stay in the RIGHT lane. Return to right automatically after U-turn.
-    2. Shoulder Check: Move only NECK, not body, to prevent steering deviation.
-    3. Vision: Focus on target lane CENTER during maneuver, not the mirrors.
-    4. Roundabout Priority: Vehicles inside (from left) have priority.
-    5. Roundabout Signal: Signal RIGHT after passing the exit BEFORE yours.
-    6. Roundabout Positioning: Left/U-turn from the LEFT lane only.
-    7. STOP Sign: Full 3-second stop (zero speed) is mandatory.
-    8. Red Triangle: Means "Warning".
-    9. Immediate Failure: Examiner intervention (physical), jumping red lights, ignoring STOP, entering No Entry, hitting curb strongly, or speeding.
-    10. Senses: Hearing = Outer, Middle, Inner ear.
-    11. Automatic Safety: Handbrake first, then 'P' to protect gearbox.
-    12. Seating: 100-110 degree back angle, slight knee bend.
-
-    Ensure questions are in {{#if isArabic}}Arabic{{else}}English{{/if}}. Include scientific explanations for each answer.`,
-  prompt: `Generate a comprehensive assessment covering the RTA Mastery Set with exactly {{numberOfQuestions}} unique questions.`,
+    2. Shoulder Check: Move only NECK, not body.
+    3. Vision: Focus on target lane CENTER during maneuver.
+    4. Roundabout Priority: From left.
+    5. Roundabout Signal: Right signal after passing the exit before yours.
+    6. STOP Sign: Full 3-second stop.
+    7. Immediate Failure: Examiner intervention, red lights, speed limit violation.
+    
+    Ensure questions are in {{#if isArabic}}Arabic{{else}}English{{/if}}. Include scientific explanations.`,
+  prompt: `Generate a comprehensive assessment covering the RTA Mastery Set with {{numberOfQuestions}} unique questions.`,
 });
 
-const generateQuizFlow = ai.defineFlow(
-  {
-    name: 'generateQuizFlow',
-    inputSchema: GenerateQuizQuestionsInputSchema,
-    outputSchema: GenerateQuizQuestionsOutputSchema,
-  },
-  async (input) => {
-    const isArabic = input.language === 'ar';
-    // Standard direct prompt invocation is more stable than wrapping in ai.generate
-    const { output } = await generateQuizPrompt({
-      ...input,
-      isArabic
-    });
-    
-    if (!output) throw new Error('Failed to generate quiz content.');
-    return output;
-  }
-);
-
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
-  return generateQuizFlow(input);
+  const isArabic = input.language === 'ar';
+  const { output } = await generateQuizPrompt({
+    ...input,
+    isArabic
+  });
+  
+  if (!output) throw new Error('Failed to generate quiz content.');
+  return output;
 }
