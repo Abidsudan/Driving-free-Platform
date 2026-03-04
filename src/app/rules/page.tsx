@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, StopCircle, Zap, Car, EyeOff } from "lucide-react"
+import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, StopCircle, Zap, Car, EyeOff, Gauge } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -36,15 +36,15 @@ export default function RulesPage() {
         code: "IF1",
         title: language === 'ar' ? "الإشارة الحمراء وخط التوقف" : "Red Light & Stop Line",
         items: language === 'ar' ? [
-          "تجاوز الإشارة الحمراء أو علامة قف دون توقف تام (سكون العجلات).",
-          "الوقوف قبل خط التوقف بمسافة تزيد عن 3 أمتار وعدم القدرة على التقدم.",
-          "الوقوف بعد خط التوقف بمسافة تزيد عن نصف متر (50 سم).",
-          "عدم القدرة على التوقف مرة أخرى في حال الوقوف بعيداً عن الخط."
+          "تجاوز الإشارة الحمراء أو علامة قف دون توقف تام (سكون العجلات بالكامل).",
+          "الوقوف قبل خط التوقف بمسافة تزيد عن 3 أمتار وعدم القدرة على التقدم للتصحيح.",
+          "الوقوف بعد خط التوقف بمسافة تزيد عن نصف متر (50 سم) مما يعيق حركة المشاة.",
+          "فشل المتدرب في التوقف مرة أخرى في الموقع الصحيح بعد توقف مبدئي خاطئ."
         ] : [
           "Passing red light or STOP sign without a complete wheel stop.",
-          "Stopping more than 3 meters before the line and unable to reach it.",
-          "Stopping more than 0.5 meters (50cm) after the stop line.",
-          "Failure to stop correctly after an initial distant stop."
+          "Stopping more than 3 meters before the line and failing to advance to the correct position.",
+          "Stopping more than 0.5 meters (50cm) after the stop line, blocking pedestrian path.",
+          "Failure to reposition correctly after an initial incorrect stop distance."
         ],
         icon: StopCircle,
         color: "border-red-500/30 bg-red-500/5"
@@ -53,17 +53,17 @@ export default function RulesPage() {
         code: "IF2",
         title: language === 'ar' ? "الاصطدام وتدخل الفاحص" : "Collisions & Intervention",
         items: language === 'ar' ? [
-          "الاصطدام بأي جسم ثابت (رصيف، حاجز) أو متحرك (مركبة، مشاة، دراجة).",
-          "تدخل الفاحص بالضغط على الفرامل أو كسم المقود لمنع خطر وشيك.",
-          "إجبار مستخدمي الطريق الآخرين على التوقف المفاجئ أو الانحراف لتجنبك.",
-          "إهمال فحص البقعة العمياء (Blind Spot) لأكثر من مرتين.",
-          "انطفاء محرك المركبة بسبب خطأ المتدرب لأكثر من مرتين."
+          "الاصطدام بأي جسم ثابت (رصيف، حاجز) أو جسم متحرك (مركبة، مشاة، دراجة).",
+          "تدخل الفاحص المباشر بالضغط على الفرامل أو كسم المقود لمنع خطر وشيك.",
+          "إجبار مستخدمي الطريق الآخرين على التوقف المفاجئ أو الانحراف الحاد لتجنب مركبتك.",
+          "إهمال فحص البقعة العمياء (Blind Spot) لأكثر من مرتين خلال الاختبار.",
+          "انطفاء محرك المركبة بسبب سوء استخدام البدالات لأكثر من مرتين."
         ] : [
-          "Collision with any fixed object (curb) or moving object (car, pedestrian).",
-          "Examiner intervention (braking/steering) to prevent a hazard.",
+          "Collision with any fixed object (curb, barrier) or moving object (car, pedestrian).",
+          "Examiner intervention (braking or steering) to prevent a hazard.",
           "Forcing other road users to brake suddenly or swerve to avoid you.",
-          "Neglecting blind spot check more than 2 times.",
-          "Engine stalling due to trainee error more than 2 times."
+          "Neglecting blind spot check more than 2 times during the test.",
+          "Engine stalling due to trainee pedal error more than 2 times."
         ],
         icon: ShieldAlert,
         color: "border-orange-500/30 bg-orange-500/5"
@@ -72,15 +72,15 @@ export default function RulesPage() {
         code: "IF3",
         title: language === 'ar' ? "مخالفة الإشارات والسرعة" : "Signs & Speed Violations",
         items: language === 'ar' ? [
-          "عدم اتباع الإشارات الإلزامية أو المانعة (مثل ممنوع الدخول).",
-          "تجاوز السرعة المقررة للطريق بـ 5 كم/س فأكثر لمدة 10 ثوانٍ أو أكثر.",
-          "دخول المربع الأصفر في التقاطعات وبقاء أي جزء من المركبة فيه.",
-          "القيادة عكس اتجاه السير أو عدم اتباع إرشادات الفاحص القانونية."
+          "عدم اتباع الإشارات الإلزامية (اتجاه السهم) أو المانعة (ممنوع الدخول).",
+          "تجاوز السرعة المقررة للطريق بـ 5 كم/س أو أكثر لمدة 10 ثوانٍ متواصلة.",
+          "دخول المربع الأصفر في التقاطعات وبقاء أي جزء من المركبة فيه عند توقف السير.",
+          "القيادة عكس اتجاه السير أو تجاهل إرشادات الفاحص القانونية المباشرة."
         ] : [
-          "Failure to follow mandatory or prohibitory traffic signs (e.g. No Entry).",
-          "Exceeding speed limit by 5km/h or more for 10 seconds or longer.",
-          "Entering and remaining in the Yellow Box junction.",
-          "Driving against traffic or ignoring legal examiner instructions."
+          "Failure to follow mandatory signs (arrows) or prohibitory signs (No Entry).",
+          "Exceeding speed limit by 5km/h or more for 10 consecutive seconds.",
+          "Entering and remaining in the Yellow Box junction when traffic is blocked.",
+          "Driving against traffic flow or ignoring legal examiner instructions."
         ],
         icon: Zap,
         color: "border-yellow-500/30 bg-yellow-500/5"
@@ -88,9 +88,9 @@ export default function RulesPage() {
     ],
     dsssm: {
       title: "DSSSM System",
-      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة عبر رصد الانحرافات آلياً." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure safety by monitoring deviations automatically.",
-      benefit1: language === 'ar' ? "رصد آلي للمخالفات التقنية" : "Automated monitoring of technical violations",
-      benefit2: language === 'ar' ? "تقييم موضوعي مبني على البيانات" : "Objective data-driven evaluation"
+      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة عبر رصد الانحرافات آلياً وربطها بملف المتدرب." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure safety by monitoring deviations automatically and linking them to the trainee's file.",
+      benefit1: language === 'ar' ? "رصد آلي للمخالفات التقنية والحركية" : "Automated monitoring of technical and motion violations",
+      benefit2: language === 'ar' ? "تقييم موضوعي شفاف مبني على البيانات الميدانية" : "Transparent objective evaluation based on field data"
     },
     footer: {
       title: language === 'ar' ? "دليل النجاح من المرة الأولى" : "First-Time Success Guide",
@@ -185,10 +185,18 @@ export default function RulesPage() {
                   {language === 'ar' ? 'تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات الإلزامية التي يجب اتباعها بدقة.' : 'These signs are used to regulate traffic and define mandatory obligations and prohibitions that must be followed strictly.'}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {['STOP', 'Give Way', 'No Entry', 'Mandatory Direction'].map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-6 rounded-[2rem] bg-secondary/40 border border-white/5 shadow-xl hover:border-primary/30 transition-all group">
-                      <div className="h-3 w-3 rounded-full bg-primary group-hover:scale-150 transition-transform" />
-                      <span className="font-black text-lg tracking-tight">{item}</span>
+                  {[
+                    { n: 'STOP', d: language === 'ar' ? 'توقف تام 3 ثوانٍ' : 'Complete 3s Stop' },
+                    { n: 'Give Way', d: language === 'ar' ? 'افسح الطريق للقادم' : 'Yield to traffic' },
+                    { n: 'No Entry', d: language === 'ar' ? 'ممنوع الدخول نهائياً' : 'Entry prohibited' },
+                    { n: 'One Way', d: language === 'ar' ? 'طريق اتجاه واحد' : 'Single direction road' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex flex-col gap-2 p-6 rounded-[2rem] bg-secondary/40 border border-white/5 shadow-xl hover:border-primary/30 transition-all group">
+                      <div className="flex items-center gap-3">
+                        <div className="h-3 w-3 rounded-full bg-primary group-hover:scale-150 transition-transform" />
+                        <span className="font-black text-lg tracking-tight">{item.n}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground font-bold uppercase">{item.d}</p>
                     </div>
                   ))}
                 </div>
@@ -206,6 +214,22 @@ export default function RulesPage() {
                 <Badge className="absolute bottom-10 right-10 bg-primary px-8 py-4 text-xl font-black rounded-3xl shadow-2xl">RTA Signs Gallery</Badge>
               </div>
             </div>
+          </TabsContent>
+
+          <TabsContent value="warning" className="space-y-12">
+             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  { title: language === 'ar' ? 'منعطف حاد' : 'Sharp Curve', icon: Navigation, desc: language === 'ar' ? 'تحذير من منحنى يتطلب تخفيف السرعة.' : 'Warning of curve requiring speed reduction.' },
+                  { title: language === 'ar' ? 'عبور مشاة' : 'Pedestrian Crossing', icon: Users, desc: language === 'ar' ? 'منطقة عبور مشاة قادمة؛ استعد للتوقف.' : 'Upcoming pedestrian area; prepare to stop.' },
+                  { title: language === 'ar' ? 'أعمال طرق' : 'Road Works', icon: Construction, desc: language === 'ar' ? 'تعديلات في المسارات أو عمال على الطريق.' : 'Lane changes or workers on road.' }
+                ].map((item, i) => (
+                  <Card key={i} className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-accent/40 transition-all text-center space-y-6">
+                    <item.icon className="h-16 w-16 text-accent mx-auto" />
+                    <h3 className="text-2xl font-black">{item.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{item.desc}</p>
+                  </Card>
+                ))}
+             </div>
           </TabsContent>
 
           <TabsContent value="dsssm" className="space-y-12">
@@ -255,5 +279,53 @@ export default function RulesPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function Users(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </svg>
+  )
+}
+
+function Construction(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="2" y="6" width="20" height="8" rx="1" />
+      <path d="M17 14v7" />
+      <path d="M7 14v7" />
+      <path d="M17 3v3" />
+      <path d="M7 3v3" />
+      <path d="M10 14 2.3 6.3" />
+      <path d="m14 6 7.7 7.7" />
+      <path d="m8 6 8 8" />
+    </svg>
   )
 }

@@ -1,6 +1,7 @@
+
 'use client';
 
-import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, ArrowDownCircle } from "lucide-react"
+import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, ArrowDownCircle, Car, Map, Compass, Users } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -33,33 +34,42 @@ export default function TrafficSignsPage() {
     },
     regulatory: {
       title: language === 'ar' ? "١- الإشارات التنظيمية" : "1- Regulatory Signs",
-      desc: language === 'ar' ? "تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات. تشمل إشارات \"قف\" و\"إفسح الطريق\"." : "These signs are used to regulate traffic and define obligations and prohibitions.",
-      items: language === 'ar' ? ["قف (STOP)", "إفسح الطريق", "ممنوع الدخول", "اتجاه إلزامي"] : ["STOP", "Give Way", "No Entry", "Mandatory Direction"]
+      desc: language === 'ar' ? "تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات. تجاهل هذه الإشارات يؤدي غالباً للرسوب الفوري." : "These signs are used to regulate traffic and define obligations and prohibitions. Ignoring these signs often leads to immediate failure.",
+      items: [
+        { n: language === 'ar' ? "قف (STOP)" : "STOP", d: language === 'ar' ? "توقف كامل للعجلات 3 ثوانٍ" : "Full 3s wheel stop" },
+        { n: language === 'ar' ? "إفسح الطريق" : "Give Way", d: language === 'ar' ? "إعطاء الأولوية للطريق الرئيسي" : "Yield to main road traffic" },
+        { n: language === 'ar' ? "ممنوع الدخول" : "No Entry", d: language === 'ar' ? "طريق محظور تماماً" : "Strictly prohibited path" },
+        { n: language === 'ar' ? "اتجاه إلزامي" : "Mandatory Dir", d: language === 'ar' ? "اتبع السهم الموضح فقط" : "Follow the indicated arrow" }
+      ]
     },
     warning: {
       title: language === 'ar' ? "٢- الإشارات التحذيرية" : "2- Warning Signs",
-      desc: language === 'ar' ? "تنبيه السائقين إلى مخاطر محتملة على الطريق تتطلب الحذر الشديد." : "Alerting drivers to potential road hazards that require extreme caution.",
-      content: language === 'ar' ? "هذا القسم يحتوي على تحذيرات المنعطفات الحادة، مناطق عبور المشاة، والظروف الجوية المتغيرة." : "This section contains warnings for sharp curves, pedestrian crossings, and changing weather conditions."
+      desc: language === 'ar' ? "تنبيه السائقين إلى مخاطر محتملة على الطريق تتطلب الحذر الشديد وتخفيف السرعة." : "Alerting drivers to potential road hazards that require extreme caution and speed reduction.",
+      items: [
+        { n: language === 'ar' ? "منعطف حاد" : "Sharp Curve", d: language === 'ar' ? "خفف السرعة قبل المنعطف" : "Slow down before curve" },
+        { n: language === 'ar' ? "عبور مشاة" : "Pedestrian Crossing", d: language === 'ar' ? "استعد للتوقف الكامل" : "Prepare for full stop" },
+        { n: language === 'ar' ? "مطب صناعي" : "Speed Hump", d: language === 'ar' ? "تجاوز المطب ببطء" : "Cross hump slowly" },
+        { n: language === 'ar' ? "منطقة مدارس" : "School Zone", d: language === 'ar' ? "احذر عبور الأطفال" : "Watch for children crossing" }
+      ]
+    },
+    guide: {
+      title: language === 'ar' ? "٣- الإشارات الإرشادية" : "3- Guide Signs",
+      desc: language === 'ar' ? "توفر معلومات عن الوجهات، المسافات، والخدمات المتاحة على الطريق." : "Provides information about destinations, distances, and road services.",
+      items: [
+        { n: language === 'ar' ? "إشارة الوجهات" : "Destination Sign", d: language === 'ar' ? "توضح المناطق والشوارع" : "Shows areas and streets" },
+        { n: language === 'ar' ? "موقف حافلات" : "Bus Stop", d: language === 'ar' ? "ممنوع الوقوف لغير الحافلات" : "Buses only parking" },
+        { n: language === 'ar' ? "محطة وقود" : "Petrol Station", d: language === 'ar' ? "خدمة متوفرة قريباً" : "Upcoming service" }
+      ]
     },
     road: [
-      { title: language === 'ar' ? "علامات الترام" : "Tram Signs", icon: TrafficCone, color: "text-blue-400" },
-      { title: language === 'ar' ? "منطقة عبور المشاة" : "Pedestrian Crossing", icon: Navigation, color: "text-green-400" },
-      { title: language === 'ar' ? "خطوط سطح الطريق" : "Road Surface Markings", icon: Layers, color: "text-purple-400" },
-    ],
-    dsssm: {
-      title: "DSSSM System",
-      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai.",
-      benefit1: language === 'ar' ? "يحسن جودة القيادة بنسبة 40%" : "Improves driving quality by 40%",
-      benefit2: language === 'ar' ? "مرتبط مباشرة بسجل السائق المروري" : "Directly linked to the driver's traffic record"
-    },
-    failureReasons: [
-      { title: language === 'ar' ? "عدم التوقف عند إشارة قف" : "Failure to stop at STOP sign", desc: language === 'ar' ? "يجب التوقف تماماً لثلاث ثوانٍ قبل خط الوقوف." : "Must come to a complete stop for 3 seconds before the stop line." },
-      { title: language === 'ar' ? "أولوية الدوار" : "Roundabout Priority", desc: language === 'ar' ? "دخول الدوار دون إعطاء الأولوية للقادم من اليسار." : "Entering a roundabout without giving priority to traffic from the left." },
+      { title: language === 'ar' ? "خطوط التوقف" : "Stop Lines", icon: TrafficCone, color: "text-red-400", d: language === 'ar' ? "الوقوف قبل الخط تماماً" : "Stop before the line" },
+      { title: language === 'ar' ? "المربع الأصفر" : "Yellow Box", icon: Compass, color: "text-yellow-400", d: language === 'ar' ? "ممنوع التوقف داخله" : "No stopping inside" },
+      { title: language === 'ar' ? "خطوط المشاة" : "Zebra Cross", icon: Users, color: "text-green-400", d: language === 'ar' ? "الأولوية للمشاة دائماً" : "Pedestrian priority" },
     ],
     footer: {
-      title: language === 'ar' ? "هل تريد الدليل الكامل؟" : "Want the Full Guide?",
-      desc: language === 'ar' ? "نقوم حالياً بتجهيز نسخة PDF تفاعلية تحتوي على شرح لكل إشارة من الإشارات الـ 170 المعتمدة في دبي." : "We are currently preparing an interactive PDF version containing explanations for all 170 approved signs.",
-      tags: language === 'ar' ? ["إشارات قف", "أولويات الدوار", "مواقف ذوي الهمم", "خطوط المشاة الصفراء"] : ["Stop Signs", "Roundabout Priorities", "POD Parking", "Yellow Pedestrian Lines"]
+      title: language === 'ar' ? "دليل الإشارات الشامل (PDF)" : "Full Signs Guide (PDF)",
+      desc: language === 'ar' ? "نقوم حالياً بتجهيز نسخة PDF تفاعلية تحتوي على شرح لكل إشارة من الإشارات الـ 170 المعتمدة في دبي وفق أحدث معايير RTA." : "We are currently preparing an interactive PDF version containing explanations for all 170 approved signs in Dubai per latest RTA standards.",
+      tags: language === 'ar' ? ["إشارات قف", "أولويات الدوار", "مواقف ذوي الهمم", "خطوط المشاة"] : ["Stop Signs", "Roundabout Priorities", "POD Parking", "Pedestrian Lines"]
     }
   }
 
@@ -83,7 +93,7 @@ export default function TrafficSignsPage() {
           {t.stats.map((stat, i) => (
             <Card key={i} className="glass-card border-white/10 text-center p-10 hover:translate-y-[-10px] transition-all duration-700 shadow-2xl group">
               <span className="text-5xl md:text-7xl font-black smart-gradient-text block leading-none group-hover:scale-110 transition-transform">{stat.num}</span>
-              <span className="text-xs font-black text-muted-foreground uppercase tracking-[0.4em] mt-4 block opacity-60">{stat.label}</span>
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mt-4 block opacity-60">{stat.label}</span>
             </Card>
           ))}
         </div>
@@ -97,13 +107,11 @@ export default function TrafficSignsPage() {
               { id: "warning", label: t.tabs.warning, icon: AlertTriangle },
               { id: "guide", label: t.tabs.guide, icon: Navigation },
               { id: "road", label: t.tabs.road, icon: TrafficCone },
-              { id: "failure", label: t.tabs.failure, icon: ShieldAlert },
-              { id: "dsssm", label: t.tabs.dsssm, icon: Info },
             ].map((tab) => (
               <TabsTrigger 
                 key={tab.id} 
                 value={tab.id} 
-                className="px-8 py-4 rounded-[2rem] font-black text-sm uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-xl transition-all flex items-center gap-3"
+                className="px-8 py-4 rounded-[2rem] font-black text-sm uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all flex items-center gap-3"
               >
                 <tab.icon className="h-5 w-5" />
                 {tab.label}
@@ -120,20 +128,23 @@ export default function TrafficSignsPage() {
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {t.regulatory.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-4 p-6 rounded-[2rem] bg-secondary/40 border border-white/5 shadow-xl hover:border-primary/30 transition-all group">
-                      <div className="h-3 w-3 rounded-full bg-primary group-hover:scale-150 transition-transform" />
-                      <span className="font-black text-lg tracking-tight">{item}</span>
+                    <div key={i} className="flex flex-col gap-2 p-6 rounded-[2rem] bg-secondary/40 border border-white/5 shadow-xl hover:border-primary/30 transition-all group">
+                      <div className="flex items-center gap-3">
+                        <div className="h-3 w-3 rounded-full bg-primary group-hover:scale-150 transition-transform" />
+                        <span className="font-black text-lg tracking-tight">{item.n}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground font-bold uppercase">{item.d}</p>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="relative aspect-video rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.6)] border border-white/10 group">
+              <div className="relative aspect-video rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.6)] border border-white/10">
                 {signsImg?.imageUrl && (
                   <Image 
                     src={signsImg.imageUrl} 
                     alt="Regulatory Signs" 
                     fill 
-                    className="object-cover group-hover:scale-110 transition-transform duration-1000"
+                    className="object-cover"
                   />
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -142,21 +153,30 @@ export default function TrafficSignsPage() {
             </div>
           </TabsContent>
 
-          <TabsContent value="warning">
-            <Card className="glass-card border-yellow-500/20 rounded-[4rem] overflow-hidden shadow-2xl">
-               <div className="bg-yellow-500/10 p-12 md:p-20 border-b border-yellow-500/20 text-center">
-                  <h2 className="text-5xl md:text-8xl font-headline font-black text-yellow-500 tracking-tighter mb-6">{t.warning.title}</h2>
-                  <p className="text-2xl text-muted-foreground font-medium opacity-80">{t.warning.desc}</p>
-               </div>
-               <CardContent className="p-16 md:p-32">
-                  <div className="text-center space-y-10">
-                    <AlertTriangle className="h-32 w-32 text-yellow-500 mx-auto animate-pulse" />
-                    <p className="max-w-3xl mx-auto text-3xl text-muted-foreground leading-relaxed font-bold italic">
-                      {t.warning.content}
-                    </p>
+          <TabsContent value="warning" className="space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {t.warning.items.map((item, i) => (
+                <Card key={i} className="bg-yellow-500/5 border-yellow-500/20 p-8 rounded-[3rem] text-center hover:bg-yellow-500/10 transition-all group">
+                  <AlertTriangle className="h-12 w-12 text-yellow-500 mx-auto mb-6 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-xl font-black mb-2">{item.n}</h3>
+                  <p className="text-xs text-muted-foreground font-medium">{item.d}</p>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="guide" className="space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {t.guide.items.map((item, i) => (
+                <Card key={i} className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/40 transition-all">
+                  <div className="h-14 w-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6">
+                    <Navigation className="h-8 w-8" />
                   </div>
-               </CardContent>
-            </Card>
+                  <h3 className="text-2xl font-black mb-3">{item.n}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.d}</p>
+                </Card>
+              ))}
+            </div>
           </TabsContent>
 
           <TabsContent value="road" className="space-y-12">
@@ -164,54 +184,11 @@ export default function TrafficSignsPage() {
               {t.road.map((item, i) => (
                 <Card key={i} className="glass-card border-white/5 p-12 rounded-[4rem] text-center hover:border-primary/50 hover:-translate-y-4 transition-all duration-700 shadow-2xl group">
                   <item.icon className={cn("h-20 w-20 mx-auto mb-8 transition-transform group-hover:scale-125", item.color)} />
-                  <h3 className="text-3xl font-black font-headline tracking-tighter">{item.title}</h3>
+                  <h3 className="text-3xl font-black font-headline tracking-tighter mb-4">{item.title}</h3>
+                  <p className="text-muted-foreground font-bold">{item.d}</p>
                 </Card>
               ))}
             </div>
-          </TabsContent>
-
-          <TabsContent value="failure" className="space-y-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {t.failureReasons.map((reason, i) => (
-                <Card key={i} className="border-red-500/20 bg-red-500/5 rounded-[4rem] p-12 md:p-16 hover:bg-red-500/10 transition-all duration-700 shadow-2xl group border-2">
-                  <CardHeader className="p-0 mb-10 flex flex-row items-center gap-8">
-                    <div className="p-6 bg-red-500/20 rounded-[2rem] group-hover:scale-110 transition-transform">
-                      <ShieldAlert className="h-10 w-10 text-red-500" />
-                    </div>
-                    <CardTitle className="text-3xl md:text-4xl font-black tracking-tighter leading-tight">{reason.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <p className="text-xl text-muted-foreground leading-relaxed font-medium opacity-80">{reason.desc}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="dsssm" className="space-y-12">
-            <Card className="glass-card border-primary/20 rounded-[5rem] overflow-hidden shadow-2xl">
-               <div className="p-16 md:p-32 bg-primary/5 flex flex-col md:flex-row gap-20 items-center">
-                  <div className="flex-1 space-y-10">
-                    <h2 className="text-6xl md:text-9xl font-headline font-black text-primary tracking-tighter leading-none">{t.dsssm.title}</h2>
-                    <p className="text-3xl text-muted-foreground leading-relaxed italic font-bold opacity-90">
-                      {t.dsssm.desc}
-                    </p>
-                    <div className="space-y-6">
-                      <div className="flex items-center gap-6 p-6 rounded-[2rem] bg-green-500/10 border border-green-500/20 shadow-xl">
-                        <CheckCircle className="h-8 w-8 text-green-500" />
-                        <span className="font-black text-xl tracking-tight">{t.dsssm.benefit1}</span>
-                      </div>
-                      <div className="flex items-center gap-6 p-6 rounded-[2rem] bg-green-500/10 border border-green-500/20 shadow-xl">
-                        <CheckCircle className="h-8 w-8 text-green-500" />
-                        <span className="font-black text-xl tracking-tight">{t.dsssm.benefit2}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-full md:w-96 aspect-square bg-gradient-to-br from-primary to-accent rounded-[4rem] p-16 flex items-center justify-center shadow-[0_40px_100px_rgba(0,0,0,0.4)] rotate-6 group hover:rotate-0 transition-all duration-1000">
-                    <Info className="h-48 w-48 text-white opacity-40 group-hover:opacity-100 transition-opacity" />
-                  </div>
-               </div>
-            </Card>
           </TabsContent>
         </Tabs>
 
