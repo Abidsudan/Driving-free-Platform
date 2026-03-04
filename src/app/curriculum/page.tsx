@@ -1,4 +1,3 @@
-
 "use client"
 
 import Image from "next/image"
@@ -37,7 +36,7 @@ export default function CurriculumPage() {
       {
         id: "stage-1",
         title: language === 'ar' ? "المرحلة الأولى: التأسيس والتحكم" : "Stage 1: Foundations & Control",
-        desc: language === 'ar' ? "فهم أبعاد المركبة، أدوات التحكم، وبناء روتين أمان ثابت." : "Understanding vehicle dimensions, controls, and building a solid safety routine.",
+        desc: language === 'ar' ? "فهم أبعاد المركبة وبناء روتين أمان ثابت." : "Understanding vehicle dimensions and building a solid safety routine.",
         icon: Gauge,
         visualId: "stage-1-visual",
         details: [
@@ -45,8 +44,9 @@ export default function CurriculumPage() {
             sub: language === 'ar' ? "الروتين المسبق (D-S-M-B)" : "Pre-Driving Routine (D-S-M-B)", 
             desc: language === 'ar' 
               ? `بمجرد دخولك للسيارة، اتبع هذا التسلسل الإلزامي:
-                • الأبواب: تأكد من إغلاق جميع الأبواب بإحكام.
+                • الأبواب: تأكد من إغلاق جميع الأبواب بإحكام (تحقق من لوحة العدادات).
                 • تعديل المقعد: اضبط المسافة بحيث تضغط الفرامل بالكامل مع انحناء بسيط في الركبة.
+                • الظهر: اضبط الزاوية لتكون اليدان مرتاحتين على المقود (100-110 درجة).
                 • المرايا: الوسطى تكشف الزجاج الخلفي، والجانبية تكشف 10% من هيكل السيارة.
                 • حزام الأمان: اربط حزامك وتأكد من ربط مرافقيك.` 
               : "Mandatory sequence: Doors (closed), Seat (knee flex), Mirrors (road view), and Seatbelt usage.",
@@ -64,8 +64,8 @@ export default function CurriculumPage() {
       },
       {
         id: "stage-2",
-        title: language === 'ar' ? "المرحلة الثانية: الطرق السكنية (40 كم/س)" : "Stage 2: Residential Roads (40km/h)",
-        desc: language === 'ar' ? "إدارة المساحات وتوقع المخاطر في البيئات الهادئة والتقاطعات." : "Space management and hazard anticipation in quiet areas and junctions.",
+        title: language === 'ar' ? "المرحلة الثانية: المناطق السكنية (40 كم/س)" : "Stage 2: Residential Areas (40km/h)",
+        desc: language === 'ar' ? "إدارة المساحات وتوقع المخاطر في البيئات الهادئة." : "Space management and hazard anticipation in quiet areas.",
         icon: Compass,
         visualId: "stage-2-visual",
         details: [
@@ -78,18 +78,19 @@ export default function CurriculumPage() {
               : "Maintain 40km/h max. Keep 1.5m side distance from parked cars. Overtake only for fixed obstacles."
           },
           { 
-            sub: language === 'ar' ? "تقاطعات T-Junctions" : "Handling T-Junctions", 
+            sub: language === 'ar' ? "فن التعامل مع التقاطعات (T-Junctions)" : "Handling T-Junctions", 
             desc: language === 'ar' 
               ? `• علامة قف (STOP): توقف تام (سكون العجلات) لـ 3 ثوانٍ قبل الخط.
-                • علامة افسح الطريق (Give Way): خفف واستعد للتوقف للقادمين من الطريق الرئيسي.` 
+                • علامة افسح الطريق (Give Way): خفف واستعد للتوقف للقادمين من الطريق الرئيسي.
+                • التواصل البصري: استخدم لغة العيون والإشارات الودية لتسهيل الحركة.` 
               : "STOP sign: Full wheel stop for 3 seconds. Give Way: Slow down and yield to main road traffic."
           }
         ]
       },
       {
         id: "stage-3",
-        title: language === 'ar' ? "المرحلة الثالثة: القيادة المتقدمة (60-80 كم/س)" : "Stage 3: Advanced Road (60-80km/h)",
-        desc: language === 'ar' ? "إتقان السرعات العالية، الاندماج في الطرق السريعة، والدوارات." : "Mastering high speeds, highway merging, and complex roundabouts.",
+        title: language === 'ar' ? "المرحلة الثالثة: الطرق العامة والسرعات العالية" : "Stage 3: Advanced Roads & High Speed",
+        desc: language === 'ar' ? "إتقان السرعات العالية (60-80 كم/س) والاندماج المعقد." : "Mastering high speeds (60-80km/h) and complex merging.",
         icon: Zap,
         visualId: "stage-3-visual",
         details: [
@@ -100,12 +101,20 @@ export default function CurriculumPage() {
               : "Avoid entering slowly. Once straightened on the main road, accelerate firmly to match street speed to avoid collisions."
           },
           { 
+            sub: language === 'ar' ? "أسرار تغيير المسار (Lane Change)" : "Lane Change Secrets", 
+            desc: language === 'ar' 
+              ? `• ثبات الجسم: التفت برقبتك فقط أثناء نظرة الكتف لتجنب انحراف المقود.
+                • توجيه النظر: انظر لمنتصف المسار الجديد بمجرد بدء المناورة، لا تستمر بالنظر للمرآة.` 
+              : "Shoulder check using neck only. Focus on target lane center during maneuver, not the mirror.",
+            tip: language === 'ar' ? "الالتزام باليمين إلزامي لسيارات التعليم. العودة لليمين فوراً بعد التجاوز أو الدوران." : "Education vehicles must always return to the right lane."
+          },
+          { 
             sub: language === 'ar' ? "إتقان الدوارات (Roundabouts)" : "Mastering Roundabouts", 
             desc: language === 'ar' 
-              ? `• الأولوية: دائماً للقادم من اليسار (داخل الدوار).
-                • الإشارات: يمين للمخرج الأول، بدون إشارة للدخول للأمام مع إشارة يمين قبل الخروج.` 
-              : "Priority to the left. Right signal for 1st exit. No entry signal for straight, right signal before exit.",
-            tip: language === 'ar' ? "فخ المسار الأيسر: عند الخروج لليسار، انتقل فوراً للمسار الأيمن بمبادرة منك لتجنب مخالفة الالتزام باليمين." : "Left Lane Trap: After a left exit, move immediately back to the right lane."
+              ? `• الأولوية: دائماً للقادم من اليسار.
+                • فخ المسار الأيسر: بعد الخروج من الدوار لليسار، انتقل فوراً للمسار الأيمن بمبادرة منك.` 
+              : "Priority to the left. After left exit, move immediately back to the right lane.",
+            tip: language === 'ar' ? "نسيان العودة للمسار الأيمن بعد الدوار يُعتبر خطأ رسوب شائع." : "Forgetting to return to the right lane is a common fail."
           }
         ]
       }
@@ -113,19 +122,18 @@ export default function CurriculumPage() {
     parkingStage: {
       id: "stage-4",
       title: language === 'ar' ? "المرحلة الرابعة: المواقف الذكية" : "Stage 4: Smart Parking",
-      desc: language === 'ar' ? "إتقان مناورات الركن الخمس باستخدام النقاط المرجعية والتقنيات الذكية." : "Mastering five parking maneuvers using reference points and smart tech.",
+      desc: language === 'ar' ? "إتقان مناورات الركن الخمس بأسلوب تقني." : "Mastering five parking maneuvers technically.",
       icon: Construction,
       visualId: "stage-4-visual",
       details: [
-        { sub: language === 'ar' ? "الموقف المتوازي (Parallel)" : "Parallel Parking", desc: language === 'ar' ? "ركن المركبة في مساحة محدودة بين سيارتين باستخدام نقاط مرجعية دقيقة." : "Parking in limited space using precise reference points." },
-        { sub: language === 'ar' ? "الموقف العمودي (90 Degree)" : "Perpendicular Parking", desc: language === 'ar' ? "الدخول في الموقف بزاوية قائمة مع الحفاظ على التوسيط الكامل." : "Entering stall at 90 degrees with perfect centering." }
+        { sub: language === 'ar' ? "الموقف المتوازي (Parallel)" : "Parallel Parking", desc: language === 'ar' ? "ركن المركبة بمهارة باستخدام نقاط مرجعية دقيقة." : "Parking skillfully using precise reference points." },
+        { sub: language === 'ar' ? "الموقف العمودي (90 Degree)" : "Perpendicular Parking", desc: language === 'ar' ? "الدخول في الموقف بزاوية قائمة مع التوسيط الكامل." : "Entering stall at 90 degrees with perfect centering." }
       ]
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-12 space-y-16 animate-fade-in pb-32">
-      {/* Header */}
       <div className="max-w-4xl mx-auto text-center space-y-6">
         <div className="academic-badge mx-auto glass-card flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-accent" />
@@ -254,7 +262,6 @@ export default function CurriculumPage() {
         </TabsContent>
       </Tabs>
 
-      {/* CTA Final */}
       <div className="max-w-4xl mx-auto p-10 md:p-20 rounded-[4rem] glass-card border-primary/20 text-center space-y-8 relative overflow-hidden shadow-2xl">
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32" />
         <div className="relative z-10 space-y-6">

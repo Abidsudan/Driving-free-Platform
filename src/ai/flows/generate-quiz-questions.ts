@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
@@ -7,6 +6,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const GenerateQuizQuestionsInputSchema = z.object({
   numberOfQuestions: z.number().int().min(1).max(16).default(5),
@@ -33,10 +33,10 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
   const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
+    model: gemini15Flash,
     input: { schema: GenerateQuizQuestionsInputSchema, data: input },
     output: { schema: GenerateQuizQuestionsOutputSchema },
-    system: `You are an expert in Dubai RTA theory tests. You MUST prioritize generating questions based on the "Mastery Set" provided by the academy. 
+    system: `You are an expert in Dubai RTA theory tests. You MUST prioritize generating questions based on the "Mastery Set" knowledge bank. 
     
     CORE KNOWLEDGE BANK (Mastery Set):
     1. Lane Commitment: Education vehicles must ALWAYS stay in the RIGHT lane.

@@ -1,12 +1,11 @@
-
 'use server';
 /**
  * @fileOverview A Genkit flow for the AI Driving Tutor.
- * Updated with the "Mastery Set" 16 questions logic.
  */
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const TutorInputSchema = z.object({
   question: z.string().describe('The student question about driving in Dubai.'),
@@ -27,7 +26,7 @@ export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
 export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
   const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
+    model: gemini15Flash,
     output: { schema: TutorOutputSchema },
     system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academe.
     Your expertise includes the "Mastery Set" of 16 essential RTA questions.
