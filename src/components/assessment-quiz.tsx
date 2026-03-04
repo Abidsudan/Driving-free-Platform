@@ -53,6 +53,7 @@ export function AssessmentQuiz() {
   const startQuiz = async () => {
     setIsLoading(true)
     setError(null)
+    setQuestions(null)
     try {
       const result = await generateQuizQuestions({
         numberOfQuestions: 16,
@@ -94,7 +95,7 @@ export function AssessmentQuiz() {
         addDocumentNonBlocking(collection(db, 'users', user.uid, 'quizAttempts'), {
           userId: user.uid,
           startTime: new Date().toISOString(),
-          score: score, // Correct score already updated in handleAnswer
+          score: score,
           totalQuestions: questions!.length,
           isCompleted: true,
           topic: language === 'ar' ? "اختبار مجموعة التميز" : "Mastery Set Test"
@@ -109,7 +110,10 @@ export function AssessmentQuiz() {
         <AlertCircle className="h-16 w-16 text-red-500 mx-auto" />
         <h3 className="text-2xl font-black">{t.errorTitle}</h3>
         <p className="text-muted-foreground">{error}</p>
-        <Button onClick={startQuiz} className="rounded-2xl h-14 px-8">إعادة المحاولة</Button>
+        <Button onClick={startQuiz} className="rounded-2xl h-14 px-8">
+          <RefreshCw className="mr-2 h-5 w-5" />
+          {language === 'ar' ? "إعادة المحاولة" : "Try Again"}
+        </Button>
       </div>
     )
   }

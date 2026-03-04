@@ -32,7 +32,7 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
   const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
+    model: 'googleai/gemini-1.5-flash-latest',
     output: { schema: GenerateQuizQuestionsOutputSchema },
     system: `You are an expert in Dubai RTA theory tests. You MUST generate exactly ${input.numberOfQuestions} questions strictly based on the "Mastery Set" rules provided below.
     
@@ -51,7 +51,7 @@ export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): 
     12. Seating: 100-110 degree back angle, slight knee bend.
 
     Ensure questions are in ${input.language === 'ar' ? 'Arabic' : 'English'}. Include scientific explanations for each answer.`,
-    prompt: `Generate a comprehensive assessment covering the RTA Mastery Set.`,
+    prompt: `Generate a comprehensive assessment covering the RTA Mastery Set with exactly ${input.numberOfQuestions} unique questions.`,
   });
 
   if (!output) {
