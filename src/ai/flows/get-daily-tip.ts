@@ -39,13 +39,12 @@ const dailyTipFlow = ai.defineFlow(
     outputSchema: DailyTipOutputSchema,
   },
   async (input) => {
-    // Explicitly pass the model in options to ensure it is recognized
-    const { output } = await dailyTipPrompt(
-      input,
-      {
-        model: gemini15Flash
-      }
-    );
+    // Use explicit ai.generate wrapper to ensure model binding in Genkit 1.x
+    const { output } = await ai.generate({
+      model: gemini15Flash,
+      prompt: dailyTipPrompt,
+      input: input
+    });
     if (!output) throw new Error('Failed to generate daily tip.');
     return output;
   }

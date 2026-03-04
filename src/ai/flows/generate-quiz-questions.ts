@@ -71,16 +71,15 @@ const generateQuizFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    // Explicitly pass the model in options to ensure it is recognized by Genkit 1.x
-    const { output } = await generateQuizPrompt(
-      {
+    // Use explicit ai.generate wrapper to ensure model binding in Genkit 1.x
+    const { output } = await ai.generate({
+      model: gemini15Flash,
+      prompt: generateQuizPrompt,
+      input: {
         ...input,
         isArabic
-      },
-      {
-        model: gemini15Flash
       }
-    );
+    });
     if (!output) throw new Error('Failed to generate quiz content.');
     return output;
   }

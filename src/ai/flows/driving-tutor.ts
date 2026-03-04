@@ -63,16 +63,15 @@ const tutorFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    // Explicitly pass the model in options to ensure it is recognized
-    const { output } = await tutorPrompt(
-      {
+    // Use explicit ai.generate wrapper to ensure model binding in Genkit 1.x
+    const { output } = await ai.generate({
+      model: gemini15Flash,
+      prompt: tutorPrompt,
+      input: {
         ...input,
         isArabic
-      },
-      {
-        model: gemini15Flash
       }
-    );
+    });
     if (!output) throw new Error('Failed to get response from AI Tutor.');
     return output;
   }
