@@ -55,10 +55,19 @@ const generateQuizPrompt = ai.definePrompt({
   prompt: `Generate a comprehensive assessment covering the RTA Mastery Set with exactly {{numberOfQuestions}} unique questions.`,
 });
 
-export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
-  const { output } = await generateQuizPrompt(input);
-  if (!output) {
-    throw new Error('Failed to generate quiz questions.');
+const generateQuizFlow = ai.defineFlow(
+  {
+    name: 'generateQuizFlow',
+    inputSchema: GenerateQuizQuestionsInputSchema,
+    outputSchema: GenerateQuizQuestionsOutputSchema,
+  },
+  async (input) => {
+    const { output } = await generateQuizPrompt(input);
+    if (!output) throw new Error('Failed to generate quiz content.');
+    return output;
   }
-  return output;
+);
+
+export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
+  return generateQuizFlow(input);
 }

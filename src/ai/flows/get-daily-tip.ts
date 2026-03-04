@@ -29,10 +29,19 @@ const dailyTipPrompt = ai.definePrompt({
     Keep the style scientific, formal, and highly informative.`,
 });
 
-export async function getDailyDrivingTip(language: 'ar' | 'en' = 'en'): Promise<DailyTipOutput> {
-  const { output } = await dailyTipPrompt({ language });
-  if (!output) {
-    throw new Error('Failed to generate daily tip.');
+const dailyTipFlow = ai.defineFlow(
+  {
+    name: 'dailyTipFlow',
+    inputSchema: DailyTipInputSchema,
+    outputSchema: DailyTipOutputSchema,
+  },
+  async (input) => {
+    const { output } = await dailyTipPrompt(input);
+    if (!output) throw new Error('Failed to generate daily tip.');
+    return output;
   }
-  return output;
+);
+
+export async function getDailyDrivingTip(language: 'ar' | 'en' = 'en'): Promise<DailyTipOutput> {
+  return dailyTipFlow({ language });
 }

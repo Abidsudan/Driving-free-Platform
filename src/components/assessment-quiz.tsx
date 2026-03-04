@@ -61,12 +61,16 @@ export function AssessmentQuiz() {
         topic: "RTA Mastery Set 16 Questions",
         language: language
       })
-      setQuestions(result.questions)
-      setCurrentIndex(0)
-      setScore(0)
-      setIsFinished(false)
-      setIsAnswered(false)
-      setSelectedAnswer(null)
+      if (result && result.questions) {
+        setQuestions(result.questions)
+        setCurrentIndex(0)
+        setScore(0)
+        setIsFinished(false)
+        setIsAnswered(false)
+        setSelectedAnswer(null)
+      } else {
+        throw new Error("Invalid response from AI");
+      }
     } catch (err) {
       console.error(err)
       setError(t.errorDesc)

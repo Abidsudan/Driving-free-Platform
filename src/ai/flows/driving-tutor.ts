@@ -47,10 +47,19 @@ const tutorPrompt = ai.definePrompt({
   prompt: `{{question}}`,
 });
 
-export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
-  const { output } = await tutorPrompt(input);
-  if (!output) {
-    throw new Error('Failed to get response from AI Tutor.');
+const tutorFlow = ai.defineFlow(
+  {
+    name: 'tutorFlow',
+    inputSchema: TutorInputSchema,
+    outputSchema: TutorOutputSchema,
+  },
+  async (input) => {
+    const { output } = await tutorPrompt(input);
+    if (!output) throw new Error('Failed to get response from AI Tutor.');
+    return output;
   }
-  return output;
+);
+
+export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
+  return tutorFlow(input);
 }
