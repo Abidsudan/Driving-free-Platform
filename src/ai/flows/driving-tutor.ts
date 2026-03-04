@@ -1,6 +1,10 @@
 'use server';
 /**
  * @fileOverview A Genkit flow for the AI Driving Tutor.
+ *
+ * - askDrivingTutor - A function that handles the tutor interaction.
+ * - TutorInput - The input type for the function.
+ * - TutorOutput - The return type for the function.
  */
 
 import { ai } from '@/ai/genkit';
@@ -59,10 +63,16 @@ const tutorFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    const { output } = await tutorPrompt({
-      ...input,
-      isArabic
-    });
+    // Explicitly pass the model in options to ensure it is recognized
+    const { output } = await tutorPrompt(
+      {
+        ...input,
+        isArabic
+      },
+      {
+        model: gemini15Flash
+      }
+    );
     if (!output) throw new Error('Failed to get response from AI Tutor.');
     return output;
   }

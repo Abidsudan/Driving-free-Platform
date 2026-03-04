@@ -1,6 +1,9 @@
 'use server';
 /**
  * @fileOverview A Genkit flow for generating daily academic driving tips.
+ *
+ * - getDailyDrivingTip - A function that handles generating a daily tip.
+ * - DailyTipOutput - The return type for the function.
  */
 
 import { ai } from '@/ai/genkit';
@@ -36,7 +39,13 @@ const dailyTipFlow = ai.defineFlow(
     outputSchema: DailyTipOutputSchema,
   },
   async (input) => {
-    const { output } = await dailyTipPrompt(input);
+    // Explicitly pass the model in options to ensure it is recognized
+    const { output } = await dailyTipPrompt(
+      input,
+      {
+        model: gemini15Flash
+      }
+    );
     if (!output) throw new Error('Failed to generate daily tip.');
     return output;
   }

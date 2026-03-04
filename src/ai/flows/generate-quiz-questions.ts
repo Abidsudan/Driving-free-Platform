@@ -2,6 +2,10 @@
 /**
  * @fileOverview A Genkit flow for generating RTA-simulated driving quiz questions.
  * Focused on the "Mastery Set" (16 mandatory questions) for the academy.
+ *
+ * - generateQuizQuestions - A function that handles the quiz generation process.
+ * - GenerateQuizQuestionsInput - The input type for the function.
+ * - GenerateQuizQuestionsOutput - The return type for the function.
  */
 
 import { ai } from '@/ai/genkit';
@@ -67,10 +71,16 @@ const generateQuizFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    const { output } = await generateQuizPrompt({
-      ...input,
-      isArabic
-    });
+    // Explicitly pass the model in options to ensure it is recognized by Genkit 1.x
+    const { output } = await generateQuizPrompt(
+      {
+        ...input,
+        isArabic
+      },
+      {
+        model: gemini15Flash
+      }
+    );
     if (!output) throw new Error('Failed to generate quiz content.');
     return output;
   }
