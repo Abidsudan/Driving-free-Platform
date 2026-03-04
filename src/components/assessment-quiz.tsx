@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useState } from "react"
@@ -6,7 +5,7 @@ import { generateQuizQuestions, type GenerateQuizQuestionsOutput } from "@/ai/fl
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, ShieldCheck, Database, BrainCircuit, Star } from "lucide-react"
+import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, ShieldCheck, Database, BrainCircuit, Star, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser, useFirestore } from "@/firebase"
 import { collection } from "firebase/firestore"
@@ -23,6 +22,8 @@ export function AssessmentQuiz() {
   const [score, setScore] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  
   const { user } = useUser()
   const db = useFirestore()
 
@@ -44,11 +45,14 @@ export function AssessmentQuiz() {
     ofLabel: language === 'ar' ? "من" : "of",
     analysisLabel: language === 'ar' ? "التحليل العلمي" : "Scientific Analysis",
     btnFinish: language === 'ar' ? "إنهاء الاختبار" : "Finish Test",
-    btnNext: language === 'ar' ? "السؤال التالي" : "Next Question"
+    btnNext: language === 'ar' ? "السؤال التالي" : "Next Question",
+    errorTitle: language === 'ar' ? "خطأ في الاتصال" : "Connection Error",
+    errorDesc: language === 'ar' ? "حدث خطأ أثناء توليد الأسئلة، يرجى المحاولة مرة أخرى." : "Error generating questions, please try again."
   };
 
   const startQuiz = async () => {
     setIsLoading(true)
+    setError(null)
     try {
       const result = await generateQuizQuestions({
         numberOfQuestions: 16,
@@ -62,8 +66,9 @@ export function AssessmentQuiz() {
       setIsFinished(false)
       setIsAnswered(false)
       setSelectedAnswer(null)
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
+      setError(t.errorDesc)
     } finally {
       setIsLoading(false)
     }
@@ -89,13 +94,24 @@ export function AssessmentQuiz() {
         addDocumentNonBlocking(collection(db, 'users', user.uid, 'quizAttempts'), {
           userId: user.uid,
           startTime: new Date().toISOString(),
-          score: score + (selectedAnswer === questions![currentIndex].correctAnswerIndex ? 1 : 0),
+          score: score, // Correct score already updated in handleAnswer
           totalQuestions: questions!.length,
           isCompleted: true,
           topic: language === 'ar' ? "اختبار مجموعة التميز" : "Mastery Set Test"
         });
       }
     }
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-2xl mx-auto p-12 text-center glass-card border-red-500/20 space-y-6">
+        <AlertCircle className="h-16 w-16 text-red-500 mx-auto" />
+        <h3 className="text-2xl font-black">{t.errorTitle}</h3>
+        <p className="text-muted-foreground">{error}</p>
+        <Button onClick={startQuiz} className="rounded-2xl h-14 px-8">إعادة المحاولة</Button>
+      </div>
+    )
   }
 
   if (isLoading) {
@@ -114,8 +130,7 @@ export function AssessmentQuiz() {
   }
 
   if (isFinished) {
-    const finalScore = score + (selectedAnswer === questions![currentIndex].correctAnswerIndex ? 1 : 0);
-    const cognitiveRate = (finalScore / (questions?.length || 1)) * 100
+    const cognitiveRate = (score / (questions?.length || 1)) * 100
     return (
       <Card className="max-w-4xl mx-auto glass-card rounded-[4rem] overflow-hidden animate-fade-in border-accent/20 shadow-[0_0_100px_rgba(245,158,11,0.1)]">
         <div className="h-4 bg-accent w-full animate-pulse" />
