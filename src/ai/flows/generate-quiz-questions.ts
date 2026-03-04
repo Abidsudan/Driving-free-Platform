@@ -35,6 +35,7 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 const generateQuizPrompt = ai.definePrompt({
   name: 'generateQuizPrompt',
+  model: 'googleai/gemini-1.5-flash',
   input: { 
     schema: GenerateQuizQuestionsInputSchema.extend({
       isArabic: z.boolean().optional()
@@ -69,15 +70,12 @@ const generateQuizFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    // Use explicit ai.generate with string model ID for maximum reliability
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash',
-      prompt: generateQuizPrompt,
-      input: {
-        ...input,
-        isArabic
-      }
+    // Standard direct prompt invocation is more stable than wrapping in ai.generate
+    const { output } = await generateQuizPrompt({
+      ...input,
+      isArabic
     });
+    
     if (!output) throw new Error('Failed to generate quiz content.');
     return output;
   }

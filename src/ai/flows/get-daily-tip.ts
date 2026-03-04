@@ -23,6 +23,7 @@ export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
 
 const dailyTipPrompt = ai.definePrompt({
   name: 'dailyTipPrompt',
+  model: 'googleai/gemini-1.5-flash',
   input: { schema: DailyTipInputSchema },
   output: { schema: DailyTipOutputSchema },
   prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: {{language}}. 
@@ -37,11 +38,8 @@ const dailyTipFlow = ai.defineFlow(
     outputSchema: DailyTipOutputSchema,
   },
   async (input) => {
-    const { output } = await ai.generate({
-      model: 'googleai/gemini-1.5-flash',
-      prompt: dailyTipPrompt,
-      input: input
-    });
+    const { output } = await dailyTipPrompt(input);
+    
     if (!output) throw new Error('Failed to generate daily tip.');
     return output;
   }
