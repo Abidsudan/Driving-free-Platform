@@ -10,7 +10,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const QuizQuestionSchema = z.object({
   questionText: z.string(),
@@ -36,7 +35,6 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 const generateQuizPrompt = ai.definePrompt({
   name: 'generateQuizPrompt',
-  model: gemini15Flash,
   input: { 
     schema: GenerateQuizQuestionsInputSchema.extend({
       isArabic: z.boolean().optional()
@@ -71,9 +69,9 @@ const generateQuizFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    // Use explicit ai.generate wrapper to ensure model binding in Genkit 1.x
+    // Use explicit ai.generate with string model ID for maximum reliability
     const { output } = await ai.generate({
-      model: gemini15Flash,
+      model: 'googleai/gemini-1.5-flash',
       prompt: generateQuizPrompt,
       input: {
         ...input,

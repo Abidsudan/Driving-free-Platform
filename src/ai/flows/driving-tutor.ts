@@ -9,7 +9,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const TutorInputSchema = z.object({
   question: z.string().describe('The student question about driving in Dubai.'),
@@ -30,7 +29,6 @@ export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
 const tutorPrompt = ai.definePrompt({
   name: 'tutorPrompt',
-  model: gemini15Flash,
   input: { 
     schema: TutorInputSchema.extend({
       isArabic: z.boolean().optional()
@@ -63,9 +61,8 @@ const tutorFlow = ai.defineFlow(
   },
   async (input) => {
     const isArabic = input.language === 'ar';
-    // Use explicit ai.generate wrapper to ensure model binding in Genkit 1.x
     const { output } = await ai.generate({
-      model: gemini15Flash,
+      model: 'googleai/gemini-1.5-flash',
       prompt: tutorPrompt,
       input: {
         ...input,

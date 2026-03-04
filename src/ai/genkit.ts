@@ -1,13 +1,13 @@
 import { genkit } from 'genkit';
-import { googleAI, gemini15Flash } from '@genkit-ai/google-genai';
+import { googleAI } from '@genkit-ai/google-genai';
 
 /**
  * إعداد Genkit الأساسي للأكاديمية.
- * يتم ضبط Gemini 1.5 Flash كموديل افتراضي عبر المرجع المباشر لضمان الاستقرار ومنع أخطاء الـ 404.
+ * يتم استخدام المعرف النصي الموحد لضمان التوافق التام مع API ومنع أخطاء الاستيراد.
  */
 export const ai = genkit({
   plugins: [
     googleAI()
   ],
-  model: gemini15Flash,
+  model: 'googleai/gemini-1.5-flash',
 });

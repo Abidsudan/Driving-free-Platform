@@ -8,7 +8,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const DailyTipInputSchema = z.object({
   language: z.enum(['ar', 'en']).default('en'),
@@ -24,7 +23,6 @@ export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
 
 const dailyTipPrompt = ai.definePrompt({
   name: 'dailyTipPrompt',
-  model: gemini15Flash,
   input: { schema: DailyTipInputSchema },
   output: { schema: DailyTipOutputSchema },
   prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: {{language}}. 
@@ -39,9 +37,8 @@ const dailyTipFlow = ai.defineFlow(
     outputSchema: DailyTipOutputSchema,
   },
   async (input) => {
-    // Use explicit ai.generate wrapper to ensure model binding in Genkit 1.x
     const { output } = await ai.generate({
-      model: gemini15Flash,
+      model: 'googleai/gemini-1.5-flash',
       prompt: dailyTipPrompt,
       input: input
     });
