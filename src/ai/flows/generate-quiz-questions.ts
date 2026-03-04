@@ -32,7 +32,7 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
   const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash-latest',
+    model: 'googleai/gemini-1.5-flash',
     output: { schema: GenerateQuizQuestionsOutputSchema },
     system: `You are an expert in Dubai RTA theory tests. You MUST generate exactly ${input.numberOfQuestions} questions strictly based on the "Mastery Set" rules provided below.
     
