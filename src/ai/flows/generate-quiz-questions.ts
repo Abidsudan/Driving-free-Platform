@@ -33,6 +33,7 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
   const { output } = await ai.generate({
+    model: 'googleai/gemini-1.5-flash',
     input: { schema: GenerateQuizQuestionsInputSchema, data: input },
     output: { schema: GenerateQuizQuestionsOutputSchema },
     system: `You are an expert in Dubai RTA theory tests. You MUST prioritize generating questions based on the "Mastery Set" provided by the academy. 

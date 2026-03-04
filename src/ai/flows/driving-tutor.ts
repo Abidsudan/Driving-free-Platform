@@ -27,6 +27,7 @@ export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
 export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
   const { output } = await ai.generate({
+    model: 'googleai/gemini-1.5-flash',
     output: { schema: TutorOutputSchema },
     system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academe.
     Your expertise includes the "Mastery Set" of 16 essential RTA questions.
