@@ -1,7 +1,7 @@
 
 'use client';
 
-import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, StopCircle, Zap, Car, EyeOff, Gauge } from "lucide-react"
+import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, StopCircle, Zap, Car, EyeOff, Gauge, Settings, Move, LayoutDashboard, Star, Camera, Compass, Users, ArrowRightLeft, MousePointer2 } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -19,17 +19,17 @@ export default function RulesPage() {
     subtitle: language === 'ar' ? "الدليل الأكاديمي الشامل لقواعد المرور ومعايير الرسوب الفوري وفق معايير RTA دبي" : "Comprehensive academic guide to traffic rules and immediate failure criteria per Dubai RTA standards",
     badge: language === 'ar' ? "محدث وفق آخر تعديلات دليل الفحص العملي" : "Updated per the latest practical test manual",
     stats: [
-      { num: "IF1", label: language === 'ar' ? "مخالفات الوقوف" : "Stop Violations" },
-      { num: "IF2", label: language === 'ar' ? "الاصطدام والتدخل" : "Collisions & Intervention" },
-      { num: "IF3", label: language === 'ar' ? "الإشارات والسرعة" : "Signs & Speeding" },
+      { num: "IF", label: language === 'ar' ? "الرسوب الفوري" : "Instant Failure" },
+      { num: "Minor", label: language === 'ar' ? "أخطاء تقييمية" : "Minor Errors" },
       { num: "170+", label: language === 'ar' ? "إشارة مرورية" : "Traffic Signs" },
+      { num: "SM", label: language === 'ar' ? "هامش السلامة" : "Safety Margin" },
     ],
     tabs: {
       failure: language === 'ar' ? "الرسوب الفوري (IF)" : "Instant Failure (IF)",
-      dsssm: language === 'ar' ? "نظام DSSSM" : "DSSSM System",
+      minor: language === 'ar' ? "الأخطاء البسيطة (Minor)" : "Minor Errors",
       regulatory: language === 'ar' ? "التنظيمية" : "Regulatory",
       warning: language === 'ar' ? "التحذيرية" : "Warning",
-      road: language === 'ar' ? "علامات الطريق" : "Road Signs",
+      dsssm: language === 'ar' ? "نظام DSSSM" : "DSSSM System",
     },
     failureSections: [
       {
@@ -86,16 +86,90 @@ export default function RulesPage() {
         color: "border-yellow-500/30 bg-yellow-500/5"
       }
     ],
+    minorSections: [
+      {
+        id: "pd",
+        title: language === 'ar' ? "1. التجهيزات المسبقة (PD)" : "1. Pre-Drive (PD)",
+        icon: Settings,
+        items: language === 'ar' ? [
+          "PD1: عدم التأكد من إغلاق الأبواب بإحكام قبل التحرك.",
+          "PD2: الفشل في ضبط المقعد أو المرايا قبل القيادة (أو ضبطها أثناء الحركة).",
+          "PD3: نسيان ربط حزام الأمان قبل بدء الحركة.",
+          "PD4-PD7: الفشل في تشغيل المحرك، الماسحات، الأضواء، أو الزمور بشكل صحيح."
+        ] : [
+          "PD1: Failing to ensure all doors are closed before moving.",
+          "PD2: Failing to adjust seat or mirrors before driving (or adjusting while moving).",
+          "PD3: Forgetting to wear the seatbelt before starting movement.",
+          "PD4-PD7: Failure to operate engine, wipers, lights, or horn correctly."
+        ]
+      },
+      {
+        id: "ms",
+        title: language === 'ar' ? "2. المراقبة والإشارة (M & S)" : "2. Mirrors & Signals (M & S)",
+        icon: EyeOff,
+        items: language === 'ar' ? [
+          "M1-M4: التأخر في فحص المرايا (أقل من 5 ثوانٍ قبل المناورة) أو إهمالها تماماً.",
+          "S1-S4: إعطاء الإشارة في وقت متأخر (أقل من 3 ثوانٍ قبل الحركة) أو نسيانها.",
+          "S5: نسيان إطفاء الإشارة بعد 5 ثوانٍ من اكتمال المناورة."
+        ] : [
+          "M1-M4: Delay in checking mirrors (less than 5s before maneuver) or neglecting them.",
+          "S1-S4: Giving signal late (less than 3s before moving) or forgetting it.",
+          "S5: Forgetting to cancel the signal 5s after completing the maneuver."
+        ]
+      },
+      {
+        id: "sm",
+        title: language === 'ar' ? "3. هوامش السلامة (SM)" : "3. Safety Margins (SM)",
+        icon: ShieldCheck,
+        items: language === 'ar' ? [
+          "SM14: القيادة بمسافة أمان خلفية أقل من ثانيتين (لمدة 5 ثوانٍ متواصلة).",
+          "المسافة الجانبية: عدم ترك 1.2 متر عند تجاوز سيارة متحركة أو 1 متر لسيارة متوقفة.",
+          "مسافة التوقف: الوقوف خلف مركبة بمسافة تحجب رؤية إطاراتها الخلفية (أقل من 1.5 متر)."
+        ] : [
+          "SM14: Driving with less than 2 seconds following distance (for 5 continuous seconds).",
+          "Lateral Distance: Failing to leave 1.2m for moving vehicles or 1m for parked vehicles.",
+          "Stop Distance: Stopping behind a vehicle where its rear tires are not visible (<1.5m)."
+        ]
+      },
+      {
+        id: "vc",
+        title: language === 'ar' ? "4. التحكم والانسيابية (VC & PROG)" : "4. Control & Progress (VC & PROG)",
+        icon: Gauge,
+        items: language === 'ar' ? [
+          "VC13: التأخر في تغيير الغيارات لأكثر من 3 ثوانٍ أو استخدام غيار خاطئ.",
+          "PROG11: القيادة ببطء مفرط أو سرعة مفرطة (بفارق 20% عن سرعة الطريق).",
+          "A1: الضغط على الكلتش عند المنعطفات على سرعة تزيد عن 20 كم/س (Coasting)."
+        ] : [
+          "VC13: Delay in gear shifting for more than 3 seconds or using wrong gear.",
+          "PROG11: Driving too slow or too fast (20% variance from road speed).",
+          "A1: Pressing clutch during turns at speeds over 20km/h (Coasting)."
+        ]
+      },
+      {
+        id: "l",
+        title: language === 'ar' ? "5. تغيير المسار والتموضع (L & PR)" : "5. Lane Change & Positioning (L & PR)",
+        icon: ArrowRightLeft,
+        items: language === 'ar' ? [
+          "L1-L3: التردد، سوء تقدير المسافات، أو تخفيف السرعة بلا مبرر أثناء الانتقال.",
+          "L5: إهمال فحص الكتف (البقعة العمياء) أو استغراق أكثر من ثانية في الفحص.",
+          "PR12: القيادة قريباً جداً من الرصيف أو التمايل داخل المسار (أكثر من 0.5 متر)."
+        ] : [
+          "L1-L3: Hesitation, misjudging distances, or slowing down unnecessarily during transition.",
+          "L5: Neglecting shoulder check (blind spot) or taking more than 1 second to check.",
+          "PR12: Driving too close to the curb or weaving within the lane (more than 0.5m)."
+        ]
+      }
+    ],
     dsssm: {
       title: "DSSSM System",
-      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة عبر رصد الانحرافات آلياً وربطها بملف المتدرب." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure safety by monitoring deviations automatically and linking them to the trainee's file.",
+      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان السلامة عبر رصد الانحرافات آلياً وربطها بملف المتدرب." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure safety by monitoring deviations automatically.",
       benefit1: language === 'ar' ? "رصد آلي للمخالفات التقنية والحركية" : "Automated monitoring of technical and motion violations",
       benefit2: language === 'ar' ? "تقييم موضوعي شفاف مبني على البيانات الميدانية" : "Transparent objective evaluation based on field data"
     },
     footer: {
       title: language === 'ar' ? "دليل النجاح من المرة الأولى" : "First-Time Success Guide",
       desc: language === 'ar' ? "فهم هذه القواعد يقلل نسبة القلق ويزيد من فرص نجاحك بنسبة 85%. نحن هنا لتدريبك على تفادي هذه الأخطاء تقنياً." : "Understanding these rules reduces anxiety and increases success chances by 85%. We train you to avoid these errors technically.",
-      tags: language === 'ar' ? ["قاعدة الـ 3 أمتار", "المربع الأصفر", "فحص الكتف", "السرعة القانونية"] : ["3-Meter Rule", "Yellow Box", "Shoulder Check", "Legal Speed"]
+      tags: language === 'ar' ? ["قاعدة الثانيتين", "فحص الكتف", "السرعة القانونية", "المسافة الجانبية"] : ["2-Second Rule", "Shoulder Check", "Legal Speed", "Lateral Distance"]
     }
   }
 
@@ -130,9 +204,9 @@ export default function RulesPage() {
           <TabsList className="flex flex-wrap h-auto gap-3 bg-secondary/40 p-3 rounded-[3rem] mb-20 border border-white/5 justify-center shadow-2xl max-w-5xl mx-auto">
             {[
               { id: "failure", label: t.tabs.failure, icon: ShieldAlert },
-              { id: "regulatory", label: t.tabs.regulatory, icon: ListChecks },
+              { id: "minor", label: t.tabs.minor, icon: ListChecks },
+              { id: "regulatory", label: t.tabs.regulatory, icon: TrafficCone },
               { id: "warning", label: t.tabs.warning, icon: AlertTriangle },
-              { id: "road", label: t.tabs.road, icon: TrafficCone },
               { id: "dsssm", label: t.tabs.dsssm, icon: Info },
             ].map((tab) => (
               <TabsTrigger 
@@ -172,6 +246,29 @@ export default function RulesPage() {
                       ))}
                     </div>
                   </div>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="minor" className="space-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {t.minorSections.map((section) => (
+                <Card key={section.id} className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/30 transition-all group">
+                  <div className="flex items-center gap-5 mb-8">
+                    <div className="p-4 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                      <section.icon className="h-8 w-8" />
+                    </div>
+                    <h3 className="text-2xl font-black font-headline tracking-tight">{section.title}</h3>
+                  </div>
+                  <ul className="space-y-4">
+                    {section.items.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-muted-foreground hover:text-foreground transition-colors">
+                        <div className="h-1.5 w-1.5 rounded-full bg-accent mt-2 shrink-0" />
+                        <span className="text-sm font-medium leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </Card>
               ))}
             </div>
@@ -279,28 +376,6 @@ export default function RulesPage() {
         </div>
       </div>
     </div>
-  )
-}
-
-function Users(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <circle cx="9" cy="7" r="4" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-    </svg>
   )
 }
 
