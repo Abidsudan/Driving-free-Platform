@@ -1,6 +1,7 @@
+
 'use client';
 
-import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks } from "lucide-react"
+import { ShieldAlert, Info, AlertTriangle, CheckCircle, Navigation, TrafficCone, Layers, ListChecks, StopCircle, Zap, Car, EyeOff } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -14,224 +15,239 @@ export default function RulesPage() {
   const signsImg = PlaceHolderImages.find(img => img.id === "rta-signs")
 
   const t = {
-    title: language === 'ar' ? "🚦 دليل الإشارات والرموز المرورية" : "🚦 Traffic Signs & Symbols Guide",
-    subtitle: language === 'ar' ? "الدليل الشامل لجميع الإشارات والعلامات المرورية المعتمدة في دبي وفق معايير RTA" : "Comprehensive guide to all traffic signs and markings in Dubai per RTA standards",
-    badge: language === 'ar' ? "يحتوي على أكثر من 170 إشارة ورمز مروري" : "Contains over 170 traffic signs and symbols",
+    title: language === 'ar' ? "🚦 دليل الإشارات ومعايير التقييم" : "🚦 Traffic Signs & Evaluation Standards",
+    subtitle: language === 'ar' ? "الدليل الأكاديمي الشامل لقواعد المرور ومعايير الرسوب الفوري وفق معايير RTA دبي" : "Comprehensive academic guide to traffic rules and immediate failure criteria per Dubai RTA standards",
+    badge: language === 'ar' ? "محدث وفق آخر تعديلات دليل الفحص العملي" : "Updated per the latest practical test manual",
     stats: [
-      { num: "42", label: language === 'ar' ? "إشارة تنظيمية" : "Regulatory Signs" },
-      { num: "66", label: language === 'ar' ? "إشارة تحذيرية" : "Warning Signs" },
-      { num: "35", label: language === 'ar' ? "إشارة إرشادية" : "Guide Signs" },
-      { num: "12", label: language === 'ar' ? "علامة طرق" : "Road Markings" },
+      { num: "IF1", label: language === 'ar' ? "مخالفات الوقوف" : "Stop Violations" },
+      { num: "IF2", label: language === 'ar' ? "الاصطدام والتدخل" : "Collisions & Intervention" },
+      { num: "IF3", label: language === 'ar' ? "الإشارات والسرعة" : "Signs & Speeding" },
+      { num: "170+", label: language === 'ar' ? "إشارة مرورية" : "Traffic Signs" },
     ],
     tabs: {
-      failure: language === 'ar' ? "الرسوب الفوري" : "Instant Failure",
+      failure: language === 'ar' ? "الرسوب الفوري (IF)" : "Instant Failure (IF)",
       dsssm: language === 'ar' ? "نظام DSSSM" : "DSSSM System",
       regulatory: language === 'ar' ? "التنظيمية" : "Regulatory",
       warning: language === 'ar' ? "التحذيرية" : "Warning",
-      guide: language === 'ar' ? "الإرشادية" : "Guide",
       road: language === 'ar' ? "علامات الطريق" : "Road Signs",
     },
-    regulatory: {
-      title: language === 'ar' ? "١- الإشارات التنظيمية" : "1- Regulatory Signs",
-      desc: language === 'ar' ? "تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات. تشمل إشارات \"قف\"، \"إفسح الطريق\"، والإشارات الإلزامية التي يجب على السائق اتباعها بدقة لتجنب المخالفات والحوادث." : "These signs are used to regulate traffic and define obligations and prohibitions. They include 'STOP', 'GIVE WAY', and mandatory signs that drivers must follow strictly to avoid violations and accidents.",
-      items: language === 'ar' ? ["قف (STOP)", "إفسح الطريق", "ممنوع الدخول", "اتجاه إلزامي"] : ["STOP", "Give Way", "No Entry", "Mandatory Direction"]
-    },
-    warning: {
-      title: language === 'ar' ? "٢- الإشارات التحذيرية" : "2- Warning Signs",
-      desc: language === 'ar' ? "تنبيه السائقين إلى مخاطر محتملة على الطريق تتطلب الحذر الشديد." : "Alerting drivers to potential road hazards that require extreme caution.",
-      content: language === 'ar' ? "هذا القسم يحتوي على تحذيرات المنعطفات الحادة، مناطق عبور المشاة، والظروف الجوية المتغيرة. الإدراك السريع لهذه الإشارات يمنحك وقتاً كافياً لاتخاذ القرار الصحيح." : "This section contains warnings for sharp curves, pedestrian crossings, and changing weather conditions. Quick perception of these signs gives you enough time to make the right decision."
-    },
-    road: [
-      { title: language === 'ar' ? "علامات الترام" : "Tram Signs", icon: TrafficCone, color: "text-blue-400" },
-      { title: language === 'ar' ? "منطقة عبور المشاة" : "Pedestrian Crossing", icon: Navigation, color: "text-green-400" },
-      { title: language === 'ar' ? "خطوط سطح الطريق" : "Road Surface Markings", icon: Layers, color: "text-purple-400" },
+    failureSections: [
+      {
+        code: "IF1",
+        title: language === 'ar' ? "الإشارة الحمراء وخط التوقف" : "Red Light & Stop Line",
+        items: language === 'ar' ? [
+          "تجاوز الإشارة الحمراء أو علامة قف دون توقف تام (سكون العجلات).",
+          "الوقوف قبل خط التوقف بمسافة تزيد عن 3 أمتار وعدم القدرة على التقدم.",
+          "الوقوف بعد خط التوقف بمسافة تزيد عن نصف متر (50 سم).",
+          "عدم القدرة على التوقف مرة أخرى في حال الوقوف بعيداً عن الخط."
+        ] : [
+          "Passing red light or STOP sign without a complete wheel stop.",
+          "Stopping more than 3 meters before the line and unable to reach it.",
+          "Stopping more than 0.5 meters (50cm) after the stop line.",
+          "Failure to stop correctly after an initial distant stop."
+        ],
+        icon: StopCircle,
+        color: "border-red-500/30 bg-red-500/5"
+      },
+      {
+        code: "IF2",
+        title: language === 'ar' ? "الاصطدام وتدخل الفاحص" : "Collisions & Intervention",
+        items: language === 'ar' ? [
+          "الاصطدام بأي جسم ثابت (رصيف، حاجز) أو متحرك (مركبة، مشاة، دراجة).",
+          "تدخل الفاحص بالضغط على الفرامل أو كسم المقود لمنع خطر وشيك.",
+          "إجبار مستخدمي الطريق الآخرين على التوقف المفاجئ أو الانحراف لتجنبك.",
+          "إهمال فحص البقعة العمياء (Blind Spot) لأكثر من مرتين.",
+          "انطفاء محرك المركبة بسبب خطأ المتدرب لأكثر من مرتين."
+        ] : [
+          "Collision with any fixed object (curb) or moving object (car, pedestrian).",
+          "Examiner intervention (braking/steering) to prevent a hazard.",
+          "Forcing other road users to brake suddenly or swerve to avoid you.",
+          "Neglecting blind spot check more than 2 times.",
+          "Engine stalling due to trainee error more than 2 times."
+        ],
+        icon: ShieldAlert,
+        color: "border-orange-500/30 bg-orange-500/5"
+      },
+      {
+        code: "IF3",
+        title: language === 'ar' ? "مخالفة الإشارات والسرعة" : "Signs & Speed Violations",
+        items: language === 'ar' ? [
+          "عدم اتباع الإشارات الإلزامية أو المانعة (مثل ممنوع الدخول).",
+          "تجاوز السرعة المقررة للطريق بـ 5 كم/س فأكثر لمدة 10 ثوانٍ أو أكثر.",
+          "دخول المربع الأصفر في التقاطعات وبقاء أي جزء من المركبة فيه.",
+          "القيادة عكس اتجاه السير أو عدم اتباع إرشادات الفاحص القانونية."
+        ] : [
+          "Failure to follow mandatory or prohibitory traffic signs (e.g. No Entry).",
+          "Exceeding speed limit by 5km/h or more for 10 seconds or longer.",
+          "Entering and remaining in the Yellow Box junction.",
+          "Driving against traffic or ignoring legal examiner instructions."
+        ],
+        icon: Zap,
+        color: "border-yellow-500/30 bg-yellow-500/5"
+      }
     ],
     dsssm: {
       title: "DSSSM System",
-      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة. يقوم النظام برصد الانحرافات والقيادة المتهورة آلياً." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure the highest safety levels. The system monitors deviations and reckless driving automatically.",
-      benefit1: language === 'ar' ? "يحسن جودة القيادة بنسبة 40%" : "Improves driving quality by 40%",
-      benefit2: language === 'ar' ? "مرتبط مباشرة بسجل السائق المروري" : "Directly linked to the driver's traffic record"
+      desc: language === 'ar' ? "\"نظام مراقبة سلوك السائقين\" هو التقنية الذكية التي تعتمدها دبي لضمان أعلى مستويات السلامة عبر رصد الانحرافات آلياً." : "\"Driver Search and Safety Monitoring System\" is the smart technology adopted by Dubai to ensure safety by monitoring deviations automatically.",
+      benefit1: language === 'ar' ? "رصد آلي للمخالفات التقنية" : "Automated monitoring of technical violations",
+      benefit2: language === 'ar' ? "تقييم موضوعي مبني على البيانات" : "Objective data-driven evaluation"
     },
-    failureReasons: [
-      { title: language === 'ar' ? "عدم التوقف عند إشارة قف" : "Failure to stop at STOP sign", desc: language === 'ar' ? "يجب التوقف تماماً لثلاث ثوانٍ قبل خط الوقوف." : "Must come to a complete stop for 3 seconds before the stop line." },
-      { title: language === 'ar' ? "أولوية الدوار" : "Roundabout Priority", desc: language === 'ar' ? "دخول الدوار دون إعطاء الأولوية للقادم من اليسار." : "Entering a roundabout without giving priority to traffic from the left." },
-      { title: language === 'ar' ? "تجاوز السرعة" : "Speeding", desc: language === 'ar' ? "تجاوز سرعة الطريق المحددة ولو قليلاً أثناء الاختبار." : "Exceeding the specified road speed even slightly during the test." },
-      { title: language === 'ar' ? "النقطة العمياء" : "Blind Spot", desc: language === 'ar' ? "إهمال فحص الكتف عند تغيير المسار." : "Neglecting the shoulder check when changing lanes." },
-    ],
     footer: {
-      title: language === 'ar' ? "هل تريد الدليل الكامل؟" : "Want the Full Guide?",
-      desc: language === 'ar' ? "نقوم حالياً بتجهيز نسخة PDF تفاعلية تحتوي على شرح لكل إشارة من الإشارات الـ 170 المعتمدة في دبي." : "We are currently preparing an interactive PDF version containing explanations for each of the 170 approved signs in Dubai.",
-      tags: language === 'ar' ? ["إشارات قف", "أولويات الدوار", "مواقف ذوي الهمم", "خطوط المشاة الصفراء"] : ["Stop Signs", "Roundabout Priorities", "POD Parking", "Yellow Pedestrian Lines"]
+      title: language === 'ar' ? "دليل النجاح من المرة الأولى" : "First-Time Success Guide",
+      desc: language === 'ar' ? "فهم هذه القواعد يقلل نسبة القلق ويزيد من فرص نجاحك بنسبة 85%. نحن هنا لتدريبك على تفادي هذه الأخطاء تقنياً." : "Understanding these rules reduces anxiety and increases success chances by 85%. We train you to avoid these errors technically.",
+      tags: language === 'ar' ? ["قاعدة الـ 3 أمتار", "المربع الأصفر", "فحص الكتف", "السرعة القانونية"] : ["3-Meter Rule", "Yellow Box", "Shoulder Check", "Legal Speed"]
     }
   }
 
   return (
-    <div className="min-h-screen animate-fade-in">
+    <div className="min-h-screen animate-fade-in pb-40">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-accent/20 py-20 px-6 text-center text-white">
+      <div className="relative overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-accent/20 py-32 px-6 text-center text-white">
         <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4z\' fill=\'%23ffffff\'/%3E%3C/svg%3E")' }} />
-        <div className="container mx-auto relative z-10 space-y-6">
-          <h1 className="text-4xl md:text-6xl font-black font-headline tracking-tighter">{t.title}</h1>
-          <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-medium">{t.subtitle}</p>
-          <div className="inline-block px-6 py-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-sm font-bold">
+        <div className="container mx-auto relative z-10 space-y-10">
+          <h1 className="text-5xl md:text-9xl font-black font-headline tracking-tighter leading-none">{t.title}</h1>
+          <p className="text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto font-bold opacity-90">{t.subtitle}</p>
+          <div className="inline-block px-8 py-3 rounded-full bg-white/20 backdrop-blur-2xl border border-white/30 text-lg font-black uppercase tracking-widest shadow-2xl">
             {t.badge}
           </div>
         </div>
       </div>
 
       {/* Stats Bar */}
-      <div className="container mx-auto -mt-12 mb-12 relative z-20 px-4">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="container mx-auto -mt-20 mb-24 relative z-20 px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {t.stats.map((stat, i) => (
-            <Card key={i} className="glass-card border-white/10 text-center p-6 hover:translate-y-[-5px] transition-transform">
-              <span className="text-3xl md:text-4xl font-black text-gradient block">{stat.num}</span>
-              <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-2 block">{stat.label}</span>
+            <Card key={i} className="glass-card border-white/10 text-center p-10 hover:translate-y-[-10px] transition-all duration-700 shadow-2xl group">
+              <span className="text-5xl md:text-7xl font-black smart-gradient-text block leading-none group-hover:scale-110 transition-transform">{stat.num}</span>
+              <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mt-4 block opacity-60">{stat.label}</span>
             </Card>
           ))}
         </div>
       </div>
 
-      <div className="container mx-auto px-6 pb-20">
-        <Tabs defaultValue="regulatory" className="w-full">
-          <TabsList className="flex flex-wrap h-auto gap-2 bg-secondary/30 p-2 rounded-2xl mb-12 border border-white/5 justify-center">
+      <div className="container mx-auto px-6">
+        <Tabs defaultValue="failure" className="w-full">
+          <TabsList className="flex flex-wrap h-auto gap-3 bg-secondary/40 p-3 rounded-[3rem] mb-20 border border-white/5 justify-center shadow-2xl max-w-5xl mx-auto">
             {[
+              { id: "failure", label: t.tabs.failure, icon: ShieldAlert },
               { id: "regulatory", label: t.tabs.regulatory, icon: ListChecks },
               { id: "warning", label: t.tabs.warning, icon: AlertTriangle },
-              { id: "guide", label: t.tabs.guide, icon: Navigation },
               { id: "road", label: t.tabs.road, icon: TrafficCone },
-              { id: "failure", label: t.tabs.failure, icon: ShieldAlert },
               { id: "dsssm", label: t.tabs.dsssm, icon: Info },
             ].map((tab) => (
               <TabsTrigger 
                 key={tab.id} 
                 value={tab.id} 
-                className="px-6 py-3 rounded-xl font-bold data-[state=active]:bg-primary data-[state=active]:text-white flex items-center gap-2"
+                className="px-8 py-4 rounded-[2rem] font-black text-sm uppercase tracking-widest data-[state=active]:bg-primary data-[state=active]:text-white transition-all flex items-center gap-3"
               >
-                <tab.icon className="h-4 w-4" />
+                <tab.icon className="h-5 w-5" />
                 {tab.label}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          {/* Regulatory Section */}
-          <TabsContent value="regulatory" className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <h2 className="text-3xl font-headline font-black text-primary">{t.regulatory.title}</h2>
-                <p className="text-muted-foreground text-lg leading-relaxed">
-                  {t.regulatory.desc}
+          <TabsContent value="failure" className="space-y-12">
+            <div className="grid grid-cols-1 gap-8">
+              {t.failureSections.map((section, idx) => (
+                <Card key={idx} className={cn("rounded-[3rem] border-2 transition-all duration-500 overflow-hidden", section.color)}>
+                  <div className="p-8 md:p-12">
+                    <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10">
+                      <div className="h-20 w-20 rounded-3xl bg-background/50 flex items-center justify-center text-primary shadow-xl">
+                        <section.icon className="h-10 w-10" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <Badge variant="destructive" className="font-black px-3 py-1 rounded-lg">{section.code}</Badge>
+                          <h2 className="text-3xl md:text-5xl font-headline font-black tracking-tighter">{section.title}</h2>
+                        </div>
+                        <p className="text-muted-foreground font-bold uppercase tracking-widest text-xs">{language === 'ar' ? 'بنود الرسوب الفوري الإلزامية' : 'Mandatory Immediate Failure Items'}</p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {section.items.map((item, i) => (
+                        <div key={i} className="flex items-start gap-4 p-6 rounded-2xl bg-background/40 border border-white/5 group hover:border-primary/30 transition-all">
+                          <CheckCircle className="h-6 w-6 text-red-500 shrink-0 mt-1" />
+                          <span className="text-lg font-medium leading-relaxed">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="regulatory" className="space-y-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+              <div className="space-y-10">
+                <h2 className="text-5xl md:text-7xl font-headline font-black text-primary tracking-tighter leading-none">{language === 'ar' ? '١- الإشارات التنظيمية' : '1- Regulatory Signs'}</h2>
+                <p className="text-2xl text-muted-foreground leading-relaxed font-medium opacity-80">
+                  {language === 'ar' ? 'تُستخدم هذه الإشارات لتنظيم حركة السير وتحديد الالتزامات والممنوعات الإلزامية التي يجب اتباعها بدقة.' : 'These signs are used to regulate traffic and define mandatory obligations and prohibitions that must be followed strictly.'}
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {t.regulatory.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-secondary/40 border border-white/5">
-                      <div className="h-2 w-2 rounded-full bg-primary" />
-                      <span className="font-bold text-sm">{item}</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {['STOP', 'Give Way', 'No Entry', 'Mandatory Direction'].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 p-6 rounded-[2rem] bg-secondary/40 border border-white/5 shadow-xl hover:border-primary/30 transition-all group">
+                      <div className="h-3 w-3 rounded-full bg-primary group-hover:scale-150 transition-transform" />
+                      <span className="font-black text-lg tracking-tight">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
-                <Image 
-                  src={signsImg?.imageUrl || ""} 
-                  alt="Regulatory Signs" 
-                  fill 
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <Badge className="absolute bottom-6 right-6 bg-primary px-4 py-2 text-lg font-bold">RTA Signs Gallery</Badge>
+              <div className="relative aspect-video rounded-[4rem] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.6)] border border-white/10">
+                {signsImg?.imageUrl && (
+                  <Image 
+                    src={signsImg.imageUrl} 
+                    alt="Regulatory Signs" 
+                    fill 
+                    className="object-cover"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+                <Badge className="absolute bottom-10 right-10 bg-primary px-8 py-4 text-xl font-black rounded-3xl shadow-2xl">RTA Signs Gallery</Badge>
               </div>
             </div>
           </TabsContent>
 
-          {/* Warning Section */}
-          <TabsContent value="warning" className="space-y-8">
-            <Card className="glass-card border-yellow-500/20 overflow-hidden">
-               <div className="bg-yellow-500/10 p-8 border-b border-yellow-500/20">
-                  <h2 className="text-3xl font-headline font-black text-yellow-500">{t.warning.title}</h2>
-                  <p className="text-muted-foreground mt-2">{t.warning.desc}</p>
-               </div>
-               <CardContent className="p-8">
-                  <div className="text-center py-12 space-y-6">
-                    <AlertTriangle className="h-20 w-20 text-yellow-500 mx-auto animate-pulse" />
-                    <p className="max-w-md mx-auto text-muted-foreground leading-relaxed">
-                      {t.warning.content}
-                    </p>
-                  </div>
-               </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Road Signs Section */}
-          <TabsContent value="road" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {t.road.map((item, i) => (
-                <Card key={i} className="glass-card border-white/5 p-8 text-center hover:border-primary/50 transition-colors">
-                  <item.icon className={cn("h-12 w-12 mx-auto mb-4", item.color)} />
-                  <h3 className="text-xl font-bold font-headline">{item.title}</h3>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* Failure Reasons */}
-          <TabsContent value="failure" className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {t.failureReasons.map((reason, i) => (
-                <Card key={i} className="border-red-500/20 bg-red-500/5 hover:bg-red-500/10 transition-colors">
-                  <CardHeader className="flex flex-row items-center gap-4">
-                    <div className="p-3 bg-red-500/20 rounded-xl">
-                      <ShieldAlert className="h-6 w-6 text-red-500" />
-                    </div>
-                    <CardTitle className="text-xl font-bold">{reason.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">{reason.desc}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* DSSSM Section */}
-          <TabsContent value="dsssm" className="space-y-8">
-            <Card className="glass-card border-primary/20 overflow-hidden">
-               <div className="p-10 bg-primary/5 flex flex-col md:flex-row gap-10 items-center">
-                  <div className="flex-1 space-y-6">
-                    <h2 className="text-4xl font-headline font-black text-primary">{t.dsssm.title}</h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed italic">
+          <TabsContent value="dsssm" className="space-y-12">
+            <Card className="glass-card border-primary/20 rounded-[5rem] overflow-hidden shadow-2xl">
+               <div className="p-16 md:p-32 bg-primary/5 flex flex-col md:flex-row gap-20 items-center">
+                  <div className="flex-1 space-y-10">
+                    <h2 className="text-6xl md:text-9xl font-headline font-black text-primary tracking-tighter leading-none">{t.dsssm.title}</h2>
+                    <p className="text-3xl text-muted-foreground leading-relaxed italic font-bold opacity-90">
                       {t.dsssm.desc}
                     </p>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-500" />
-                        <span className="font-bold">{t.dsssm.benefit1}</span>
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-6 p-6 rounded-[2rem] bg-green-500/10 border border-green-500/20 shadow-xl">
+                        <CheckCircle className="h-8 w-8 text-green-500" />
+                        <span className="font-black text-xl tracking-tight">{t.dsssm.benefit1}</span>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="h-5 w-5 text-green-500" />
-                        <span className="font-bold">{t.dsssm.benefit2}</span>
+                      <div className="flex items-center gap-6 p-6 rounded-[2rem] bg-green-500/10 border border-green-500/20 shadow-xl">
+                        <CheckCircle className="h-8 w-8 text-green-500" />
+                        <span className="font-black text-xl tracking-tight">{t.dsssm.benefit2}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="w-full md:w-64 aspect-square bg-gradient-to-br from-primary to-accent rounded-[3rem] p-10 flex items-center justify-center shadow-2xl rotate-3">
-                    <Info className="h-32 w-32 text-white opacity-40" />
+                  <div className="w-full md:w-96 aspect-square bg-gradient-to-br from-primary to-accent rounded-[4rem] p-16 flex items-center justify-center shadow-[0_40px_100px_rgba(0,0,0,0.4)] rotate-6">
+                    <Info className="h-48 w-48 text-white opacity-40" />
                   </div>
                </div>
             </Card>
           </TabsContent>
         </Tabs>
 
-        {/* Full Table Link */}
-        <div className="mt-20 p-12 rounded-[3rem] bg-card/40 border border-white/5 text-center space-y-8">
-          <div className="inline-flex p-4 rounded-3xl bg-primary/10 text-primary">
-            <ListChecks className="h-10 w-10" />
+        {/* Footer Section */}
+        <div className="mt-40 p-20 md:p-32 rounded-[6rem] bg-card/40 border border-white/5 text-center space-y-12 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-full bg-primary/5 animate-pulse-slow" />
+          <div className="relative z-10 inline-flex p-8 rounded-[3rem] bg-primary/10 text-primary mb-4 animate-float">
+            <ListChecks className="h-16 w-16" />
           </div>
-          <h2 className="text-3xl font-headline font-black">{t.footer.title}</h2>
-          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+          <h2 className="relative z-10 text-5xl md:text-8xl font-headline font-black tracking-tighter leading-none">{t.footer.title}</h2>
+          <p className="relative z-10 text-2xl text-muted-foreground max-w-3xl mx-auto font-medium opacity-80">
             {t.footer.desc}
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="relative z-10 flex flex-wrap justify-center gap-6">
             {t.footer.tags.map((tag, i) => (
-              <Badge key={i} variant="secondary" className="px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest bg-white/5 hover:bg-primary hover:text-white transition-all cursor-default">
+              <Badge key={i} variant="secondary" className="px-10 py-4 rounded-full text-sm font-black uppercase tracking-[0.3em] bg-white/5 hover:bg-primary hover:text-white transition-all cursor-default shadow-xl border border-white/10">
                 {tag}
               </Badge>
             ))}
