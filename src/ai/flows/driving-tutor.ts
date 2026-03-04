@@ -5,6 +5,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const TutorInputSchema = z.object({
   question: z.string().describe('The student question about driving in Dubai.'),
@@ -23,11 +24,12 @@ const TutorOutputSchema = z.object({
 export type TutorInput = z.infer<typeof TutorInputSchema>;
 export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
-export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
-  const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
-    output: { schema: TutorOutputSchema },
-    system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academe.
+const tutorPrompt = ai.definePrompt({
+  name: 'tutorPrompt',
+  model: gemini15Flash,
+  input: { schema: TutorInputSchema },
+  output: { schema: TutorOutputSchema },
+  system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academe.
     Your expertise includes the "Mastery Set" of 16 essential RTA questions.
     
     Mastery Set Highlights:
@@ -39,12 +41,14 @@ export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
     - Health: Human ear (Outer, Middle, Inner).
     
     Guidelines:
-    1. Respond in ${input.language === 'ar' ? 'Arabic' : 'English'}.
+    1. Respond in {{#if (eq language 'ar')}}Arabic{{else}}English{{/if}}.
     2. Tone: Professional, academic, and encouraging.
     3. Always refer to these as "Rules of Mastery" if applicable.`,
-    prompt: input.question,
-  });
+  prompt: `{{question}}`,
+});
 
+export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
+  const { output } = await tutorPrompt(input);
   if (!output) {
     throw new Error('Failed to get response from AI Tutor.');
   }

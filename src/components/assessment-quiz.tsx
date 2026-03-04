@@ -84,23 +84,28 @@ export function AssessmentQuiz() {
     }
   }
 
-  const nextQuestion = () => {
+  const handleNextAction = () => {
     if (currentIndex < questions!.length - 1) {
       setCurrentIndex(prev => prev + 1)
       setSelectedAnswer(null)
       setIsAnswered(false)
     } else {
-      setIsFinished(true)
-      if (user && db) {
-        addDocumentNonBlocking(collection(db, 'users', user.uid, 'quizAttempts'), {
-          userId: user.uid,
-          startTime: new Date().toISOString(),
-          score: score,
-          totalQuestions: questions!.length,
-          isCompleted: true,
-          topic: language === 'ar' ? "اختبار مجموعة التميز" : "Mastery Set Test"
-        });
-      }
+      finishQuiz();
+    }
+  }
+
+  const finishQuiz = () => {
+    setIsFinished(true)
+    if (user && db && questions) {
+      addDocumentNonBlocking(collection(db, 'users', user.uid, 'quizAttempts'), {
+        userId: user.uid,
+        quizId: 'mastery-set',
+        startTime: new Date().toISOString(),
+        score: score,
+        totalQuestions: questions.length,
+        isCompleted: true,
+        topic: language === 'ar' ? "اختبار مجموعة التميز" : "Mastery Set Test"
+      });
     }
   }
 
@@ -265,7 +270,7 @@ export function AssessmentQuiz() {
               </div>
               <p className="text-2xl leading-relaxed text-muted-foreground font-bold italic opacity-90">{q.explanation}</p>
             </div>
-            <Button onClick={nextQuestion} className="h-24 w-full rounded-[2.5rem] font-black text-3xl shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 group">
+            <Button onClick={handleNextAction} className="h-24 w-full rounded-[2.5rem] font-black text-3xl shadow-2xl shadow-primary/40 bg-primary hover:bg-primary/90 group">
               {currentIndex === questions.length - 1 ? t.btnFinish : t.btnNext}
               {dir === 'rtl' ? <ArrowLeft className="h-8 w-8 mr-4 group-hover:translate-x-[-10px] transition-transform" /> : <ArrowRight className="h-8 w-8 ml-4 group-hover:translate-x-[10px] transition-transform" />}
             </Button>

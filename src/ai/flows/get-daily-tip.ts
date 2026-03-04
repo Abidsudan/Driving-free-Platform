@@ -5,6 +5,11 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { gemini15Flash } from '@genkit-ai/google-genai';
+
+const DailyTipInputSchema = z.object({
+  language: z.enum(['ar', 'en']).default('en'),
+});
 
 const DailyTipOutputSchema = z.object({
   title: z.string().describe('The title of the tip.'),
@@ -14,15 +19,18 @@ const DailyTipOutputSchema = z.object({
 
 export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
 
-export async function getDailyDrivingTip(language: 'ar' | 'en' = 'en'): Promise<DailyTipOutput> {
-  const { output } = await ai.generate({
-    model: 'googleai/gemini-1.5-flash',
-    output: { schema: DailyTipOutputSchema },
-    prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: ${language}. 
+const dailyTipPrompt = ai.definePrompt({
+  name: 'dailyTipPrompt',
+  model: gemini15Flash,
+  input: { schema: DailyTipInputSchema },
+  output: { schema: DailyTipOutputSchema },
+  prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: {{language}}. 
     Focus on technical aspects like (Braking Physics, Blind Spot Management, Psychology under pressure, or DSSSM rules).
     Keep the style scientific, formal, and highly informative.`,
-  });
+});
 
+export async function getDailyDrivingTip(language: 'ar' | 'en' = 'en'): Promise<DailyTipOutput> {
+  const { output } = await dailyTipPrompt({ language });
   if (!output) {
     throw new Error('Failed to generate daily tip.');
   }
