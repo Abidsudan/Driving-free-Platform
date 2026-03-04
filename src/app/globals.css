@@ -1,10 +1,10 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Deep Tech & Academic Theme - Refined HSL */
     --background: 222 47% 2%;
     --foreground: 210 40% 98%;
     
@@ -44,27 +44,27 @@
   body {
     @apply bg-background text-foreground font-body antialiased selection:bg-primary selection:text-primary-foreground;
     background-image: 
-      radial-gradient(circle at 50% 0%, hsl(var(--primary) / 0.05) 0%, transparent 50%),
-      radial-gradient(circle at 0% 100%, hsl(var(--accent) / 0.03) 0%, transparent 50%);
+      radial-gradient(circle at 50% 0%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 0% 100%, hsl(var(--accent) / 0.05) 0%, transparent 50%);
     background-attachment: fixed;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-headline tracking-tight;
+    @apply font-headline tracking-tighter;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-card/40 backdrop-blur-3xl border border-white/5 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] hover:border-primary/20 hover:bg-card/60;
+    @apply bg-card/40 backdrop-blur-3xl border border-white/5 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] hover:border-primary/20 hover:bg-card/60 hover:shadow-[0_48px_80px_-20px_rgba(0,0,0,0.6)];
   }
   .smart-gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient-x;
   }
-  .nav-blur {
-    @apply bg-background/80 backdrop-blur-2xl border-b border-white/5;
-  }
   .academic-badge {
     @apply inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest;
+  }
+  .tech-container {
+    @apply relative overflow-hidden rounded-[3rem] border border-white/5 bg-card/20 backdrop-blur-xl;
   }
 }
 
@@ -88,8 +88,8 @@
 }
 
 @keyframes pulse-slow {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.05); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.02); }
 }
 
 .animate-pulse-slow {
@@ -100,7 +100,6 @@
   display: none;
 }
 
-/* Custom Scrollbar for Academy feel */
 ::-webkit-scrollbar {
   width: 6px;
 }

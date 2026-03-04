@@ -14,28 +14,40 @@
       "imageHint": "dubai highway night"
     },
     {
-      "id": "instructor-hero",
-      "description": "Professional driving instructor in Dubai",
-      "imageUrl": "https://images.unsplash.com/photo-1516862523118-a3724eb136d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "imageHint": "driving instructor"
+      "id": "stage-1-visual",
+      "description": "Seating geometry and steering control",
+      "imageUrl": "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "car steering wheel"
     },
     {
-      "id": "rta-signs",
-      "description": "Dubai road signs collection",
-      "imageUrl": "https://images.unsplash.com/photo-1601735479770-bb5de9dbe844?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "imageHint": "road signs"
+      "id": "stage-2-visual",
+      "description": "Residential area driving",
+      "imageUrl": "https://images.unsplash.com/photo-1502161250201-487c63933c53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "neighborhood street"
     },
     {
-      "id": "curriculum-stage",
-      "description": "Structured driving lesson",
-      "imageUrl": "https://images.unsplash.com/photo-1618839112829-9dea81b885ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
-      "imageHint": "driving lesson"
+      "id": "stage-3-visual",
+      "description": "High speed highway merge",
+      "imageUrl": "https://images.unsplash.com/photo-1542281286-9e0a16bb7366?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "fast highway"
+    },
+    {
+      "id": "stage-4-visual",
+      "description": "Smart parking technology",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "parking lines"
     },
     {
       "id": "scientific-library",
       "description": "Academic books on vehicle dynamics",
       "imageUrl": "https://images.unsplash.com/photo-1624267583657-6ad9c184fae0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
       "imageHint": "technical books"
+    },
+    {
+      "id": "rta-signs",
+      "description": "Dubai road signs collection",
+      "imageUrl": "https://images.unsplash.com/photo-1601735479770-bb5de9dbe844?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      "imageHint": "road signs"
     }
   ]
 }

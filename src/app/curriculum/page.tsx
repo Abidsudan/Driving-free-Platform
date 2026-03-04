@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from "next/image"
@@ -6,8 +7,7 @@ import {
   BookOpen, Map, Zap, Construction, Gauge, Navigation, 
   ShieldCheck, Award, Info, ChevronRight, CheckCircle2, 
   Sparkles, Target, Eye, Settings, Car, ShieldAlert,
-  Thermometer, Fuel, Search, LogIn, UserCheck, Play, Move, SquareSlash,
-  UserCircle, AlertCircle, ArrowRightLeft, Sunrise, Moon, LayoutDashboard
+  Move, LayoutDashboard, Star, Camera, Compass
 } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
@@ -22,14 +22,14 @@ export default function CurriculumPage() {
   const t = {
     title: language === 'ar' ? "المنهج الأكاديمي المطور" : "Advanced Academic Curriculum",
     description: language === 'ar' 
-      ? "هيكل تعليمي متكامل يجمع بين فيزياء المركبة وفن القيادة الميدانية بأسلوب علمي حديث، مصمم لضمان الاحتراف المعرفي والنجاح الميداني."
-      : "A comprehensive educational structure combining vehicle physics and field driving art, designed for cognitive mastery and field success.",
+      ? "هيكل تعليمي متكامل يجمع بين فيزياء المركبة وفن القيادة الميدانية بأسلوب علمي حديث."
+      : "A comprehensive educational structure combining vehicle physics and field driving art.",
     part1Title: language === 'ar' ? "مهارات الطريق" : "Road Skills",
     part2Title: language === 'ar' ? "المواقف الذكية" : "Smart Parking",
     ctaTitle: language === 'ar' ? "هل أنت مستعد للاحتراف؟" : "Ready for Mastery?",
     ctaDesc: language === 'ar' 
-      ? "بعد إتمام المنهج المعرفي، انتقل إلى المحاكي الذكي لتجربة اختبار RTA النظري الحقيقي."
-      : "After completing the cognitive curriculum, proceed to the Smart Simulator for the real RTA theory experience.",
+      ? "انتقل الآن إلى المحاكي الذكي لتجربة اختبار RTA النظري الحقيقي."
+      : "Proceed now to the Smart Simulator for the real RTA theory experience.",
     btnCta: language === 'ar' ? "ابدأ التقييم الشامل" : "Start Full Assessment",
     examinerTip: language === 'ar' ? "نصيحة الفاحص 🚦" : "Examiner Tip 🚦",
     instructorNote: language === 'ar' ? "ملاحظة فنية للمدرب 🛠️" : "Technical Instructor Note 🛠️",
@@ -37,197 +37,101 @@ export default function CurriculumPage() {
       {
         id: "stage-1",
         title: language === 'ar' ? "المرحلة الأولى: التأسيس والتحكم" : "Stage 1: Foundations & Control",
-        desc: language === 'ar' ? "التعرف على المركبة وبناء روتين أمان ثابت في بيئة مغلقة." : "Vehicle orientation and building a solid safety routine in a closed environment.",
+        desc: language === 'ar' ? "فهم أبعاد المركبة، أدوات التحكم، وبناء روتين أمان ثابت." : "Understanding vehicle dimensions, controls, and building a solid safety routine.",
         icon: Gauge,
+        visualId: "stage-1-visual",
         details: [
           { 
-            sub: language === 'ar' ? "الفحص الخارجي للجاهزية" : "External Readiness Check", 
+            sub: language === 'ar' ? "الروتين المسبق (D-S-M-B)" : "Pre-Driving Routine (D-S-M-B)", 
             desc: language === 'ar' 
-              ? `التأكد من سلامة المركبة قبل بدء القيادة:
-                • فحص الإطارات: التأكد من عدم وجود تسريبات للهواء أو انثقاب.
-                • الأضواء: التحقق من عمل جميع الأضواء (الأمامية، الخلفية، والجانبية).
-                • المرايا: فحص نظافة وسلامة المرايا الجانبية والخلفية.
-                • السوائل: البحث عن أي تسريبات للزيوت أو السوائل أسفل المركبة.
-                • الرؤية: التأكد من نظافة الزجاج الأمامي والخلفي لضمان رؤية واضحة.` 
-              : "Checking vehicle integrity before driving: Tire pressure, all lights operation, mirror cleanliness, searching for fluid leaks, and ensuring glass clarity."
-          },
-          { 
-            sub: language === 'ar' ? "بروتوكول الدخول الآمن" : "Safe Entry Protocol", 
-            desc: language === 'ar' 
-              ? `الدخول بطريقة آمنة دون الإضرار بالمركبات المجاورة:
-                • افتح الباب ببطء وحذر شديد.
-                • تأكد من عدم وجود مركبات أو دراجات نارية مقتربة قبل فتح الباب.
-                • ادخل إلى المركبة بسلاسة.
-                • أغلق الباب بقوة كافية لضمان إغلاقه بإحكام وأمان.` 
-              : "Entering safely: Open door slowly, check for approaching traffic, enter smoothly, and close firmly for safety."
-          },
-          { 
-            sub: language === 'ar' ? "الروتين المسبق (أبواب - مقعد - مرايا - حزام)" : "Pre-Driving Routine (D-S-M-B)", 
-            desc: language === 'ar' 
-              ? `بمجرد دخولك للسيارة، هناك تسلسل إلزامي:
-                • الأبواب: تأكد من إغلاق جميع الأبواب بإحكام (تحقق من لوحة العدادات).
+              ? `بمجرد دخولك للسيارة، اتبع هذا التسلسل الإلزامي:
+                • الأبواب: تأكد من إغلاق جميع الأبواب بإحكام.
                 • تعديل المقعد: اضبط المسافة بحيث تضغط الفرامل بالكامل مع انحناء بسيط في الركبة.
-                • الظهر: اضبط زاوية الظهر لراحة اليدين (100-110 درجة) مع انحناء خفيف في المرفقين.
-                • مسند الرأس: يجب أن يكون في مستوى منتصف رأسك لحماية الرقبة.
-                • المرايا: الوسطى تكشف الزجاج الخلفي كاملاً، والجانبية تكشف 90% من الطريق و10% من هيكل السيارة.
-                • حزام الأمان: اربط حزامك وتأكد من ربط المرافقين لحزامهم.` 
-              : "Mandatory sequence: Doors (fully closed), Seat (knee flex), Back (100-110 degrees), Headrest (mid-head), Mirrors (Max road view), and Seatbelt usage.",
-            tip: language === 'ar' ? "تحريك السيارة قبل ربط حزام الأمان لك أو لمرافقك يُعتبر خطأً ورسوباً فورياً." : "Moving the car before buckling up yourself or passengers is an immediate fail."
+                • المرايا: الوسطى تكشف الزجاج الخلفي، والجانبية تكشف 10% من هيكل السيارة.
+                • حزام الأمان: اربط حزامك وتأكد من ربط مرافقيك.` 
+              : "Mandatory sequence: Doors (closed), Seat (knee flex), Mirrors (road view), and Seatbelt usage.",
+            tip: language === 'ar' ? "تحريك السيارة قبل ربط حزام الأمان لك أو لمرافقك يُعتبر خطأً ورسوباً فورياً." : "Moving before buckling up is an immediate fail."
           },
           { 
-            sub: language === 'ar' ? "لوحة الأجهزة وبروتوكول التشغيل" : "Dashboard & Ignition Protocol", 
+            sub: language === 'ar' ? "أدوات التحكم وقاعدة القدم الواحدة" : "Controls & One-Foot Rule", 
             desc: language === 'ar' 
-              ? `• عداد السرعة ومقاييس الوقود والحرارة: فهم حالة المركبة الميكانيكية.
-                • أضواء التحذير: الانتباه الفوري لأي ضوء أحمر في اللوحة.
-                • التشغيل: تأكد من وضع (P) أو (N)، اضغط الفرامل بقوة، ثم شغل المحرك وانتظر ثوانٍ لتوزع الزيت.` 
-              : "Understanding speed, fuel, and heat gauges. Red warning lights require immediate attention. Ensure P or N position, press brake, and start engine."
-          },
-          { 
-            sub: language === 'ar' ? "قاعدة القدم الواحدة وأدوات التحكم" : "One-Foot Rule & Controls", 
-            desc: language === 'ar' 
-              ? `• قاعدة القدم الواحدة: استخدم القدم اليمنى فقط للبنزين والفرامل. اليسرى تبقى مرتاحة تماماً.
-                • ناقل الحركة: (P) للوقوف، (R) للرجوع، (N) للمحايد، (D) للقيادة.
-                • بروتوكول الانطلاق: 1. فرامل قدم، 2. غيّر لـ (D)، 3. أنزل الهاند بريك، 4. مرايا وإشارة، 5. نظرة الكتف (حاسمة)، 6. انطلق بنعومة.` 
-              : "One-foot rule: Right foot for Gas/Brake. Gear positions (P,R,N,D). Moving off: 1. Brake, 2. Shift to D, 3. Release Handbrake, 4. Mirrors/Signal, 5. Crucial Shoulder Check, 6. Smooth roll.",
-            tip: language === 'ar' ? "استخدام قدمين في سيارة أوتوماتيكية خطر جداً ويؤدي للرسوب." : "Using two feet in an automatic car is extremely dangerous and leads to failure."
-          },
-          { 
-            sub: language === 'ar' ? "بروتوكول التوقف الآمن" : "Safe Stopping Protocol", 
-            desc: language === 'ar' 
-              ? `1. افحص المرآة الوسطى واليمنى، وأعطِ إشارة لليمين.
-                2. ارفع قدمك عن البنزين واضغط الفرامل بتدرج لتجنب التوقف العنيف.
-                3. بعد الوقوف: اسحب فرامل اليد أولاً، ثم ضع الجير على (P)، ثم ارفع قدمك عن الفرامل.` 
-              : "1. Mirrors & Right Signal. 2. Gradual Braking. 3. After stopping: Handbrake FIRST, then shift to P, then release foot brake.",
-            note: language === 'ar' ? "سحب فرامل اليد قبل وضع الجير على P يضمن تحميل وزن السيارة على الفرامل وليس ناقل الحركة." : "Pulling the handbrake before shifting to P ensures the vehicle weight is held by the brakes."
+              ? `• قاعدة القدم الواحدة: استخدم القدم اليمنى فقط للبنزين والفرامل. اليسرى تبقى مرتاحة.
+                • ناقل الحركة (الجير): (P) للوقوف، (R) للرجوع، (N) للمحايد، (D) للقيادة.` 
+              : "Use only the right foot for gas/brake. Gear positions: P (Park), R (Reverse), N (Neutral), D (Drive).",
+            note: language === 'ar' ? "استخدام قدمين في سيارة أوتوماتيكية خطر جداً ويؤدي للرسوب الفوري." : "Using two feet in an automatic is dangerous and leads to failure."
           }
         ]
       },
       {
         id: "stage-2",
-        title: language === 'ar' ? "المرحلة الثانية: الطرق العامة (كثافة خفيفة)" : "Stage 2: Public Roads (Light Traffic)",
-        desc: language === 'ar' ? "إدارة المساحات والسرعة في المناطق السكنية والتعامل مع التقاطعات." : "Managing space and speed in residential areas and handling junctions.",
-        icon: Navigation,
+        title: language === 'ar' ? "المرحلة الثانية: الطرق السكنية (40 كم/س)" : "Stage 2: Residential Roads (40km/h)",
+        desc: language === 'ar' ? "إدارة المساحات وتوقع المخاطر في البيئات الهادئة والتقاطعات." : "Space management and hazard anticipation in quiet areas and junctions.",
+        icon: Compass,
+        visualId: "stage-2-visual",
         details: [
           { 
-            sub: language === 'ar' ? "فحص النقطة العمياء (Shoulder Check)" : "Blind Spot & Shoulder Check", 
+            sub: language === 'ar' ? "قاعدة الـ 1.5 متر والتجاوز" : "1.5m Rule & Overtaking", 
             desc: language === 'ar' 
-              ? `القاعدة الأساسية: المرايا لا تكفي وحدها أبداً لاتخاذ قرار الانتقال.
-                • أدرك أن هناك مساحات بجانبك وخلفك لا تظهر في أي مرآة.
-                • التفت برأسك (نظرة الكتف) للتحقق من النقاط العمياء قبل أي تغيير للمسار أو انعطاف.` 
-              : "Mirrors alone are never enough. Perform a quick shoulder check to verify areas not visible in mirrors before any lane change or turn." 
+              ? `• السرعة: التزم بـ 40 كم/ساعة كحد أقصى.
+                • المسافة الجانبية: اترك 1.5 متر عند المرور بجانب سيارات مركونة لتجنب فتح الأبواب المفاجئ.
+                • التجاوز: ممنوع إلا للضرورة (عائق ثابت) وباتباع (مرآة-إشارة-كتف).` 
+              : "Maintain 40km/h max. Keep 1.5m side distance from parked cars. Overtake only for fixed obstacles."
           },
           { 
-            sub: language === 'ar' ? "القيادة السكنية وإدارة المساحات" : "Residential Driving & Space Management", 
+            sub: language === 'ar' ? "تقاطعات T-Junctions" : "Handling T-Junctions", 
             desc: language === 'ar' 
-              ? `تتطلب المناطق الداخلية إدارة صارمة للمساحات وتوقعاً مستمراً للمخاطر:
-                • السرعة: التزم بـ 40 كم/ساعة كحد أقصى لضمان مسافة توقف آمنة.
-                • قاعدة الـ 1.5 متر: عند المرور بجانب سيارات مركونة، اترك مسافة لا تقل عن 1.5 متر لتفادي فتح الأبواب المفاجئ.` 
-              : "Residential areas require strict space management: Max 40km/h speed, keeping to the right, and the 1.5m side distance rule when passing parked cars." 
-          },
-          { 
-            sub: language === 'ar' ? "فن التعامل مع تقاطعات (T-Junctions)" : "Handling T-Junctions", 
-            desc: language === 'ar' 
-              ? `• علامة قف (STOP): توقف تام (سكون العجلات) قبل الخط، حتى لو كان الطريق خالياً. تفقد (يسار - يمين - يسار).
-                • علامة افسح الطريق (Give Way): خفف السرعة واستعد للتوقف. الأولوية للقادمين في الطريق الرئيسي.
-                • لغة التواصل: استخدم التواصل البصري (Eye Contact) أو إشارات اليد الودية لتسهيل الحركة المرورية.` 
-              : "STOP sign requires a full wheel stop before the line. Give Way sign requires yielding priority to the main road. Use eye contact to facilitate flow." 
-          },
-          { 
-            sub: language === 'ar' ? "احترام حقوق معابر المشاة" : "Respecting Pedestrian Crossings", 
-            desc: language === 'ar' 
-              ? `• المسح البصري: ابحث عن معابر المشاة والشاخصات التحذيرية مبكراً.
-                • الأولوية المطلقة: دائماً للمشاة، حتى لو لمسوا الشارع بقدم واحدة. يُمنع منعاً باتاً استعجالهم.` 
-              : "Scan ahead for crossings. Pedestrians have absolute priority even if they've just stepped onto the road. Never rush them." 
+              ? `• علامة قف (STOP): توقف تام (سكون العجلات) لـ 3 ثوانٍ قبل الخط.
+                • علامة افسح الطريق (Give Way): خفف واستعد للتوقف للقادمين من الطريق الرئيسي.` 
+              : "STOP sign: Full wheel stop for 3 seconds. Give Way: Slow down and yield to main road traffic."
           }
         ]
       },
       {
         id: "stage-3",
-        title: language === 'ar' ? "المرحلة الثالثة: القيادة المتقدمة (كثافة عالية)" : "Stage 3: Advanced Road Driving",
-        desc: language === 'ar' ? "التعامل مع السرعات العالية (60-80 كم/ساعة)، الاندماج في الطرق السريعة، وإتقان الدوارات." : "Handling high speeds (60-80km/h), merging into highways, and mastering roundabouts.",
+        title: language === 'ar' ? "المرحلة الثالثة: القيادة المتقدمة (60-80 كم/س)" : "Stage 3: Advanced Road (60-80km/h)",
+        desc: language === 'ar' ? "إتقان السرعات العالية، الاندماج في الطرق السريعة، والدوارات." : "Mastering high speeds, highway merging, and complex roundabouts.",
         icon: Zap,
+        visualId: "stage-3-visual",
         details: [
           { 
             sub: language === 'ar' ? "الاندماج والتسارع الإيجابي" : "Merging & Positive Acceleration", 
             desc: language === 'ar' 
-              ? `الهدف هو الدخول للطريق الرئيسي بأمان وبدون عرقلة التدفق المروري:
-                • اختيار الفجوة: لا تندمج إلا إذا كانت المساحة خالية تماماً ولا تجبر الآخرين على الفرملة.
-                • التسارع الإيجابي: الخطأ الأكبر هو الدخول ببطء! بمجرد استقامة السيارة، اضغط بقوة لتصل لسرعة الشارع (60-80 كم/ساعة) لتندمج مع حركة المرور وتتجنب الاصطدام الخلفي.` 
-              : "Enter main roads without disrupting flow. Use 'Positive Acceleration' to reach road speed (60-80km/h) immediately after straightening to avoid rear-end collisions."
-          },
-          { 
-            sub: language === 'ar' ? "القاعدة الذهبية: الالتزام باليمين" : "The Golden Rule: Keeping Right", 
-            desc: language === 'ar' 
-              ? `• المسار الإلزامي: بصفتك تقود سيارة تدريب أو فحص، المسار الأيمن هو مسارك الإلزامي الدائم.
-                • مغادرة اليمين: فقط للضرورة القصوى (تجاوز مركبة بطيئة، أو الاستعداد للانعطاف يساراً/U-Turn).
-                • العودة الفورية: بمجرد انتهاء الضرورة، يجب العودة فوراً للمسار الأيمن.` 
-              : "Trainees must strictly stay in the right lane. Depart only for overtaking or preparing for a left turn/U-turn, and return immediately after."
-          },
-          { 
-            sub: language === 'ar' ? "أسرار تغيير المسار (Lane Changing)" : "Secrets of Lane Changing", 
-            desc: language === 'ar' 
-              ? `تطبيق (مرآة - إشارة - كتف - مناورة) حتمي، مع الانتباه لهذه الأخطاء:
-                • ثبات الجسم: عند فحص النقطة العمياء، التفت برقبتك فقط. تحريك الكتف سيحرف المقود لا إرادياً (رسوب فوري).
-                • توجيه النظر: بمجرد بدء المناورة، انظر لمنتصف المسار الجديد. النظر للمرآة أثناء الانتقال يفقدك السيطرة.` 
-              : "Apply (Mirror-Signal-Shoulder). Keep shoulders steady during shoulder check to avoid involuntary steering. Look at the center of the target lane during the maneuver."
-          },
-          { 
-            sub: language === 'ar' ? "مسافة الأمان وقانون الثانيتين" : "Safety Distance & 2-Second Rule", 
-            desc: language === 'ar' 
-              ? `• القاعدة: اترك مسافة ثانيتين على الأقل (اختر علامة ثابتة، وعند تجاوز السيارة الأمامية لها، عد: واحد، اثنان).
-                • الظروف الصعبة: في المطر، الضباب، أو الغبار، ضاعف المسافة لتصبح 4 ثوانٍ أو أكثر.` 
-              : "Maintain a 2-second gap in ideal conditions and double it to 4 seconds during rain, fog, or dust storms."
-          },
-          { 
-            sub: language === 'ar' ? "الإشارات الضوئية والتقاطعات" : "Traffic Lights & Intersections", 
-            desc: language === 'ar' 
-              ? `• الأصفر: يعني "توقف بأمان". لا تزد سرعتك لمحاولة لحاق الإشارة.
-                • الأخضر (الانطلاق الحذر): انظر سريعاً (يسار - يمين) للتأكد من عدم وجود مركبة متأخرة تقطع الإشارة قبل أن تنطلق.` 
-              : "Yellow means stop safely. Never accelerate to 'beat' the light. Green requires a quick scan (left-right) for late cross-traffic before proceeding."
+              ? `الخطأ الأكبر هو الدخول ببطء! بمجرد استقامة السيارة في الطريق الرئيسي، اضغط بقوة لتصل لسرعة الشارع لتتجنب الاصطدام الخلفي.` 
+              : "Avoid entering slowly. Once straightened on the main road, accelerate firmly to match street speed to avoid collisions."
           },
           { 
             sub: language === 'ar' ? "إتقان الدوارات (Roundabouts)" : "Mastering Roundabouts", 
             desc: language === 'ar' 
-              ? `• الأولوية: دائماً للمركبات داخل الدوار (القادمة من اليسار).
-                • إشارات اليمين: مسار أيمن + إشارة يمين من البداية.
-                • إشارات للأمام: مسار أيمن/أوسط + بدون إشارة دخول + إشارة يمين قبل الخروج (بعد المخرج الأول).
-                • لليسار / U-Turn: مسار أيسر + إشارة يسار دخول + إشارة يمين قبل الخروج.` 
-              : "Priority to traffic inside. Master signaling: Right (Right lane/signal), Straight (No entry signal, exit signal), Left/U-turn (Left lane/signal, exit signal)." ,
-            tip: language === 'ar' ? "فخ المسار الأيسر: عند الخروج من الدوار لليسار، ستجد نفسك في المسار الأيسر. افحص فوراً وانتقل للمسار الأيمن بمبادرة منك لتطبيق قانون الالتزام باليمين." : "Left Lane Trap: After a left exit, check mirrors and move back to the right lane immediately without waiting for instructions."
-          },
-          { 
-            sub: language === 'ar' ? "القيادة الليلية (Night Driving)" : "Night Driving Protocol", 
-            desc: language === 'ar' 
-              ? `• الأضواء: شغل المنخفض (Low Beam) فور غروب الشمس. يمنع العالي (High Beam) في الشوارع المضاءة.
-                • السرعة والتركيز: خفف سرعتك لتقدير المسافات بدقة، وضاعف تركيزك على الحواف لاكتشاف المشاة.` 
-              : "Use Low Beams after sunset. Avoid High Beams in lit streets. Reduce speed to accurately judge distances and focus on road edges."
+              ? `• الأولوية: دائماً للقادم من اليسار (داخل الدوار).
+                • الإشارات: يمين للمخرج الأول، بدون إشارة للدخول للأمام مع إشارة يمين قبل الخروج.` 
+              : "Priority to the left. Right signal for 1st exit. No entry signal for straight, right signal before exit.",
+            tip: language === 'ar' ? "فخ المسار الأيسر: عند الخروج لليسار، انتقل فوراً للمسار الأيمن بمبادرة منك لتجنب مخالفة الالتزام باليمين." : "Left Lane Trap: After a left exit, move immediately back to the right lane."
           }
         ]
       }
     ],
     parkingStage: {
       id: "stage-4",
-      title: language === 'ar' ? "المرحلة الرابعة: المواقف الذكية (Smart Parking)" : "Stage 4: Smart Parking Exam",
-      desc: language === 'ar' ? "إتقان مناورات المواقف الخمس باستخدام التقنيات الذكية والنقاط المرجعية." : "Mastering the five parking maneuvers using smart tech and reference points.",
+      title: language === 'ar' ? "المرحلة الرابعة: المواقف الذكية" : "Stage 4: Smart Parking",
+      desc: language === 'ar' ? "إتقان مناورات الركن الخمس باستخدام النقاط المرجعية والتقنيات الذكية." : "Mastering five parking maneuvers using reference points and smart tech.",
       icon: Construction,
+      visualId: "stage-4-visual",
       details: [
-        { sub: language === 'ar' ? "المواقف المتوازية (Parallel)" : "Parallel Parking", desc: language === 'ar' ? "ركن المركبة في مساحة محدودة بين سيارتين باستخدام نقاط مرجعية دقيقة تضمن التوسيط الكامل." : "Parking in a limited space between two cars using precise reference points for perfect centering." },
-        { sub: language === 'ar' ? "المواقف العمودية (90 Degree)" : "Perpendicular Parking", desc: language === 'ar' ? "الدخول في الموقف بزاوية قائمة مع الحفاظ على مسافة متساوية من الخطوط الجانبية الذكية." : "Entering the stall at a 90-degree angle while maintaining equal distance from smart side lines." },
-        { sub: language === 'ar' ? "توازن المرتفع (Hill Start)" : "Hill Start Mastery", desc: language === 'ar' ? "توازن القوة بين المحرك وفرامل اليد للانطلاق من المرتفع دون أي رجوع للخلف." : "Balancing power between engine and handbrake to launch on an incline without rolling back." },
-        { sub: language === 'ar' ? "الوقوف الاضطراري (Emergency)" : "Emergency Braking", desc: language === 'ar' ? "الاستجابة الفورية والتحكم التام لإيقاف المركبة في أقصر مسافة ممكنة عند ظهور خطر مفاجئ." : "Immediate response and total control to stop the vehicle in the shortest distance when a sudden hazard appears." }
+        { sub: language === 'ar' ? "الموقف المتوازي (Parallel)" : "Parallel Parking", desc: language === 'ar' ? "ركن المركبة في مساحة محدودة بين سيارتين باستخدام نقاط مرجعية دقيقة." : "Parking in limited space using precise reference points." },
+        { sub: language === 'ar' ? "الموقف العمودي (90 Degree)" : "Perpendicular Parking", desc: language === 'ar' ? "الدخول في الموقف بزاوية قائمة مع الحفاظ على التوسيط الكامل." : "Entering stall at 90 degrees with perfect centering." }
       ]
     }
   };
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-12 space-y-16 animate-fade-in pb-32 overflow-x-hidden">
-      {/* Header Section */}
-      <div className="max-w-4xl mx-auto text-center space-y-8">
+    <div className="container mx-auto px-4 py-12 space-y-16 animate-fade-in pb-32">
+      {/* Header */}
+      <div className="max-w-4xl mx-auto text-center space-y-6">
         <div className="academic-badge mx-auto glass-card flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-accent" />
-          {language === 'ar' ? "دليل الاحتراف المعرفي الشامل" : "Professional Knowledge Guide"}
+          {language === 'ar' ? "دليل الاحتراف المعرفي" : "Professional Knowledge Guide"}
         </div>
-        <h1 className="text-4xl md:text-7xl font-black font-headline tracking-tighter leading-tight smart-gradient-text">
+        <h1 className="text-4xl md:text-7xl font-black font-headline tracking-tighter smart-gradient-text leading-tight">
           {t.title}
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto opacity-80 leading-relaxed">
@@ -236,76 +140,69 @@ export default function CurriculumPage() {
       </div>
 
       <Tabs defaultValue="road" className="w-full max-w-5xl mx-auto">
-        <TabsList className="flex w-full h-auto p-1.5 bg-secondary/20 rounded-2xl md:rounded-full border border-white/5 mb-16 shadow-2xl backdrop-blur-md">
-          <TabsTrigger value="road" className="flex-1 py-4 md:py-5 rounded-xl md:rounded-full font-black text-xs md:text-lg flex items-center justify-center gap-3 data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-xl transition-all">
-            <Map className="h-4 w-4 md:h-6 md:w-6 shrink-0" /> 
-            <span className="truncate">{t.part1Title}</span>
+        <TabsList className="flex w-full h-auto p-1.5 bg-secondary/20 rounded-2xl md:rounded-full border border-white/5 mb-12 shadow-xl backdrop-blur-md">
+          <TabsTrigger value="road" className="flex-1 py-4 md:py-5 rounded-xl md:rounded-full font-black text-xs md:text-lg flex items-center justify-center gap-3 data-[state=active]:bg-primary data-[state=active]:text-white transition-all">
+            <Map className="h-4 w-4 md:h-6 md:w-6" /> 
+            {t.part1Title}
           </TabsTrigger>
-          <TabsTrigger value="parking" className="flex-1 py-4 md:py-5 rounded-xl md:rounded-full font-black text-xs md:text-lg flex items-center justify-center gap-3 data-[state=active]:bg-accent data-[state=active]:text-accent-foreground data-[state=active]:shadow-xl transition-all">
-            <Construction className="h-4 w-4 md:h-6 md:w-6 shrink-0" /> 
-            <span className="truncate">{t.part2Title}</span>
+          <TabsTrigger value="parking" className="flex-1 py-4 md:py-5 rounded-xl md:rounded-full font-black text-xs md:text-lg flex items-center justify-center gap-3 data-[state=active]:bg-accent data-[state=active]:text-accent-foreground transition-all">
+            <Construction className="h-4 w-4 md:h-6 md:w-6" /> 
+            {t.part2Title}
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="road" className="space-y-12">
+        <TabsContent value="road" className="space-y-10">
           {t.roadStages.map((stage, idx) => (
-            <Card key={stage.id} className="overflow-hidden border-white/5 bg-card/30 backdrop-blur-2xl rounded-[3rem] group hover:border-primary/20 transition-all duration-700 shadow-2xl">
+            <Card key={stage.id} className="tech-container group hover:border-primary/20 transition-all duration-700 overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12">
-                <div className="lg:col-span-4 relative h-56 lg:h-auto overflow-hidden">
+                <div className="lg:col-span-4 relative h-48 lg:h-auto overflow-hidden">
                   <Image 
-                    src={idx === 0 ? PlaceHolderImages.find(img => img.id === "curriculum-stage")?.imageUrl || "" : PlaceHolderImages.find(img => img.id === "hero-bg")?.imageUrl || ""} 
+                    src={PlaceHolderImages.find(img => img.id === stage.visualId)?.imageUrl || ""} 
                     alt={stage.title} 
                     fill 
-                    className="object-cover opacity-30 grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000"
+                    className="object-cover opacity-40 group-hover:scale-110 transition-transform duration-1000"
+                    data-ai-hint="driving instruction"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-card via-card/40 to-transparent" />
-                  <div className="absolute top-8 left-8 md:top-12 md:left-12 bg-primary/20 backdrop-blur-xl border border-primary/30 text-white h-16 w-16 md:h-24 md:w-24 rounded-[2rem] flex items-center justify-center font-black text-2xl md:text-5xl shadow-2xl">
+                  <div className="absolute top-6 left-6 bg-primary/20 backdrop-blur-xl border border-primary/30 text-white h-12 w-12 md:h-16 md:w-16 rounded-2xl flex items-center justify-center font-black text-xl md:text-3xl shadow-2xl">
                     {idx + 1}
                   </div>
                 </div>
 
-                <div className="lg:col-span-8 p-8 md:p-12 lg:p-16 space-y-10">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-5">
-                      <div className="p-4 rounded-2xl bg-primary/10 text-primary shadow-inner">
-                        <stage.icon className="h-6 w-6 md:h-10 md:w-10" />
+                <div className="lg:col-span-8 p-6 md:p-12 space-y-8">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 rounded-xl bg-primary/10 text-primary">
+                        <stage.icon className="h-6 w-6 md:h-8 md:w-8" />
                       </div>
-                      <h2 className="text-2xl md:text-4xl lg:text-5xl font-headline font-black tracking-tighter leading-tight">{stage.title}</h2>
+                      <h2 className="text-2xl md:text-4xl font-headline font-black tracking-tight">{stage.title}</h2>
                     </div>
-                    <p className="text-base md:text-lg lg:text-xl text-muted-foreground font-medium opacity-70 leading-relaxed italic">{stage.desc}</p>
+                    <p className="text-sm md:text-lg text-muted-foreground font-medium italic opacity-70">{stage.desc}</p>
                   </div>
 
-                  <Accordion type="single" collapsible className="w-full space-y-4">
+                  <Accordion type="single" collapsible className="w-full space-y-3">
                     {stage.details.map((detail, i) => (
-                      <AccordionItem key={i} value={`item-${i}`} className="border-none bg-white/5 rounded-3xl overflow-hidden">
-                        <AccordionTrigger className="hover:no-underline py-6 px-8 hover:bg-white/5 transition-all text-left">
-                          <div className="flex items-center gap-5">
-                            <div className="h-3 w-3 rounded-full bg-primary/40 group-data-[state=open]:bg-primary transition-colors" />
-                            <span className="font-black text-sm md:text-xl tracking-tight text-foreground/90">{detail.sub}</span>
+                      <AccordionItem key={i} value={`item-${i}`} className="border-none bg-white/5 rounded-2xl overflow-hidden">
+                        <AccordionTrigger className="hover:no-underline py-5 px-6 hover:bg-white/5 text-left">
+                          <div className="flex items-center gap-4">
+                            <div className="h-2 w-2 rounded-full bg-primary/40 group-data-[state=open]:bg-primary transition-colors" />
+                            <span className="font-black text-xs md:text-lg tracking-tight">{detail.sub}</span>
                           </div>
                         </AccordionTrigger>
-                        <AccordionContent className="px-8 md:px-16 pb-8 pt-2 space-y-6">
-                          <div className="text-muted-foreground text-sm md:text-lg leading-relaxed font-medium opacity-80 whitespace-pre-line">
+                        <AccordionContent className="px-6 md:px-12 pb-6 pt-2 space-y-5">
+                          <p className="text-muted-foreground text-sm md:text-base leading-relaxed whitespace-pre-line opacity-80">
                             {detail.desc}
-                          </div>
-                          
-                          {(detail as any).tip && (
-                            <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 flex gap-4 items-start">
-                              <ShieldAlert className="h-6 w-6 text-red-500 shrink-0 mt-1" />
-                              <div>
-                                <h5 className="font-black text-red-500 text-sm uppercase tracking-widest mb-1">{t.examinerTip}</h5>
-                                <p className="text-sm md:text-base font-bold text-red-200/80">{(detail as any).tip}</p>
-                              </div>
+                          </p>
+                          {detail.tip && (
+                            <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex gap-3 items-start">
+                              <ShieldAlert className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                              <p className="text-xs md:text-sm font-bold text-red-200/80">{detail.tip}</p>
                             </div>
                           )}
-
-                          {(detail as any).note && (
-                            <div className="p-6 rounded-2xl bg-accent/10 border border-accent/20 flex gap-4 items-start">
-                              <Settings className="h-6 w-6 text-accent shrink-0 mt-1" />
-                              <div>
-                                <h5 className="font-black text-accent text-sm uppercase tracking-widest mb-1">{t.instructorNote}</h5>
-                                <p className="text-sm md:text-base font-bold text-accent/80">{(detail as any).note}</p>
-                              </div>
+                          {detail.note && (
+                            <div className="p-4 rounded-xl bg-accent/10 border border-accent/20 flex gap-3 items-start">
+                              <Settings className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+                              <p className="text-xs md:text-sm font-bold text-accent/80">{detail.note}</p>
                             </div>
                           )}
                         </AccordionContent>
@@ -319,40 +216,35 @@ export default function CurriculumPage() {
         </TabsContent>
 
         <TabsContent value="parking">
-          <Card className="overflow-hidden border-white/5 bg-accent/5 backdrop-blur-2xl rounded-[3rem] md:rounded-[5rem] group hover:border-accent/20 transition-all duration-700 shadow-2xl">
+          <Card className="tech-container bg-accent/5 hover:border-accent/20 overflow-hidden group">
             <div className="grid grid-cols-1 lg:grid-cols-12">
-              <div className="lg:col-span-4 relative h-56 lg:h-auto overflow-hidden">
+              <div className="lg:col-span-4 relative h-48 lg:h-auto">
                 <Image 
-                  src={PlaceHolderImages.find(img => img.id === "scientific-library")?.imageUrl || ""} 
+                  src={PlaceHolderImages.find(img => img.id === t.parkingStage.visualId)?.imageUrl || ""} 
                   alt={t.parkingStage.title} 
                   fill 
-                  className="object-cover opacity-20"
+                  className="object-cover opacity-30 group-hover:scale-110 transition-transform duration-1000"
+                  data-ai-hint="parking sensors"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-card via-card/40 to-transparent" />
-                <div className="absolute top-12 left-12 bg-accent text-accent-foreground h-24 w-24 rounded-[2.5rem] flex items-center justify-center font-black text-5xl shadow-2xl">
+                <div className="absolute top-8 left-8 bg-accent text-accent-foreground h-16 w-16 rounded-2xl flex items-center justify-center font-black text-3xl shadow-2xl">
                   4
                 </div>
               </div>
-
-              <div className="lg:col-span-8 p-8 md:p-16 lg:p-24 space-y-12">
-                <div className="space-y-6">
-                  <div className="flex items-center gap-6">
-                    <div className="p-4 rounded-2xl bg-accent/10 text-accent">
-                      <t.parkingStage.icon className="h-10 w-10" />
-                    </div>
-                    <h2 className="text-3xl md:text-6xl font-headline font-black text-accent tracking-tighter leading-none">{t.parkingStage.title}</h2>
+              <div className="lg:col-span-8 p-8 md:p-16 space-y-8">
+                <div className="flex items-center gap-5">
+                  <div className="p-4 rounded-2xl bg-accent/10 text-accent">
+                    <t.parkingStage.icon className="h-8 w-8" />
                   </div>
-                  <p className="text-lg md:text-2xl text-muted-foreground font-medium italic opacity-80 leading-relaxed">{t.parkingStage.desc}</p>
+                  <h2 className="text-3xl md:text-5xl font-headline font-black text-accent tracking-tighter">{t.parkingStage.title}</h2>
                 </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {t.parkingStage.details.map((detail, i) => (
-                    <div key={i} className="p-8 rounded-[2.5rem] bg-black/40 border border-white/5 space-y-4 hover:border-accent/30 transition-all shadow-xl group">
-                      <div className="flex items-center gap-4 text-accent">
-                        <Target className="h-6 w-6 group-hover:scale-125 transition-transform" />
-                        <h4 className="font-black text-lg uppercase tracking-tight">{detail.sub}</h4>
+                    <div key={i} className="p-6 rounded-3xl bg-black/40 border border-white/5 space-y-3 hover:border-accent/30 transition-all">
+                      <div className="flex items-center gap-3 text-accent">
+                        <Target className="h-5 w-5" />
+                        <h4 className="font-black text-base uppercase tracking-tight">{detail.sub}</h4>
                       </div>
-                      <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-medium opacity-70">{detail.desc}</p>
+                      <p className="text-muted-foreground text-sm leading-relaxed opacity-70">{detail.desc}</p>
                     </div>
                   ))}
                 </div>
@@ -363,17 +255,17 @@ export default function CurriculumPage() {
       </Tabs>
 
       {/* CTA Final */}
-      <div className="max-w-4xl mx-auto p-10 md:p-20 rounded-[4rem] glass-card border-primary/20 text-center space-y-10 relative overflow-hidden shadow-[0_0_100px_rgba(59,130,246,0.1)]">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-primary/10 rounded-full blur-[120px] -mr-40 -mt-40" />
-        <div className="relative z-10 space-y-8">
-          <h2 className="text-4xl md:text-6xl font-headline font-black tracking-tighter leading-none">
+      <div className="max-w-4xl mx-auto p-10 md:p-20 rounded-[4rem] glass-card border-primary/20 text-center space-y-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] -mr-32 -mt-32" />
+        <div className="relative z-10 space-y-6">
+          <h2 className="text-3xl md:text-6xl font-headline font-black tracking-tighter leading-none">
             {t.ctaTitle}
           </h2>
-          <p className="text-lg md:text-2xl text-muted-foreground font-medium opacity-70 max-w-2xl mx-auto">
+          <p className="text-base md:text-2xl text-muted-foreground font-medium opacity-70 max-w-2xl mx-auto">
             {t.ctaDesc}
           </p>
           <div className="pt-10">
-            <Link href="/assessment" className="inline-flex items-center justify-center h-20 md:h-24 px-12 md:px-20 rounded-[2.5rem] bg-primary text-white font-black text-xl md:text-3xl shadow-2xl shadow-primary/30 hover:bg-primary/90 transition-all active:scale-95 group">
+            <Link href="/assessment" className="inline-flex items-center justify-center h-20 md:h-24 px-12 md:px-20 rounded-[2.5rem] bg-primary text-white font-black text-xl md:text-3xl shadow-2xl shadow-primary/30 hover:bg-primary/90 active:scale-95 group transition-all">
               {t.btnCta}
               <Zap className="ml-4 h-6 w-6 md:h-8 md:w-8 fill-white group-hover:scale-125 transition-transform" />
             </Link>

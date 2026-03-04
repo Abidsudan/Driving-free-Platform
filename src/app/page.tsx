@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from "next/image"
@@ -16,7 +17,7 @@ export default function Home() {
   const t = {
     heroBadge: language === 'ar' ? "أكاديمية رقمية معتمدة وفق معايير RTA" : "Accredited Digital Academy per RTA Standards",
     heroTitle: language === 'ar' ? "صناعة السائق المحترف بالعلم" : "Engineering Professional Drivers through Science",
-    heroDesc: language === 'ar' ? "المنصة الأولى في دبي التي تحول الخبرة الميدانية إلى منهج أكاديمي ذكي يضمن لك النجاح من المحاولة الأولى." : "The #1 platform in Dubai transforming field experience into a smart academic curriculum ensuring first-attempt success.",
+    heroDesc: language === 'ar' ? "المنصة الأولى في دبي التي تحول الخبرة الميدانية إلى منهج أكاديمي ذكي يضمن لك النجاح من المحاولة الأولى." : "The #1 platform in Dubai transforming field experience into a smart academic curriculum.",
     btnStart: language === 'ar' ? "ابدأ المنهج الأكاديمي" : "Start Academic Curriculum",
     btnAssessment: language === 'ar' ? "محاكي اختبار RTA" : "RTA Test Simulator",
     stats: [
@@ -48,37 +49,36 @@ export default function Home() {
         href: "/assessment",
         color: "bg-green-500/10 text-green-500"
       }
-    ],
-    shareTitle: language === 'ar' ? "ادعُ زملاءك للتعلم" : "Invite Peers to Learn",
-    shareDesc: language === 'ar' ? "شارك الأكاديمية مع أصدقائك وساهم في تعزيز السلامة المرورية في دبي." : "Share the academy with your friends and help promote road safety in Dubai."
+    ]
   }
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
         {heroBg?.imageUrl && (
           <Image 
             src={heroBg.imageUrl} 
             alt="Dubai Highway" 
             fill 
-            className="object-cover opacity-20 scale-110 animate-pulse-slow"
+            className="object-cover opacity-20 scale-105 animate-pulse-slow"
             priority
+            data-ai-hint="dubai highway"
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/60 to-background" />
         
-        <div className="container relative z-10 px-6 mx-auto text-center space-y-12">
+        <div className="container relative z-10 px-6 mx-auto text-center space-y-10">
           <div className="academic-badge animate-fade-in mx-auto glass-card">
             <ShieldCheck className="h-4 w-4" />
             {t.heroBadge}
           </div>
           
-          <h1 className="text-6xl md:text-9xl font-black font-headline tracking-tighter max-w-6xl mx-auto leading-[0.85] smart-gradient-text">
+          <h1 className="text-5xl md:text-9xl font-black font-headline tracking-tighter max-w-6xl mx-auto leading-[0.9] smart-gradient-text">
             {t.heroTitle}
           </h1>
           
-          <p className="text-xl md:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium opacity-80">
+          <p className="text-lg md:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed font-medium opacity-80">
             {t.heroDesc}
           </p>
           
@@ -97,22 +97,19 @@ export default function Home() {
             </Link>
           </div>
         </div>
-
-        {/* Decorative elements */}
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-background to-transparent pointer-events-none" />
       </section>
 
       {/* Stats Bar */}
-      <section className="container mx-auto px-6 -mt-24 relative z-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 p-12 rounded-[4rem] glass-card border-white/10">
+      <section className="container mx-auto px-6 -mt-20 relative z-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-10 rounded-[4rem] glass-card border-white/10">
           {t.stats.map((stat, i) => (
-            <div key={i} className="text-center space-y-3 group">
-              <div className="mx-auto w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                <stat.icon className="h-6 w-6" />
+            <div key={i} className="text-center space-y-2 group">
+              <div className="mx-auto w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
+                <stat.icon className="h-5 w-5" />
               </div>
               <div>
-                <span className="block text-4xl md:text-6xl font-black smart-gradient-text leading-none">{stat.num}</span>
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.4em] mt-2 block">{stat.label}</span>
+                <span className="block text-3xl md:text-5xl font-black smart-gradient-text leading-none">{stat.num}</span>
+                <span className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.3em] mt-2 block">{stat.label}</span>
               </div>
             </div>
           ))}
@@ -120,30 +117,28 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className="container mx-auto px-6 py-40 space-y-24">
-        <div className="text-center space-y-6">
-          <h2 className="text-5xl md:text-8xl font-headline font-black tracking-tighter">{t.featuresTitle}</h2>
-          <div className="h-2 w-32 bg-primary mx-auto rounded-full shadow-[0_0_20px_hsl(var(--primary))] " />
+      <section className="container mx-auto px-6 py-32 space-y-20">
+        <div className="text-center space-y-4">
+          <h2 className="text-4xl md:text-7xl font-headline font-black tracking-tighter">{t.featuresTitle}</h2>
+          <div className="h-1.5 w-24 bg-primary mx-auto rounded-full shadow-[0_0_20px_hsl(var(--primary))]" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {t.features.map((feature, i) => (
             <Link href={feature.href} key={i} className="group">
-              <div className="h-full p-12 rounded-[4rem] glass-card border-white/5 hover:border-primary/40 hover:-translate-y-4 transition-all duration-700 space-y-10 relative overflow-hidden">
-                <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                
-                <div className={cn("inline-flex p-6 rounded-3xl shadow-xl", feature.color)}>
-                  <feature.icon className="h-12 w-12" />
+              <div className="h-full p-10 rounded-[3.5rem] glass-card border-white/5 hover:border-primary/40 transition-all duration-700 space-y-8 relative overflow-hidden">
+                <div className={cn("inline-flex p-5 rounded-2xl shadow-xl", feature.color)}>
+                  <feature.icon className="h-10 w-10" />
                 </div>
                 
-                <div className="space-y-6">
-                  <h3 className="text-4xl font-headline font-black leading-tight group-hover:text-primary">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed text-xl font-medium">{feature.desc}</p>
+                <div className="space-y-4">
+                  <h3 className="text-3xl font-headline font-black leading-tight group-hover:text-primary">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed text-lg font-medium opacity-70">{feature.desc}</p>
                 </div>
                 
-                <div className="flex items-center gap-4 text-sm font-black text-primary group-hover:gap-6 transition-all uppercase tracking-widest pt-4">
+                <div className="flex items-center gap-3 text-xs font-black text-primary group-hover:gap-5 transition-all uppercase tracking-widest pt-4">
                   {language === 'ar' ? 'استكشف الآن' : 'Explore Now'}
-                  {dir === 'rtl' ? <ArrowLeft className="h-6 w-6" /> : <ArrowRight className="h-6 w-6" />}
+                  {dir === 'rtl' ? <ArrowLeft className="h-5 w-5" /> : <ArrowRight className="h-5 w-5" />}
                 </div>
               </div>
             </Link>
@@ -151,43 +146,24 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Share CTA */}
-      <section className="container mx-auto px-6 pb-40">
-        <div className="p-20 md:p-32 rounded-[5rem] glass-card border-primary/20 text-center space-y-12 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-[120px] -mr-48 -mt-48" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-[120px] -ml-48 -mb-48" />
-          
-          <div className="relative z-10 space-y-10">
-            <h2 className="text-5xl md:text-8xl font-headline font-black leading-[0.9] tracking-tighter">{t.shareTitle}</h2>
-            <p className="text-2xl text-muted-foreground max-w-3xl mx-auto font-medium leading-relaxed opacity-80">{t.shareDesc}</p>
-            <ShareDialog>
-              <Button size="lg" className="h-24 px-16 rounded-[2.5rem] font-black text-2xl gap-4 shadow-2xl shadow-primary/40 active:scale-95 transition-all bg-primary hover:bg-primary/90">
-                <Share2 className="h-8 w-8" />
-                {language === 'ar' ? 'شارك الأكاديمية الآن' : 'Share Academy Now'}
-              </Button>
-            </ShareDialog>
-          </div>
-        </div>
-      </section>
-
-      <footer className="mt-auto border-t border-white/5 py-32 glass-card rounded-t-[5rem]">
-        <div className="container mx-auto px-6 text-center space-y-12">
-          <div className="bg-white rounded-[2.5rem] p-6 w-64 mx-auto shadow-2xl animate-float">
+      <footer className="mt-auto border-t border-white/5 py-24 glass-card rounded-t-[4rem]">
+        <div className="container mx-auto px-6 text-center space-y-10">
+          <div className="bg-white rounded-2xl p-4 w-48 mx-auto shadow-2xl animate-float">
              <Image 
                 src={PlaceHolderImages.find(img => img.id === "site-logo")?.imageUrl || ""} 
                 alt="Driving Free" 
-                width={256}
-                height={80}
+                width={192}
+                height={60}
                 className="object-contain"
                 unoptimized
               />
           </div>
-          <p className="text-muted-foreground max-w-3xl mx-auto font-bold text-xl leading-relaxed">
+          <p className="text-muted-foreground max-w-2xl mx-auto font-bold text-lg leading-relaxed opacity-80">
             {language === 'ar' 
               ? "نحن نؤمن أن القيادة علم يجمع بين الفيزياء والسلوك البشري. هدفنا بناء جيل من السائقين المحترفين في دبي."
-              : "We believe driving is a science of physics and human behavior. Our goal is to build professional drivers in Dubai."}
+              : "We believe driving is a science of physics and human behavior. Our goal is professional drivers in Dubai."}
           </p>
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-12 text-[12px] font-black text-muted-foreground uppercase tracking-[0.6em]">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em]">
             <span>© 2026 Driving Free</span>
             <span className="hidden md:block text-primary">•</span>
             <span>Dubai, UAE</span>
