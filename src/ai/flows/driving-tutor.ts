@@ -19,29 +19,23 @@ const TutorOutputSchema = z.object({
 export type TutorInput = z.infer<typeof TutorInputSchema>;
 export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
-const tutorPrompt = ai.definePrompt({
-  name: 'tutorPrompt',
-  model: 'googleai/gemini-1.5-flash',
-  input: { 
-    schema: TutorInputSchema.extend({
-      isArabic: z.boolean().optional()
-    }) 
-  },
-  output: { schema: TutorOutputSchema },
-  system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academy.
-    Guidelines:
-    1. Respond in {{#if isArabic}}Arabic{{else}}English{{/if}}.
-    2. Tone: Professional, academic, and supportive.`,
-  prompt: `Student Question: {{question}}`,
-});
-
 export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {
-  const isArabic = input.language === 'ar';
-  const { output } = await tutorPrompt({
-    ...input,
-    isArabic
-  });
-  
-  if (!output) throw new Error('Failed to get response from AI Tutor.');
-  return output;
+  try {
+    const isArabic = input.language === 'ar';
+    
+    const response = await ai.generate({
+      model: 'googleai/gemini-1.5-flash',
+      output: { schema: TutorOutputSchema },
+      system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academy in Dubai.
+      Respond in ${isArabic ? 'Arabic' : 'English'}. 
+      Tone: Professional, academic, and supportive. Use Dubai RTA rules as your primary source.`,
+      prompt: `Student Question: ${input.question}`
+    });
+    
+    if (!response.output) throw new Error('No response from AI Tutor.');
+    return response.output;
+  } catch (error) {
+    console.error('Error in askDrivingTutor:', error);
+    throw new Error('Failed to connect to AI Tutor.');
+  }
 }
