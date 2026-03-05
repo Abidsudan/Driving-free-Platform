@@ -5,7 +5,7 @@ import { generateQuizQuestions, type GenerateQuizQuestionsOutput } from "@/ai/fl
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, ShieldCheck, Database, BrainCircuit, Star, AlertCircle, Loader2 } from "lucide-react"
+import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, BrainCircuit, AlertCircle, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser, useFirestore } from "@/firebase"
 import { collection } from "firebase/firestore"
@@ -28,12 +28,12 @@ export function AssessmentQuiz() {
   const db = useFirestore()
 
   const t = {
-    loadingTitle: language === 'ar' ? "جاري استحضار مجموعة التميز..." : "Summoning Mastery Set...",
+    loadingTitle: language === 'ar' ? "جاري استحضار بنك الأسئلة الشامل..." : "Summoning Comprehensive Question Bank...",
     loadingSubtitle: language === 'ar' ? "الذكاء الاصطناعي يقوم ببناء اختبار الـ 16 قاعدة الذهبية" : "AI is building the 16 Golden Rules test",
-    resultTitle: language === 'ar' ? "معدل التميز الأكاديمي" : "Academic Excellence Rate",
+    resultTitle: language === 'ar' ? "معدل الإدراك المعرفي" : "Cognitive Perception Rate",
     btnRetry: language === 'ar' ? "إعادة اختبار التميز" : "Retry Mastery Test",
-    simulatorTitle: language === 'ar' ? "اختبار التميز الأكاديمي (Mastery Set)" : "Academic Mastery Test",
-    btnStart: language === 'ar' ? "ابدأ اختبار التميز الآن" : "Start Mastery Test Now",
+    simulatorTitle: language === 'ar' ? "محاكي اختبار RTA الذكي" : "Smart RTA Test Simulator",
+    btnStart: language === 'ar' ? "ابدأ التقييم الشامل الآن" : "Start Full Assessment Now",
     analysisLabel: language === 'ar' ? "التحليل العلمي" : "Scientific Analysis",
     errorDesc: language === 'ar' ? "حدث خطأ أثناء توليد الأسئلة، يرجى المحاولة مرة أخرى." : "Error generating questions, please try again."
   };
@@ -79,12 +79,12 @@ export function AssessmentQuiz() {
       if (user && db) {
         addDocumentNonBlocking(collection(db, 'users', user.uid, 'quizAttempts'), {
           userId: user.uid,
-          quizId: 'mastery-set',
+          quizId: 'rta-simulator-v2',
           startTime: new Date().toISOString(),
           score: score,
           totalQuestions: questions!.length,
           isCompleted: true,
-          topic: language === 'ar' ? "اختبار مجموعة التميز" : "Mastery Set Test"
+          topic: language === 'ar' ? "التقييم المعرفي الشامل" : "Comprehensive Cognitive Assessment"
         });
       }
     }
@@ -157,14 +157,14 @@ export function AssessmentQuiz() {
         <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
         <div className="relative z-10 space-y-10">
           <div className="inline-flex p-8 rounded-[2.5rem] bg-primary/10 text-primary mb-4 animate-float">
-            <Database className="h-16 w-16" />
+            <Target className="h-16 w-16" />
           </div>
           <div className="space-y-4">
             <h2 className="text-5xl md:text-7xl font-headline font-black tracking-tighter leading-none">{t.simulatorTitle}</h2>
             <p className="text-xl text-muted-foreground font-medium max-w-2xl mx-auto">
               {language === 'ar' 
-                ? "ابدأ الآن تقييماً ذكياً يدمج بين مجموعة التميز الـ 16 والأسئلة الرسمية لضمان جاهزيتك التامة." 
-                : "Start a smart assessment combining the Mastery Set and official questions to ensure full readiness."}
+                ? "ابدأ الآن تقييماً شاملاً مدعوماً ببنك أسئلة يضم أكثر من 100 حالة مرورية حقيقية وفق معايير دبي." 
+                : "Start a comprehensive assessment powered by a question bank of 100+ real traffic scenarios per Dubai standards."}
             </p>
           </div>
           <Button onClick={startQuiz} size="lg" className="h-20 px-16 rounded-[2rem] font-black text-2xl shadow-[0_20px_80px_rgba(59,130,246,0.4)] hover:scale-105 transition-all">
