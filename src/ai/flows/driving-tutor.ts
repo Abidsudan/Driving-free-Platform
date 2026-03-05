@@ -1,6 +1,6 @@
 'use server';
 /**
- * @fileOverview المعلم الذكي "معلم القيادة" للإجابة على تساؤلات الطلاب.
+ * @fileOverview المعلم الذكي للإجابة على تساؤلات الطلاب.
  */
 
 import { ai } from '@/ai/genkit';
@@ -21,6 +21,7 @@ export type TutorOutput = z.infer<typeof TutorOutputSchema>;
 
 const tutorPrompt = ai.definePrompt({
   name: 'tutorPrompt',
+  model: 'googleai/gemini-1.5-flash',
   input: { 
     schema: TutorInputSchema.extend({
       isArabic: z.boolean().optional()
@@ -28,11 +29,10 @@ const tutorPrompt = ai.definePrompt({
   },
   output: { schema: TutorOutputSchema },
   system: `You are "Maalam Al-Qiada", the Senior AI Driving Tutor at Driving Free Academy.
-    Expertise: Lane rules, shoulder checks, roundabouts, and RTA immediate failure criteria.
     Guidelines:
     1. Respond in {{#if isArabic}}Arabic{{else}}English{{/if}}.
-    2. Tone: Professional and academic.`,
-  prompt: `{{question}}`,
+    2. Tone: Professional, academic, and supportive.`,
+  prompt: `Student Question: {{question}}`,
 });
 
 export async function askDrivingTutor(input: TutorInput): Promise<TutorOutput> {

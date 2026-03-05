@@ -1,9 +1,6 @@
 'use server';
 /**
- * @fileOverview A Genkit flow for generating daily academic driving tips.
- *
- * - getDailyDrivingTip - A function that handles generating a daily tip.
- * - DailyTipOutput - The return type for the function.
+ * @fileOverview توليد نصيحة أكاديمية يومية.
  */
 
 import { ai } from '@/ai/genkit';
@@ -14,9 +11,9 @@ const DailyTipInputSchema = z.object({
 });
 
 const DailyTipOutputSchema = z.object({
-  title: z.string().describe('The title of the tip.'),
-  content: z.string().describe('The detailed professional advice.'),
-  category: z.string().describe('The category (e.g., Physics of Driving, Psychology, RTA Rules).'),
+  title: z.string(),
+  content: z.string(),
+  category: z.string(),
 });
 
 export type DailyTipOutput = z.infer<typeof DailyTipOutputSchema>;
@@ -26,25 +23,14 @@ const dailyTipPrompt = ai.definePrompt({
   model: 'googleai/gemini-1.5-flash',
   input: { schema: DailyTipInputSchema },
   output: { schema: DailyTipOutputSchema },
-  prompt: `You are a senior driving instructor in Dubai. Provide a short, professional, academic driving tip for today in the language: {{language}}. 
-    Focus on technical aspects like (Braking Physics, Blind Spot Management, Psychology under pressure, or DSSSM rules).
-    Keep the style scientific, formal, and highly informative.`,
+  system: `You are a senior driving instructor in Dubai. 
+    Provide a professional academic driving tip. 
+    Focus on Braking Physics, Blind Spot Management, or RTA Rules.`,
+  prompt: `Provide a tip in the language: {{language}}.`,
 });
 
-const dailyTipFlow = ai.defineFlow(
-  {
-    name: 'dailyTipFlow',
-    inputSchema: DailyTipInputSchema,
-    outputSchema: DailyTipOutputSchema,
-  },
-  async (input) => {
-    const { output } = await dailyTipPrompt(input);
-    
-    if (!output) throw new Error('Failed to generate daily tip.');
-    return output;
-  }
-);
-
 export async function getDailyDrivingTip(language: 'ar' | 'en' = 'en'): Promise<DailyTipOutput> {
-  return dailyTipFlow({ language });
+  const { output } = await dailyTipPrompt({ language });
+  if (!output) throw new Error('Failed to generate daily tip.');
+  return output;
 }
