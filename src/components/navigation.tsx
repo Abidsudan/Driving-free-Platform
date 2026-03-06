@@ -1,3 +1,4 @@
+
 "use client"
 
 import Link from "next/link"
@@ -80,11 +81,12 @@ export function Navigation() {
               <div className="flex items-center gap-1">
                 <Link
                   href="/dashboard"
+                  id="nav-dashboard-link"
                   className={cn(
                     "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
                     pathname === "/dashboard" 
                       ? "bg-accent text-accent-foreground shadow-[0_8px_32px_rgba(245,158,11,0.4)] scale-105" 
-                      : "text-accent bg-accent/10 hover:bg-accent/20"
+                      : "text-accent bg-accent/10 hover:bg-accent/20 border border-accent/20"
                   )}
                 >
                   <LayoutDashboard className="h-3 w-3" />
@@ -108,8 +110,12 @@ export function Navigation() {
 
           <div className="flex items-center gap-3 md:gap-4">
             <div className="flex items-center gap-2">
-              <GlobalSearch />
-              <div className="hidden sm:flex items-center gap-2">
+              {/* More prominent search trigger */}
+              <div className="hidden sm:block">
+                <GlobalSearch />
+              </div>
+              
+              <div className="hidden md:flex items-center gap-2">
                 <ShareDialog>
                   <Button
                     variant="ghost"
@@ -188,29 +194,26 @@ export function Navigation() {
         </div>
       </header>
 
-      {/* Mobile Nav */}
+      {/* Mobile Nav - Added Search here */}
       <nav className="fixed bottom-8 left-8 right-8 z-[9999] lg:hidden">
         <div className="flex h-20 items-center justify-around bg-background/90 backdrop-blur-3xl shadow-[0_32px_80px_rgba(0,0,0,0.8)] rounded-[2.5rem] border border-white/10 px-4">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            const isActive = pathname === item.href
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
-                  isActive ? "text-primary bg-primary/10 shadow-inner" : "text-muted-foreground"
-                )}
-              >
-                <Icon className={cn("h-6 w-6", isActive && "stroke-[3px]")} />
-                <span className="text-[10px] font-black uppercase tracking-tighter">
-                  {language === 'ar' ? item.nameAr : item.name}
-                </span>
-              </Link>
-            )
-          })}
-          {user && (
+          <Link
+            href="/"
+            className={cn(
+              "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
+              pathname === "/" ? "text-primary bg-primary/10 shadow-inner" : "text-muted-foreground"
+            )}
+          >
+            <Home className="h-6 w-6" />
+            <span className="text-[10px] font-black uppercase tracking-tighter">{language === 'ar' ? 'الرئيسية' : 'Home'}</span>
+          </Link>
+
+          {/* Mobile Search Trigger */}
+          <div className="flex flex-col items-center justify-center flex-1">
+            <GlobalSearch />
+          </div>
+
+          {user ? (
             <Link
               href="/dashboard"
               className={cn(
@@ -218,10 +221,18 @@ export function Navigation() {
                 pathname === "/dashboard" ? "text-accent bg-accent/10 shadow-inner border border-accent/20" : "text-accent/70 font-bold"
               )}
             >
-              <LayoutDashboard className={cn("h-6 w-6", pathname === "/dashboard" && "stroke-[3px]")} />
+              <LayoutDashboard className="h-6 w-6" />
               <span className="text-[10px] font-black uppercase tracking-tighter">
                 {language === 'ar' ? "لوحة التحكم" : "Dash"}
               </span>
+            </Link>
+          ) : (
+            <Link
+              href="/auth"
+              className="flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl text-muted-foreground"
+            >
+              <User className="h-6 w-6" />
+              <span className="text-[10px] font-black uppercase tracking-tighter">{language === 'ar' ? 'دخول' : 'Login'}</span>
             </Link>
           )}
         </div>

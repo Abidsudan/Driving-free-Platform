@@ -1,10 +1,11 @@
+
 "use client"
 
 import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap, FileCheck, GraduationCap, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap, FileCheck, GraduationCap, ShieldCheck, ArrowRight, Search } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
@@ -13,6 +14,7 @@ import { getDailyDrivingTip, type DailyTipOutput } from '@/ai/flows/get-daily-ti
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/components/language-provider';
 import { cn } from '@/lib/utils';
+import { GlobalSearch } from '@/components/global-search';
 
 export default function DashboardPage() {
   const { user, isUserLoading } = useUser();
@@ -32,7 +34,8 @@ export default function DashboardPage() {
     noData: language === 'ar' ? "لا توجد بيانات حالياً. ابدأ تقييمك الأول." : "No data found. Start your first assessment.",
     btnStart: language === 'ar' ? "ابدأ التقييم" : "Start Assessment",
     nextStep: language === 'ar' ? "توصيات ذكية" : "Smart Recommendations",
-    proofBtn: language === 'ar' ? "إثبات العمل كمدرب (رسمي)" : "Official Trainer Proof Portal"
+    proofBtn: language === 'ar' ? "إثبات العمل كمدرب (رسمي)" : "Official Trainer Proof Portal",
+    searchLabel: language === 'ar' ? "ابحث في المنهج والقواعد" : "Search Curriculum & Rules"
   }
 
   const attemptsQuery = useMemoFirebase(() => {
@@ -68,7 +71,7 @@ export default function DashboardPage() {
         <h2 className="text-4xl font-black font-headline">{language === 'ar' ? "تتطلب الوصول الأكاديمي" : "Access Denied"}</h2>
         <p className="text-muted-foreground max-w-md mx-auto">{language === 'ar' ? "يرجى تسجيل الدخول لتتمكن من تتبع تقدمك والحصول على التحليلات الذكية." : "Please login to track your progress and get smart insights."}</p>
         <Link href="/auth">
-          <Button size="lg" className="h-16 px-12 rounded-2xl font-black text-lg">سجل دخولك الآن</Button>
+          <Button size="lg" className="h-16 px-12 rounded-2xl font-black text-lg shadow-xl">سجل دخولك الآن</Button>
         </Link>
       </div>
     );
@@ -80,6 +83,25 @@ export default function DashboardPage() {
 
   return (
     <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in pb-32">
+      
+      {/* Dynamic Search Bar - High Visibility */}
+      <div className="max-w-4xl mx-auto glass-card p-8 rounded-[3rem] border-primary/30 shadow-[0_32px_64px_rgba(59,130,246,0.2)]">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="flex items-center gap-4">
+            <div className="p-4 bg-primary/10 rounded-2xl">
+              <Search className="h-8 w-8 text-primary" />
+            </div>
+            <div>
+              <h3 className="font-black text-xl">{t.searchLabel}</h3>
+              <p className="text-xs text-muted-foreground font-bold">{language === 'ar' ? 'الوصول السريع للمكتبة والمنهج' : 'Quick access to Library & Curriculum'}</p>
+            </div>
+          </div>
+          <div className="w-full md:w-auto">
+            <GlobalSearch />
+          </div>
+        </div>
+      </div>
+
       {/* Proof Banner - High Priority */}
       <div className="relative group overflow-hidden rounded-[3rem] p-8 md:p-12 bg-gradient-to-br from-accent via-accent/80 to-primary/40 shadow-[0_32px_64px_-16px_rgba(245,158,11,0.5)] border border-white/20">
         <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-1000">
@@ -254,13 +276,13 @@ export default function DashboardPage() {
                   <div className="bg-primary/10 p-3 rounded-xl group-hover:bg-primary transition-colors">
                     <step.icon className="h-5 w-5 text-primary group-hover:text-white" />
                   </div>
-                  <div>
+                  <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
                     <h4 className="font-black text-sm">{step.title}</h4>
                     <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-widest">توصية الذكاء الاصطناعي</p>
                   </div>
                 </div>
                 {step.status === "top" && (
-                  <div className="absolute -top-3 right-6 bg-accent text-[8px] font-black text-accent-foreground px-3 py-1 rounded-full uppercase tracking-widest">
+                  <div className={cn("absolute -top-3 bg-accent text-[8px] font-black text-accent-foreground px-3 py-1 rounded-full uppercase tracking-widest", dir === 'rtl' ? 'left-6' : 'right-6')}>
                     موصى به بشدة
                   </div>
                 )}

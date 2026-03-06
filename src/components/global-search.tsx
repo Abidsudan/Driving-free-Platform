@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -9,13 +10,15 @@ import {
   DialogTrigger 
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Search, BookOpen, Library, ShieldCheck, ClipboardCheck, ArrowRight, Zap, AlertTriangle } from 'lucide-react';
+import { Search, BookOpen, Library, ShieldCheck, ClipboardCheck, ArrowRight, Zap, AlertTriangle, LayoutDashboard } from 'lucide-react';
 import { useLanguage } from '@/components/language-provider';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 // بيانات البحث المفهرسة
 const searchableItems = [
+  // لوحة التحكم
+  { id: 'dash', title: 'Dashboard & Profile', titleAr: 'لوحة التحكم والملف الشخصي', type: 'System', href: '/dashboard', icon: LayoutDashboard },
   // المنهج
   { id: 'c1', title: 'Stage 1: Foundations', titleAr: 'المرحلة الأولى: التأسيس', type: 'Curriculum', href: '/curriculum', icon: BookOpen },
   { id: 'c2', title: 'Stage 2: Residential', titleAr: 'المرحلة الثانية: المناطق السكنية', type: 'Curriculum', href: '/curriculum', icon: BookOpen },
@@ -58,14 +61,16 @@ export function GlobalSearch() {
     title: language === 'ar' ? "البحث الأكاديمي" : "Academic Search",
     placeholder: language === 'ar' ? "ابحث عن المنهج، الإشارات، أو القواعد..." : "Search curriculum, signs, or rules...",
     noResults: language === 'ar' ? "لم يتم العثور على نتائج." : "No results found.",
-    quickLinks: language === 'ar' ? "روابط سريعة" : "Quick Links"
+    quickLinks: language === 'ar' ? "روابط سريعة" : "Quick Links",
+    searchBtn: language === 'ar' ? "البحث" : "Search"
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="h-12 w-12 rounded-2xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-muted-foreground border border-white/5 transition-all">
-          <Search className="h-5 w-5" />
+        <button className="flex items-center gap-3 h-12 px-4 rounded-2xl bg-white/5 hover:bg-white/10 text-muted-foreground border border-white/5 transition-all w-full sm:w-auto">
+          <Search className="h-5 w-5 text-primary" />
+          <span className="text-xs font-bold hidden sm:inline uppercase tracking-widest">{t.searchBtn}</span>
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl glass-card border-white/10 rounded-[2.5rem] p-0 gap-0 overflow-hidden">
@@ -82,7 +87,7 @@ export function GlobalSearch() {
               placeholder={t.placeholder}
               className={cn(
                 "h-14 rounded-2xl bg-background/50 border-white/10 text-lg",
-                dir === 'rtl' ? "pr-12 pl-4" : "pl-12 pr-4"
+                dir === 'rtl' ? "pr-12 pl-4 text-right" : "pl-12 pr-4"
               )}
               autoFocus
             />
@@ -94,7 +99,7 @@ export function GlobalSearch() {
             <div className="p-4 space-y-4">
               <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest px-2">{t.quickLinks}</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {searchableItems.slice(0, 4).map(item => (
+                {searchableItems.slice(0, 6).map(item => (
                   <Link 
                     key={item.id} 
                     href={item.href}
@@ -119,12 +124,12 @@ export function GlobalSearch() {
                   <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                     <item.icon className="h-5 w-5" />
                   </div>
-                  <div>
+                  <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
                     <div className="font-bold text-base">{language === 'ar' ? item.titleAr : item.title}</div>
                     <div className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{item.type}</div>
                   </div>
                 </div>
-                <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <ArrowRight className={cn("h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors", dir === 'rtl' && "rotate-180")} />
               </Link>
             ))
           ) : (
