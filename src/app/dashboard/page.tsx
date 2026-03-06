@@ -1,10 +1,11 @@
+
 "use client"
 
 import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebase';
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap } from 'lucide-react';
+import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap, FileCheck, GraduationCap, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
@@ -31,7 +32,8 @@ export default function DashboardPage() {
     recent: language === 'ar' ? "السجل الأكاديمي الأخير" : "Recent Academic Log",
     noData: language === 'ar' ? "لا توجد بيانات حالياً. ابدأ تقييمك الأول." : "No data found. Start your first assessment.",
     btnStart: language === 'ar' ? "ابدأ التقييم" : "Start Assessment",
-    nextStep: language === 'ar' ? "توصيات ذكية" : "Smart Recommendations"
+    nextStep: language === 'ar' ? "توصيات ذكية" : "Smart Recommendations",
+    proofBtn: language === 'ar' ? "إثبات العمل كمدرب" : "Trainer Proof"
   }
 
   const attemptsQuery = useMemoFirebase(() => {
@@ -81,13 +83,20 @@ export default function DashboardPage() {
     <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in">
       {/* Smart Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-primary/5 p-8 rounded-[3rem] border border-primary/10">
-        <div className="space-y-2">
+        <div className="space-y-4">
           <div className="flex items-center gap-2 text-primary text-xs font-black uppercase tracking-widest">
             <LayoutDashboard className="h-4 w-4" /> {t.pro}
           </div>
           <h1 className="text-5xl font-black font-headline tracking-tighter">
             {t.welcome} <span className="smart-gradient-text">{user.displayName?.split(' ')[0] || "User"}</span>
           </h1>
+          <div className="pt-2">
+            <Link href="/verification/trainer">
+              <Button variant="outline" className="rounded-xl h-10 px-6 gap-2 border-primary/20 hover:bg-primary/10 font-bold">
+                <FileCheck className="h-4 w-4 text-primary" /> {t.proofBtn}
+              </Button>
+            </Link>
+          </div>
         </div>
         <div className="flex items-center gap-6 glass-card p-6 rounded-3xl">
            <div className="text-center">
@@ -220,7 +229,7 @@ export default function DashboardPage() {
             {[
               { title: "أكمل أساسيات الفيزياء", icon: Zap, status: "top" },
               { title: "دراسة إشارات المنع", icon: ShieldCheck, status: "new" },
-              { title: "اختبار المحاكاة الكامل", icon: ClipboardCheck, status: "locked" }
+              { title: "اختبار المحاكاة الكامل", icon: FileCheck, status: "locked" }
             ].map((step, i) => (
               <div key={i} className="glass-card p-6 rounded-[2.5rem] hover:border-primary/50 cursor-pointer relative group">
                 <div className="flex items-start gap-4">
