@@ -14,7 +14,7 @@ import { useLanguage } from '@/components/language-provider';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
-// بيانات البحث المفهرسة (يمكن توسيعها مستقبلاً)
+// بيانات البحث المفهرسة
 const searchableItems = [
   // المنهج
   { id: 'c1', title: 'Stage 1: Foundations', titleAr: 'المرحلة الأولى: التأسيس', type: 'Curriculum', href: '/curriculum', icon: BookOpen },
@@ -69,6 +69,10 @@ export function GlobalSearch() {
         </button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl glass-card border-white/10 rounded-[2.5rem] p-0 gap-0 overflow-hidden">
+        <DialogHeader className="sr-only">
+          <DialogTitle>{t.title}</DialogTitle>
+        </DialogHeader>
+        
         <div className="p-6 border-b border-white/5 bg-primary/5">
           <div className="relative">
             <Search className="absolute top-1/2 left-4 -translate-y-1/2 h-5 w-5 text-muted-foreground" />

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck, User, Search } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck, User, Search, Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -77,33 +77,49 @@ export function Navigation() {
               </Link>
             ))}
             {user && (
-              <Link
-                href="/dashboard"
-                className={cn(
-                  "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
-                  pathname === "/dashboard" 
-                    ? "bg-accent text-accent-foreground shadow-[0_8px_32px_rgba(245,158,11,0.4)] scale-105" 
-                    : "text-accent bg-accent/10 hover:bg-accent/20"
-                )}
-              >
-                <LayoutDashboard className="h-3 w-3" />
-                {language === 'ar' ? "لوحة التحكم" : "Dashboard"}
-              </Link>
+              <div className="flex items-center gap-1">
+                <Link
+                  href="/dashboard"
+                  className={cn(
+                    "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
+                    pathname === "/dashboard" 
+                      ? "bg-accent text-accent-foreground shadow-[0_8px_32px_rgba(245,158,11,0.4)] scale-105" 
+                      : "text-accent bg-accent/10 hover:bg-accent/20"
+                  )}
+                >
+                  <LayoutDashboard className="h-3 w-3" />
+                  {language === 'ar' ? "لوحة التحكم" : "Dashboard"}
+                </Link>
+                <Link
+                  href="/verification/trainer"
+                  className={cn(
+                    "hidden xl:flex px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest items-center gap-2",
+                    pathname === "/verification/trainer"
+                      ? "bg-white text-black shadow-xl scale-105"
+                      : "bg-gradient-to-r from-accent to-primary text-white shadow-lg hover:brightness-110"
+                  )}
+                >
+                  <FileCheck className="h-3 w-3" />
+                  {language === 'ar' ? "إثبات العمل" : "Trainer Proof"}
+                </Link>
+              </div>
             )}
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
-            <div className="hidden sm:flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <GlobalSearch />
-              <ShareDialog>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12"
-                >
-                  <Share2 className="h-5 w-5" />
-                </Button>
-              </ShareDialog>
+              <div className="hidden sm:flex items-center gap-2">
+                <ShareDialog>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12"
+                  >
+                    <Share2 className="h-5 w-5" />
+                  </Button>
+                </ShareDialog>
+              </div>
             </div>
 
             <Button
@@ -147,7 +163,7 @@ export function Navigation() {
                     </DropdownMenuItem>
                     
                     <DropdownMenuItem asChild>
-                      <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl bg-accent/5 hover:bg-accent/20 px-4 border border-accent/10 transition-all group">
+                      <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl bg-accent/10 hover:bg-accent/20 px-4 border border-accent/20 transition-all group">
                         <FileCheck className="h-5 w-5 text-accent group-hover:scale-110" /> 
                         <span className="font-black text-accent text-base">{language === 'ar' ? 'إثبات العمل (مدرب)' : 'Official Trainer Proof'}</span>
                       </Link>
@@ -194,9 +210,6 @@ export function Navigation() {
               </Link>
             )
           })}
-          <div className="flex flex-col items-center justify-center flex-1">
-            <GlobalSearch />
-          </div>
           {user && (
             <Link
               href="/dashboard"
