@@ -9,7 +9,6 @@ import {
 } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { getFirestore, doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { getRecaptchaToken } from '@/lib/recaptcha';
 import { toast } from '@/hooks/use-toast';
 
 /** Helper to create or update user profile in Firestore */
@@ -76,13 +75,6 @@ function handleAuthError(error: any, language: 'ar' | 'en') {
 
 export async function initiateEmailSignUp(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
   try {
-    // We don't block login/signup if reCAPTCHA fails to get a token
-    try {
-      await getRecaptchaToken('SIGNUP');
-    } catch (e) {
-      console.warn('reCAPTCHA skipped due to error');
-    }
-    
     const result = await createUserWithEmailAndPassword(authInstance, email, password);
     await syncUserProfile(result.user);
     toast({
@@ -96,12 +88,6 @@ export async function initiateEmailSignUp(authInstance: Auth, email: string, pas
 
 export async function initiateEmailSignIn(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
   try {
-    try {
-      await getRecaptchaToken('LOGIN');
-    } catch (e) {
-      console.warn('reCAPTCHA skipped due to error');
-    }
-
     const result = await signInWithEmailAndPassword(authInstance, email, password);
     await syncUserProfile(result.user);
     toast({
@@ -116,12 +102,6 @@ export async function initiateEmailSignIn(authInstance: Auth, email: string, pas
 export async function initiateGoogleSignIn(authInstance: Auth, language: 'ar' | 'en'): Promise<void> {
   const provider = new GoogleAuthProvider();
   try {
-    try {
-      await getRecaptchaToken('LOGIN');
-    } catch (e) {
-      console.warn('reCAPTCHA skipped due to error');
-    }
-
     const result = await signInWithPopup(authInstance, provider);
     await syncUserProfile(result.user);
     toast({
