@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -75,6 +75,20 @@ export function Navigation() {
                 {language === 'ar' ? item.nameAr : item.name}
               </Link>
             ))}
+            {user && (
+              <Link
+                href="/dashboard"
+                className={cn(
+                  "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
+                  pathname === "/dashboard" 
+                    ? "bg-accent text-accent-foreground shadow-xl scale-105" 
+                    : "text-accent hover:bg-accent/10"
+                )}
+              >
+                <LayoutDashboard className="h-3 w-3" />
+                {language === 'ar' ? "لوحة التحكم" : "Dashboard"}
+              </Link>
+            )}
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
@@ -118,6 +132,12 @@ export function Navigation() {
                       <span className="font-bold">{language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-accent/10 px-4">
+                      <FileCheck className="h-5 w-5 text-accent" /> 
+                      <span className="font-bold">{language === 'ar' ? 'إثبات العمل' : 'Trainer Proof'}</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-white/5" />
                   <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4">
                     <LogOut className="h-5 w-5" /> 
@@ -158,6 +178,20 @@ export function Navigation() {
               </Link>
             )
           })}
+          {user && (
+            <Link
+              href="/dashboard"
+              className={cn(
+                "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
+                pathname === "/dashboard" ? "text-accent bg-accent/10 shadow-inner" : "text-muted-foreground"
+              )}
+            >
+              <LayoutDashboard className={cn("h-6 w-6", pathname === "/dashboard" && "stroke-[3px]")} />
+              <span className="text-[10px] font-black uppercase tracking-tighter">
+                {language === 'ar' ? "لوحة" : "Dash"}
+              </span>
+            </Link>
+          )}
         </div>
       </nav>
     </>

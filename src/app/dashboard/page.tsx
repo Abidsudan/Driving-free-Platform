@@ -1,4 +1,3 @@
-
 "use client"
 
 import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebase';
@@ -33,7 +32,7 @@ export default function DashboardPage() {
     noData: language === 'ar' ? "لا توجد بيانات حالياً. ابدأ تقييمك الأول." : "No data found. Start your first assessment.",
     btnStart: language === 'ar' ? "ابدأ التقييم" : "Start Assessment",
     nextStep: language === 'ar' ? "توصيات ذكية" : "Smart Recommendations",
-    proofBtn: language === 'ar' ? "إثبات العمل كمدرب" : "Trainer Proof"
+    proofBtn: language === 'ar' ? "إثبات العمل كمدرب (رسمي)" : "Official Trainer Proof"
   }
 
   const attemptsQuery = useMemoFirebase(() => {
@@ -92,8 +91,8 @@ export default function DashboardPage() {
           </h1>
           <div className="pt-2">
             <Link href="/verification/trainer">
-              <Button variant="outline" className="rounded-xl h-10 px-6 gap-2 border-primary/20 hover:bg-primary/10 font-bold">
-                <FileCheck className="h-4 w-4 text-primary" /> {t.proofBtn}
+              <Button size="lg" className="rounded-2xl h-14 px-8 gap-3 bg-accent text-accent-foreground hover:bg-accent/90 font-black shadow-xl shadow-accent/20 border-none transition-all active:scale-95">
+                <FileCheck className="h-6 w-6" /> {t.proofBtn}
               </Button>
             </Link>
           </div>
