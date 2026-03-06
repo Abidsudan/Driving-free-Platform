@@ -4,7 +4,7 @@ import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebas
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap, FileCheck, GraduationCap, ShieldCheck } from 'lucide-react';
+import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap, FileCheck, GraduationCap, ShieldCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
@@ -32,7 +32,7 @@ export default function DashboardPage() {
     noData: language === 'ar' ? "لا توجد بيانات حالياً. ابدأ تقييمك الأول." : "No data found. Start your first assessment.",
     btnStart: language === 'ar' ? "ابدأ التقييم" : "Start Assessment",
     nextStep: language === 'ar' ? "توصيات ذكية" : "Smart Recommendations",
-    proofBtn: language === 'ar' ? "إثبات العمل كمدرب (رسمي)" : "Official Trainer Proof"
+    proofBtn: language === 'ar' ? "إثبات العمل كمدرب (رسمي)" : "Official Trainer Proof Portal"
   }
 
   const attemptsQuery = useMemoFirebase(() => {
@@ -79,9 +79,35 @@ export default function DashboardPage() {
     : 0;
 
   return (
-    <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in">
-      {/* Smart Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-primary/5 p-8 rounded-[3rem] border border-primary/10">
+    <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in pb-32">
+      {/* Proof Banner - High Priority */}
+      <div className="relative group overflow-hidden rounded-[3rem] p-8 md:p-12 bg-gradient-to-br from-accent via-accent/80 to-primary/40 shadow-[0_32px_64px_-16px_rgba(245,158,11,0.5)] border border-white/20">
+        <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-110 transition-transform duration-1000">
+          <ShieldCheck className="h-64 w-64 text-white" />
+        </div>
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-left">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-widest">
+              <Star className="h-3 w-3 fill-current" /> {language === 'ar' ? 'اعتماد مدرب رسمي' : 'Official Trainer Credentials'}
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black font-headline tracking-tighter text-white leading-tight">
+              {language === 'ar' ? 'هل تحتاج إلى إثبات عملك؟' : 'Need Employment Proof?'}
+            </h2>
+            <p className="text-lg md:text-xl text-white/80 font-bold max-w-xl">
+              {language === 'ar' ? 'استخرج شهادة اعتمادك الرقمية الموثقة بصفة مدرب أكاديمي في دبي الآن.' : 'Generate your official digital certification as an academic trainer in Dubai instantly.'}
+            </p>
+          </div>
+          <Link href="/verification/trainer" className="w-full md:w-auto">
+            <Button size="lg" className="w-full md:w-auto h-20 px-12 rounded-[2rem] bg-white text-accent hover:bg-white/90 font-black text-xl md:text-2xl shadow-2xl active:scale-95 transition-all group">
+              {t.proofBtn}
+              {dir === 'rtl' ? <ArrowRight className="mr-4 h-8 w-8 rotate-180 group-hover:-translate-x-2 transition-transform" /> : <ArrowRight className="ml-4 h-8 w-8 group-hover:translate-x-2 transition-transform" />}
+            </Button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Main Stats Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 bg-card/40 backdrop-blur-3xl p-8 rounded-[3rem] border border-white/5 shadow-2xl">
         <div className="space-y-4">
           <div className="flex items-center gap-2 text-primary text-xs font-black uppercase tracking-widest">
             <LayoutDashboard className="h-4 w-4" /> {t.pro}
@@ -89,15 +115,8 @@ export default function DashboardPage() {
           <h1 className="text-5xl font-black font-headline tracking-tighter">
             {t.welcome} <span className="smart-gradient-text">{user.displayName?.split(' ')[0] || "User"}</span>
           </h1>
-          <div className="pt-2">
-            <Link href="/verification/trainer">
-              <Button size="lg" className="rounded-2xl h-14 px-8 gap-3 bg-accent text-accent-foreground hover:bg-accent/90 font-black shadow-xl shadow-accent/20 border-none transition-all active:scale-95">
-                <FileCheck className="h-6 w-6" /> {t.proofBtn}
-              </Button>
-            </Link>
-          </div>
         </div>
-        <div className="flex items-center gap-6 glass-card p-6 rounded-3xl">
+        <div className="flex items-center gap-6 glass-card p-6 rounded-3xl border-accent/20">
            <div className="text-center">
               <span className="block text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-1">{t.success}</span>
               <span className="text-3xl font-black text-accent">{averageScore}%</span>
@@ -111,7 +130,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* AI Insight Card */}
-        <Card className="lg:col-span-2 glass-card border-primary/20 p-8 overflow-hidden relative">
+        <Card className="lg:col-span-2 glass-card border-primary/20 p-8 overflow-hidden relative group">
           <div className="absolute top-0 left-0 w-2 h-full bg-primary" />
           <CardHeader className="p-0 mb-6">
             <div className="flex items-center gap-2 text-primary font-black text-xs uppercase tracking-tighter">

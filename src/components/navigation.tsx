@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -81,8 +81,8 @@ export function Navigation() {
                 className={cn(
                   "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
                   pathname === "/dashboard" 
-                    ? "bg-accent text-accent-foreground shadow-xl scale-105" 
-                    : "text-accent hover:bg-accent/10"
+                    ? "bg-accent text-accent-foreground shadow-[0_8px_32px_rgba(245,158,11,0.4)] scale-105" 
+                    : "text-accent bg-accent/10 hover:bg-accent/20"
                 )}
               >
                 <LayoutDashboard className="h-3 w-3" />
@@ -114,33 +114,45 @@ export function Navigation() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Avatar className="h-12 w-12 cursor-pointer border-2 border-primary/20 hover:border-primary hover:scale-110 transition-all shadow-xl">
-                    <AvatarImage src={user.photoURL || undefined} />
-                    <AvatarFallback className="bg-primary/20 text-primary font-black">
-                      {user.displayName?.charAt(0) || 'U'}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div className="flex items-center gap-3 cursor-pointer group">
+                    <div className="hidden md:block text-right">
+                      <div className="text-xs font-black uppercase tracking-tighter text-muted-foreground">{language === 'ar' ? 'أهلاً بك' : 'Welcome'}</div>
+                      <div className="text-sm font-bold text-primary">{user.displayName?.split(' ')[0]}</div>
+                    </div>
+                    <Avatar className="h-12 w-12 border-2 border-primary/20 group-hover:border-primary group-hover:scale-110 transition-all shadow-xl">
+                      <AvatarImage src={user.photoURL || undefined} />
+                      <AvatarFallback className="bg-primary/20 text-primary font-black">
+                        {user.displayName?.charAt(0) || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                  </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-64 glass-card border-white/10 mt-6 rounded-[2rem] p-3">
-                  <DropdownMenuLabel className="font-black py-4 px-4 text-sm uppercase tracking-widest text-primary">
+                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-72 glass-card border-white/10 mt-6 rounded-[2.5rem] p-4 shadow-[0_32px_64px_rgba(0,0,0,0.5)]">
+                  <DropdownMenuLabel className="font-black py-4 px-4 text-sm uppercase tracking-widest text-primary flex items-center gap-3">
+                    <User className="h-4 w-4" />
                     {language === 'ar' ? 'حسابك الأكاديمي' : 'Academic Account'}
                   </DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-white/5" />
-                  <DropdownMenuItem asChild>
-                    <Link href="/dashboard" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-primary/10 px-4">
-                      <LayoutDashboard className="h-5 w-5 text-primary" /> 
-                      <span className="font-bold">{language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-accent/10 px-4">
-                      <FileCheck className="h-5 w-5 text-accent" /> 
-                      <span className="font-bold">{language === 'ar' ? 'إثبات العمل' : 'Trainer Proof'}</span>
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-white/5" />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4">
-                    <LogOut className="h-5 w-5" /> 
+                  <DropdownMenuSeparator className="bg-white/5 mx-2" />
+                  
+                  <div className="space-y-1 p-1">
+                    <DropdownMenuItem asChild>
+                      <Link href="/dashboard" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-primary/10 px-4 transition-all group">
+                        <LayoutDashboard className="h-5 w-5 text-primary group-hover:scale-110" /> 
+                        <span className="font-bold text-base">{language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem asChild>
+                      <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl bg-accent/5 hover:bg-accent/20 px-4 border border-accent/10 transition-all group">
+                        <FileCheck className="h-5 w-5 text-accent group-hover:scale-110" /> 
+                        <span className="font-black text-accent text-base">{language === 'ar' ? 'إثبات العمل (مدرب)' : 'Official Trainer Proof'}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  </div>
+
+                  <DropdownMenuSeparator className="bg-white/5 mx-2" />
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4 transition-all group">
+                    <LogOut className="h-5 w-5 group-hover:translate-x-1" /> 
                     <span className="font-bold">{language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -168,7 +180,7 @@ export function Navigation() {
                 href={item.href}
                 className={cn(
                   "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
-                  isActive ? "text-accent bg-accent/10 shadow-inner" : "text-muted-foreground"
+                  isActive ? "text-primary bg-primary/10 shadow-inner" : "text-muted-foreground"
                 )}
               >
                 <Icon className={cn("h-6 w-6", isActive && "stroke-[3px]")} />
@@ -183,12 +195,12 @@ export function Navigation() {
               href="/dashboard"
               className={cn(
                 "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
-                pathname === "/dashboard" ? "text-accent bg-accent/10 shadow-inner" : "text-muted-foreground"
+                pathname === "/dashboard" ? "text-accent bg-accent/10 shadow-inner border border-accent/20" : "text-accent/70 font-bold"
               )}
             >
               <LayoutDashboard className={cn("h-6 w-6", pathname === "/dashboard" && "stroke-[3px]")} />
               <span className="text-[10px] font-black uppercase tracking-tighter">
-                {language === 'ar' ? "لوحة" : "Dash"}
+                {language === 'ar' ? "لوحة التحكم" : "Dash"}
               </span>
             </Link>
           )}
