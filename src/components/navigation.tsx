@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck, User } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck, User, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -20,6 +20,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { ShareDialog } from "@/components/share-dialog"
+import { GlobalSearch } from "@/components/global-search"
 
 const navItems = [
   { name: "Home", nameAr: "الرئيسية", href: "/", icon: Home },
@@ -92,15 +93,18 @@ export function Navigation() {
           </nav>
 
           <div className="flex items-center gap-3 md:gap-4">
-            <ShareDialog>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="rounded-2xl hover:bg-white/10 text-muted-foreground hidden sm:flex h-12 w-12"
-              >
-                <Share2 className="h-5 w-5" />
-              </Button>
-            </ShareDialog>
+            <div className="hidden sm:flex items-center gap-3">
+              <GlobalSearch />
+              <ShareDialog>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12"
+                >
+                  <Share2 className="h-5 w-5" />
+                </Button>
+              </ShareDialog>
+            </div>
 
             <Button
               variant="ghost"
@@ -190,6 +194,9 @@ export function Navigation() {
               </Link>
             )
           })}
+          <div className="flex flex-col items-center justify-center flex-1">
+            <GlobalSearch />
+          </div>
           {user && (
             <Link
               href="/dashboard"
