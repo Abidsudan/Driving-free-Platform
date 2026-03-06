@@ -51,8 +51,13 @@ function handleAuthError(error: any, language: 'ar' | 'en') {
     } else if (error.code === 'auth/unauthorized-domain') {
       title = language === 'ar' ? "نطاق غير مصرح به" : "Unauthorized Domain";
       description = language === 'ar' 
-        ? "يرجى إضافة 'drivingfree.online' إلى النطاقات المعتمدة في Firebase Console." 
-        : "Please add 'drivingfree.online' to Authorized Domains in Firebase Console Settings.";
+        ? "يرجى إضافة النطاق الحالي إلى 'Authorized Domains' في إعدادات Firebase Console." 
+        : "Please add the current domain to 'Authorized Domains' in Firebase Console Settings.";
+    } else if (error.code === 'auth/internal-error') {
+      title = language === 'ar' ? "خطأ داخلي" : "Internal Error";
+      description = language === 'ar'
+        ? "حدث خطأ داخلي. تأكد من تفعيل Authentication في Firebase Console وإضافة النطاق الحالي للنطاقات المعتمدة."
+        : "An internal error occurred. Ensure Auth is enabled and the current domain is authorized in Firebase Console.";
     }
 
     toast({
@@ -71,7 +76,13 @@ function handleAuthError(error: any, language: 'ar' | 'en') {
 
 export async function initiateEmailSignUp(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
   try {
-    await getRecaptchaToken('SIGNUP');
+    // We don't block login/signup if reCAPTCHA fails to get a token
+    try {
+      await getRecaptchaToken('SIGNUP');
+    } catch (e) {
+      console.warn('reCAPTCHA skipped due to error');
+    }
+    
     const result = await createUserWithEmailAndPassword(authInstance, email, password);
     await syncUserProfile(result.user);
     toast({
@@ -85,7 +96,12 @@ export async function initiateEmailSignUp(authInstance: Auth, email: string, pas
 
 export async function initiateEmailSignIn(authInstance: Auth, email: string, password: string, language: 'ar' | 'en'): Promise<void> {
   try {
-    await getRecaptchaToken('LOGIN');
+    try {
+      await getRecaptchaToken('LOGIN');
+    } catch (e) {
+      console.warn('reCAPTCHA skipped due to error');
+    }
+
     const result = await signInWithEmailAndPassword(authInstance, email, password);
     await syncUserProfile(result.user);
     toast({
@@ -100,7 +116,12 @@ export async function initiateEmailSignIn(authInstance: Auth, email: string, pas
 export async function initiateGoogleSignIn(authInstance: Auth, language: 'ar' | 'en'): Promise<void> {
   const provider = new GoogleAuthProvider();
   try {
-    await getRecaptchaToken('LOGIN');
+    try {
+      await getRecaptchaToken('LOGIN');
+    } catch (e) {
+      console.warn('reCAPTCHA skipped due to error');
+    }
+
     const result = await signInWithPopup(authInstance, provider);
     await syncUserProfile(result.user);
     toast({

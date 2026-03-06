@@ -7,7 +7,7 @@
 [drivingfree.online](https://drivingfree.online)
 
 ## إعدادات هامة لتفعيل تسجيل الدخول (Crucial Auth Fix)
-بسبب استخدام نطاق خاص، يجب عليك القيام بالخطوات التالية في Firebase Console ليعمل تسجيل الدخول:
+بسبب استخدام نطاق خاص أو بيئة معاينة، يجب عليك القيام بالخطوات التالية في Firebase Console ليعمل تسجيل الدخول:
 
 1. اذهب إلى **Firebase Console**.
 2. اختر المشروع: **studio-241001251-5d1e7**.
@@ -15,7 +15,8 @@
 4. اذهب إلى تبويب **Settings**.
 5. اختر **Authorized domains**.
 6. اضغط **Add domain** وأضف: `drivingfree.online`
-7. اضغط **Add domain** مرة أخرى وأضف: `www.drivingfree.online`
+7. اضغط **Add domain** وأضف نطاق المعاينة الحالي (ينتهي بـ `*.cloudworkstations.dev`).
+8. تأكد من تفعيل **Email/Password** و **Google** في تبويب **Sign-in method**.
 
 ## المميزات الرئيسية
 - **منهج أكاديمي متكامل:** مراحل تعليمية شاملة من الصفر للاحتراف (مجانية بالكامل).
