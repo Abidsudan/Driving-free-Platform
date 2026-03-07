@@ -1,10 +1,9 @@
-
 "use client"
 
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, Menu, FileCheck, User, Search, Star } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, FileCheck, User, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -27,7 +26,7 @@ const navItems = [
   { name: "Home", nameAr: "الرئيسية", href: "/", icon: Home },
   { name: "Curriculum", nameAr: "المنهج", href: "/curriculum", icon: BookOpen },
   { name: "Library", nameAr: "المكتبة", href: "/library", icon: Library },
-  { name: "Traffic Signs", nameAr: "الإشارات", href: "/traffic-signs", icon: ShieldCheck },
+  { name: "Signs", nameAr: "الإشارات", href: "/traffic-signs", icon: ShieldCheck },
   { name: "Assessment", nameAr: "التقييم", href: "/assessment", icon: ClipboardCheck },
 ]
 
@@ -68,9 +67,9 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest",
+                  "px-5 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest",
                   pathname === item.href 
-                    ? "bg-primary text-white shadow-[0_8px_24px_-4px_rgba(59,130,246,0.5)] scale-105" 
+                    ? "bg-primary text-white shadow-lg scale-105" 
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
@@ -78,54 +77,24 @@ export function Navigation() {
               </Link>
             ))}
             {user && (
-              <div className="flex items-center gap-1">
-                <Link
-                  href="/dashboard"
-                  id="nav-dashboard-link"
-                  className={cn(
-                    "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
-                    pathname === "/dashboard" 
-                      ? "bg-accent text-accent-foreground shadow-[0_8px_32px_rgba(245,158,11,0.4)] scale-105" 
-                      : "text-accent bg-accent/10 hover:bg-accent/20 border border-accent/20"
-                  )}
-                >
-                  <LayoutDashboard className="h-3 w-3" />
-                  {language === 'ar' ? "لوحة التحكم" : "Dashboard"}
-                </Link>
-                <Link
-                  href="/verification/trainer"
-                  className={cn(
-                    "hidden xl:flex px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest items-center gap-2",
-                    pathname === "/verification/trainer"
-                      ? "bg-white text-black shadow-xl scale-105"
-                      : "bg-gradient-to-r from-accent to-primary text-white shadow-lg hover:brightness-110"
-                  )}
-                >
-                  <FileCheck className="h-3 w-3" />
-                  {language === 'ar' ? "إثبات العمل" : "Trainer Proof"}
-                </Link>
-              </div>
+              <Link
+                href="/dashboard"
+                className={cn(
+                  "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
+                  pathname === "/dashboard" 
+                    ? "bg-accent text-accent-foreground shadow-xl scale-105 border border-accent" 
+                    : "text-accent bg-accent/10 hover:bg-accent/20 border border-accent/20"
+                )}
+              >
+                <LayoutDashboard className="h-3.5 w-3.5" />
+                {language === 'ar' ? "لوحة التحكم" : "Dashboard"}
+              </Link>
             )}
           </nav>
 
-          <div className="flex items-center gap-3 md:gap-4">
-            <div className="flex items-center gap-2">
-              {/* More prominent search trigger */}
-              <div className="hidden sm:block">
-                <GlobalSearch />
-              </div>
-              
-              <div className="hidden md:flex items-center gap-2">
-                <ShareDialog>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12"
-                  >
-                    <Share2 className="h-5 w-5" />
-                  </Button>
-                </ShareDialog>
-              </div>
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="hidden sm:block">
+              <GlobalSearch />
             </div>
 
             <Button
@@ -141,11 +110,7 @@ export function Navigation() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <div className="flex items-center gap-3 cursor-pointer group">
-                    <div className="hidden md:block text-right">
-                      <div className="text-xs font-black uppercase tracking-tighter text-muted-foreground">{language === 'ar' ? 'أهلاً بك' : 'Welcome'}</div>
-                      <div className="text-sm font-bold text-primary">{user.displayName?.split(' ')[0]}</div>
-                    </div>
-                    <Avatar className="h-12 w-12 border-2 border-primary/20 group-hover:border-primary group-hover:scale-110 transition-all shadow-xl">
+                    <Avatar className="h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-all shadow-xl">
                       <AvatarImage src={user.photoURL || undefined} />
                       <AvatarFallback className="bg-primary/20 text-primary font-black">
                         {user.displayName?.charAt(0) || 'U'}
@@ -153,33 +118,27 @@ export function Navigation() {
                     </Avatar>
                   </div>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-72 glass-card border-white/10 mt-6 rounded-[2.5rem] p-4 shadow-[0_32px_64px_rgba(0,0,0,0.5)]">
+                <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-72 glass-card border-white/10 mt-6 rounded-[2.5rem] p-4 shadow-2xl">
                   <DropdownMenuLabel className="font-black py-4 px-4 text-sm uppercase tracking-widest text-primary flex items-center gap-3">
-                    <User className="h-4 w-4" />
-                    {language === 'ar' ? 'حسابك الأكاديمي' : 'Academic Account'}
+                    <User className="h-4 w-4" /> {language === 'ar' ? 'حسابك' : 'Account'}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/5 mx-2" />
-                  
-                  <div className="space-y-1 p-1">
-                    <DropdownMenuItem asChild>
-                      <Link href="/dashboard" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-primary/10 px-4 transition-all group">
-                        <LayoutDashboard className="h-5 w-5 text-primary group-hover:scale-110" /> 
-                        <span className="font-bold text-base">{language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    
-                    <DropdownMenuItem asChild>
-                      <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl bg-accent/10 hover:bg-accent/20 px-4 border border-accent/20 transition-all group">
-                        <FileCheck className="h-5 w-5 text-accent group-hover:scale-110" /> 
-                        <span className="font-black text-accent text-base">{language === 'ar' ? 'إثبات العمل (مدرب)' : 'Official Trainer Proof'}</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  </div>
-
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl hover:bg-primary/10 px-4 transition-all">
+                      <LayoutDashboard className="h-5 w-5 text-primary" /> 
+                      <span className="font-bold">{language === 'ar' ? 'لوحة التحكم' : 'Dashboard'}</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/verification/trainer" className="cursor-pointer py-4 flex items-center gap-4 rounded-2xl bg-accent/10 hover:bg-accent/20 px-4 border border-accent/20 transition-all">
+                      <FileCheck className="h-5 w-5 text-accent" /> 
+                      <span className="font-black text-accent">{language === 'ar' ? 'إثبات العمل (مدرب)' : 'Trainer Proof'}</span>
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-white/5 mx-2" />
-                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4 transition-all group">
-                    <LogOut className="h-5 w-5 group-hover:translate-x-1" /> 
-                    <span className="font-bold">{language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}</span>
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4">
+                    <LogOut className="h-5 w-5" /> 
+                    <span className="font-bold">{language === 'ar' ? 'خروج' : 'Sign Out'}</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -194,45 +153,40 @@ export function Navigation() {
         </div>
       </header>
 
-      {/* Mobile Nav - Added Search here */}
+      {/* Mobile Nav */}
       <nav className="fixed bottom-8 left-8 right-8 z-[9999] lg:hidden">
-        <div className="flex h-20 items-center justify-around bg-background/90 backdrop-blur-3xl shadow-[0_32px_80px_rgba(0,0,0,0.8)] rounded-[2.5rem] border border-white/10 px-4">
+        <div className="flex h-20 items-center justify-around bg-background/90 backdrop-blur-3xl shadow-2xl rounded-[2.5rem] border border-white/10 px-4">
           <Link
             href="/"
             className={cn(
-              "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
-              pathname === "/" ? "text-primary bg-primary/10 shadow-inner" : "text-muted-foreground"
+              "flex flex-col items-center justify-center flex-1 gap-1 h-14 rounded-3xl transition-all",
+              pathname === "/" ? "text-primary bg-primary/10" : "text-muted-foreground"
             )}
           >
             <Home className="h-6 w-6" />
-            <span className="text-[10px] font-black uppercase tracking-tighter">{language === 'ar' ? 'الرئيسية' : 'Home'}</span>
+            <span className="text-[8px] font-black uppercase">{language === 'ar' ? 'الرئيسية' : 'Home'}</span>
           </Link>
-
-          {/* Mobile Search Trigger */}
           <div className="flex flex-col items-center justify-center flex-1">
             <GlobalSearch />
           </div>
-
           {user ? (
             <Link
               href="/dashboard"
               className={cn(
-                "flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl transition-all",
-                pathname === "/dashboard" ? "text-accent bg-accent/10 shadow-inner border border-accent/20" : "text-accent/70 font-bold"
+                "flex flex-col items-center justify-center flex-1 gap-1 h-14 rounded-3xl transition-all",
+                pathname === "/dashboard" ? "text-accent bg-accent/10 border border-accent/20" : "text-accent/70 font-bold"
               )}
             >
               <LayoutDashboard className="h-6 w-6" />
-              <span className="text-[10px] font-black uppercase tracking-tighter">
-                {language === 'ar' ? "لوحة التحكم" : "Dash"}
-              </span>
+              <span className="text-[8px] font-black uppercase">{language === 'ar' ? 'التحكم' : 'Dash'}</span>
             </Link>
           ) : (
             <Link
               href="/auth"
-              className="flex flex-col items-center justify-center flex-1 gap-1.5 h-14 rounded-3xl text-muted-foreground"
+              className="flex flex-col items-center justify-center flex-1 gap-1 h-14 rounded-3xl text-muted-foreground"
             >
               <User className="h-6 w-6" />
-              <span className="text-[10px] font-black uppercase tracking-tighter">{language === 'ar' ? 'دخول' : 'Login'}</span>
+              <span className="text-[8px] font-black uppercase">{language === 'ar' ? 'دخول' : 'Login'}</span>
             </Link>
           )}
         </div>
