@@ -140,7 +140,7 @@ export function Navigation() {
                 )}
               >
                 <Icon className={cn("h-5 w-5", isActive && "stroke-[2.5px]")} />
-                <span className="text-[8px] font-black uppercase tracking-tighter">
+                <span className="text-[10px] font-black uppercase tracking-tighter">
                   {language === 'ar' ? item.nameAr : item.name}
                 </span>
               </Link>

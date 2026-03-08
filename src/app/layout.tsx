@@ -6,10 +6,37 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { LanguageProvider } from '@/components/language-provider';
 import Script from 'next/script';
 import { ReactNode } from 'react';
+import { Cairo, Inter, Space_Grotesk } from 'next/font/google';
+
+const cairo = Cairo({ subsets: ['arabic', 'latin'], variable: '--font-cairo' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
 
 export const metadata: Metadata = {
   title: 'Driving Free | Professional Driving Academy',
   description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
+  openGraph: {
+    title: 'Driving Free | Professional Driving Academy',
+    description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
+    url: 'https://drivingfree.online',
+    siteName: 'Driving Free',
+    images: [
+      {
+        url: 'https://drivingfree.online/logo.png',
+        width: 1200,
+        height: 630,
+        alt: 'Driving Free Academy',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Driving Free | Professional Driving Academy',
+    description: 'Academic and practical driving education in Dubai - Advanced curriculum and field expertise.',
+    images: ['https://drivingfree.online/logo.png'],
+  },
 };
 
 export default async function RootLayout({
@@ -18,11 +45,8 @@ export default async function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning className={`${cairo.variable} ${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <Script 
           src="https://www.google.com/recaptcha/enterprise.js?render=6LentHosAAAAAPU47L-1tuSMFhiUQTlPguCQ15aS" 
           strategy="afterInteractive"
