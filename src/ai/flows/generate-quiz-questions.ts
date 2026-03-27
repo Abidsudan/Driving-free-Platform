@@ -31,7 +31,6 @@ export type GenerateQuizQuestionsOutput = z.infer<typeof GenerateQuizQuestionsOu
 
 export async function generateQuizQuestions(input: GenerateQuizQuestionsInput): Promise<GenerateQuizQuestionsOutput> {
   const { output } = await ai.generate({
-    input: { schema: GenerateQuizQuestionsInputSchema, data: input },
     output: { schema: GenerateQuizQuestionsOutputSchema },
     system: `You are an expert in designing RTA driving exam questions for Dubai. 
     Create ${input.numberOfQuestions} multiple-choice questions in ${input.language}.

@@ -4,7 +4,7 @@ import { useUser, useCollection, useFirestore, useMemoFirebase } from '@/firebas
 import { collection, query, orderBy, limit } from 'firebase/firestore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap } from 'lucide-react';
+import { Trophy, Clock, Target, BookOpen, Lightbulb, CheckCircle2, Star, ChevronRight, LayoutDashboard, Zap, GraduationCap, ShieldCheck, ClipboardCheck } from 'lucide-react';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { ar, enUS } from 'date-fns/locale';
@@ -114,7 +114,7 @@ export default function DashboardPage() {
           <CardContent className="p-0">
             {dailyTip ? (
               <div className="space-y-6">
-                <p className="text-muted-foreground leading-relaxed text-lg italic">"{dailyTip.content}"</p>
+                <p className="text-muted-foreground leading-relaxed text-lg italic">&quot;{dailyTip.content}&quot;</p>
                 <div className="inline-block px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest">
                   {dailyTip.category}
                 </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { askDrivingTutor, type TutorOutput } from '@/ai/flows/driving-tutor';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,20 +22,20 @@ export default function TutorPage() {
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const t = {
+  const t = useMemo(() => ({
     title: language === 'ar' ? "المعلم الذكي: معلمك الخاص" : "AI Tutor: Your Personal Mentor",
     desc: language === 'ar' ? "اسأل عن أي قاعدة مرورية، فيزياء القيادة، أو نصائح لاختبار RTA." : "Ask about any traffic rule, driving physics, or RTA test tips.",
     placeholder: language === 'ar' ? "مثال: متى يجب فحص النقطة العمياء؟" : "Example: When should I check the blind spot?",
     welcome: language === 'ar' ? "مرحباً بك! أنا معلمك الذكي، كيف يمكنني مساعدتك في رحلتك الأكاديمية اليوم؟" : "Welcome! I am your AI Tutor, how can I assist you in your academic journey today?",
     reference: language === 'ar' ? "المرجع:" : "Reference:",
     error: language === 'ar' ? "عذراً، حدث خطأ أثناء الاتصال بالمعلم الذكي." : "Sorry, an error occurred while connecting to the AI Tutor."
-  };
+  }), [language]);
 
   useEffect(() => {
     if (messages.length === 0) {
       setMessages([{ role: 'model', content: t.welcome }]);
     }
-  }, [language]);
+  }, [language, messages.length, t.welcome]);
 
   useEffect(() => {
     if (scrollRef.current) {
