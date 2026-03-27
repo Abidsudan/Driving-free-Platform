@@ -5,7 +5,7 @@ import { generateQuizQuestions, type GenerateQuizQuestionsOutput } from "@/ai/fl
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft } from "lucide-react"
+import { CheckCircle2, XCircle, RefreshCw, Trophy, Target, Lightbulb, Zap, ArrowRight, ArrowLeft, Sparkles, Activity, ShieldCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useUser, useFirestore } from "@/firebase"
 import { collection } from "firebase/firestore"
@@ -99,11 +99,17 @@ export function AssessmentQuiz() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col items-center justify-center py-32 text-center gap-6 animate-pulse">
-        <RefreshCw className="h-20 w-20 animate-spin text-primary" />
-        <div className="space-y-2">
-          <h3 className="text-3xl font-black font-headline text-primary">{t.loadingTitle}</h3>
-          <p className="text-muted-foreground text-sm uppercase tracking-widest font-black">{t.loadingSubtitle}</p>
+      <div className="flex flex-col items-center justify-center py-48 text-center gap-12 animate-reveal-up">
+        <div className="relative">
+          <RefreshCw className="h-32 w-32 animate-spin text-primary opacity-20" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Zap className="h-12 w-12 text-primary animate-pulse" />
+          </div>
+          <div className="absolute -inset-8 bg-primary/10 blur-[60px] rounded-full animate-float" />
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-4xl font-black font-headline tracking-tight leading-none smart-gradient-text">{t.loadingTitle}</h3>
+          <p className="text-muted-foreground text-sm uppercase tracking-[0.5em] font-black opacity-60">{t.loadingSubtitle}</p>
         </div>
       </div>
     )
@@ -113,32 +119,39 @@ export function AssessmentQuiz() {
     const finalScore = score + (selectedAnswer === questions![currentIndex].correctAnswerIndex ? 1 : 0);
     const cognitiveRate = (finalScore / (questions?.length || 1)) * 100
     return (
-      <Card className="max-w-3xl mx-auto glass-card rounded-[3rem] overflow-hidden animate-fade-in border-accent/20">
-        <div className="h-3 bg-accent w-full" />
-        <CardContent className="p-16 text-center space-y-12">
-          <Trophy className="h-24 w-24 text-accent mx-auto animate-float" />
+      <Card className="max-w-4xl mx-auto glass-card rounded-[4rem] overflow-hidden animate-reveal-up border-primary/20 shadow-2xl relative">
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary via-accent to-primary" />
+        <CardContent className="p-20 text-center space-y-16">
+          <div className="relative inline-block">
+             <Trophy className="h-32 w-32 text-accent mx-auto animate-float shadow-2xl" />
+             <div className="absolute -inset-8 bg-accent/20 blur-[60px] rounded-full -z-10" />
+          </div>
           <div className="space-y-4">
-            <h2 className="text-5xl font-black font-headline">{t.resultTitle}</h2>
-            <div className="text-8xl font-black smart-gradient-text">{Math.round(cognitiveRate)}%</div>
+            <h2 className="text-6xl font-black font-headline tracking-tighter">{t.resultTitle}</h2>
+            <div className="text-9xl font-black smart-gradient-text tracking-[ -0.05em]">{Math.round(cognitiveRate)}%</div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="p-8 rounded-[2rem] bg-secondary/40 border border-white/5 space-y-2 text-center">
-              <Zap className="h-6 w-6 text-primary mx-auto" />
-              <h4 className="font-black text-sm uppercase">{t.strengthTitle}</h4>
-              <p className="text-muted-foreground text-xs leading-relaxed">{t.strengthDesc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 px-4">
+            <div className="glass-card p-10 rounded-[3rem] border-white/5 space-y-4 text-center group hover:border-primary/30 transition-all">
+              <div className="p-4 bg-primary/10 rounded-2xl w-fit mx-auto group-hover:bg-primary group-hover:text-black transition-all">
+                <Zap className="h-8 w-8 text-primary group-hover:text-black" />
+              </div>
+              <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-primary">{t.strengthTitle}</h4>
+              <p className="text-muted-foreground font-medium leading-relaxed opacity-80">{t.strengthDesc}</p>
             </div>
-            <div className="p-8 rounded-[2rem] bg-secondary/40 border border-white/5 space-y-2 text-center">
-              <Lightbulb className="h-6 w-6 text-accent mx-auto" />
-              <h4 className="font-black text-sm uppercase">{t.adviceTitle}</h4>
-              <p className="text-muted-foreground text-xs leading-relaxed">{t.adviceDesc}</p>
+            <div className="glass-card p-10 rounded-[3rem] border-white/5 space-y-4 text-center group hover:border-accent/30 transition-all">
+              <div className="p-4 bg-accent/10 rounded-2xl w-fit mx-auto group-hover:bg-accent group-hover:text-black transition-all">
+                <Lightbulb className="h-8 w-8 text-accent group-hover:text-black" />
+              </div>
+              <h4 className="font-black text-[10px] uppercase tracking-[0.4em] text-accent">{t.adviceTitle}</h4>
+              <p className="text-muted-foreground font-medium leading-relaxed opacity-80">{t.adviceDesc}</p>
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button onClick={startQuiz} size="lg" className="h-16 px-12 rounded-2xl font-black text-xl w-full sm:w-auto">{t.btnRetry}</Button>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center pt-8">
+            <Button onClick={startQuiz} size="lg" className="premium-button h-20 px-16 text-black bg-primary hover:bg-primary/90 text-2xl font-black rounded-[2rem] w-full sm:w-auto shadow-2xl shadow-primary/20">{t.btnRetry}</Button>
             {user && (
-              <Button variant="outline" asChild className="h-16 px-12 rounded-2xl font-black text-xl glass-card w-full sm:w-auto">
+              <Button variant="outline" asChild className="h-20 px-16 text-white rounded-[2rem] border-white/10 glass-card text-2xl font-black hover:bg-white/5 w-full sm:w-auto">
                 <Link href="/dashboard">{t.btnDashboard}</Link>
               </Button>
             )}
@@ -150,20 +163,27 @@ export function AssessmentQuiz() {
 
   if (!questions) {
     return (
-      <div className="max-w-4xl mx-auto p-12 text-center glass-card rounded-[4rem] border-white/5 space-y-10">
-        <div className="inline-flex p-6 rounded-3xl bg-primary/10 text-primary animate-float">
-          <Target className="h-16 w-16" />
+      <div className="max-w-5xl mx-auto p-20 text-center glass-card rounded-[4rem] border-primary/10 space-y-12 relative overflow-hidden animate-reveal-up">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[120px] -mr-48 -mt-48" />
+        <div className="inline-flex p-10 rounded-[2.5rem] bg-primary/10 text-primary border border-primary/20 shadow-2xl shadow-primary/20 animate-float relative z-10">
+          <Target className="h-20 w-20" />
         </div>
-        <div className="space-y-4">
-          <h2 className="text-4xl md:text-7xl font-black font-headline leading-none">{t.simulatorTitle}</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <div className="space-y-6 relative z-10">
+          <h2 className="text-5xl md:text-8xl font-black font-headline leading-none tracking-tighter smart-gradient-text">{t.simulatorTitle}</h2>
+          <p className="text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-medium opacity-80">
             {t.simulatorDesc}
           </p>
         </div>
-        <Button size="lg" onClick={startQuiz} className="h-20 px-16 rounded-3xl font-black text-2xl shadow-2xl shadow-primary/30 active:scale-95 transition-all">
-          {t.btnStart}
-        </Button>
-        <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em]">{t.statsLabel}</p>
+        <div className="relative z-10 space-y-8">
+          <Button size="lg" onClick={startQuiz} className="premium-button h-24 px-20 text-black bg-primary hover:bg-primary/90 rounded-[2.5rem] text-3xl font-black shadow-2xl shadow-primary/30 active:scale-95">
+            {t.btnStart}
+          </Button>
+          <div className="flex items-center justify-center gap-6">
+            <div className="h-px w-12 bg-white/10" />
+            <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.5em] opacity-60">{t.statsLabel}</p>
+            <div className="h-px w-12 bg-white/10" />
+          </div>
+        </div>
       </div>
     )
   }
@@ -172,59 +192,66 @@ export function AssessmentQuiz() {
   const progress = ((currentIndex + 1) / questions.length) * 100
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8 animate-fade-in px-4">
-      <div className="flex items-center justify-between">
-        <div className="space-y-1">
-          <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t.questionLabel} {currentIndex + 1} {t.ofLabel} {questions.length}</span>
-          <h3 className="text-2xl font-black font-headline text-accent uppercase tracking-tighter">{q.category}</h3>
+    <div className="max-w-4xl mx-auto space-y-12 animate-reveal-up px-6 pb-20">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="space-y-2 text-center md:text-left">
+          <span className="text-[10px] font-black text-primary uppercase tracking-[0.5em] opacity-80">{t.questionLabel} {currentIndex + 1} {t.ofLabel} {questions.length}</span>
+          <h3 className="text-3xl md:text-4xl font-black font-headline text-white tracking-tight uppercase">{q.category}</h3>
         </div>
-        <div className="h-16 w-16 rounded-2xl glass-card flex items-center justify-center text-2xl font-black text-primary border-primary/20">
+        <div className="h-20 w-20 rounded-[2rem] glass-card flex items-center justify-center text-3xl font-black text-primary border-primary/20 shadow-2xl">
           {currentIndex + 1}
         </div>
       </div>
       
-      <Progress value={progress} className="h-3 bg-secondary rounded-full overflow-hidden" />
+      <div className="relative py-4">
+        <Progress value={progress} className="h-4 bg-secondary rounded-full overflow-hidden border border-white/5 p-1" />
+        <div className="absolute top-1/2 left-[calc(progress)] w-3 h-3 bg-primary rounded-full blur-sm" />
+      </div>
       
-      <Card className="glass-card border-white/5 overflow-hidden rounded-[3rem]">
-        <CardHeader className="p-12 pb-8">
-          <CardTitle className="text-2xl md:text-3xl leading-[1.3] font-black font-headline">{q.questionText}</CardTitle>
+      <Card className="glass-card border-white/10 overflow-hidden rounded-[4rem] shadow-2xl relative group">
+        <div className="absolute top-0 left-0 w-2 h-full bg-primary opacity-20 group-hover:opacity-100 transition-opacity" />
+        <CardHeader className="p-16 pb-12">
+          <CardTitle className="text-3xl md:text-5xl leading-[1.1] font-black font-headline tracking-tighter">{q.questionText}</CardTitle>
         </CardHeader>
-        <CardContent className="px-12 space-y-4 pb-12">
+        <CardContent className="px-16 space-y-6 pb-16">
           {q.options.map((option, idx) => (
             <button
               key={idx}
               disabled={isAnswered}
               onClick={() => handleAnswer(idx)}
               className={cn(
-                "w-full flex items-center justify-between p-6 rounded-[1.5rem] border-2 text-right transition-all group",
-                !isAnswered && "border-white/5 hover:border-primary/50 hover:bg-primary/5",
-                isAnswered && idx === q.correctAnswerIndex && "border-green-500 bg-green-500/10 text-green-400 scale-[1.02]",
-                isAnswered && idx === selectedAnswer && idx !== q.correctAnswerIndex && "border-red-500 bg-red-500/10 text-red-400",
-                isAnswered && idx !== selectedAnswer && idx !== q.correctAnswerIndex && "opacity-40 grayscale"
+                "w-full flex items-center justify-between p-8 rounded-[2.5rem] border-2 text-right transition-all group/option relative overflow-hidden",
+                !isAnswered && "border-white/5 hover:border-primary/50 hover:bg-primary/5 bg-white/5 shadow-xl",
+                isAnswered && idx === q.correctAnswerIndex && "border-green-500 bg-green-500/20 text-green-400 scale-[1.02] shadow-[0_0_40px_rgba(34,197,94,0.2)]",
+                isAnswered && idx === selectedAnswer && idx !== q.correctAnswerIndex && "border-red-500 bg-red-500/20 text-red-400 shadow-[0_0_40px_rgba(239,68,68,0.2)]",
+                isAnswered && idx !== selectedAnswer && idx !== q.correctAnswerIndex && "opacity-20 grayscale scale-[0.98]"
               )}
             >
-              <span className="text-lg font-bold">{option}</span>
+              <span className="text-xl md:text-2xl font-bold relative z-10">{option}</span>
               <div className={cn(
-                "h-6 w-6 rounded-full border-2 flex items-center justify-center",
-                isAnswered && idx === q.correctAnswerIndex ? "bg-green-500 border-green-500" : "border-white/10"
+                "h-10 w-10 rounded-full border-2 flex items-center justify-center relative z-10 shrink-0",
+                isAnswered && idx === q.correctAnswerIndex ? "bg-green-500 border-green-500 shadow-lg" : "border-white/10"
               )}>
-                {isAnswered && idx === q.correctAnswerIndex && <CheckCircle2 className="h-4 w-4 text-white" />}
-                {isAnswered && idx === selectedAnswer && idx !== q.correctAnswerIndex && <XCircle className="h-4 w-4 text-red-500" />}
+                {isAnswered && idx === q.correctAnswerIndex && <CheckCircle2 className="h-6 w-6 text-white" />}
+                {isAnswered && idx === selectedAnswer && idx !== q.correctAnswerIndex && <XCircle className="h-6 w-6 text-red-500" />}
               </div>
+              {!isAnswered && (
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 -translate-x-full group-hover/option:animate-shimmer" />
+              )}
             </button>
           ))}
         </CardContent>
         {isAnswered && (
-          <CardFooter className="flex flex-col items-start gap-8 p-12 bg-primary/5 border-t border-white/5">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-accent font-black text-xs uppercase tracking-widest">
-                <Lightbulb className="h-4 w-4" /> {t.analysisLabel}
+          <CardFooter className="flex flex-col items-stretch gap-12 p-16 bg-black/40 border-t border-white/5 backdrop-blur-3xl animate-reveal-up">
+            <div className="space-y-6">
+              <div className="flex items-center gap-3 text-accent font-black text-[10px] uppercase tracking-[0.5em]">
+                <Lightbulb className="h-5 w-5" /> {t.analysisLabel}
               </div>
-              <p className="text-lg leading-relaxed text-muted-foreground font-medium italic">{q.explanation}</p>
+              <p className="text-2xl leading-relaxed text-muted-foreground font-medium italic opacity-90 border-l-4 border-accent/20 pl-8">&quot;{q.explanation}&quot;</p>
             </div>
-            <Button onClick={nextQuestion} className="h-16 w-full rounded-2xl font-black text-xl shadow-xl shadow-primary/20">
+            <Button onClick={nextQuestion} className="premium-button h-24 w-full rounded-[2.5rem] font-black text-3xl text-black bg-primary hover:bg-primary/90 shadow-2xl shadow-primary/30 transition-all active:scale-[0.98]">
               {currentIndex === questions.length - 1 ? t.btnFinish : t.btnNext}
-              {dir === 'rtl' ? <ArrowLeft className="h-5 w-5 mr-3" /> : <ArrowRight className="h-5 w-5 ml-3" />}
+              {dir === 'rtl' ? <ArrowLeft className="h-8 w-8 mr-6" /> : <ArrowRight className="h-8 w-8 ml-6" />}
             </Button>
           </CardFooter>
         )}
@@ -232,3 +259,4 @@ export function AssessmentQuiz() {
     </div>
   )
 }
+
