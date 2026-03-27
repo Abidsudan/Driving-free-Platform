@@ -136,8 +136,12 @@ export default function Home() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
           {t.features.map((feature, i) => (
-            <Link href={feature.href} key={i} className="group animate-reveal-up opacity-0" 
-                  style={{ animationDelay: `${0.1 * (i + 1)}s` }}>
+            <Link href={feature.href} key={i} className={cn(
+              "group animate-reveal-up",
+              i === 0 && "delay-100",
+              i === 1 && "delay-200",
+              i >= 2 && "delay-300"
+            )}>
               <div className="h-full p-16 rounded-[5rem] glass-card border-white/5 hover:border-primary/20 transition-all duration-1000 relative overflow-hidden flex flex-col justify-between group-hover:-translate-y-6">
                 <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-primary/10 blur-[120px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                 

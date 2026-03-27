@@ -65,7 +65,7 @@ export default function TrafficSignsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-reveal-up opacity-0 [animation-delay:0.2s]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 animate-reveal-up delay-200">
         {t.stats.map((stat, i) => (
           <div key={i} className="glass-card p-10 rounded-[3rem] border-white/5 hover:border-primary/30 transition-all group relative overflow-hidden text-center">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-[50px] -mr-16 -mt-16" />
@@ -78,7 +78,7 @@ export default function TrafficSignsPage() {
         ))}
       </div>
 
-      <div className="animate-reveal-up opacity-0 [animation-delay:0.4s]">
+      <div className="animate-reveal-up delay-400">
         <Tabs defaultValue="regulatory" className="w-full">
           <TabsList className="flex flex-wrap h-auto gap-4 bg-black/40 p-4 rounded-[2.5rem] mb-20 border border-white/5 justify-center backdrop-blur-3xl">
             {[

@@ -59,7 +59,7 @@ export default function CurriculumPage() {
 
   return (
     <div className="container mx-auto px-6 py-20 space-y-32">
-      <div className="max-w-4xl space-y-8 animate-reveal-up opacity-0">
+      <div className="max-w-4xl space-y-8 animate-reveal-up">
         <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-primary/10 text-primary text-[10px] font-black uppercase tracking-[0.5em] border border-primary/20">
           <GraduationCap className="h-4 w-4" />
           {language === 'ar' ? 'المسار الأكاديمي' : 'ACADEMIC PATHWAY'}
@@ -74,7 +74,16 @@ export default function CurriculumPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
         {t.stages.map((stage, idx) => (
-          <div key={idx} className="relative group animate-reveal-up opacity-0" style={{ animationDelay: `${0.2 * (idx + 1)}s` }}>
+          <div 
+            key={idx} 
+            className={cn(
+              "relative group animate-reveal-up",
+              idx === 0 && "delay-100",
+              idx === 1 && "delay-200",
+              idx === 2 && "delay-300",
+              idx >= 3 && "delay-400"
+            )}
+          >
             <div className="absolute -inset-4 bg-gradient-to-br from-primary/5 to-transparent rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <Card className="h-full overflow-hidden border-white/5 bg-card/40 rounded-[3.5rem] shadow-2xl relative z-10 hover:border-primary/30 transition-all duration-700 hover:-translate-y-4">
               <div className="relative h-72 w-full overflow-hidden">

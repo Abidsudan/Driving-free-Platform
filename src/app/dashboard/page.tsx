@@ -88,7 +88,7 @@ export default function DashboardPage() {
   return (
     <div className="container mx-auto px-6 py-16 space-y-20">
       {/* Smart Header Section */}
-      <div className="relative group animate-reveal-up opacity-0">
+      <div className="relative group animate-reveal-up">
         <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-[4rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
         <div className="relative flex flex-col md:flex-row justify-between items-stretch gap-12 glass-card p-12 rounded-[4rem] border-primary/10 overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 blur-[120px] -mr-48 -mt-48" />
@@ -121,7 +121,7 @@ export default function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* AI Insight Card */}
-        <Card className="lg:col-span-2 glass-card border-primary/20 p-12 overflow-hidden relative group animate-reveal-up opacity-0 [animation-delay:0.2s]">
+        <Card className="lg:col-span-2 glass-card border-primary/20 p-12 overflow-hidden relative group animate-reveal-up delay-200">
           <div className="absolute top-0 left-0 w-3 h-full bg-primary shadow-[0_0_30px_rgba(59,130,246,0.5)]" />
           <CardHeader className="p-0 mb-10">
             <div className="flex items-center justify-between">
@@ -155,7 +155,7 @@ export default function DashboardPage() {
         </Card>
 
         {/* Phase Progress */}
-        <Card className="glass-card border-accent/20 p-12 flex flex-col justify-between group animate-reveal-up opacity-0 [animation-delay:0.4s]">
+        <Card className="glass-card border-accent/20 p-12 flex flex-col justify-between group animate-reveal-up delay-400">
           <div className="space-y-10">
             <div className="flex items-center justify-between">
               <div className="bg-accent/10 p-5 rounded-[2rem] group-hover:bg-accent group-hover:text-black transition-all border border-accent/20 shadow-xl">
@@ -183,7 +183,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
-        <div className="lg:col-span-2 space-y-12 animate-reveal-up opacity-0 [animation-delay:0.6s]">
+        <div className="lg:col-span-2 space-y-12 animate-reveal-up delay-500">
           <div className="flex items-center justify-between">
             <h2 className="text-4xl font-black font-headline flex items-center gap-6">
               <div className="p-4 bg-primary/10 rounded-[1.5rem] border border-primary/20">
