@@ -228,7 +228,7 @@ export default function TrafficSignsPage() {
           </div>
           
           <p className="text-xl md:text-3xl text-muted-foreground font-light max-w-4xl mx-auto leading-relaxed border-l-2 border-primary/20 pl-8 italic">
-            "{t.subtitle}"
+            &quot;{t.subtitle}&quot;
           </p>
 
           <div className="flex justify-center gap-8 text-[10px] font-black tracking-widest text-primary/40 uppercase">

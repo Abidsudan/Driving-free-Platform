@@ -259,7 +259,7 @@ export default function CurriculumPage() {
             {t.conclusionTitle}
           </h2>
           <p className="text-2xl text-muted-foreground font-medium leading-relaxed italic">
-            "{t.conclusionText}"
+            &quot;{t.conclusionText}&quot;
           </p>
           <div className="pt-8 flex gap-6">
             <div className="h-1 w-24 bg-primary rounded-full" />

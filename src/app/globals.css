@@ -115,6 +115,7 @@
 
 /* Arabic Headline Optimization */
 [dir="rtl"] .font-headline {
+  font-family: var(--font-cairo), sans-serif;
   letter-spacing: 0;
   line-height: 1.2;
-}
+}

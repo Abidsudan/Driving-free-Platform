@@ -50,19 +50,14 @@ export function Navigation() {
         <div className="container mx-auto flex items-center justify-between px-6">
           <Link href="/" className="flex items-center gap-4 group shrink-0">
             <div className="relative flex items-center justify-center bg-white rounded-2xl p-2 shadow-2xl w-32 md:w-44 h-12 md:h-14 overflow-hidden transition-all group-hover:scale-105 active:scale-95 border-2 border-white/10">
-              {logo?.imageUrl ? (
                 <Image 
-                  src={logo.imageUrl} 
+                  src="/site-logo.png" 
                   alt="Driving Free" 
                   width={150}
                   height={50}
                   className="object-contain grayscale group-hover:grayscale-0 transition-all duration-700"
                   priority
-                  unoptimized
                 />
-              ) : (
-                <span className="font-black text-primary tracking-tighter text-xl">DRIVING FREE</span>
-              )}
             </div>
             <div className="hidden lg:flex flex-col">
               <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] leading-none mb-1">Dubai</span>
