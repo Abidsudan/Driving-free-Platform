@@ -2,6 +2,7 @@
 "use client"
 
 import { BookOpen, FileText, Clock, Sparkles, MoveRight, BookMarked, Microscope, Brain, Zap, ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "@/components/language-provider"
 import { cn } from "@/lib/utils"
@@ -26,6 +27,7 @@ export default function LibraryPage() {
         type: language === 'ar' ? "بحث شامل" : "Comprehensive Research",
         readTime: language === 'ar' ? "25 دقيقة" : "25 mins",
         icon: Microscope,
+        href: "/library/vehicle-control",
         desc: language === 'ar' 
           ? "إتقان التحكم في المركبة هو حجر الزاوية في فن القيادة الآمنة. يغطي هذا البحث وضعيات الجلوس العلمية، أدوات التحكم الدقيقة، وديناميكيات نقل الوزن."
           : "Mastering vehicle control is the cornerstone of safe driving. This research covers scientific seating, precision controls, and weight transfer dynamics."
@@ -36,6 +38,7 @@ export default function LibraryPage() {
         type: language === 'ar' ? "دليل استراتيجي" : "Strategic Guide",
         readTime: language === 'ar' ? "15 دقيقة" : "15 mins",
         icon: Brain,
+        href: "#",
         desc: language === 'ar' 
           ? "الممارسة التي تهدف لتقليل المخاطر من خلال التنبؤ الكهرومغناطيسي لأخطاء الآخرين والتعامل مع الظروف الصعبة بتركيز مطلق."
           : "The practice aimed at reducing risks through electromagnetic prediction of others' mistakes and handling conditions with absolute focus."
@@ -46,6 +49,7 @@ export default function LibraryPage() {
         type: language === 'ar' ? "ورقة فنية" : "Technical Paper",
         readTime: language === 'ar' ? "12 دقيقة" : "12 mins",
         icon: Zap,
+        href: "#",
         desc: language === 'ar' 
           ? "تحليل فني عميق حول كيفية تأثر توازن المركبة عند استخدام المكابح في المنعطفات وكيفية تجنب فقدان التماسك الهيدروليكي."
           : "Deep technical analysis of how vehicle balance is affected when braking in corners and how to avoid losing hydraulic traction."
@@ -56,6 +60,7 @@ export default function LibraryPage() {
         type: language === 'ar' ? "دراسة أكاديمية" : "Academic Study",
         readTime: language === 'ar' ? "10 دقيقة" : "10 mins",
         icon: Sparkles,
+        href: "#",
         desc: language === 'ar' 
           ? "فهم العمليات العصبية التي يمر بها السائق لتجنب الاصطدام وكيفية تدريب العين على اكتشاف المخاطر الجانبية بسرعة فائقة."
           : "Understanding neural processes a driver undergoes to avoid collisions and training the eye to detect lateral hazards rapidly."
@@ -86,14 +91,18 @@ export default function LibraryPage() {
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-accent/5 blur-[150px] pointer-events-none" />
         
         {t.articles.map((item, idx) => (
-          <div key={idx} className={cn(
-            "group animate-reveal-up",
-            idx === 0 && "delay-100",
-            idx === 1 && "delay-200",
-            idx === 2 && "delay-300",
-            idx === 3 && "delay-400",
-            idx >= 4 && "delay-500"
-          )}>
+          <Link 
+            key={idx} 
+            href={item.href}
+            className={cn(
+              "group animate-reveal-up block",
+              idx === 0 && "delay-100",
+              idx === 1 && "delay-200",
+              idx === 2 && "delay-300",
+              idx === 3 && "delay-400",
+              idx >= 4 && "delay-500"
+            )}
+          >
             <Card className="h-full bg-black/40 backdrop-blur-3xl border-white/5 hover:border-primary/30 transition-all duration-700 cursor-pointer overflow-hidden rounded-[3.5rem] relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               
@@ -133,7 +142,7 @@ export default function LibraryPage() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </Link>
         ))}
       </div>
 
