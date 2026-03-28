@@ -1,7 +1,6 @@
-
 "use client"
 
-import { BookOpen, FileText, Clock, Sparkles, ShieldCheck, Zap, MessageCircle, Eye, Gauge, Settings, ArrowRightLeft, Navigation } from "lucide-react"
+import { BookOpen, FileText, Clock, Sparkles, ShieldCheck, Zap, MessageCircle, Eye, Gauge, Settings, ArrowRightLeft, Navigation, Beaker, Thermometer, Wind, Brain, History } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useLanguage } from "@/components/language-provider"
 import { cn } from "@/lib/utils"
@@ -10,142 +9,116 @@ export default function LibraryPage() {
   const { language, dir } = useLanguage()
 
   const t = {
-    badge: language === 'ar' ? "مراجع أكاديمية موثقة" : "Verified Academic References",
-    title: language === 'ar' ? "المكتبة العلمية" : "Scientific Library",
-    desc: language === 'ar' ? "تعمق في الجانب التقني والعلمي لعالم القيادة من خلال دراسات ومقالات أعدها خبراء الميدان." : "Deep dive into the technical and scientific world of driving through studies by field experts.",
-    readMore: language === 'ar' ? "اقرأ المقال الكامل" : "Read Full Article",
-    searchTitle: language === 'ar' ? "هل تبحث عن موضوع محدد؟" : "Looking for a specific topic?",
-    searchDesc: language === 'ar' ? "مكتبتنا العلمية هي نتاج سنوات من الخبرة الميدانية والدراسة الأكاديمية." : "Our scientific library is the result of years of field experience and academic study.",
+    badge: language === 'ar' ? "مستودع الأبحاث الأكاديمية | V2.0" : "Academic Research Repository | V2.0",
+    title: language === 'ar' ? "المكتبة العلمية والهندسية" : "Scientific & Engineering Library",
+    desc: language === 'ar' ? "أبحاث محكمة ودراسات تقنية حول تفاعل الإنسان مع الآلة، وديناميكيات القيادة في الظروف المناخية القاسية." : "Peer-reviewed research and technical studies on human-machine interaction and driving dynamics in extreme climates.",
+    readMore: language === 'ar' ? "تحليل الدراسة الكاملة" : "Analyze Full Study",
+    searchTitle: language === 'ar' ? "الاستعلام في بنك الأبحاث" : "Query Research Bank",
+    searchDesc: language === 'ar' ? "مكتبتنا هي نتاج 5000+ ساعة من تحليل بيانات المسار العملي في دبي." : "Our library is the result of 5000+ hours of practical track data analysis in Dubai.",
+    abstractLabel: language === 'ar' ? "ملخص البحث (Abstract):" : "Research Abstract:",
     tags: language === 'ar' 
-      ? ["القيادة الدفاعية", "صيانة المحرك", "القيادة الليلية", "توفير الوقود", "ديناميكا الهواء", "سيكولوجية السائق"]
-      : ["Defensive Driving", "Engine Maintenance", "Night Driving", "Fuel Efficiency", "Aerodynamics", "Driver Psychology"],
+      ? ["القيادة الدفاعية", "هندسة العوامل البشرية", "فيزياء الكبح", "الديناميكا الهوائية", "سيكولوجية الأزمات"]
+      : ["Defensive Driving", "Human Factors", "Braking Physics", "Aerodynamics", "Crisis Psychology"],
     articles: [
       {
-        title: language === 'ar' ? "فن الانتقال بين المسارات والتجاوز الآمن" : "The Art of Lane Changing & Safe Overtaking",
+        id: "RES-701",
+        title: language === 'ar' ? "هندسة العوامل البشرية في تغيير المسار" : "Human Factor Engineering in Lane Transitions",
         category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
-        type: language === 'ar' ? "دليل تقني شامل" : "Comprehensive Technical Guide",
+        type: language === 'ar' ? "ورقة بحثية" : "Research Paper",
         readTime: language === 'ar' ? "20 دقيقة" : "20 mins",
-        icon: ArrowRightLeft,
+        icon: Brain,
+        abstract: language === 'ar' 
+          ? "دراسة تحليلية للوقت المستغرق في معالجة البيانات البصرية (البقعة العمياء) وتأثيره على ثبات المقود أثناء السرعات العالية (80-100 كم/س)."
+          : "Analytical study of visual data processing time (Blind Spot) and its impact on steering stability during high speeds (80-100 km/h).",
         content: language === 'ar' ? {
-          intro: "يُعد الانتقال بين المسارات والتجاوز من أكثر المناورات التي تتطلب دقة ومهارة. تنفيذها بوعي يضمن سلاسة المرور، بينما التهور فيها يجعلها من أخطر مسببات الحوادث.",
+          intro: "يُعد الانتقال بين المسارات عملية معقدة تتطلب تزامن العصب البصري مع الاستجابة الحركية. تنفيذها بوعي هندسي يضمن استدامة زخم المرور.",
           pillars: [
-            { t: "النية والقرار", d: "خطط لمسارك مسبقاً واتخذ قرارك بالانتقال مبكراً، لا تتخذ قرارات مفاجئة في اللحظة الأخيرة." },
-            { t: "نظام الإشارة (3-5 ثوانٍ)", d: "شغل الإشارة قبل 3-5 ثوانٍ على الأقل من بدء الحركة لتعطى الآخرين وقتاً للاستجابة." },
-            { t: "فحص البقعة العمياء", d: "الخطوة الأهم؛ ألقِ نظرة سريعة وخاطفة فوق كتفك للتحقق من المنطقة التي لا تظهر في المرايا." },
-            { t: "بروتوكول العودة الآمنة", d: "عند التجاوز، لا تعد لمسارك إلا بعد رؤية الواجهة الأمامية الكاملة للمركبة المتجاوزة في مرآتك الوسطى." }
+            { t: "المعايرة البصرية", d: "ضبط المرايا لتغطية 90% من الزوايا الميتة تقنياً." },
+            { t: "بروتوكول الـ 5 ثوانٍ", d: "تفعيل الإشارة لتهيئة محيط المركبة للاستجابة." },
+            { t: "التحقق الفيزيائي", d: "نظرة الكتف السريعة (0.5 ثانية) لمنع انحراف المقود." },
+            { t: "مزامنة السرعة", d: "مطابقة سرعة المسار المستهدف لمنع الاصطدام الخلفي." }
           ],
-          deep: "تذكر دائماً: التجاوز يمنع تماماً عند الخطوط المتصلة، التقاطعات، ممرات المشاة، وفي ظروف الرؤية المحدودة مثل الضباب أو المنعطفات الحادة."
+          deep: "الاستنتاج: التجاوز عملية هندسية تمنع تماماً عند الخطوط المتصلة والتقاطعات لضمان سلامة الهيكل الإنشائي للطريق."
         } : {
-          intro: "Lane changing and overtaking are precision maneuvers. Executing them mindfully ensures traffic flow, while recklessness makes them a leading cause of accidents.",
+          intro: "Lane transitions are complex operations requiring visual nerve synchronization with motor response. Execution with engineering mindfulness ensures traffic momentum.",
           pillars: [
-            { t: "Intention & Decision", d: "Plan your route in advance and decide to move early; never make sudden last-minute decisions." },
-            { t: "Signaling (3-5s)", d: "Activate your signal at least 3-5 seconds before moving to give others time to respond." },
-            { t: "Blind Spot Check", d: "The most critical step; perform a quick shoulder check to verify areas not visible in mirrors." },
-            { t: "Safe Return Protocol", d: "When overtaking, only return to your lane once the full front of the overtaken vehicle is visible in your center mirror." }
+            { t: "Visual Calibration", d: "Adjusting mirrors to technically cover 90% of dead zones." },
+            { t: "5-Second Protocol", d: "Signal activation to prepare the vehicle's perimeter for response." },
+            { t: "Physical Verification", d: "Quick shoulder check (0.5s) to prevent steering drift." },
+            { t: "Speed Sync", d: "Matching target lane speed to prevent rear-end collisions." }
           ],
-          deep: "Always remember: Overtaking is strictly prohibited at solid lines, intersections, pedestrian crossings, and in limited visibility like fog or sharp curves."
+          deep: "Conclusion: Overtaking is an engineering process strictly prohibited at solid lines and junctions to ensure road structural integrity."
         }
       },
       {
-        title: language === 'ar' ? "التحكم في المركبة: من الأساسيات إلى الاحتراف" : "Vehicle Control: From Foundations to Mastery",
-        category: language === 'ar' ? "فيزياء التحكم" : "Control Physics",
-        type: language === 'ar' ? "درس تقني شامل" : "Comprehensive Technical Lesson",
+        id: "RES-802",
+        title: language === 'ar' ? "ديناميكيات نقل الوزن في المناخ الصحراوي" : "Weight Transfer Dynamics in Desert Climates",
+        category: language === 'ar' ? "فيزياء القيادة" : "Driving Physics",
+        type: language === 'ar' ? "دراسة تقنية" : "Technical Study",
         readTime: language === 'ar' ? "25 دقيقة" : "25 mins",
-        icon: Gauge,
+        icon: Thermometer,
+        abstract: language === 'ar'
+          ? "تحليل تأثير درجات الحرارة المرتفعة في دبي (45°+) على كفاءة المكابح وتوزيع وزن المركبة عند التوقف المفاجئ."
+          : "Analyzing the impact of Dubai's extreme heat (45°C+) on braking efficiency and vehicle weight distribution during sudden stops.",
         content: language === 'ar' ? {
-          intro: "إتقان التحكم في المركبة هو حجر الزاوية في فن القيادة الآمنة والواثقة. لا يقتصر الأمر على تحريك السيارة، بل يشمل فهماً عميقاً لكيفية استجابتها لأوامرك وتفاعلها مع الطريق.",
+          intro: "فهم فيزياء التوقف هو مفتاح القيادة الاحترافية. نقل الوزن للأمام عند الكبح يغير من مركز ثقل المركبة بشكل جذري.",
           pillars: [
-            { t: "هندسة الجلوس", d: "ضبط المقعد بزاوية 100-110 درجة مع انثناء بسيط في الركبة لضمان سرعة رد الفعل." },
-            { t: "قاعدة النظر", d: "انظر حيث تريد أن تذهب؛ يداك ستتبعان اتجاه نظرك بشكل لا إرادي (قاعدة التوجيه الذهبي)." },
-            { t: "قاعدة الثانيتين", d: "الحفاظ على مسافة أمان عبر اختيار علامة ثابتة والعد (واحد، اثنان) قبل الوصول إليها." },
-            { t: "الصيانة الوقائية", d: "ضغط الإطارات، كفاءة المكابح، ومستويات السوائل هي المحرك الفعلي للتحكم المثالي." }
+            { t: "هندسة الجلوس", d: "توزيع الضغط على البدالات عبر زاوية الركبة (110 درجة)." },
+            { t: "معامل الاحتكاك", d: "تأثير الحرارة على تمدد الإطارات وتماسكها بالأسفلت." },
+            { t: "قاعدة الثانيتين+", d: "زيادة مسافة الأمان لتعويض تراجع كفاءة الكبح الحراري." },
+            { t: "التوزيع الهيدروليكي", d: "فهم عمل الـ ABS في منع انغلاق الإطارات تحت الضغط." }
           ],
-          deep: "تذكر دائماً أن القيادة مسؤولية، والتحكم الجيد هو المفتاح للوفاء بهذه المسؤولية. الانتقال السلس بين البدالات والتوجيه الهادئ هو ما يميز السائق الأكاديمي عن السائق العادي."
+          deep: "توصية: القيادة في دبي تتطلب وعياً حرارياً وفيزيائياً يتجاوز مجرد تحريك المركبة."
         } : {
-          intro: "Mastering vehicle control is the cornerstone of safe and confident driving. It's not just about moving the car; it involves a deep understanding of how it responds to your commands and interacts with the road.",
+          intro: "Understanding stop physics is the key to professional driving. Forward weight transfer during braking drastically shifts the vehicle's center of gravity.",
           pillars: [
-            { t: "Seating Geometry", d: "Adjust the seat at 100-110 degrees with a slight knee bend to ensure rapid reaction time." },
-            { t: "Vision Rule", d: "Look where you want to go; your hands will involuntarily follow your gaze (The Golden Steering Rule)." },
-            { t: "2-Second Rule", d: "Maintain a safe distance by choosing a fixed mark and counting (one, two) before reaching it." },
-            { t: "Preventive Care", d: "Tire pressure, brake efficiency, and fluid levels are the actual engines of perfect control." }
+            { t: "Seating Geometry", d: "Distributing pedal pressure via knee angle (110 degrees)." },
+            { t: "Friction Coefficient", d: "Heat impact on tire expansion and asphalt grip." },
+            { t: "2-Second Rule+", d: "Increasing safe distance to compensate for thermal braking decay." },
+            { t: "Hydraulic Distribution", d: "Understanding ABS function in preventing lock-ups under pressure." }
           ],
-          deep: "Always remember that driving is a responsibility, and good control is the key to fulfilling it. Smooth transitions between pedals and calm steering distinguish the academic driver from the average driver."
+          deep: "Recommendation: Driving in Dubai requires thermal and physical awareness beyond basic vehicle movement."
         }
       },
       {
-        title: language === 'ar' ? "القيادة الدفاعية: فن استباق المخاطر" : "Defensive Driving: Art of Anticipation",
-        category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
-        type: language === 'ar' ? "دليل إرشادي شامل" : "Comprehensive Guide",
+        id: "RES-903",
+        title: language === 'ar' ? "أبحاث الميدان: القيادة في الظروف القصوى" : "Field Research: Driving in Extreme Conditions",
+        category: language === 'ar' ? "أبحاث دبي" : "Dubai Research",
+        type: language === 'ar' ? "تقرير ميداني" : "Field Report",
         readTime: language === 'ar' ? "15 دقيقة" : "15 mins",
-        icon: ShieldCheck,
-        content: language === 'ar' ? {
-          intro: "القيادة الدفاعية هي أكثر من مجرّد معرفة قواعد المرور. تهدف إلى تقليل المخاطر عبر التعرّف على الحالات الخطرة بوقت مبكّر كافٍ لتجنبها، بغض النظر عن أخطاء الآخرين.",
-          pillars: [
-            { t: "التركيز", d: "ركّز على القيادة 100% في الأوقات كافة وتجنب المشتتات الذهنية." },
-            { t: "المراقبة", d: "مسح المشهد أمامك ومن جانبك وخلفك بشكل دائم عبر المرايا (15-20 مركبة للأمام)." },
-            { t: "التوقع", d: "توقع أفعال مستعملي الطريق الآخرين؛ لا تفترض أبداً أنهم سيقومون بما تتوقعه." },
-            { t: "التواصل", d: "استعمل الإشارات وأنوار التحذير لتعريف الآخرين بنيتك بوضوح وحافظ على موقعك في المسار." }
-          ],
-          deep: "القيادة بمسؤولية وعناية وكياسة تجاه الآخرين هي مفتاح تقليل المخاطر. إذا ارتكب الآخرون أخطاء، ساعدهم عوضاً عن جعل الحالة أصعب."
-        } : {
-          intro: "Defensive driving is more than just knowing traffic rules. It aims to reduce risks by recognizing dangerous situations early enough to avoid them, regardless of others' mistakes.",
-          pillars: [
-            { t: "Focus", d: "Maintain 100% focus on driving at all times and avoid mental distractions." },
-            { t: "Observation", d: "Scan the scene ahead, beside, and behind you constantly (15-20 vehicles ahead)." },
-            { t: "Anticipation", d: "Anticipate the actions of others; never assume they will do what you expect." },
-            { t: "Communication", d: "Use signals and hazard lights to clearly define your intentions and maintain lane positioning." }
-          ],
-          deep: "Driving responsibly, carefully, and showing courtesy to others is the key to risk reduction. If others make mistakes, help them instead of making the situation harder."
-        }
-      },
-      {
-        title: language === 'ar' ? "ديناميكيات نقل الوزن عند الكبح" : "Weight Transfer Dynamics in Braking",
-        category: language === 'ar' ? "فيزياء القيادة" : "Driving Physics",
-        type: language === 'ar' ? "مقال علمي" : "Scientific Article",
-        readTime: language === 'ar' ? "12 دقيقة" : "12 mins",
-        icon: Zap,
+        icon: Wind,
+        abstract: language === 'ar'
+          ? "رصد ميداني لتأثير العواصف الرملية والضباب الكثيف على مسافات الرؤية وقدرة السائق على اتخاذ القرار."
+          : "Field monitoring of sandstorms and dense fog impact on visibility distances and driver decision-making capacity.",
         desc: language === 'ar' 
-          ? "دراسة تقنية حول كيفية تأثر توازن المركبة عند استخدام المكابح المفاجئة وكيفية تجنب الانزلاق عبر توزيع الضغط."
-          : "Technical study on how vehicle balance is affected during sudden braking and how to avoid skidding through pressure distribution."
-      },
-      {
-        title: language === 'ar' ? "سيكولوجية اتخاذ القرار في الأزمات" : "Crisis Decision-Making Psychology",
-        category: language === 'ar' ? "سلوك السائق" : "Driver Behavior",
-        type: language === 'ar' ? "دراسة حالة" : "Case Study",
-        readTime: language === 'ar' ? "10 دقيقة" : "10 mins",
-        icon: MessageCircle,
-        desc: language === 'ar' 
-          ? "فهم العمليات الذهنية التي يمر بها السائق لتجنب الاصطدام وكيفية الحفاظ على الهدوء التام تحت الضغط العصبي."
-          : "Understanding the mental processes a driver undergoes to avoid collisions and how to remain perfectly calm under nervous pressure."
-      },
-      {
-        title: language === 'ar' ? "فيزياء الليل: الضوء والإدراك البصري" : "Physics of the Night: Light & Visual Perception",
-        category: language === 'ar' ? "فيزياء القيادة" : "Driving Physics",
-        type: language === 'ar' ? "دراسة علمية" : "Scientific Study",
-        readTime: language === 'ar' ? "18 دقيقة" : "18 mins",
-        icon: Eye,
-        desc: language === 'ar' 
-          ? "كيف يتغير إدراك المسافات والسرعات تحت الأضواء الاصطناعية، وتأثير إجهاد العين على وقت الاستجابة الفيزيائي."
-          : "How distance and speed perception change under artificial lighting, and the impact of eye fatigue on physical response time."
+          ? "تحليل لبروتوكولات الطوارئ عند انخفاض الرؤية لأقل من 50 متراً على الطرق السريعة (E11/E311)."
+          : "Analysis of emergency protocols when visibility drops below 50m on major highways (E11/E311)."
       }
     ]
   }
 
   return (
     <div className="container mx-auto px-6 py-12 space-y-12 animate-fade-in">
+      {/* Header with Metadata */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-widest">
-            <Sparkles className="h-3 w-3" /> {t.badge}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-widest">
+            <Beaker className="h-3 w-3" /> {t.badge}
           </div>
-          <h1 className="font-headline text-4xl md:text-5xl font-black">{t.title}</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl">{t.desc}</p>
+          <h1 className="font-headline text-4xl md:text-6xl font-black tracking-tighter">{t.title}</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">{t.desc}</p>
+        </div>
+        <div className="hidden lg:block glass-card p-4 rounded-2xl border-white/5 font-code text-[8px] space-y-1">
+          <div>DATA_VOLUME: 5.2TB</div>
+          <div>PEER_REVIEW: PASSED</div>
+          <div>LAB_STATUS: SYNCED</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 gap-12">
         {t.articles.map((item, idx) => (
-          <Card key={idx} className="bg-card/40 backdrop-blur-xl border-white/5 overflow-hidden rounded-[3rem] group hover:border-primary/30 transition-all">
+          <Card key={idx} className="bg-card/40 backdrop-blur-xl border-white/5 overflow-hidden rounded-[3rem] group hover:border-primary/30 transition-all relative">
+            <div className="absolute top-8 right-12 font-code text-[10px] opacity-20">{item.id}</div>
             <div className="grid grid-cols-1 lg:grid-cols-12">
               <div className="lg:col-span-1 border-r border-white/5 bg-primary/5 flex items-center justify-center p-8">
                 <item.icon className="h-12 w-12 text-primary group-hover:scale-110 transition-transform" />
@@ -155,23 +128,29 @@ export default function LibraryPage() {
                   <div className="px-4 py-1 rounded-full bg-accent/10 text-accent text-[10px] font-black uppercase tracking-widest">
                     {item.category}
                   </div>
-                  <span className="text-muted-foreground text-xs font-bold">{item.type} • {item.readTime}</span>
+                  <span className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest">{item.type} • {item.readTime}</span>
                 </div>
                 
-                <h2 className="text-3xl font-headline font-black">{item.title}</h2>
+                <h2 className="text-3xl md:text-4xl font-headline font-black tracking-tight">{item.title}</h2>
                 
+                <div className="p-6 rounded-2xl bg-white/5 border-l-4 border-primary/40 space-y-2">
+                  <span className="text-[10px] font-black text-primary uppercase tracking-widest">{t.abstractLabel}</span>
+                  <p className="text-muted-foreground italic font-medium leading-relaxed">"{item.abstract}"</p>
+                </div>
+
                 {item.content ? (
-                  <div className="space-y-8">
+                  <div className="space-y-8 animate-fade-in">
                     <p className="text-lg text-muted-foreground leading-relaxed">{item.content.intro}</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                       {item.content.pillars.map((p, i) => (
-                        <div key={i} className="p-6 rounded-2xl bg-secondary/30 border border-white/5 space-y-2">
-                          <h4 className="font-black text-primary uppercase text-xs">{p.t}</h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">{p.d}</p>
+                        <div key={i} className="p-6 rounded-3xl bg-secondary/30 border border-white/5 space-y-3 hover:border-primary/20 transition-all">
+                          <h4 className="font-black text-primary uppercase text-[10px] tracking-[0.2em]">{p.t}</h4>
+                          <p className="text-xs text-muted-foreground leading-relaxed font-medium">{p.d}</p>
                         </div>
                       ))}
                     </div>
-                    <div className="p-6 rounded-[2rem] bg-accent/5 border border-accent/20 italic text-accent font-medium">
+                    <div className="p-8 rounded-[2.5rem] bg-accent/5 border border-accent/20 italic text-accent font-medium text-lg flex gap-4 items-center">
+                      <History className="h-6 w-6 shrink-0 opacity-40" />
                       {item.content.deep}
                     </div>
                   </div>
@@ -184,15 +163,17 @@ export default function LibraryPage() {
         ))}
       </div>
 
-      <div className="mt-20 p-12 rounded-[3rem] bg-card/40 border border-white/5 text-center relative overflow-hidden">
-        <div className="relative z-10 space-y-6">
-          <h2 className="text-3xl md:text-4xl font-headline font-black mb-6">{t.searchTitle}</h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-lg leading-relaxed">
+      {/* Query Section */}
+      <div className="mt-20 p-16 rounded-[4rem] bg-card/40 border border-white/5 text-center relative overflow-hidden shadow-2xl">
+        <div className="absolute -top-20 -left-20 h-64 w-64 bg-primary/10 rounded-full blur-[100px]" />
+        <div className="relative z-10 space-y-8">
+          <h2 className="text-3xl md:text-5xl font-headline font-black tracking-tighter">{t.searchTitle}</h2>
+          <p className="text-muted-foreground mb-10 max-w-2xl mx-auto text-xl leading-relaxed">
             {t.searchDesc}
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-4">
             {t.tags.map((tag, i) => (
-              <div key={i} className="px-6 py-2.5 rounded-2xl bg-background/50 border border-white/10 text-xs font-bold hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer backdrop-blur-sm">
+              <div key={i} className="px-8 py-3 rounded-full bg-background/50 border border-white/10 text-xs font-black uppercase tracking-widest hover:border-primary/50 hover:bg-primary/5 transition-all cursor-pointer backdrop-blur-sm">
                 {tag}
               </div>
             ))}
