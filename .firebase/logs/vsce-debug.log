@@ -132,3 +132,185 @@ Generated sources: index.d.ts [8025B] esm/package.json [17B] index.cjs.js [4046B
 [debug] [2026-03-06T22:40:58.395Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"dataconnect":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":9399}],"name":"dataconnect","host":"127.0.0.1","port":9399,"pid":20452,"timeout":10000}}
 [debug] [2026-03-06T22:40:59.464Z] I0306 22:40:59.448596     754 engine.go:208] [/emulator/studio ce74] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0306 22:40:59.448596     754 engine.go:208] [/emulator/studio ce74] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[debug] [2026-03-27T15:45:09.629Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-03-27T15:45:46.675Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-03-27T15:45:46.682Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-03-27T15:45:46.684Z] > authorizing via signed-in user (abidrawata@gmail.com)
+[debug] [2026-03-27T15:45:46.695Z] Checked if tokens are valid: false, expires at: 1772835203638
+[debug] [2026-03-27T15:45:46.697Z] Checked if tokens are valid: false, expires at: 1772835203638
+[debug] [2026-03-27T15:45:46.699Z] > refreshing access token with scopes: []
+[debug] [2026-03-27T15:45:46.706Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-03-27T15:45:46.707Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-27T15:45:46.858Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[debug] [2026-03-27T15:45:47.329Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-03-27T15:45:47.335Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-27T15:45:47.365Z] [Firebase Plugin] User found:  abidrawata@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2026-03-27T15:45:47.370Z] Checked if tokens are valid: true, expires at: 1774629946338
+[debug] [2026-03-27T15:45:47.372Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[info] [Firebase Plugin] Starting Data Connect toolkit (version 3.1.4) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.1.4... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.1.4..."}}
+[debug] [2026-03-27T15:45:50.837Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-linux-amd64-v3.1.4 
+[debug] [2026-03-27T15:45:51.609Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-linux-amd64-v3.1.4 200
+[debug] [2026-03-27T15:45:51.614Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-linux-amd64-v3.1.4 [stream]
+[debug] [2026-03-27T15:45:51.666Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-03-27T15:45:51.670Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  dataconnect: Removing outdated emulator files: dataconnect-emulator-3.2.1 {"metadata":{"emulator":{"name":"dataconnect"},"message":"Removing outdated emulator files: dataconnect-emulator-3.2.1"}}
+[debug] [2026-03-27T15:46:09.908Z] I0327 15:46:09.856199     615 control.go:100] [/emulator/your-service-id 5597] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:09.856199     615 control.go:100] [/emulator/your-service-id 5597] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \n"}}
+[debug] [2026-03-27T15:46:09.911Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-03-27T15:46:09.912Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-03-27T15:46:09.913Z] Starting Data Connect Emulator with command {"binary":"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.1.4","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.1.4\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to dataconnect-debug.log"}}
+[debug] [2026-03-27T15:46:10.046Z] I0327 15:46:10.040671     620 load.go:31] Reloading schema and connectors...
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:10.040671     620 load.go:31] Reloading schema and connectors...\n"}}
+[debug] [2026-03-27T15:46:10.204Z] I0327 15:46:10.196276     620 control.go:100] [/emulator/your-service-id a4db] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:10.196276     620 control.go:100] [/emulator/your-service-id a4db] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \n"}}
+[debug] [2026-03-27T15:46:10.365Z] I0327 15:46:10.362726     620 codegen.go:80] [connector "movie-connector" javascriptSdk] Generating sources into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:10.362726     620 codegen.go:80] [connector \"movie-connector\" javascriptSdk] Generating sources into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\n"}}
+[debug] [2026-03-27T15:46:10.391Z] I0327 15:46:10.386521     620 collector.go:107] schema extensions wrote into "/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [80731B] 
+I0327 15:46:10.390530     620 collector.go:107] connector "movie-connector" javascriptSdk wrote into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+Generated sources: README.md [2769B] .guides/usage.md [427B] .guides/setup.md [580B] .guides/config.json [236B] index.d.ts [248B] esm/index.esm.js [126B] esm/package.json [17B] index.cjs.js [161B] package.json [641B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:10.386521     620 collector.go:107] schema extensions wrote into \"/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema\"\nGenerated sources: prelude.gql [80731B] \nI0327 15:46:10.390530     620 collector.go:107] connector \"movie-connector\" javascriptSdk wrote into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nGenerated sources: README.md [2769B] .guides/usage.md [427B] .guides/setup.md [580B] .guides/config.json [236B] index.d.ts [248B] esm/index.esm.js [126B] esm/package.json [17B] index.cjs.js [161B] package.json [641B] \n"}}
+[debug] [2026-03-27T15:46:10.415Z] I0327 15:46:10.399540     620 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation
+I0327 15:46:10.402037     620 load.go:109] Finished reloading
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:10.399540     620 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation\nI0327 15:46:10.402037     620 load.go:109] Finished reloading\n"}}
+[debug] [2026-03-27T15:46:10.473Z] I0327 15:46:10.469190     620 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 15:46:10.469190     620 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[error] [Firebase Plugin] error:  {}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] ⚠  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2026-03-27T16:42:04.644Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-03-27T16:42:24.684Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-03-27T16:42:24.687Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-03-27T16:42:24.688Z] > authorizing via signed-in user (abidrawata@gmail.com)
+[debug] [2026-03-27T16:42:24.700Z] Checked if tokens are valid: false, expires at: 1774629946338
+[debug] [2026-03-27T16:42:24.702Z] Checked if tokens are valid: false, expires at: 1774629946338
+[debug] [2026-03-27T16:42:24.703Z] > refreshing access token with scopes: []
+[debug] [2026-03-27T16:42:24.709Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-03-27T16:42:24.710Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-27T16:42:24.855Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[debug] [2026-03-27T16:42:25.095Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-03-27T16:42:25.100Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-27T16:42:25.142Z] [Firebase Plugin] User found:  abidrawata@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2026-03-27T16:42:25.151Z] Checked if tokens are valid: true, expires at: 1774633344102
+[debug] [2026-03-27T16:42:25.155Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-03-27T16:42:25.815Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-03-27T16:42:25.816Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] [Firebase Plugin] Starting Data Connect toolkit (version 3.2.1) on port 50001
+[info] i  dataconnect: downloading dataconnect-emulator-3.2.1... {"metadata":{"emulator":{"name":"dataconnect"},"message":"downloading dataconnect-emulator-3.2.1..."}}
+[debug] [2026-03-27T16:42:26.827Z] >>> [apiv2][query] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-linux-amd64-v3.2.1 
+[debug] [2026-03-27T16:42:27.165Z] <<< [apiv2][status] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-linux-amd64-v3.2.1 200
+[debug] [2026-03-27T16:42:27.165Z] <<< [apiv2][body] GET https://storage.googleapis.com/firemat-preview-drop/emulator/dataconnect-emulator-linux-amd64-v3.2.1 [stream]
+[info] i  dataconnect: Removing outdated emulator files: dataconnect-emulator-3.1.4 {"metadata":{"emulator":{"name":"dataconnect"},"message":"Removing outdated emulator files: dataconnect-emulator-3.1.4"}}
+[debug] [2026-03-27T16:42:29.971Z] I0327 16:42:29.956041   30895 control.go:100] [projects/emulator/locations/emulator/services/your-service-id 0329] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 16:42:29.956041   30895 control.go:100] [projects/emulator/locations/emulator/services/your-service-id 0329] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \n"}}
+[debug] [2026-03-27T16:42:29.975Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-03-27T16:42:29.976Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-03-27T16:42:29.977Z] Starting Data Connect Emulator with command {"binary":"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.2.1","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.2.1\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to dataconnect-debug.log"}}
+[debug] [2026-03-27T16:42:31.035Z] I0327 16:42:30.149182   30900 load.go:31] Reloading schema and connectors...
+I0327 16:42:30.172346   30900 control.go:100] [projects/emulator/locations/emulator/services/your-service-id a9e1] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+I0327 16:42:30.210761   30900 codegen.go:80] [connector "movie-connector" javascriptSdk] Generating sources into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+I0327 16:42:30.224306   30900 collector.go:107] schema extensions wrote into "/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [80731B] 
+I0327 16:42:30.228523   30900 collector.go:107] connector "movie-connector" javascriptSdk wrote into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+Generated sources: index.d.ts [248B] index.cjs.js [161B] README.md [2769B] .guides/usage.md [427B] .guides/setup.md [580B] esm/index.esm.js [126B] esm/package.json [17B] package.json [641B] .guides/config.json [236B] 
+I0327 16:42:30.243080   30900 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation
+I0327 16:42:30.243226   30900 load.go:109] Finished reloading
+I0327 16:42:30.280533   30900 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0327 16:42:30.149182   30900 load.go:31] Reloading schema and connectors...\nI0327 16:42:30.172346   30900 control.go:100] [projects/emulator/locations/emulator/services/your-service-id a9e1] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \nI0327 16:42:30.210761   30900 codegen.go:80] [connector \"movie-connector\" javascriptSdk] Generating sources into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nI0327 16:42:30.224306   30900 collector.go:107] schema extensions wrote into \"/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema\"\nGenerated sources: prelude.gql [80731B] \nI0327 16:42:30.228523   30900 collector.go:107] connector \"movie-connector\" javascriptSdk wrote into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nGenerated sources: index.d.ts [248B] index.cjs.js [161B] README.md [2769B] .guides/usage.md [427B] .guides/setup.md [580B] esm/index.esm.js [126B] esm/package.json [17B] package.json [641B] .guides/config.json [236B] \nI0327 16:42:30.243080   30900 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation\nI0327 16:42:30.243226   30900 load.go:109] Finished reloading\nI0327 16:42:30.280533   30900 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[error] [Firebase Plugin] error:  {}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] ⚠  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2026-03-28T13:54:42.001Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-03-28T13:54:50.837Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-03-28T13:54:50.839Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-03-28T13:54:50.841Z] > authorizing via signed-in user (abidrawata@gmail.com)
+[debug] [2026-03-28T13:54:50.846Z] Checked if tokens are valid: false, expires at: 1774633344102
+[debug] [2026-03-28T13:54:50.847Z] Checked if tokens are valid: false, expires at: 1774633344102
+[debug] [2026-03-28T13:54:50.849Z] > refreshing access token with scopes: []
+[debug] [2026-03-28T13:54:50.852Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-03-28T13:54:50.852Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-28T13:54:50.923Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[debug] [2026-03-28T13:54:51.085Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-03-28T13:54:51.085Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-03-28T13:54:51.100Z] [Firebase Plugin] User found:  abidrawata@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2026-03-28T13:54:51.102Z] Checked if tokens are valid: true, expires at: 1774709690086
+[debug] [2026-03-28T13:54:51.104Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-03-28T13:54:51.653Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-03-28T13:54:51.654Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] [Firebase Plugin] Starting Data Connect toolkit (version 3.2.1) on port 50001
+[debug] [2026-03-28T13:54:55.439Z] I0328 13:54:55.429135     337 control.go:100] [projects/emulator/locations/emulator/services/your-service-id a47f] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0328 13:54:55.429135     337 control.go:100] [projects/emulator/locations/emulator/services/your-service-id a47f] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \n"}}
+[debug] [2026-03-28T13:54:55.442Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-03-28T13:54:55.442Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-03-28T13:54:55.443Z] Starting Data Connect Emulator with command {"binary":"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.2.1","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.2.1\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to dataconnect-debug.log"}}
+[debug] [2026-03-28T13:54:55.784Z] I0328 13:54:55.526195     343 load.go:31] Reloading schema and connectors...
+I0328 13:54:55.574947     343 control.go:100] [projects/emulator/locations/emulator/services/your-service-id f1f1] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+I0328 13:54:55.600831     343 codegen.go:80] [connector "movie-connector" javascriptSdk] Generating sources into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+I0328 13:54:55.616192     343 collector.go:107] schema extensions wrote into "/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [80731B] 
+I0328 13:54:55.618676     343 collector.go:107] connector "movie-connector" javascriptSdk wrote into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+Generated sources: esm/index.esm.js [126B] esm/package.json [17B] package.json [641B] README.md [2769B] .guides/config.json [236B] index.cjs.js [161B] .guides/usage.md [427B] .guides/setup.md [580B] index.d.ts [248B] 
+I0328 13:54:55.620094     343 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation
+I0328 13:54:55.620292     343 load.go:109] Finished reloading
+I0328 13:54:55.643267     343 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0328 13:54:55.526195     343 load.go:31] Reloading schema and connectors...\nI0328 13:54:55.574947     343 control.go:100] [projects/emulator/locations/emulator/services/your-service-id f1f1] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \nI0328 13:54:55.600831     343 codegen.go:80] [connector \"movie-connector\" javascriptSdk] Generating sources into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nI0328 13:54:55.616192     343 collector.go:107] schema extensions wrote into \"/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema\"\nGenerated sources: prelude.gql [80731B] \nI0328 13:54:55.618676     343 collector.go:107] connector \"movie-connector\" javascriptSdk wrote into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nGenerated sources: esm/index.esm.js [126B] esm/package.json [17B] package.json [641B] README.md [2769B] .guides/config.json [236B] index.cjs.js [161B] .guides/usage.md [427B] .guides/setup.md [580B] index.d.ts [248B] \nI0328 13:54:55.620094     343 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation\nI0328 13:54:55.620292     343 load.go:109] Finished reloading\nI0328 13:54:55.643267     343 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[error] [Firebase Plugin] error:  {}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] ⚠  Data Connect Emulator has exited upon receiving signal: SIGINT 
+[debug] [2026-03-28T14:04:06.696Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2026-03-28T14:04:14.407Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2026-03-28T14:04:14.409Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/userinfo.email"]
+[debug] [2026-03-28T14:04:14.411Z] > authorizing via signed-in user (abidrawata@gmail.com)
+[debug] [2026-03-28T14:04:14.417Z] Checked if tokens are valid: true, expires at: 1774709690086
+[debug] [2026-03-28T14:04:14.418Z] Checked if tokens are valid: true, expires at: 1774709690086
+[debug] [2026-03-28T14:04:14.419Z] [Firebase Plugin] User found:  abidrawata@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2026-03-28T14:04:14.422Z] Checked if tokens are valid: true, expires at: 1774709690086
+[debug] [2026-03-28T14:04:14.425Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2026-03-28T14:04:14.497Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[debug] [2026-03-28T14:04:15.098Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2026-03-28T14:04:15.098Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] [Firebase Plugin] Starting Data Connect toolkit (version 3.2.1) on port 50001
+[debug] [2026-03-28T14:04:37.837Z] I0328 14:04:37.826230    4476 control.go:100] [projects/emulator/locations/emulator/services/your-service-id 3f15] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/queries.gql [3733B] movie-connector/mutations.gql [2253B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0328 14:04:37.826230    4476 control.go:100] [projects/emulator/locations/emulator/services/your-service-id 3f15] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/queries.gql [3733B] movie-connector/mutations.gql [2253B] \n"}}
+[debug] [2026-03-28T14:04:37.839Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2026-03-28T14:04:37.840Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2026-03-28T14:04:37.840Z] Starting Data Connect Emulator with command {"binary":"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.2.1","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"/home/user/.cache/firebase/emulators/dataconnect-emulator-3.2.1\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=/home/user/studio/codelab-dataconnect-web/dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to dataconnect-debug.log"}}
+[debug] [2026-03-28T14:04:38.314Z] I0328 14:04:37.970902    4482 load.go:31] Reloading schema and connectors...
+I0328 14:04:37.988216    4482 control.go:100] [projects/emulator/locations/emulator/services/your-service-id 12c9] UpdateResources(): done
+Main schema: sources: schema/schema.gql [1566B] 
+Connector "movie-connector": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] 
+I0328 14:04:38.017613    4482 codegen.go:80] [connector "movie-connector" javascriptSdk] Generating sources into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+I0328 14:04:38.060506    4482 collector.go:107] schema extensions wrote into "/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema"
+Generated sources: prelude.gql [80731B] 
+I0328 14:04:38.069968    4482 collector.go:107] connector "movie-connector" javascriptSdk wrote into "/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk"
+Generated sources: index.d.ts [248B] esm/package.json [17B] index.cjs.js [161B] package.json [641B] .guides/setup.md [580B] esm/index.esm.js [126B] README.md [2769B] .guides/usage.md [427B] .guides/config.json [236B] 
+I0328 14:04:38.073412    4482 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation
+I0328 14:04:38.073463    4482 load.go:109] Finished reloading
+I0328 14:04:38.109732    4482 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0328 14:04:37.970902    4482 load.go:31] Reloading schema and connectors...\nI0328 14:04:37.988216    4482 control.go:100] [projects/emulator/locations/emulator/services/your-service-id 12c9] UpdateResources(): done\nMain schema: sources: schema/schema.gql [1566B] \nConnector \"movie-connector\": sources: movie-connector/mutations.gql [2253B] movie-connector/queries.gql [3733B] \nI0328 14:04:38.017613    4482 codegen.go:80] [connector \"movie-connector\" javascriptSdk] Generating sources into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nI0328 14:04:38.060506    4482 collector.go:107] schema extensions wrote into \"/home/user/studio/codelab-dataconnect-web/dataconnect/.dataconnect/schema\"\nGenerated sources: prelude.gql [80731B] \nI0328 14:04:38.069968    4482 collector.go:107] connector \"movie-connector\" javascriptSdk wrote into \"/home/user/studio/codelab-dataconnect-web/app/src/lib/dataconnect-sdk\"\nGenerated sources: index.d.ts [248B] esm/package.json [17B] index.cjs.js [161B] package.json [641B] .guides/setup.md [580B] esm/index.esm.js [126B] README.md [2769B] .guides/usage.md [427B] .guides/config.json [236B] \nI0328 14:04:38.073412    4482 installsdk.go:55] Package @movie/dataconnect is already installed. Skipping installation\nI0328 14:04:38.073463    4482 load.go:109] Finished reloading\nI0328 14:04:38.109732    4482 dev.go:104] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[error] [Firebase Plugin] error:  {}
+[info] [Firebase Plugin] Stopping Data Connect toolkit
+[warn] ⚠  Data Connect Emulator has exited upon receiving signal: SIGINT 

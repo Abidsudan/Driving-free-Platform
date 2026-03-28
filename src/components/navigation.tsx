@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, Share2, FileCheck, User, Search } from "lucide-react"
+import { Home, BookOpen, Library, ShieldCheck, ClipboardCheck, LogOut, LayoutDashboard, Languages, FileCheck, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { useUser, useAuth } from "@/firebase"
@@ -19,11 +19,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { ShareDialog } from "@/components/share-dialog"
 import { GlobalSearch } from "@/components/global-search"
 
 const navItems = [
-  { name: "Home", nameAr: "الرئيسية", href: "/", icon: Home },
   { name: "Curriculum", nameAr: "المنهج", href: "/curriculum", icon: BookOpen },
   { name: "Library", nameAr: "المكتبة", href: "/library", icon: Library },
   { name: "Signs", nameAr: "الإشارات", href: "/traffic-signs", icon: ShieldCheck },
@@ -56,7 +54,7 @@ export function Navigation() {
                   unoptimized
                 />
               ) : (
-                <span className="font-black text-primary tracking-tighter">DRIVING FREE</span>
+                <span className="font-black text-primary tracking-tighter uppercase">Driving Free</span>
               )}
             </div>
           </Link>
@@ -67,9 +65,9 @@ export function Navigation() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-5 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest",
+                  "px-5 py-2.5 rounded-full text-[10px] font-black transition-all uppercase tracking-widest",
                   pathname === item.href 
-                    ? "bg-primary text-white shadow-lg scale-105" 
+                    ? "bg-primary text-white shadow-lg" 
                     : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                 )}
               >
@@ -80,13 +78,13 @@ export function Navigation() {
               <Link
                 href="/dashboard"
                 className={cn(
-                  "px-6 py-2.5 rounded-full text-xs font-black transition-all uppercase tracking-widest flex items-center gap-2",
+                  "px-6 py-2.5 rounded-full text-[10px] font-black transition-all uppercase tracking-widest flex items-center gap-2 shadow-lg",
                   pathname === "/dashboard" 
-                    ? "bg-accent text-accent-foreground shadow-xl scale-105 border border-accent" 
-                    : "text-accent bg-accent/10 hover:bg-accent/20 border border-accent/20"
+                    ? "bg-accent text-accent-foreground border border-accent animate-pulse" 
+                    : "bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30"
                 )}
               >
-                <LayoutDashboard className="h-3.5 w-3.5" />
+                <LayoutDashboard className="h-3 w-3" />
                 {language === 'ar' ? "لوحة التحكم" : "Dashboard"}
               </Link>
             )}
@@ -101,7 +99,7 @@ export function Navigation() {
               variant="ghost"
               size="icon"
               onClick={() => setLanguage(language === 'ar' ? 'en' : 'ar')}
-              className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12"
+              className="rounded-2xl hover:bg-white/10 text-muted-foreground h-12 w-12 border border-white/5"
             >
               <Languages className="h-5 w-5" />
             </Button>
@@ -113,14 +111,14 @@ export function Navigation() {
                     <Avatar className="h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-all shadow-xl">
                       <AvatarImage src={user.photoURL || undefined} />
                       <AvatarFallback className="bg-primary/20 text-primary font-black">
-                        {user.displayName?.charAt(0) || 'U'}
+                        {user.displayName?.charAt(0) || 'D'}
                       </AvatarFallback>
                     </Avatar>
                   </div>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align={dir === 'rtl' ? 'start' : 'end'} className="w-72 glass-card border-white/10 mt-6 rounded-[2.5rem] p-4 shadow-2xl">
                   <DropdownMenuLabel className="font-black py-4 px-4 text-sm uppercase tracking-widest text-primary flex items-center gap-3">
-                    <User className="h-4 w-4" /> {language === 'ar' ? 'حسابك' : 'Account'}
+                    <User className="h-4 w-4" /> {language === 'ar' ? 'حسابك الأكاديمي' : 'Academic Account'}
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator className="bg-white/5 mx-2" />
                   <DropdownMenuItem asChild>
@@ -138,14 +136,14 @@ export function Navigation() {
                   <DropdownMenuSeparator className="bg-white/5 mx-2" />
                   <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer py-4 text-red-400 flex items-center gap-4 rounded-2xl hover:bg-red-500/10 px-4">
                     <LogOut className="h-5 w-5" /> 
-                    <span className="font-bold">{language === 'ar' ? 'خروج' : 'Sign Out'}</span>
+                    <span className="font-bold">{language === 'ar' ? 'تسجيل الخروج' : 'Sign Out'}</span>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Link href="/auth">
-                <Button className="rounded-2xl font-black px-8 h-12 shadow-xl shadow-primary/20 text-sm uppercase tracking-widest">
-                  {language === 'ar' ? 'دخول' : 'Login'}
+                <Button className="rounded-2xl font-black px-8 h-12 shadow-xl shadow-primary/20 text-xs uppercase tracking-widest">
+                  {language === 'ar' ? 'دخول الطلاب' : 'Student Login'}
                 </Button>
               </Link>
             )}
