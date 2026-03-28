@@ -33,6 +33,17 @@ export default function LibraryPage() {
           : "Mastering vehicle control is the cornerstone of safe driving. This research covers scientific seating, precision controls, and weight transfer dynamics."
       },
       {
+        title: language === 'ar' ? "المناورات الأساسية: الهندسة الحركية" : "Basic Maneuvers: Kinetic Engineering",
+        category: language === 'ar' ? "الفنيات التشغيلية" : "Operational Techniques",
+        type: language === 'ar' ? "دليل فني" : "Technical Guide",
+        readTime: language === 'ar' ? "20 دقيقة" : "20 mins",
+        icon: Zap,
+        href: "/library/basic-maneuvers",
+        desc: language === 'ar' 
+          ? "دليل شامل للمناورات الأساسية: التقاطعات، الدوارات، التجاوز، وتغيير المسار. تحليل هندسي لكيفية تنفيذ الحركات المعقدة بسلاسة مطلقة."
+          : "Comprehensive guide to basic maneuvers: intersections, roundabouts, overtaking, and lane changes. Engineering analysis of complex movements executed smoothly."
+      },
+      {
         title: language === 'ar' ? "القيادة الاستباقية: فن المعالجة الذهنية" : "Proactive Driving: Mental Processing Art",
         category: language === 'ar' ? "سلوك بشري" : "Human Behavior",
         type: language === 'ar' ? "دليل استراتيجي" : "Strategic Guide",
@@ -48,7 +59,7 @@ export default function LibraryPage() {
         category: language === 'ar' ? "الميكانيكا الحركية" : "Kinetic Mechanics",
         type: language === 'ar' ? "ورقة فنية" : "Technical Paper",
         readTime: language === 'ar' ? "12 دقيقة" : "12 mins",
-        icon: Zap,
+        icon: Gauge,
         href: "#",
         desc: language === 'ar' 
           ? "تحليل فني عميق حول كيفية تأثر توازن المركبة عند استخدام المكابح في المنعطفات وكيفية تجنب فقدان التماسك الهيدروليكي."
